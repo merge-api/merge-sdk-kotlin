@@ -20,7 +20,7 @@ import kotlin.Unit
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-import dev.merge.client.auth.*
+import dev.merge.client.shared.auth.*
 
 open class ApiClient(
         private val baseUrl: String,
@@ -56,24 +56,6 @@ open class ApiClient(
         const val BASE_URL = "https://api.merge.dev/api/ats/v1"
         val JSON_DEFAULT = ObjectMapper()
         protected val UNSAFE_HEADERS = listOf(HttpHeaders.ContentType)
-    }
-
-    /**
-     * Set the username for the first HTTP basic authentication.
-     *
-     * @param username Username
-     */
-    fun setUsername(username: String) {
-        throw Exception("No HTTP basic authentication allowed")
-    }
-
-    /**
-     * Set the password for the first HTTP basic authentication.
-     *
-     * @param password Password
-     */
-    fun setPassword(password: String) {
-        throw Exception("No HTTP basic authentication allowed")
     }
 
     /**
