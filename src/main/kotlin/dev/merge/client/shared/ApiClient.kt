@@ -64,9 +64,7 @@ open class ApiClient(
      * @param username Username
      */
     fun setUsername(username: String) {
-        val auth = authentications?.values?.firstOrNull { it is HttpBasicAuth } as HttpBasicAuth?
-                ?: throw Exception("No HTTP basic authentication configured")
-        auth.username = username
+        throw Exception("No HTTP basic authentication allowed")
     }
 
     /**
@@ -75,9 +73,7 @@ open class ApiClient(
      * @param password Password
      */
     fun setPassword(password: String) {
-        val auth = authentications?.values?.firstOrNull { it is HttpBasicAuth } as HttpBasicAuth?
-                ?: throw Exception("No HTTP basic authentication configured")
-        auth.password = password
+        throw Exception("No HTTP basic authentication allowed")
     }
 
     /**
