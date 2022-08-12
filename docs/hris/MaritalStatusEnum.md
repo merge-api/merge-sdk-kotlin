@@ -1,0 +1,20 @@
+
+# MaritalStatusEnum
+
+## Enum
+
+
+    * `SINGLE` (value: `"SINGLE"`)
+
+    * `MARRIED_FILING_JOINTLY` (value: `"MARRIED_FILING_JOINTLY"`)
+
+    * `MARRIED_FILING_SEPARATELY` (value: `"MARRIED_FILING_SEPARATELY"`)
+
+    * `HEAD_OF_HOUSEHOLD` (value: `"HEAD_OF_HOUSEHOLD"`)
+
+    * `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` (value: `"QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD"`)
+
+    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
+
+
+

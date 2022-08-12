@@ -53,7 +53,7 @@ open class ApiClient(
     }
 
     companion object {
-        const val BASE_URL = "https://api.merge.dev/api/ats/v1"
+        const val BASE_URL = "https://api.merge.dev/api/"
         val JSON_DEFAULT = ObjectMapper()
         protected val UNSAFE_HEADERS = listOf(HttpHeaders.ContentType)
     }

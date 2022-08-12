@@ -1,0 +1,26 @@
+
+# RaceEnum
+
+## Enum
+
+
+    * `AMERICAN_INDIAN_OR_ALASKAN_NATIVE` (value: `"AMERICAN_INDIAN_OR_ALASKAN_NATIVE"`)
+
+    * `ASIAN` (value: `"ASIAN"`)
+
+    * `BLACK_OR_AFRICAN_AMERICAN` (value: `"BLACK_OR_AFRICAN_AMERICAN"`)
+
+    * `HISPANIC_OR_LATINO` (value: `"HISPANIC_OR_LATINO"`)
+
+    * `WHITE` (value: `"WHITE"`)
+
+    * `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` (value: `"NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"`)
+
+    * `TWO_OR_MORE_RACES` (value: `"TWO_OR_MORE_RACES"`)
+
+    * `DECLINE_TO_SELF_IDENTIFY` (value: `"DECLINE_TO_SELF_IDENTIFY"`)
+
+    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
+
+
+

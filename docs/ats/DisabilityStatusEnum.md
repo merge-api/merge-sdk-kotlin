@@ -1,0 +1,16 @@
+
+# DisabilityStatusEnum
+
+## Enum
+
+
+    * `YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY` (value: `"YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY"`)
+
+    * `NO_I_DONT_HAVE_A_DISABILITY` (value: `"NO_I_DONT_HAVE_A_DISABILITY"`)
+
+    * `I_DONT_WISH_TO_ANSWER` (value: `"I_DONT_WISH_TO_ANSWER"`)
+
+    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
+
+
+
