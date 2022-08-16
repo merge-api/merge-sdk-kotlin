@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class LeadsApi(
 baseUrl: String = ApiClient.BASE_URL + "crm/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -76,7 +83,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return LeadResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun leadsCreate(requestModel: LeadsApi.LeadsCreateRequest): HttpResponse<LeadResponse> {
+    open suspend fun leadsCreate(requestModel: LeadsApi.LeadsCreateRequest): LeadResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -99,7 +106,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -120,7 +127,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedLeadList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun leadsList(requestModel: LeadsApi.LeadsListRequest): HttpResponse<MergePaginatedResponse<Lead>> {
+    open suspend fun leadsList(requestModel: LeadsApi.LeadsListRequest): MergePaginatedResponse<Lead> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -154,7 +161,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -163,7 +170,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun leadsMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun leadsMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -185,7 +192,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -196,7 +203,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Lead
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun leadsRetrieve(requestModel: LeadsApi.LeadsRetrieveRequest): HttpResponse<Lead> {
+    open suspend fun leadsRetrieve(requestModel: LeadsApi.LeadsRetrieveRequest): Lead {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -219,7 +226,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

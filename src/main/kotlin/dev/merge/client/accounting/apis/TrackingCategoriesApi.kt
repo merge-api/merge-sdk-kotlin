@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class TrackingCategoriesApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -73,7 +80,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedTrackingCategoryList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun trackingCategoriesList(requestModel: TrackingCategoriesApi.TrackingCategoriesListRequest): HttpResponse<MergePaginatedResponse<TrackingCategory>> {
+    open suspend fun trackingCategoriesList(requestModel: TrackingCategoriesApi.TrackingCategoriesListRequest): MergePaginatedResponse<TrackingCategory> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -105,7 +112,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -117,7 +124,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return TrackingCategory
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun trackingCategoriesRetrieve(requestModel: TrackingCategoriesApi.TrackingCategoriesRetrieveRequest): HttpResponse<TrackingCategory> {
+    open suspend fun trackingCategoriesRetrieve(requestModel: TrackingCategoriesApi.TrackingCategoriesRetrieveRequest): TrackingCategory {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -141,7 +148,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

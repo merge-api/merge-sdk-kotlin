@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class PaymentsApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -74,7 +81,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedPaymentList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun paymentsList(requestModel: PaymentsApi.PaymentsListRequest): HttpResponse<MergePaginatedResponse<Payment>> {
+    open suspend fun paymentsList(requestModel: PaymentsApi.PaymentsListRequest): MergePaginatedResponse<Payment> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -107,7 +114,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -118,7 +125,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Payment
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun paymentsRetrieve(requestModel: PaymentsApi.PaymentsRetrieveRequest): HttpResponse<Payment> {
+    open suspend fun paymentsRetrieve(requestModel: PaymentsApi.PaymentsRetrieveRequest): Payment {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -141,7 +148,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

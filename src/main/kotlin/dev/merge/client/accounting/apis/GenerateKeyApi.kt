@@ -27,6 +27,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -35,7 +38,11 @@ import dev.merge.client.shared.*
 open class GenerateKeyApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -50,7 +57,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return RemoteKey
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun generateKeyCreate(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): HttpResponse<RemoteKey> {
+    open suspend fun generateKeyCreate(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): RemoteKey {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 
@@ -71,7 +78,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

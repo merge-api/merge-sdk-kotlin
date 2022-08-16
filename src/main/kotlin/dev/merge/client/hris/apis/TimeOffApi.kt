@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class TimeOffApi(
 baseUrl: String = ApiClient.BASE_URL + "hris/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -79,7 +86,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return TimeOffResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffCreate(requestModel: TimeOffApi.TimeOffCreateRequest): HttpResponse<TimeOffResponse> {
+    open suspend fun timeOffCreate(requestModel: TimeOffApi.TimeOffCreateRequest): TimeOffResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -102,7 +109,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -125,7 +132,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedTimeOffList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffList(requestModel: TimeOffApi.TimeOffListRequest): HttpResponse<MergePaginatedResponse<TimeOff>> {
+    open suspend fun timeOffList(requestModel: TimeOffApi.TimeOffListRequest): MergePaginatedResponse<TimeOff> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -161,7 +168,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -170,7 +177,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun timeOffMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -192,7 +199,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -204,7 +211,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return TimeOff
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffRetrieve(requestModel: TimeOffApi.TimeOffRetrieveRequest): HttpResponse<TimeOff> {
+    open suspend fun timeOffRetrieve(requestModel: TimeOffApi.TimeOffRetrieveRequest): TimeOff {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -228,7 +235,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

@@ -30,6 +30,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -38,7 +41,11 @@ import dev.merge.client.shared.*
 open class TicketsApi(
 baseUrl: String = ApiClient.BASE_URL + "ticketing/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -86,7 +93,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedUserList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsCollaboratorsList(requestModel: TicketsApi.TicketsCollaboratorsListRequest): HttpResponse<MergePaginatedResponse<User>> {
+    open suspend fun ticketsCollaboratorsList(requestModel: TicketsApi.TicketsCollaboratorsListRequest): MergePaginatedResponse<User> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -111,7 +118,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -123,7 +130,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return TicketResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsCreate(requestModel: TicketsApi.TicketsCreateRequest): HttpResponse<TicketResponse> {
+    open suspend fun ticketsCreate(requestModel: TicketsApi.TicketsCreateRequest): TicketResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -146,7 +153,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -167,7 +174,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedTicketList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsList(requestModel: TicketsApi.TicketsListRequest): HttpResponse<MergePaginatedResponse<Ticket>> {
+    open suspend fun ticketsList(requestModel: TicketsApi.TicketsListRequest): MergePaginatedResponse<Ticket> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -201,7 +208,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -210,7 +217,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun ticketsMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -232,7 +239,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -244,7 +251,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Ticket
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsRetrieve(requestModel: TicketsApi.TicketsRetrieveRequest): HttpResponse<Ticket> {
+    open suspend fun ticketsRetrieve(requestModel: TicketsApi.TicketsRetrieveRequest): Ticket {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -268,7 +275,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

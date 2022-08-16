@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class EmployeePayrollRunsApi(
 baseUrl: String = ApiClient.BASE_URL + "hris/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -82,7 +89,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedEmployeePayrollRunList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeePayrollRunsList(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): HttpResponse<MergePaginatedResponse<EmployeePayrollRun>> {
+    open suspend fun employeePayrollRunsList(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): MergePaginatedResponse<EmployeePayrollRun> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -119,7 +126,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -130,7 +137,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return EmployeePayrollRun
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeePayrollRunsRetrieve(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): HttpResponse<EmployeePayrollRun> {
+    open suspend fun employeePayrollRunsRetrieve(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): EmployeePayrollRun {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -153,7 +160,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

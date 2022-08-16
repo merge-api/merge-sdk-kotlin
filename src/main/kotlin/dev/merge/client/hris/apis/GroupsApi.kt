@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class GroupsApi(
 baseUrl: String = ApiClient.BASE_URL + "hris/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -73,7 +80,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedGroupList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun groupsList(requestModel: GroupsApi.GroupsListRequest): HttpResponse<MergePaginatedResponse<Group>> {
+    open suspend fun groupsList(requestModel: GroupsApi.GroupsListRequest): MergePaginatedResponse<Group> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -105,7 +112,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -117,7 +124,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Group
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun groupsRetrieve(requestModel: GroupsApi.GroupsRetrieveRequest): HttpResponse<Group> {
+    open suspend fun groupsRetrieve(requestModel: GroupsApi.GroupsRetrieveRequest): Group {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -141,7 +148,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

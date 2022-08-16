@@ -27,6 +27,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -35,7 +38,11 @@ import dev.merge.client.shared.*
 open class ProjectsApi(
 baseUrl: String = ApiClient.BASE_URL + "ticketing/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -78,7 +85,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedProjectList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun projectsList(requestModel: ProjectsApi.ProjectsListRequest): HttpResponse<MergePaginatedResponse<Project>> {
+    open suspend fun projectsList(requestModel: ProjectsApi.ProjectsListRequest): MergePaginatedResponse<Project> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -109,7 +116,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -120,7 +127,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Project
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun projectsRetrieve(requestModel: ProjectsApi.ProjectsRetrieveRequest): HttpResponse<Project> {
+    open suspend fun projectsRetrieve(requestModel: ProjectsApi.ProjectsRetrieveRequest): Project {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -143,7 +150,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -156,7 +163,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedUserList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun projectsUsersList(requestModel: ProjectsApi.ProjectsUsersListRequest): HttpResponse<MergePaginatedResponse<User>> {
+    open suspend fun projectsUsersList(requestModel: ProjectsApi.ProjectsUsersListRequest): MergePaginatedResponse<User> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -181,7 +188,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

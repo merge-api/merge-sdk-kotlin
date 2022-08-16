@@ -30,6 +30,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -38,7 +41,11 @@ import dev.merge.client.shared.*
 open class ApplicationsApi(
 baseUrl: String = ApiClient.BASE_URL + "ats/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -92,7 +99,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return ApplicationResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun applicationsChangeStageCreate(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): HttpResponse<ApplicationResponse> {
+    open suspend fun applicationsChangeStageCreate(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): ApplicationResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -115,7 +122,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -127,7 +134,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return ApplicationResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun applicationsCreate(requestModel: ApplicationsApi.ApplicationsCreateRequest): HttpResponse<ApplicationResponse> {
+    open suspend fun applicationsCreate(requestModel: ApplicationsApi.ApplicationsCreateRequest): ApplicationResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -150,7 +157,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -174,7 +181,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedApplicationList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun applicationsList(requestModel: ApplicationsApi.ApplicationsListRequest): HttpResponse<MergePaginatedResponse<Application>> {
+    open suspend fun applicationsList(requestModel: ApplicationsApi.ApplicationsListRequest): MergePaginatedResponse<Application> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -211,7 +218,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -221,7 +228,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun applicationsMetaPostRetrieve(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): HttpResponse<MetaResponse> {
+    open suspend fun applicationsMetaPostRetrieve(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -244,7 +251,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -255,7 +262,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Application
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun applicationsRetrieve(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): HttpResponse<Application> {
+    open suspend fun applicationsRetrieve(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): Application {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -278,7 +285,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

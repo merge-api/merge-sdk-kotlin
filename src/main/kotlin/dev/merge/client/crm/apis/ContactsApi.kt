@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class ContactsApi(
 baseUrl: String = ApiClient.BASE_URL + "crm/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -74,7 +81,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return CRMContactResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun contactsCreate(requestModel: ContactsApi.ContactsCreateRequest): HttpResponse<CRMContactResponse> {
+    open suspend fun contactsCreate(requestModel: ContactsApi.ContactsCreateRequest): CRMContactResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -97,7 +104,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -116,7 +123,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedContactList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun contactsList(requestModel: ContactsApi.ContactsListRequest): HttpResponse<MergePaginatedResponse<Contact>> {
+    open suspend fun contactsList(requestModel: ContactsApi.ContactsListRequest): MergePaginatedResponse<Contact> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -148,7 +155,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -157,7 +164,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun contactsMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun contactsMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -179,7 +186,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -190,7 +197,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Contact
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun contactsRetrieve(requestModel: ContactsApi.ContactsRetrieveRequest): HttpResponse<Contact> {
+    open suspend fun contactsRetrieve(requestModel: ContactsApi.ContactsRetrieveRequest): Contact {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -213,7 +220,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

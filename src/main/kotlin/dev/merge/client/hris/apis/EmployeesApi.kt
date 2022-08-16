@@ -31,6 +31,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -39,7 +42,11 @@ import dev.merge.client.shared.*
 open class EmployeesApi(
 baseUrl: String = ApiClient.BASE_URL + "hris/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -95,7 +102,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return EmployeeResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesCreate(requestModel: EmployeesApi.EmployeesCreateRequest): HttpResponse<EmployeeResponse> {
+    open suspend fun employeesCreate(requestModel: EmployeesApi.EmployeesCreateRequest): EmployeeResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -118,7 +125,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -129,7 +136,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return IgnoreCommonModel
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesIgnoreCreate(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): HttpResponse<IgnoreCommonModel> {
+    open suspend fun employeesIgnoreCreate(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -150,7 +157,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -181,7 +188,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedEmployeeList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesList(requestModel: EmployeesApi.EmployeesListRequest): HttpResponse<MergePaginatedResponse<Employee>> {
+    open suspend fun employeesList(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -225,7 +232,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -234,7 +241,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun employeesMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -256,7 +263,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -269,7 +276,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Employee
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesRetrieve(requestModel: EmployeesApi.EmployeesRetrieveRequest): HttpResponse<Employee> {
+    open suspend fun employeesRetrieve(requestModel: EmployeesApi.EmployeesRetrieveRequest): Employee {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -294,7 +301,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

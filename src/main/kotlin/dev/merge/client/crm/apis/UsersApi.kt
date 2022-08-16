@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class UsersApi(
 baseUrl: String = ApiClient.BASE_URL + "crm/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -70,7 +77,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedUserList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun usersList(requestModel: UsersApi.UsersListRequest): HttpResponse<MergePaginatedResponse<User>> {
+    open suspend fun usersList(requestModel: UsersApi.UsersListRequest): MergePaginatedResponse<User> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -101,7 +108,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -112,7 +119,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return User
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun usersRetrieve(requestModel: UsersApi.UsersRetrieveRequest): HttpResponse<User> {
+    open suspend fun usersRetrieve(requestModel: UsersApi.UsersRetrieveRequest): User {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -135,7 +142,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

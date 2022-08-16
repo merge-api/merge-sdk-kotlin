@@ -3,54 +3,51 @@ package dev.merge.client.shared
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.JsonSerializer
+import io.ktor.client.engine.apache.Apache
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.FormDataContent
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
-import io.ktor.http.content.ByteArrayContent
-import io.ktor.http.content.OutgoingContent
 import io.ktor.http.content.PartData
 import kotlin.Unit
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.serialization.jackson.*
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import dev.merge.client.shared.auth.*
+import io.ktor.util.*
+import io.ktor.util.reflect.*
+import io.ktor.utils.io.core.*
 
 open class ApiClient(
         private val baseUrl: String,
         httpClientEngine: HttpClientEngine?,
-        httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+        httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+            install(ContentNegotiation) {
+                jackson()
+            }
+        },
         json: ObjectMapper,
 ) {
 
-    private val serializer: JsonSerializer by lazy {
-        JsonSerializerImpl(json)
-    }
-
-    private val clientConfig: (HttpClientConfig<*>) -> Unit by lazy {
-        {
-            // Hold a reference to the serializer to avoid freezing the entire ApiClient instance
-            // when the JsonFeature is configured.
-            val serializerReference = serializer
-            it.install(JsonFeature) { serializer = serializerReference }
-            httpClientConfig?.invoke(it)
-        }
-    }
-
     private val client: HttpClient by lazy {
-        httpClientEngine?.let { HttpClient(it, clientConfig) } ?: HttpClient(clientConfig)
+        httpClientEngine?.let {
+            HttpClient(it, httpClientConfig)
+        } ?: HttpClient(Apache, httpClientConfig)
     }
 
     private val authentications: kotlin.collections.Map<String, Authentication> by lazy {
         mapOf(
                 "bearerAuth" to HttpBearerAuth(),
                 "accountTokenAuth" to AccountTokenAuth())
+    }
+
+    private val json: ObjectMapper by lazy {
+        json
     }
 
     companion object {
@@ -93,15 +90,16 @@ open class ApiClient(
     protected suspend fun <T: Any?> jsonRequest(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
         val contentType = (requestConfig.headers[HttpHeaders.ContentType]?.let { ContentType.parse(it) }
                 ?: ContentType.Application.Json)
-        return if (body != null) request(requestConfig, serializer.write(body, contentType), authNames)
+        return if (body != null) request(requestConfig, body, authNames)
         else request(requestConfig, authNames = authNames)
     }
 
-    protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: OutgoingContent = EmptyContent, authNames: kotlin.collections.List<String>): HttpResponse {
+    @OptIn(InternalAPI::class)
+    protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
         requestConfig.updateForAuth<T>(authNames)
         val headers = requestConfig.headers
 
-        return client.request<HttpResponse> {
+        return client.request {
             this.url {
                 this.takeFrom(URLBuilder(baseUrl))
                 appendPath(requestConfig.path.trimStart('/').split('/'))
@@ -114,7 +112,7 @@ open class ApiClient(
             this.method = requestConfig.method.httpMethod
             headers.filter { header -> !UNSAFE_HEADERS.contains(header.key) }.forEach { header -> this.header(header.key, header.value) }
             if (requestConfig.method in listOf(RequestMethod.PUT, RequestMethod.POST, RequestMethod.PATCH))
-                this.body = body
+                this.setBody(body)
 
         }
     }
@@ -140,11 +138,4 @@ open class ApiClient(
             RequestMethod.POST -> HttpMethod.Post
             RequestMethod.OPTIONS -> HttpMethod.Options
         }
-}
-
-
-
-private class JsonSerializerImpl(private val objectMapper: ObjectMapper) : JsonSerializer {
-  override fun write(data: Any, contentType: ContentType): OutgoingContent =
-    ByteArrayContent(objectMapper.writeValueAsBytes(data), contentType)
 }

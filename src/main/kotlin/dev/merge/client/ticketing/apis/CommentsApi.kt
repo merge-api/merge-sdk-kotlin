@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class CommentsApi(
 baseUrl: String = ApiClient.BASE_URL + "ticketing/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -74,7 +81,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return CommentResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun commentsCreate(requestModel: CommentsApi.CommentsCreateRequest): HttpResponse<CommentResponse> {
+    open suspend fun commentsCreate(requestModel: CommentsApi.CommentsCreateRequest): CommentResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -97,7 +104,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -116,7 +123,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedCommentList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun commentsList(requestModel: CommentsApi.CommentsListRequest): HttpResponse<MergePaginatedResponse<Comment>> {
+    open suspend fun commentsList(requestModel: CommentsApi.CommentsListRequest): MergePaginatedResponse<Comment> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -148,7 +155,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -157,7 +164,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun commentsMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun commentsMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -179,7 +186,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -190,7 +197,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Comment
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun commentsRetrieve(requestModel: CommentsApi.CommentsRetrieveRequest): HttpResponse<Comment> {
+    open suspend fun commentsRetrieve(requestModel: CommentsApi.CommentsRetrieveRequest): Comment {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -213,7 +220,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

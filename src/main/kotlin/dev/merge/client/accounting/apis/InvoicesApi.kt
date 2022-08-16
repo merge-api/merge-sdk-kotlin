@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class InvoicesApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -77,7 +84,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return InvoiceResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun invoicesCreate(requestModel: InvoicesApi.InvoicesCreateRequest): HttpResponse<InvoiceResponse> {
+    open suspend fun invoicesCreate(requestModel: InvoicesApi.InvoicesCreateRequest): InvoiceResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -100,7 +107,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -121,7 +128,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedInvoiceList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun invoicesList(requestModel: InvoicesApi.InvoicesListRequest): HttpResponse<MergePaginatedResponse<Invoice>> {
+    open suspend fun invoicesList(requestModel: InvoicesApi.InvoicesListRequest): MergePaginatedResponse<Invoice> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -155,7 +162,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -164,7 +171,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun invoicesMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun invoicesMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -186,7 +193,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -198,7 +205,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Invoice
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun invoicesRetrieve(requestModel: InvoicesApi.InvoicesRetrieveRequest): HttpResponse<Invoice> {
+    open suspend fun invoicesRetrieve(requestModel: InvoicesApi.InvoicesRetrieveRequest): Invoice {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -222,7 +229,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

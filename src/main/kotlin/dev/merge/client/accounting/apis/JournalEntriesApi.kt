@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class JournalEntriesApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -73,7 +80,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return JournalEntryResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun journalEntriesCreate(requestModel: JournalEntriesApi.JournalEntriesCreateRequest): HttpResponse<JournalEntryResponse> {
+    open suspend fun journalEntriesCreate(requestModel: JournalEntriesApi.JournalEntriesCreateRequest): JournalEntryResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -96,7 +103,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -114,7 +121,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedJournalEntryList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun journalEntriesList(requestModel: JournalEntriesApi.JournalEntriesListRequest): HttpResponse<MergePaginatedResponse<JournalEntry>> {
+    open suspend fun journalEntriesList(requestModel: JournalEntriesApi.JournalEntriesListRequest): MergePaginatedResponse<JournalEntry> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -145,7 +152,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -154,7 +161,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun journalEntriesMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun journalEntriesMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -176,7 +183,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -187,7 +194,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return JournalEntry
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun journalEntriesRetrieve(requestModel: JournalEntriesApi.JournalEntriesRetrieveRequest): HttpResponse<JournalEntry> {
+    open suspend fun journalEntriesRetrieve(requestModel: JournalEntriesApi.JournalEntriesRetrieveRequest): JournalEntry {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -210,7 +217,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

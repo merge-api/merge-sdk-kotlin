@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class TimeOffBalancesApi(
 baseUrl: String = ApiClient.BASE_URL + "hris/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -77,7 +84,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedTimeOffBalanceList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffBalancesList(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): HttpResponse<MergePaginatedResponse<TimeOffBalance>> {
+    open suspend fun timeOffBalancesList(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): MergePaginatedResponse<TimeOffBalance> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -111,7 +118,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -123,7 +130,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return TimeOffBalance
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun timeOffBalancesRetrieve(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): HttpResponse<TimeOffBalance> {
+    open suspend fun timeOffBalancesRetrieve(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): TimeOffBalance {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -147,7 +154,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

@@ -26,6 +26,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -34,7 +37,11 @@ import dev.merge.client.shared.*
 open class IssuesApi(
 baseUrl: String = ApiClient.BASE_URL + "accounting/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -77,7 +84,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedIssueList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun issuesList(requestModel: IssuesApi.IssuesListRequest): HttpResponse<MergePaginatedResponse<Issue>> {
+    open suspend fun issuesList(requestModel: IssuesApi.IssuesListRequest): MergePaginatedResponse<Issue> {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 
@@ -112,7 +119,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -122,7 +129,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Issue
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun issuesRetrieve(requestModel: IssuesApi.IssuesRetrieveRequest): HttpResponse<Issue> {
+    open suspend fun issuesRetrieve(requestModel: IssuesApi.IssuesRetrieveRequest): Issue {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 
@@ -144,7 +151,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

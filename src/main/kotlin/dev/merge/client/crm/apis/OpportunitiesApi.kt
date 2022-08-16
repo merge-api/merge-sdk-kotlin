@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class OpportunitiesApi(
 baseUrl: String = ApiClient.BASE_URL + "crm/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -79,7 +86,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return OpportunityResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun opportunitiesCreate(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): HttpResponse<OpportunityResponse> {
+    open suspend fun opportunitiesCreate(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): OpportunityResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -102,7 +109,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -125,7 +132,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedOpportunityList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun opportunitiesList(requestModel: OpportunitiesApi.OpportunitiesListRequest): HttpResponse<MergePaginatedResponse<Opportunity>> {
+    open suspend fun opportunitiesList(requestModel: OpportunitiesApi.OpportunitiesListRequest): MergePaginatedResponse<Opportunity> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -161,7 +168,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -170,7 +177,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun opportunitiesMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun opportunitiesMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -192,7 +199,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -204,7 +211,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Opportunity
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun opportunitiesRetrieve(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): HttpResponse<Opportunity> {
+    open suspend fun opportunitiesRetrieve(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): Opportunity {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -228,7 +235,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }

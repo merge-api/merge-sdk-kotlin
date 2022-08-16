@@ -29,6 +29,9 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.http.ParametersBuilder
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.jackson
+import io.ktor.client.call.body
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -37,7 +40,11 @@ import dev.merge.client.shared.*
 open class NotesApi(
 baseUrl: String = ApiClient.BASE_URL + "crm/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
+httpClientConfig: HttpClientConfig<*>.() -> Unit = {
+    install(ContentNegotiation) {
+        jackson()
+    }
+},
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
@@ -77,7 +84,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return NoteResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun notesCreate(requestModel: NotesApi.NotesCreateRequest): HttpResponse<NoteResponse> {
+    open suspend fun notesCreate(requestModel: NotesApi.NotesCreateRequest): NoteResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -100,7 +107,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -122,7 +129,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return PaginatedNoteList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun notesList(requestModel: NotesApi.NotesListRequest): HttpResponse<MergePaginatedResponse<Note>> {
+    open suspend fun notesList(requestModel: NotesApi.NotesListRequest): MergePaginatedResponse<Note> {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -157,7 +164,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -166,7 +173,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun notesMetaPostRetrieve(): HttpResponse<MetaResponse> {
+    open suspend fun notesMetaPostRetrieve(): MetaResponse {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -188,7 +195,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
     /**
@@ -199,7 +206,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return Note
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun notesRetrieve(requestModel: NotesApi.NotesRetrieveRequest): HttpResponse<Note> {
+    open suspend fun notesRetrieve(requestModel: NotesApi.NotesRetrieveRequest): Note {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -222,7 +229,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames
-        ).wrap()
+        ).body()
     }
 
 }
