@@ -17,6 +17,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.jackson.*
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 
 import dev.merge.client.shared.auth.*
 import io.ktor.util.*
@@ -26,18 +27,28 @@ import io.ktor.utils.io.core.*
 open class ApiClient(
         private val baseUrl: String,
         httpClientEngine: HttpClientEngine?,
-        httpClientConfig: HttpClientConfig<*>.() -> Unit = {
-            install(ContentNegotiation) {
-                jackson()
-            }
-        },
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
         json: ObjectMapper,
 ) {
 
     private val client: HttpClient by lazy {
         httpClientEngine?.let {
-            HttpClient(it, httpClientConfig)
-        } ?: HttpClient(Apache, httpClientConfig)
+            HttpClient(it, httpClientConfig ?: {
+                install(ContentNegotiation) {
+                    jackson {
+                        registerModule(JavaTimeModule())
+                        findAndRegisterModules()
+                    }
+                }
+            })
+        } ?: HttpClient(Apache, httpClientConfig ?: {
+            install(ContentNegotiation) {
+                jackson {
+                    registerModule(JavaTimeModule())
+                    findAndRegisterModules()
+                }
+            }
+        })
     }
 
     private val authentications: kotlin.collections.Map<String, Authentication> by lazy {
@@ -54,6 +65,10 @@ open class ApiClient(
         const val BASE_URL = "https://api.merge.dev/api/"
         val JSON_DEFAULT = ObjectMapper()
         protected val UNSAFE_HEADERS = listOf(HttpHeaders.ContentType)
+
+        init {
+            JSON_DEFAULT.findAndRegisterModules()
+        }
     }
 
     /**

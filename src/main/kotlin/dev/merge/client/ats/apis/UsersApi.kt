@@ -37,11 +37,7 @@ import dev.merge.client.shared.*
 open class UsersApi(
 baseUrl: String = ApiClient.BASE_URL + "ats/v1",
 httpClientEngine: HttpClientEngine? = null,
-httpClientConfig: HttpClientConfig<*>.() -> Unit = {
-    install(ContentNegotiation) {
-        jackson()
-    }
-},
+httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
