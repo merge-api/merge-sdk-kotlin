@@ -49,7 +49,8 @@ open class ApiClient(
 
     private val authentications: kotlin.collections.Map<String, Authentication> by lazy {
         mapOf(
-                "tokenAuth" to ApiKeyAuth("header", "Authorization"))
+                "bearerAuth" to HttpBearerAuth(),
+                "accountTokenAuth" to AccountTokenAuth())
     }
 
     companion object {
@@ -64,33 +65,10 @@ open class ApiClient(
      * @param apiKey API key
      * @param paramName The name of the API key parameter, or null or set the first key.
      */
-    fun setApiKey(apiKey: String, paramName: String? = null) {
-        val auth = authentications?.values?.firstOrNull { it is ApiKeyAuth && (paramName == null || paramName == it.paramName)} as ApiKeyAuth?
+    fun setApiKey(apiKey: String) {
+        val auth = authentications?.values?.firstOrNull { it is HttpBearerAuth } as HttpBearerAuth?
                 ?: throw Exception("No API key authentication configured")
-        auth.apiKey = apiKey
-    }
-
-    /**
-     * Set the API key prefix for the first API key authentication.
-     *
-     * @param apiKeyPrefix API key prefix
-     * @param paramName The name of the API key parameter, or null or set the first key.
-     */
-    fun setApiKeyPrefix(apiKeyPrefix: String, paramName: String? = null) {
-        val auth = authentications?.values?.firstOrNull { it is ApiKeyAuth && (paramName == null || paramName == it.paramName) } as ApiKeyAuth?
-                ?: throw Exception("No API key authentication configured")
-        auth.apiKeyPrefix = apiKeyPrefix
-    }
-
-    /**
-     * Set the access token for the first OAuth2 authentication.
-     *
-     * @param accessToken Access token
-     */
-    fun setAccessToken(accessToken: String) {
-        val auth = authentications?.values?.firstOrNull { it is OAuth } as OAuth?
-                ?: throw Exception("No OAuth2 authentication configured")
-        auth.accessToken = accessToken
+        auth.bearerToken = apiKey
     }
 
     /**
@@ -98,10 +76,10 @@ open class ApiClient(
      *
      * @param bearerToken The bearer token.
      */
-    fun setBearerToken(bearerToken: String) {
-        val auth = authentications?.values?.firstOrNull { it is HttpBearerAuth } as HttpBearerAuth?
-                ?: throw Exception("No Bearer authentication configured")
-        auth.bearerToken = bearerToken
+    fun setAccountToken(accountToken: String) {
+        val auth = authentications?.values?.firstOrNull { it is AccountTokenAuth } as AccountTokenAuth?
+                ?: throw Exception("No account token authentication configured")
+        auth.accountToken = accountToken
     }
 
     protected suspend fun <T: Any?> multipartFormRequest(requestConfig: RequestConfig<T>, body: kotlin.collections.List<PartData>?, authNames: kotlin.collections.List<String>): HttpResponse {

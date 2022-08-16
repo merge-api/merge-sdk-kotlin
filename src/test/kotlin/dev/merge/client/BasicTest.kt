@@ -1,12 +1,20 @@
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+
+import dev.merge.client.accounting.apis.AccountsApi
 
 internal class BasicTest {
     @Test
-    fun testAllCategoriesSimple() {
-        // val expected = 42
-        // assertEquals(expected, testSample.sum(40, 2))
+    fun testAllCategoriesSimple() = runTest {
+        val accountsApi = AccountsApi()
+        accountsApi.setApiKey("REDACTED")
+        accountsApi.setAccountToken("REDACTED")
 
-        assertEquals(true, true)
+        val accountsResponse = accountsApi.accountsList(AccountsApi.AccountsListRequest())
+        assertEquals(accountsResponse.success, true)
+        assertNotNull(accountsResponse.body())
+        assertNotNull(accountsResponse.body().results)
     }
 }

@@ -9,6 +9,7 @@ wrapper {
 buildscript {
     ext.kotlin_version = '1.5.10'
     ext.ktor_version = '1.6.7'
+    ext.coroutines_version = '1.6.4'
 
     repositories {
         maven { url "https://repo1.maven.org/maven2" }
@@ -33,7 +34,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.3"
+    implementation("io.ktor:ktor-client-apache:$ktor_version")
     implementation "io.ktor:ktor-client-core:$ktor_version"
     implementation "io.ktor:ktor-client-jackson:$ktor_version"
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 }
