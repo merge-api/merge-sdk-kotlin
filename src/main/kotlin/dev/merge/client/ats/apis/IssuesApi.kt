@@ -88,19 +88,19 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.accountToken?.apply { localVariableQuery["account_token"] = listOf("$requestModel?.accountToken") }
-        requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf("$requestModel?.cursor") }
-        requestModel.endDate?.apply { localVariableQuery["end_date"] = listOf("$requestModel?.endDate") }
-        requestModel.endUserOrganizationName?.apply { localVariableQuery["end_user_organization_name"] = listOf("$requestModel?.endUserOrganizationName") }
-        requestModel.firstIncidentTimeAfter?.apply { localVariableQuery["first_incident_time_after"] = listOf("$requestModel?.firstIncidentTimeAfter") }
-        requestModel.firstIncidentTimeBefore?.apply { localVariableQuery["first_incident_time_before"] = listOf("$requestModel?.firstIncidentTimeBefore") }
-        requestModel.includeMuted?.apply { localVariableQuery["include_muted"] = listOf("$requestModel?.includeMuted") }
-        requestModel.integrationName?.apply { localVariableQuery["integration_name"] = listOf("$requestModel?.integrationName") }
-        requestModel.lastIncidentTimeAfter?.apply { localVariableQuery["last_incident_time_after"] = listOf("$requestModel?.lastIncidentTimeAfter") }
-        requestModel.lastIncidentTimeBefore?.apply { localVariableQuery["last_incident_time_before"] = listOf("$requestModel?.lastIncidentTimeBefore") }
-        requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$requestModel?.pageSize") }
-        requestModel.startDate?.apply { localVariableQuery["start_date"] = listOf("$requestModel?.startDate") }
-        requestModel.status?.apply { localVariableQuery["status"] = listOf("$requestModel?.status") }
+            requestModel.accountToken?.apply { localVariableQuery["account_token"] = listOf(this) }
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.endDate?.apply { localVariableQuery["end_date"] = listOf(this) }
+            requestModel.endUserOrganizationName?.apply { localVariableQuery["end_user_organization_name"] = listOf(this) }
+            requestModel.firstIncidentTimeAfter?.apply { localVariableQuery["first_incident_time_after"] = listOf("$this") }
+            requestModel.firstIncidentTimeBefore?.apply { localVariableQuery["first_incident_time_before"] = listOf("$this") }
+            requestModel.includeMuted?.apply { localVariableQuery["include_muted"] = listOf(this) }
+            requestModel.integrationName?.apply { localVariableQuery["integration_name"] = listOf(this) }
+            requestModel.lastIncidentTimeAfter?.apply { localVariableQuery["last_incident_time_after"] = listOf("$this") }
+            requestModel.lastIncidentTimeBefore?.apply { localVariableQuery["last_incident_time_before"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+            requestModel.startDate?.apply { localVariableQuery["start_date"] = listOf(this) }
+            requestModel.status?.apply { localVariableQuery["status"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

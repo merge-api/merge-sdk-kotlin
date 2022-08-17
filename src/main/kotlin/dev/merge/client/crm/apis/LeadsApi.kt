@@ -86,8 +86,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableBody = requestModel.leadEndpointRequest
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$requestModel?.isDebugMode") }
-        requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$requestModel?.runAsync") }
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -131,18 +131,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.convertedAccountId?.apply { localVariableQuery["converted_account_id"] = listOf("$requestModel?.convertedAccountId") }
-        requestModel.convertedContactId?.apply { localVariableQuery["converted_contact_id"] = listOf("$requestModel?.convertedContactId") }
-        requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$requestModel?.createdAfter") }
-        requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$requestModel?.createdBefore") }
-        requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf("$requestModel?.cursor") }
-        requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$requestModel?.includeDeletedData") }
-        requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$requestModel?.includeRemoteData") }
-        requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$requestModel?.modifiedAfter") }
-        requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$requestModel?.modifiedBefore") }
-        requestModel.ownerId?.apply { localVariableQuery["owner_id"] = listOf("$requestModel?.ownerId") }
-        requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$requestModel?.pageSize") }
-        requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf("$requestModel?.remoteId") }
+            requestModel.convertedAccountId?.apply { localVariableQuery["converted_account_id"] = listOf(this) }
+            requestModel.convertedContactId?.apply { localVariableQuery["converted_contact_id"] = listOf(this) }
+            requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
+            requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
+            requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
+            requestModel.ownerId?.apply { localVariableQuery["owner_id"] = listOf(this) }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+            requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -207,7 +207,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$requestModel?.includeRemoteData") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

@@ -1,9 +1,10 @@
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-import dev.merge.client.shared.ApiClient
 import dev.merge.client.accounting.apis.AccountsApi
 import dev.merge.client.ats.apis.CandidatesApi
 import dev.merge.client.crm.apis.ContactsApi
@@ -15,7 +16,9 @@ internal class BasicTest {
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     fun testAllCategoriesSimple() = runTest {
-        val mapper = ApiClient.JSON_DEFAULT
+        val mapper = ObjectMapper()
+        mapper.findAndRegisterModules()
+        mapper.enable(SerializationFeature.INDENT_OUTPUT)
 
         val apiKey = "REDACTED"
 
@@ -49,7 +52,11 @@ internal class BasicTest {
 
         val hrisEmployeesPromise = async { employeesApi.employeesList(EmployeesApi.EmployeesListRequest()) }
 
-        val ticketingTicketsPromise = async { ticketsApi.ticketsList(TicketsApi.TicketsListRequest()) }
+        // merge asana test account id
+        val ticketingFilterProjects = "aa5e3566-6590-483f-b8c8-e10e30a0c7b6"
+        val ticketingTicketsPromise = async { ticketsApi.ticketsList(TicketsApi.TicketsListRequest(
+            projectId = ticketingFilterProjects
+        )) }
 
         // check all results
 
@@ -77,10 +84,26 @@ internal class BasicTest {
         assertNotNull(hrisEmployeesResponse.results)
         println(mapper.writeValueAsString(hrisEmployeesResponse))
 
+        assertNotNull(hrisEmployeesResponse.next)
+
+        // call this one non-async since we can do that
+        val hrisEmployeesPage2Response = employeesApi.employeesList(EmployeesApi.EmployeesListRequest(
+            cursor = hrisEmployeesResponse.next
+        ))
+
+        assertNotNull(hrisEmployeesPage2Response)
+        assertNotNull(hrisEmployeesPage2Response.results)
+        assertNotNull(hrisEmployeesPage2Response.previous)
+        println(mapper.writeValueAsString(hrisEmployeesPage2Response))
+
         val ticketingTicketsResponse = ticketingTicketsPromise.await()
 
         assertNotNull(ticketingTicketsResponse)
         assertNotNull(ticketingTicketsResponse.results)
         println(mapper.writeValueAsString(ticketingTicketsResponse))
+
+        for (ticketingTicket in ticketingTicketsResponse.results ?: listOf()) {
+            assertEquals(ticketingFilterProjects, ticketingTicket.project?.toString())
+        }
     }
 }

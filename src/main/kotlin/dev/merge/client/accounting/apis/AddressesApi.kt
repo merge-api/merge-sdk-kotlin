@@ -64,8 +64,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$requestModel?.includeRemoteData") }
-        requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf("$requestModel?.remoteFields") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

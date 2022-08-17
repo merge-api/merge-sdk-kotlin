@@ -84,19 +84,19 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.category?.apply { localVariableQuery["category"] = listOf("$requestModel?.category") }
-        requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf("$requestModel?.cursor") }
-        requestModel.endUserEmailAddress?.apply { localVariableQuery["end_user_email_address"] = listOf("$requestModel?.endUserEmailAddress") }
-        requestModel.endUserOrganizationName?.apply { localVariableQuery["end_user_organization_name"] = listOf("$requestModel?.endUserOrganizationName") }
-        requestModel.endUserOriginId?.apply { localVariableQuery["end_user_origin_id"] = listOf("$requestModel?.endUserOriginId") }
-        requestModel.endUserOriginIds?.apply { localVariableQuery["end_user_origin_ids"] = listOf("$requestModel?.endUserOriginIds") }
-        requestModel.id?.apply { localVariableQuery["id"] = listOf("$requestModel?.id") }
-        requestModel.ids?.apply { localVariableQuery["ids"] = listOf("$requestModel?.ids") }
-        requestModel.includeDuplicates?.apply { localVariableQuery["include_duplicates"] = listOf("$requestModel?.includeDuplicates") }
-        requestModel.integrationName?.apply { localVariableQuery["integration_name"] = listOf("$requestModel?.integrationName") }
-        requestModel.isTestAccount?.apply { localVariableQuery["is_test_account"] = listOf("$requestModel?.isTestAccount") }
-        requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$requestModel?.pageSize") }
-        requestModel.status?.apply { localVariableQuery["status"] = listOf("$requestModel?.status") }
+            requestModel.category?.apply { localVariableQuery["category"] = listOf(this) }
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.endUserEmailAddress?.apply { localVariableQuery["end_user_email_address"] = listOf(this) }
+            requestModel.endUserOrganizationName?.apply { localVariableQuery["end_user_organization_name"] = listOf(this) }
+            requestModel.endUserOriginId?.apply { localVariableQuery["end_user_origin_id"] = listOf(this) }
+            requestModel.endUserOriginIds?.apply { localVariableQuery["end_user_origin_ids"] = listOf(this) }
+            requestModel.id?.apply { localVariableQuery["id"] = listOf("$this") }
+            requestModel.ids?.apply { localVariableQuery["ids"] = listOf(this) }
+            requestModel.includeDuplicates?.apply { localVariableQuery["include_duplicates"] = listOf("$this") }
+            requestModel.integrationName?.apply { localVariableQuery["integration_name"] = listOf(this) }
+            requestModel.isTestAccount?.apply { localVariableQuery["is_test_account"] = listOf(this) }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+            requestModel.status?.apply { localVariableQuery["status"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

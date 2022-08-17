@@ -88,18 +88,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.applicationId?.apply { localVariableQuery["application_id"] = listOf("$requestModel?.applicationId") }
-        requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$requestModel?.createdAfter") }
-        requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$requestModel?.createdBefore") }
-        requestModel.creatorId?.apply { localVariableQuery["creator_id"] = listOf("$requestModel?.creatorId") }
-        requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf("$requestModel?.cursor") }
-        requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$requestModel?.includeDeletedData") }
-        requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$requestModel?.includeRemoteData") }
-        requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$requestModel?.modifiedAfter") }
-        requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$requestModel?.modifiedBefore") }
-        requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$requestModel?.pageSize") }
-        requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf("$requestModel?.remoteFields") }
-        requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf("$requestModel?.remoteId") }
+            requestModel.applicationId?.apply { localVariableQuery["application_id"] = listOf(this) }
+            requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
+            requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
+            requestModel.creatorId?.apply { localVariableQuery["creator_id"] = listOf(this) }
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
+            requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+            requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -134,8 +134,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$requestModel?.includeRemoteData") }
-        requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf("$requestModel?.remoteFields") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
