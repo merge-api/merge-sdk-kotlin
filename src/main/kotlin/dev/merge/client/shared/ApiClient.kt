@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 
 import dev.merge.client.shared.auth.*
+import io.ktor.client.plugins.*
 import io.ktor.util.*
 import io.ktor.util.reflect.*
 import io.ktor.utils.io.core.*
@@ -111,7 +112,7 @@ open class ApiClient(
         else request(requestConfig, authNames = authNames)
     }
 
-    @OptIn(InternalAPI::class)
+    @Throws(ResponseException::class)
     protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
         requestConfig.updateForAuth<T>(authNames)
         val headers = requestConfig.headers

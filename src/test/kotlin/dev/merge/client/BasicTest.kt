@@ -10,6 +10,8 @@ import dev.merge.client.ats.apis.CandidatesApi
 import dev.merge.client.crm.apis.ContactsApi
 import dev.merge.client.hris.apis.EmployeesApi
 import dev.merge.client.ticketing.apis.TicketsApi
+import io.ktor.client.plugins.*
+import io.ktor.http.*
 import kotlinx.coroutines.async
 
 internal class BasicTest {
@@ -52,7 +54,6 @@ internal class BasicTest {
 
         val hrisEmployeesPromise = async { employeesApi.employeesList(EmployeesApi.EmployeesListRequest()) }
 
-        // merge asana test account id
         val ticketingFilterProjects = "aa5e3566-6590-483f-b8c8-e10e30a0c7b6"
         val ticketingTicketsPromise = async { ticketsApi.ticketsList(TicketsApi.TicketsListRequest(
             projectId = ticketingFilterProjects
@@ -77,6 +78,16 @@ internal class BasicTest {
         assertNotNull(crmContactsResponse)
         assertNotNull(crmContactsResponse.results)
         println(mapper.writeValueAsString(crmContactsResponse))
+
+        contactsApi.setAccountToken("invalid")
+        // call this one non-async since we can do that
+        val invalidCrmContactsResponse = kotlin.runCatching {
+            contactsApi.contactsList(ContactsApi.ContactsListRequest())
+        }.onFailure {
+            assertEquals(it::class, ClientRequestException::class)
+            val ktorException = it as ClientRequestException
+            assertEquals(HttpStatusCode.Unauthorized, ktorException.response.status)
+        }
 
         val hrisEmployeesResponse = hrisEmployeesPromise.await()
 
@@ -105,7 +116,5 @@ internal class BasicTest {
         for (ticketingTicket in ticketingTicketsResponse.results ?: listOf()) {
             assertEquals(ticketingFilterProjects, ticketingTicket.project?.toString())
         }
-
-        
     }
 }
