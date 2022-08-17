@@ -40,6 +40,7 @@ open class ApiClient(
                         findAndRegisterModules()
                     }
                 }
+                expectSuccess = true
             })
         } ?: HttpClient(Apache, httpClientConfig ?: {
             install(ContentNegotiation) {
@@ -48,6 +49,7 @@ open class ApiClient(
                     findAndRegisterModules()
                 }
             }
+            expectSuccess = true
         })
     }
 
