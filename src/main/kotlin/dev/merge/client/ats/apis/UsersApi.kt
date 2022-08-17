@@ -79,6 +79,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun usersList(requestModel: UsersApi.UsersListRequest): MergePaginatedResponse<RemoteUser> {
+        return usersListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param email If provided, will only return remote users with the given email address (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun usersListExpanded(requestModel: UsersApi.UsersListRequest): MergePaginatedResponse<RemoteUser.Expanded> {
+        return usersListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> usersListImpl(requestModel: UsersApi.UsersListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -124,6 +136,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun usersRetrieve(requestModel: UsersApi.UsersRetrieveRequest): RemoteUser {
+        return usersRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun usersRetrieveExpanded(requestModel: UsersApi.UsersRetrieveRequest): RemoteUser.Expanded {
+        return usersRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> usersRetrieveImpl(requestModel: UsersApi.UsersRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="notesList"></a>
 # **notesList**
-> PaginatedNoteList notesList(accountId, contactId, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, opportunityId, ownerId, pageSize, remoteId)
+> PaginatedNoteList notesList(accountId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, opportunityId, ownerId, pageSize, remoteId)
 
 
 
@@ -86,6 +86,7 @@ val contactId : kotlin.String = contactId_example // kotlin.String | If provided
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = owner,contact,account,opportunity // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
@@ -95,7 +96,7 @@ val ownerId : kotlin.String = ownerId_example // kotlin.String | If provided, wi
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedNoteList = apiInstance.notesList(accountId, contactId, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, opportunityId, ownerId, pageSize, remoteId)
+    val result : PaginatedNoteList = apiInstance.notesList(accountId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, opportunityId, ownerId, pageSize, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling NotesApi#notesList")
@@ -115,6 +116,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: account, account,opportunity, contact, contact,account, contact,account,opportunity, contact,opportunity, opportunity, owner, owner,account, owner,account,opportunity, owner,contact, owner,contact,account, owner,contact,account,opportunity, owner,contact,opportunity, owner,opportunity]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
@@ -192,7 +194,7 @@ Configure bearerAuth:
 
 <a name="notesRetrieve"></a>
 # **notesRetrieve**
-> Note notesRetrieve(id, includeRemoteData)
+> Note notesRetrieve(id, expand, includeRemoteData)
 
 
 
@@ -206,9 +208,10 @@ Returns a &#x60;Note&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = NotesApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = owner,contact,account,opportunity // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 try {
-    val result : Note = apiInstance.notesRetrieve(id, includeRemoteData)
+    val result : Note = apiInstance.notesRetrieve(id, expand, includeRemoteData)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling NotesApi#notesRetrieve")
@@ -224,6 +227,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: account, account,opportunity, contact, contact,account, contact,account,opportunity, contact,opportunity, opportunity, owner, owner,account, owner,account,opportunity, owner,contact, owner,contact,account, owner,contact,account,opportunity, owner,contact,opportunity, owner,opportunity]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
 
 ### Return type

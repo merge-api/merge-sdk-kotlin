@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The PayGroup Object ### Description The `PayGroup` object is used to represent Pay Group information that employees belong to. This is often referenced with an Employee object.  ### Usage Example Fetch from the `LIST PayGroup` endpoint and filter by `ID` to show all pay group information.
@@ -54,5 +55,25 @@ data class PayGroup (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("pay_group_name")
+        val payGroupName: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

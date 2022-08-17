@@ -62,6 +62,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     data class ProjectsUsersListRequest (
         val id: java.util.UUID,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val pageSize: kotlin.Int? = null
     )
@@ -82,6 +83,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsList(requestModel: ProjectsApi.ProjectsListRequest): MergePaginatedResponse<Project> {
+        return projectsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun projectsListExpanded(requestModel: ProjectsApi.ProjectsListRequest): MergePaginatedResponse<Project.Expanded> {
+        return projectsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> projectsListImpl(requestModel: ProjectsApi.ProjectsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -124,6 +137,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsRetrieve(requestModel: ProjectsApi.ProjectsRetrieveRequest): Project {
+        return projectsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun projectsRetrieveExpanded(requestModel: ProjectsApi.ProjectsRetrieveRequest): Project.Expanded {
+        return projectsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> projectsRetrieveImpl(requestModel: ProjectsApi.ProjectsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -154,12 +179,25 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @return PaginatedUserList
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsUsersList(requestModel: ProjectsApi.ProjectsUsersListRequest): MergePaginatedResponse<User> {
+        return projectsUsersListImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun projectsUsersListExpanded(requestModel: ProjectsApi.ProjectsUsersListRequest): MergePaginatedResponse<User.Expanded> {
+        return projectsUsersListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> projectsUsersListImpl(requestModel: ProjectsApi.ProjectsUsersListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -168,6 +206,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
 

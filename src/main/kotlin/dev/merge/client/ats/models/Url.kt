@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.UrlTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Url Object ### Description The `Url` object is used to represent a candidate's website. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
@@ -41,5 +42,16 @@ data class Url (
     @field:JsonProperty("url_type")
     val urlType: UrlTypeEnum? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("value")
+        val `value`: JsonNode?,
+
+        @field:JsonProperty("url_type")
+        val urlType: JsonNode?
+
+    )
+
+}
 

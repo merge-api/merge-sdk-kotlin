@@ -46,6 +46,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return void
     */
     open suspend fun deleteAccountCreate(): Unit {
+        return deleteAccountCreateImpl()
+    }
+
+    /**
+    
+    */
+    open suspend fun deleteAccountCreateExpanded(): Unit {
+        return deleteAccountCreateImpl()
+    }
+
+    private suspend inline fun <reified T> deleteAccountCreateImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

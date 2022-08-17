@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The CompanyInfo Object ### Description The `CompanyInfo` object is used to represent a company's information.  ### Usage Example Fetch from the `GET CompanyInfo` endpoint and view a company's information.
@@ -100,5 +101,52 @@ data class CompanyInfo (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("legal_name")
+        val legalName: JsonNode?,
+
+        @field:JsonProperty("tax_number")
+        val taxNumber: JsonNode?,
+
+        @field:JsonProperty("fiscal_year_end_month")
+        val fiscalYearEndMonth: JsonNode?,
+
+        @field:JsonProperty("fiscal_year_end_day")
+        val fiscalYearEndDay: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("urls")
+        val urls: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("addresses")
+        val addresses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("phone_numbers")
+        val phoneNumbers: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

@@ -74,6 +74,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun incomeStatementsList(requestModel: IncomeStatementsApi.IncomeStatementsListRequest): MergePaginatedResponse<IncomeStatement> {
+        return incomeStatementsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun incomeStatementsListExpanded(requestModel: IncomeStatementsApi.IncomeStatementsListRequest): MergePaginatedResponse<IncomeStatement.Expanded> {
+        return incomeStatementsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> incomeStatementsListImpl(requestModel: IncomeStatementsApi.IncomeStatementsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -116,6 +128,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun incomeStatementsRetrieve(requestModel: IncomeStatementsApi.IncomeStatementsRetrieveRequest): IncomeStatement {
+        return incomeStatementsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun incomeStatementsRetrieveExpanded(requestModel: IncomeStatementsApi.IncomeStatementsRetrieveRequest): IncomeStatement.Expanded {
+        return incomeStatementsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> incomeStatementsRetrieveImpl(requestModel: IncomeStatementsApi.IncomeStatementsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

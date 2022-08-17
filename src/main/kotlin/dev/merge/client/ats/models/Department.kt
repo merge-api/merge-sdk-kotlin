@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Department Object ### Description The `Department` object is used to represent a department within a company. ### Usage Example Fetch from the `LIST Departments` endpoint and view the departments within a company.
@@ -54,5 +55,25 @@ data class Department (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

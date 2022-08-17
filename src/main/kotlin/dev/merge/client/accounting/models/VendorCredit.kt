@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.VendorCreditLine
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The VendorCredit Object ### Description The `VendorCredit` object is used to represent a company's vendor credits.  ### Usage Example Fetch from the `GET VendorCredit` endpoint and view a company's vendor credits.
@@ -79,5 +80,40 @@ data class VendorCredit (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("number")
+        val number: JsonNode?,
+
+        @field:JsonProperty("transaction_date")
+        val transactionDate: JsonNode?,
+
+        @field:JsonProperty("vendor")
+        val vendor: JsonNode?,
+
+        @field:JsonProperty("total_amount")
+        val totalAmount: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("lines")
+        val lines: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

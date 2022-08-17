@@ -87,6 +87,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payrollRunsList(requestModel: PayrollRunsApi.PayrollRunsListRequest): MergePaginatedResponse<PayrollRun> {
+        return payrollRunsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param endedAfter If provided, will only return payroll runs ended after this datetime. (optional) * @param endedBefore If provided, will only return payroll runs ended before this datetime. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param runType If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) (optional) * @param startedAfter If provided, will only return payroll runs started after this datetime. (optional) * @param startedBefore If provided, will only return payroll runs started before this datetime. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun payrollRunsListExpanded(requestModel: PayrollRunsApi.PayrollRunsListRequest): MergePaginatedResponse<PayrollRun.Expanded> {
+        return payrollRunsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> payrollRunsListImpl(requestModel: PayrollRunsApi.PayrollRunsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -136,6 +148,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payrollRunsRetrieve(requestModel: PayrollRunsApi.PayrollRunsRetrieveRequest): PayrollRun {
+        return payrollRunsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun payrollRunsRetrieveExpanded(requestModel: PayrollRunsApi.PayrollRunsRetrieveRequest): PayrollRun.Expanded {
+        return payrollRunsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> payrollRunsRetrieveImpl(requestModel: PayrollRunsApi.PayrollRunsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

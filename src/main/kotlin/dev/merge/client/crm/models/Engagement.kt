@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.DirectionEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Engagement Object ### Description The `Engagement` object is used to represent an engagement in the remote system. ### Usage Example TODO
@@ -87,5 +88,46 @@ data class Engagement (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("owner")
+        val owner: JsonNode?,
+
+        @field:JsonProperty("content")
+        val content: JsonNode?,
+
+        @field:JsonProperty("subject")
+        val subject: JsonNode?,
+
+        @field:JsonProperty("direction")
+        val direction: JsonNode?,
+
+        @field:JsonProperty("engagement_type")
+        val engagementType: JsonNode?,
+
+        @field:JsonProperty("start_time")
+        val startTime: JsonNode?,
+
+        @field:JsonProperty("end_time")
+        val endTime: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

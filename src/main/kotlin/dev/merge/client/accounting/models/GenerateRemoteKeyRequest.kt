@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The GenerateRemoteKey Object ### Description The `GenerateRemoteKey` object is used to represent a request for a new remote key.  ### Usage Example Post a `GenerateRemoteKey` to create a new remote key.
@@ -34,5 +35,13 @@ data class GenerateRemoteKeyRequest (
     @field:JsonProperty("name")
     val name: kotlin.String
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?
+
+    )
+
+}
 

@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.AccountDetailsAndActionsStatusEnum
 import dev.merge.client.accounting.models.CategoryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The LinkedAccount Object ### Description The `LinkedAccount` object is used to represent an end user's link with a specific integration.  ### Usage Example View a list of your organization's `LinkedAccount` objects.
@@ -74,5 +75,40 @@ data class AccountDetailsAndActions (
     @field:JsonProperty("integration")
     val integration: AccountDetailsAndActionsIntegration? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("end_user_organization_name")
+        val endUserOrganizationName: JsonNode?,
+
+        @field:JsonProperty("end_user_email_address")
+        val endUserEmailAddress: JsonNode?,
+
+        @field:JsonProperty("webhook_listener_url")
+        val webhookListenerUrl: JsonNode?,
+
+        @field:JsonProperty("category")
+        val category: JsonNode?,
+
+        @field:JsonProperty("status_detail")
+        val statusDetail: JsonNode?,
+
+        @field:JsonProperty("end_user_origin_id")
+        val endUserOriginId: JsonNode?,
+
+        @field:JsonProperty("is_duplicate")
+        val isDuplicate: JsonNode?,
+
+        @field:JsonProperty("integration")
+        val integration: JsonNode?
+
+    )
+
+}
 

@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Payment Object ### Description The `Payment` object is used to represent a invoice's payment.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
@@ -72,5 +73,37 @@ data class Payment (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("transaction_date")
+        val transactionDate: JsonNode?,
+
+        @field:JsonProperty("contact")
+        val contact: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("total_amount")
+        val totalAmount: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

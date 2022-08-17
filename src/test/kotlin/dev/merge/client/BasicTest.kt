@@ -7,12 +7,14 @@ import kotlin.test.assertNotNull
 
 import dev.merge.client.accounting.apis.AccountsApi
 import dev.merge.client.ats.apis.CandidatesApi
+import dev.merge.client.ats.models.Application
 import dev.merge.client.crm.apis.ContactsApi
 import dev.merge.client.hris.apis.EmployeesApi
 import dev.merge.client.ticketing.apis.TicketsApi
 import io.ktor.client.plugins.*
 import io.ktor.http.*
 import kotlinx.coroutines.async
+import kotlin.test.assertTrue
 
 internal class BasicTest {
     @Test
@@ -48,7 +50,11 @@ internal class BasicTest {
 
         val accountingAccountsPromise = async { accountsApi.accountsList(AccountsApi.AccountsListRequest()) }
 
-        val atsCandidatesPromise = async { candidatesApi.candidatesList(CandidatesApi.CandidatesListRequest()) }
+        val atsCandidatesExpandedPromise = async {
+            candidatesApi.candidatesListExpanded(CandidatesApi.CandidatesListRequest(
+                expand="applications"
+            ))
+        }
 
         val crmContactsPromise = async { contactsApi.contactsList(ContactsApi.ContactsListRequest()) }
 
@@ -61,18 +67,35 @@ internal class BasicTest {
 
         // check all results
 
+        // vanilla accounting category call
         val accountingAccountsResponse = accountingAccountsPromise.await()
 
         assertNotNull(accountingAccountsResponse)
         assertNotNull(accountingAccountsResponse.results)
         println(mapper.writeValueAsString(accountingAccountsResponse))
 
-        val atsCandidatesResponse = atsCandidatesPromise.await()
+        // get candidates with expand=applications, check we have an expanded application sub object
+        val atsCandidatesExpandedResponse = atsCandidatesExpandedPromise.await()
 
-        assertNotNull(atsCandidatesResponse)
-        assertNotNull(atsCandidatesResponse.results)
-        println(mapper.writeValueAsString(atsCandidatesResponse))
+        assertNotNull(atsCandidatesExpandedResponse)
+        assertNotNull(atsCandidatesExpandedResponse.results)
+        println(mapper.writeValueAsString(atsCandidatesExpandedResponse))
 
+        var atLeastOneExpandedApplication = false
+        for (candidate in atsCandidatesExpandedResponse.results ?: listOf()) {
+            if (candidate.applications?.isNotEmpty() == true) {
+                val applicationFromExpandedCandidate = mapper.convertValue(
+                    candidate.applications?.first(),
+                    Application::class.java
+                )
+
+                assertNotNull(applicationFromExpandedCandidate)
+                atLeastOneExpandedApplication = true
+            }
+        }
+        assertTrue(atLeastOneExpandedApplication)
+
+        // vanilla crm contacts call
         val crmContactsResponse = crmContactsPromise.await()
 
         assertNotNull(crmContactsResponse)
@@ -89,6 +112,7 @@ internal class BasicTest {
             assertEquals(HttpStatusCode.Unauthorized, ktorException.response.status)
         }
 
+        // hris call and then check second page
         val hrisEmployeesResponse = hrisEmployeesPromise.await()
 
         assertNotNull(hrisEmployeesResponse)
@@ -107,6 +131,7 @@ internal class BasicTest {
         assertNotNull(hrisEmployeesPage2Response.previous)
         println(mapper.writeValueAsString(hrisEmployeesPage2Response))
 
+        // filtered ticketing call by project id
         val ticketingTicketsResponse = ticketingTicketsPromise.await()
 
         assertNotNull(ticketingTicketsResponse)

@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The IncomeStatement Object ### Description The `IncomeStatement` object is used to represent a company's income statements.  ### Usage Example Fetch from the `GET IncomeStatement` endpoint and view a company's income statement for a given period.
@@ -96,5 +97,52 @@ data class IncomeStatement (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("start_period")
+        val startPeriod: JsonNode?,
+
+        @field:JsonProperty("end_period")
+        val endPeriod: JsonNode?,
+
+        @field:JsonProperty("income")
+        val income: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("cost_of_sales")
+        val costOfSales: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("gross_profit")
+        val grossProfit: JsonNode?,
+
+        @field:JsonProperty("operating_expenses")
+        val operatingExpenses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("net_operating_income")
+        val netOperatingIncome: JsonNode?,
+
+        @field:JsonProperty("non_operating_expenses")
+        val nonOperatingExpenses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("net_income")
+        val netIncome: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

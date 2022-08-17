@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
@@ -87,5 +88,46 @@ data class AccountRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("owner")
+        val owner: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("industry")
+        val industry: JsonNode?,
+
+        @field:JsonProperty("website")
+        val website: JsonNode?,
+
+        @field:JsonProperty("number_of_employees")
+        val numberOfEmployees: JsonNode?,
+
+        @field:JsonProperty("last_activity_at")
+        val lastActivityAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

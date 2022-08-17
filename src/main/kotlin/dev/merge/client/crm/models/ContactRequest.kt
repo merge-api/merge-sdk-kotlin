@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent a contact in the remote system. ### Usage Example TODO
@@ -67,5 +68,34 @@ data class ContactRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("first_name")
+        val firstName: JsonNode?,
+
+        @field:JsonProperty("last_name")
+        val lastName: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("last_activity_at")
+        val lastActivityAt: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

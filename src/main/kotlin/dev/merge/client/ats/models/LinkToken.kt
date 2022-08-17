@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -42,5 +43,19 @@ data class LinkToken (
     @field:JsonProperty("magic_link_url")
     val magicLinkUrl: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("link_token")
+        val linkToken: JsonNode?,
+
+        @field:JsonProperty("integration_name")
+        val integrationName: JsonNode?,
+
+        @field:JsonProperty("magic_link_url")
+        val magicLinkUrl: JsonNode?
+
+    )
+
+}
 

@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.JournalLine
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The JournalEntry Object ### Description The `JournalEntry` object is used to represent a company's journey entries.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
@@ -79,5 +80,40 @@ data class JournalEntry (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("transaction_date")
+        val transactionDate: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("payments")
+        val payments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("memo")
+        val memo: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("lines")
+        val lines: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

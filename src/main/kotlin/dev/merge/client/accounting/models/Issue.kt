@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 import dev.merge.client.accounting.models.IssueStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -59,5 +60,31 @@ data class Issue (
     @field:JsonProperty("is_muted")
     val isMuted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("error_description")
+        val errorDescription: JsonNode?,
+
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("end_user")
+        val endUser: JsonNode?,
+
+        @field:JsonProperty("first_incident_time")
+        val firstIncidentTime: JsonNode?,
+
+        @field:JsonProperty("last_incident_time")
+        val lastIncidentTime: JsonNode?,
+
+        @field:JsonProperty("is_muted")
+        val isMuted: JsonNode?
+
+    )
+
+}
 

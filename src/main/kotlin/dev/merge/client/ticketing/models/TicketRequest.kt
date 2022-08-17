@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Ticket Object ### Description The `Ticket` object is used to represent a ticket or a task within a system.  ### Usage Example TODO
@@ -99,5 +100,55 @@ data class TicketRequest (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("assignees")
+        val assignees: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("due_date")
+        val dueDate: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("project")
+        val project: JsonNode?,
+
+        @field:JsonProperty("ticket_type")
+        val ticketType: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("contact")
+        val contact: JsonNode?,
+
+        @field:JsonProperty("parent_ticket")
+        val parentTicket: JsonNode?,
+
+        @field:JsonProperty("attachments")
+        val attachments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("tags")
+        val tags: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?
+
+    )
+
+}
 

@@ -74,6 +74,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun rejectReasonsList(requestModel: RejectReasonsApi.RejectReasonsListRequest): MergePaginatedResponse<RejectReason> {
+        return rejectReasonsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun rejectReasonsListExpanded(requestModel: RejectReasonsApi.RejectReasonsListRequest): MergePaginatedResponse<RejectReason.Expanded> {
+        return rejectReasonsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> rejectReasonsListImpl(requestModel: RejectReasonsApi.RejectReasonsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -116,6 +128,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun rejectReasonsRetrieve(requestModel: RejectReasonsApi.RejectReasonsRetrieveRequest): RejectReason {
+        return rejectReasonsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun rejectReasonsRetrieveExpanded(requestModel: RejectReasonsApi.RejectReasonsRetrieveRequest): RejectReason.Expanded {
+        return rejectReasonsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> rejectReasonsRetrieveImpl(requestModel: RejectReasonsApi.RejectReasonsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

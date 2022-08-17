@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -39,5 +40,16 @@ data class UpdateApplicationStageRequest (
     @field:JsonProperty("remote_user_id")
     val remoteUserId: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("job_interview_stage")
+        val jobInterviewStage: JsonNode?,
+
+        @field:JsonProperty("remote_user_id")
+        val remoteUserId: JsonNode?
+
+    )
+
+}
 

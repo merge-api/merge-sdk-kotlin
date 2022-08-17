@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The User Object ### Description The `User` object is used to represent an employee within a company.  ### Usage Example TODO
@@ -68,5 +69,34 @@ data class User (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("email_address")
+        val emailAddress: JsonNode?,
+
+        @field:JsonProperty("is_active")
+        val isActive: JsonNode?,
+
+        @field:JsonProperty("teams")
+        val teams: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

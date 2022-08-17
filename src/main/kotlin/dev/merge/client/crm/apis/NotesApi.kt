@@ -56,6 +56,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
@@ -68,6 +69,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class NotesRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
 
@@ -81,6 +83,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesCreate(requestModel: NotesApi.NotesCreateRequest): NoteResponse {
+        return notesCreateImpl(requestModel)
+    }
+
+    /**
+     * @param noteEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesCreateExpanded(requestModel: NotesApi.NotesCreateRequest): NoteResponse.Expanded {
+        return notesCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> notesCreateImpl(requestModel: NotesApi.NotesCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -114,6 +128,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
@@ -126,6 +141,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesList(requestModel: NotesApi.NotesListRequest): MergePaginatedResponse<Note> {
+        return notesListImpl(requestModel)
+    }
+
+    /**
+     * @param accountId If provided, will only return notes with this account. (optional) * @param contactId If provided, will only return notes with this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param opportunityId If provided, will only return notes with this opportunity. (optional) * @param ownerId If provided, will only return notes with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesListExpanded(requestModel: NotesApi.NotesListRequest): MergePaginatedResponse<Note.Expanded> {
+        return notesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> notesListImpl(requestModel: NotesApi.NotesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -138,6 +165,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
@@ -170,6 +198,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesMetaPostRetrieve(): MetaResponse {
+        return notesMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return notesMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> notesMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -198,11 +238,24 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns a &#x60;Note&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @return Note
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesRetrieve(requestModel: NotesApi.NotesRetrieveRequest): Note {
+        return notesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesRetrieveExpanded(requestModel: NotesApi.NotesRetrieveRequest): Note.Expanded {
+        return notesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> notesRetrieveImpl(requestModel: NotesApi.NotesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -210,6 +263,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()

@@ -48,6 +48,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val employeeId: kotlin.String? = null,
         val endedAfter: java.time.OffsetDateTime? = null,
         val endedBefore: java.time.OffsetDateTime? = null,
+        val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
@@ -61,6 +62,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class EmployeePayrollRunsRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
 
@@ -73,6 +75,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param employeeId If provided, will only return employee payroll runs for this employee. (optional)
      * @param endedAfter If provided, will only return employee payroll runs ended after this datetime. (optional)
      * @param endedBefore If provided, will only return employee payroll runs ended before this datetime. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
@@ -86,6 +89,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeePayrollRunsList(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): MergePaginatedResponse<EmployeePayrollRun> {
+        return employeePayrollRunsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return employee payroll runs for this employee. (optional) * @param endedAfter If provided, will only return employee payroll runs ended after this datetime. (optional) * @param endedBefore If provided, will only return employee payroll runs ended before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payrollRunId If provided, will only return employee payroll runs for this employee. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param startedAfter If provided, will only return employee payroll runs started after this datetime. (optional) * @param startedBefore If provided, will only return employee payroll runs started before this datetime. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeePayrollRunsListExpanded(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): MergePaginatedResponse<EmployeePayrollRun.Expanded> {
+        return employeePayrollRunsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeePayrollRunsListImpl(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -99,6 +114,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.employeeId?.apply { localVariableQuery["employee_id"] = listOf(this) }
             requestModel.endedAfter?.apply { localVariableQuery["ended_after"] = listOf("$this") }
             requestModel.endedBefore?.apply { localVariableQuery["ended_before"] = listOf("$this") }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
@@ -129,11 +145,24 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns an &#x60;EmployeePayrollRun&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @return EmployeePayrollRun
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeePayrollRunsRetrieve(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): EmployeePayrollRun {
+        return employeePayrollRunsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeePayrollRunsRetrieveExpanded(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): EmployeePayrollRun.Expanded {
+        return employeePayrollRunsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeePayrollRunsRetrieveImpl(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -141,6 +170,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()

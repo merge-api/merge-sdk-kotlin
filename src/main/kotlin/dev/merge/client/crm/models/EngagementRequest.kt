@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.DirectionEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Engagement Object ### Description The `Engagement` object is used to represent an engagement in the remote system. ### Usage Example TODO
@@ -81,5 +82,43 @@ data class EngagementRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("owner")
+        val owner: JsonNode?,
+
+        @field:JsonProperty("content")
+        val content: JsonNode?,
+
+        @field:JsonProperty("subject")
+        val subject: JsonNode?,
+
+        @field:JsonProperty("direction")
+        val direction: JsonNode?,
+
+        @field:JsonProperty("engagement_type")
+        val engagementType: JsonNode?,
+
+        @field:JsonProperty("start_time")
+        val startTime: JsonNode?,
+
+        @field:JsonProperty("end_time")
+        val endTime: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

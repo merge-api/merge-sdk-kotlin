@@ -25,6 +25,7 @@ import dev.merge.client.hris.models.LocationTypeEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Location Object ### Description The `Location` object is used to represent a Location for a Company or Employee address. This is shared across many models and is referenced whenever a location is stored.  ### Usage Example Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
@@ -96,5 +97,49 @@ data class Location (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("phone_number")
+        val phoneNumber: JsonNode?,
+
+        @field:JsonProperty("street_1")
+        val street1: JsonNode?,
+
+        @field:JsonProperty("street_2")
+        val street2: JsonNode?,
+
+        @field:JsonProperty("city")
+        val city: JsonNode?,
+
+        @field:JsonProperty("state")
+        val state: JsonNode?,
+
+        @field:JsonProperty("zip_code")
+        val zipCode: JsonNode?,
+
+        @field:JsonProperty("country")
+        val country: JsonNode?,
+
+        @field:JsonProperty("location_type")
+        val locationType: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

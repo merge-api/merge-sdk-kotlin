@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.AttachmentTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent a attachment for a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
@@ -63,5 +64,31 @@ data class AttachmentRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("file_name")
+        val fileName: JsonNode?,
+
+        @field:JsonProperty("file_url")
+        val fileUrl: JsonNode?,
+
+        @field:JsonProperty("candidate")
+        val candidate: JsonNode?,
+
+        @field:JsonProperty("attachment_type")
+        val attachmentType: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

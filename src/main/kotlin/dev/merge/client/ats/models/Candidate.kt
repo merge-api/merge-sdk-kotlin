@@ -26,6 +26,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.ats.models.Url
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Candidate Object ### Description The `Candidate` object is used to represent a Candidate for various positions. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
@@ -133,5 +134,73 @@ data class Candidate (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("first_name")
+        val firstName: JsonNode?,
+
+        @field:JsonProperty("last_name")
+        val lastName: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
+        @field:JsonProperty("title")
+        val title: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("last_interaction_at")
+        val lastInteractionAt: JsonNode?,
+
+        @field:JsonProperty("is_private")
+        val isPrivate: JsonNode?,
+
+        @field:JsonProperty("can_email")
+        val canEmail: JsonNode?,
+
+        @field:JsonProperty("locations")
+        val locations: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("phone_numbers")
+        val phoneNumbers: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("email_addresses")
+        val emailAddresses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("urls")
+        val urls: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("tags")
+        val tags: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("applications")
+        val applications: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("attachments")
+        val attachments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("custom_fields")
+        val customFields: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

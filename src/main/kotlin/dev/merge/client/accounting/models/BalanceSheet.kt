@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The BalanceSheet Object ### Description The `BalanceSheet` object is used to represent a company's balance sheet.  ### Usage Example Fetch from the `LIST BalanceSheets` endpoint and view a company's balance sheets.
@@ -82,5 +83,43 @@ data class BalanceSheet (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("date")
+        val date: JsonNode?,
+
+        @field:JsonProperty("net_assets")
+        val netAssets: JsonNode?,
+
+        @field:JsonProperty("assets")
+        val assets: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("liabilities")
+        val liabilities: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("equity")
+        val equity: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_generated_at")
+        val remoteGeneratedAt: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

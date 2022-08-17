@@ -77,6 +77,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun groupsList(requestModel: GroupsApi.GroupsListRequest): MergePaginatedResponse<Group> {
+        return groupsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun groupsListExpanded(requestModel: GroupsApi.GroupsListRequest): MergePaginatedResponse<Group.Expanded> {
+        return groupsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> groupsListImpl(requestModel: GroupsApi.GroupsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -121,6 +133,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun groupsRetrieve(requestModel: GroupsApi.GroupsRetrieveRequest): Group {
+        return groupsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun groupsRetrieveExpanded(requestModel: GroupsApi.GroupsRetrieveRequest): Group.Expanded {
+        return groupsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> groupsRetrieveImpl(requestModel: GroupsApi.GroupsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.CategoriesEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -66,5 +67,31 @@ data class EndUserDetailsRequest (
     @field:JsonProperty("should_create_magic_link_url")
     val shouldCreateMagicLinkUrl: kotlin.Boolean? = false
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("end_user_email_address")
+        val endUserEmailAddress: JsonNode?,
+
+        @field:JsonProperty("end_user_organization_name")
+        val endUserOrganizationName: JsonNode?,
+
+        @field:JsonProperty("end_user_origin_id")
+        val endUserOriginId: JsonNode?,
+
+        @field:JsonProperty("categories")
+        val categories: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("integration")
+        val integration: JsonNode?,
+
+        @field:JsonProperty("link_expiry_mins")
+        val linkExpiryMins: JsonNode?,
+
+        @field:JsonProperty("should_create_magic_link_url")
+        val shouldCreateMagicLinkUrl: JsonNode?
+
+    )
+
+}
 

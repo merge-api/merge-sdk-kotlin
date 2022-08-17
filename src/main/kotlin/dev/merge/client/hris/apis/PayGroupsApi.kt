@@ -74,6 +74,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payGroupsList(requestModel: PayGroupsApi.PayGroupsListRequest): MergePaginatedResponse<PayGroup> {
+        return payGroupsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun payGroupsListExpanded(requestModel: PayGroupsApi.PayGroupsListRequest): MergePaginatedResponse<PayGroup.Expanded> {
+        return payGroupsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> payGroupsListImpl(requestModel: PayGroupsApi.PayGroupsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -116,6 +128,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payGroupsRetrieve(requestModel: PayGroupsApi.PayGroupsRetrieveRequest): PayGroup {
+        return payGroupsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun payGroupsRetrieveExpanded(requestModel: PayGroupsApi.PayGroupsRetrieveRequest): PayGroup.Expanded {
+        return payGroupsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> payGroupsRetrieveImpl(requestModel: PayGroupsApi.PayGroupsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

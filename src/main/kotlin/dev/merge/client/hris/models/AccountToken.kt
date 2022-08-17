@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.AccountIntegration
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -39,5 +40,16 @@ data class AccountToken (
     @field:JsonProperty("integration")
     val integration: AccountIntegration
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("account_token")
+        val accountToken: JsonNode?,
+
+        @field:JsonProperty("integration")
+        val integration: JsonNode?
+
+    )
+
+}
 

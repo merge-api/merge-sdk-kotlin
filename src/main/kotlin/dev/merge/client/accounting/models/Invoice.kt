@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.InvoiceTypeEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Invoice Object ### Description The `Invoice` object is used to represent a company's invoices.  ### Usage Example Fetch from the `LIST Invoices` endpoint and view a company's invoices.
@@ -129,5 +130,70 @@ data class Invoice (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("type")
+        val type: JsonNode?,
+
+        @field:JsonProperty("contact")
+        val contact: JsonNode?,
+
+        @field:JsonProperty("number")
+        val number: JsonNode?,
+
+        @field:JsonProperty("issue_date")
+        val issueDate: JsonNode?,
+
+        @field:JsonProperty("due_date")
+        val dueDate: JsonNode?,
+
+        @field:JsonProperty("paid_on_date")
+        val paidOnDate: JsonNode?,
+
+        @field:JsonProperty("memo")
+        val memo: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("total_discount")
+        val totalDiscount: JsonNode?,
+
+        @field:JsonProperty("sub_total")
+        val subTotal: JsonNode?,
+
+        @field:JsonProperty("total_tax_amount")
+        val totalTaxAmount: JsonNode?,
+
+        @field:JsonProperty("total_amount")
+        val totalAmount: JsonNode?,
+
+        @field:JsonProperty("balance")
+        val balance: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("payments")
+        val payments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("line_items")
+        val lineItems: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

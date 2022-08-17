@@ -54,6 +54,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
@@ -65,6 +66,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class AccountsRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
 
@@ -78,6 +80,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountsCreate(requestModel: AccountsApi.AccountsCreateRequest): CRMAccountResponse {
+        return accountsCreateImpl(requestModel)
+    }
+
+    /**
+     * @param crMAccountEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsCreateExpanded(requestModel: AccountsApi.AccountsCreateRequest): CRMAccountResponse.Expanded {
+        return accountsCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountsCreateImpl(requestModel: AccountsApi.AccountsCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -109,6 +123,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
@@ -120,6 +135,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountsList(requestModel: AccountsApi.AccountsListRequest): MergePaginatedResponse<Account> {
+        return accountsListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param ownerId If provided, will only return accounts with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsListExpanded(requestModel: AccountsApi.AccountsListRequest): MergePaginatedResponse<Account.Expanded> {
+        return accountsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountsListImpl(requestModel: AccountsApi.AccountsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -130,6 +157,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
@@ -161,6 +189,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountsMetaPostRetrieve(): MetaResponse {
+        return accountsMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return accountsMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> accountsMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -189,11 +229,24 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns an &#x60;Account&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @return Account
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountsRetrieve(requestModel: AccountsApi.AccountsRetrieveRequest): Account {
+        return accountsRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsRetrieveExpanded(requestModel: AccountsApi.AccountsRetrieveRequest): Account.Expanded {
+        return accountsRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountsRetrieveImpl(requestModel: AccountsApi.AccountsRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -201,6 +254,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()

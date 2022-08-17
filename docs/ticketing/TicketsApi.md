@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="ticketsCollaboratorsList"></a>
 # **ticketsCollaboratorsList**
-> PaginatedUserList ticketsCollaboratorsList(id, cursor, includeRemoteData, pageSize)
+> PaginatedUserList ticketsCollaboratorsList(id, cursor, expand, includeRemoteData, pageSize)
 
 
 
@@ -28,10 +28,11 @@ Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
 val apiInstance = TicketsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = teams // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 try {
-    val result : PaginatedUserList = apiInstance.ticketsCollaboratorsList(id, cursor, includeRemoteData, pageSize)
+    val result : PaginatedUserList = apiInstance.ticketsCollaboratorsList(id, cursor, expand, includeRemoteData, pageSize)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TicketsApi#ticketsCollaboratorsList")
@@ -48,6 +49,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: teams]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
 
@@ -127,7 +129,7 @@ Configure bearerAuth:
 
 <a name="ticketsList"></a>
 # **ticketsList**
-> PaginatedTicketList ticketsList(accountId, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, projectId, remoteFields, remoteId)
+> PaginatedTicketList ticketsList(accountId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, projectId, remoteFields, remoteId)
 
 
 
@@ -144,6 +146,7 @@ val accountId : kotlin.String = accountId_example // kotlin.String | If provided
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = attachments,assignees,project,account,contact,parent_ticket // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
@@ -153,7 +156,7 @@ val projectId : kotlin.String = projectId_example // kotlin.String | If provided
 val remoteFields : kotlin.String = status // kotlin.String | Which fields should be returned in non-normalized form.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedTicketList = apiInstance.ticketsList(accountId, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, projectId, remoteFields, remoteId)
+    val result : PaginatedTicketList = apiInstance.ticketsList(accountId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, projectId, remoteFields, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TicketsApi#ticketsList")
@@ -172,6 +175,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: account, account,contact, account,contact,parent_ticket, account,parent_ticket, assignees, assignees,account, assignees,account,contact, assignees,account,contact,parent_ticket, assignees,account,parent_ticket, assignees,contact, assignees,contact,parent_ticket, assignees,parent_ticket, assignees,project, assignees,project,account, assignees,project,account,contact, assignees,project,account,contact,parent_ticket, assignees,project,account,parent_ticket, assignees,project,contact, assignees,project,contact,parent_ticket, assignees,project,parent_ticket, attachments, attachments,account, attachments,account,contact, attachments,account,contact,parent_ticket, attachments,account,parent_ticket, attachments,assignees, attachments,assignees,account, attachments,assignees,account,contact, attachments,assignees,account,contact,parent_ticket, attachments,assignees,account,parent_ticket, attachments,assignees,contact, attachments,assignees,contact,parent_ticket, attachments,assignees,parent_ticket, attachments,assignees,project, attachments,assignees,project,account, attachments,assignees,project,account,contact, attachments,assignees,project,account,contact,parent_ticket, attachments,assignees,project,account,parent_ticket, attachments,assignees,project,contact, attachments,assignees,project,contact,parent_ticket, attachments,assignees,project,parent_ticket, attachments,contact, attachments,contact,parent_ticket, attachments,parent_ticket, attachments,project, attachments,project,account, attachments,project,account,contact, attachments,project,account,contact,parent_ticket, attachments,project,account,parent_ticket, attachments,project,contact, attachments,project,contact,parent_ticket, attachments,project,parent_ticket, contact, contact,parent_ticket, parent_ticket, project, project,account, project,account,contact, project,account,contact,parent_ticket, project,account,parent_ticket, project,contact, project,contact,parent_ticket, project,parent_ticket]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
@@ -249,7 +253,7 @@ Configure bearerAuth:
 
 <a name="ticketsRetrieve"></a>
 # **ticketsRetrieve**
-> Ticket ticketsRetrieve(id, includeRemoteData, remoteFields)
+> Ticket ticketsRetrieve(id, expand, includeRemoteData, remoteFields)
 
 
 
@@ -263,10 +267,11 @@ Returns a &#x60;Ticket&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = TicketsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = attachments,assignees,project,account,contact,parent_ticket // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val remoteFields : kotlin.String = status // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : Ticket = apiInstance.ticketsRetrieve(id, includeRemoteData, remoteFields)
+    val result : Ticket = apiInstance.ticketsRetrieve(id, expand, includeRemoteData, remoteFields)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TicketsApi#ticketsRetrieve")
@@ -282,6 +287,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: account, account,contact, account,contact,parent_ticket, account,parent_ticket, assignees, assignees,account, assignees,account,contact, assignees,account,contact,parent_ticket, assignees,account,parent_ticket, assignees,contact, assignees,contact,parent_ticket, assignees,parent_ticket, assignees,project, assignees,project,account, assignees,project,account,contact, assignees,project,account,contact,parent_ticket, assignees,project,account,parent_ticket, assignees,project,contact, assignees,project,contact,parent_ticket, assignees,project,parent_ticket, attachments, attachments,account, attachments,account,contact, attachments,account,contact,parent_ticket, attachments,account,parent_ticket, attachments,assignees, attachments,assignees,account, attachments,assignees,account,contact, attachments,assignees,account,contact,parent_ticket, attachments,assignees,account,parent_ticket, attachments,assignees,contact, attachments,assignees,contact,parent_ticket, attachments,assignees,parent_ticket, attachments,assignees,project, attachments,assignees,project,account, attachments,assignees,project,account,contact, attachments,assignees,project,account,contact,parent_ticket, attachments,assignees,project,account,parent_ticket, attachments,assignees,project,contact, attachments,assignees,project,contact,parent_ticket, attachments,assignees,project,parent_ticket, attachments,contact, attachments,contact,parent_ticket, attachments,parent_ticket, attachments,project, attachments,project,account, attachments,project,account,contact, attachments,project,account,contact,parent_ticket, attachments,project,account,parent_ticket, attachments,project,contact, attachments,project,contact,parent_ticket, attachments,project,parent_ticket, contact, contact,parent_ticket, parent_ticket, project, project,account, project,account,contact, project,account,contact,parent_ticket, project,account,parent_ticket, project,contact, project,contact,parent_ticket, project,parent_ticket]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: status]
 

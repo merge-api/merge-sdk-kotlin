@@ -26,6 +26,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.hris.models.Tax
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent a payroll run for a specific employee.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
@@ -97,5 +98,52 @@ data class EmployeePayrollRun (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee")
+        val employee: JsonNode?,
+
+        @field:JsonProperty("payroll_run")
+        val payrollRun: JsonNode?,
+
+        @field:JsonProperty("gross_pay")
+        val grossPay: JsonNode?,
+
+        @field:JsonProperty("net_pay")
+        val netPay: JsonNode?,
+
+        @field:JsonProperty("start_date")
+        val startDate: JsonNode?,
+
+        @field:JsonProperty("end_date")
+        val endDate: JsonNode?,
+
+        @field:JsonProperty("check_date")
+        val checkDate: JsonNode?,
+
+        @field:JsonProperty("earnings")
+        val earnings: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("deductions")
+        val deductions: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("taxes")
+        val taxes: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

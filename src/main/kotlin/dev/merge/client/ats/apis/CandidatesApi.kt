@@ -61,6 +61,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val firstName: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
@@ -73,6 +74,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class CandidatesRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
 
@@ -86,6 +88,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesCreate(requestModel: CandidatesApi.CandidatesCreateRequest): CandidateResponse {
+        return candidatesCreateImpl(requestModel)
+    }
+
+    /**
+     * @param candidateEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesCreateExpanded(requestModel: CandidatesApi.CandidatesCreateRequest): CandidateResponse.Expanded {
+        return candidatesCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesCreateImpl(requestModel: CandidatesApi.CandidatesCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -120,6 +134,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesIgnoreCreate(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): IgnoreCommonModel {
+        return candidatesIgnoreCreateImpl(requestModel)
+    }
+
+    /**
+     * @param modelId   * @param ignoreCommonModelRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesIgnoreCreateExpanded(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+        return candidatesIgnoreCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesIgnoreCreateImpl(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -149,6 +175,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param firstName If provided, will only return candidates with this first name. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
@@ -161,6 +188,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesList(requestModel: CandidatesApi.CandidatesListRequest): MergePaginatedResponse<Candidate> {
+        return candidatesListImpl(requestModel)
+    }
+
+    /**
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesListExpanded(requestModel: CandidatesApi.CandidatesListRequest): MergePaginatedResponse<Candidate.Expanded> {
+        return candidatesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesListImpl(requestModel: CandidatesApi.CandidatesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -171,6 +210,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.firstName?.apply { localVariableQuery["first_name"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
@@ -203,6 +243,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesMetaPostRetrieve(): MetaResponse {
+        return candidatesMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return candidatesMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> candidatesMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -231,11 +283,24 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns a &#x60;Candidate&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @return Candidate
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesRetrieve(requestModel: CandidatesApi.CandidatesRetrieveRequest): Candidate {
+        return candidatesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesRetrieveExpanded(requestModel: CandidatesApi.CandidatesRetrieveRequest): Candidate.Expanded {
+        return candidatesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesRetrieveImpl(requestModel: CandidatesApi.CandidatesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -243,6 +308,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()

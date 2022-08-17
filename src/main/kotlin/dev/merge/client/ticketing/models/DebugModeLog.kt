@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.ticketing.models.DebugModelLogSummary
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -43,5 +44,19 @@ data class DebugModeLog (
     @field:JsonProperty("log_summary")
     val logSummary: DebugModelLogSummary
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("log_id")
+        val logId: JsonNode?,
+
+        @field:JsonProperty("dashboard_view")
+        val dashboardView: JsonNode?,
+
+        @field:JsonProperty("log_summary")
+        val logSummary: JsonNode?
+
+    )
+
+}
 

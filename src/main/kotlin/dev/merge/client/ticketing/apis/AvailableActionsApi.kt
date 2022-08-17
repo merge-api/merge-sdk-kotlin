@@ -48,6 +48,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun availableActionsRetrieve(): AvailableActions {
+        return availableActionsRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun availableActionsRetrieveExpanded(): AvailableActions.Expanded {
+        return availableActionsRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> availableActionsRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

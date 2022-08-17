@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Lead Object ### Description The `Lead` object is used to represent a lead in the remote system. ### Usage Example TODO
@@ -95,5 +96,52 @@ data class LeadRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("owner")
+        val owner: JsonNode?,
+
+        @field:JsonProperty("lead_source")
+        val leadSource: JsonNode?,
+
+        @field:JsonProperty("title")
+        val title: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
+        @field:JsonProperty("first_name")
+        val firstName: JsonNode?,
+
+        @field:JsonProperty("last_name")
+        val lastName: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("converted_date")
+        val convertedDate: JsonNode?,
+
+        @field:JsonProperty("converted_contact")
+        val convertedContact: JsonNode?,
+
+        @field:JsonProperty("converted_account")
+        val convertedAccount: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

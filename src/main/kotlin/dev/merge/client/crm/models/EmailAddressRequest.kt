@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent an entity's email address. ### Usage Example Fetch from the `GET Contact` endpoint and view their email addresses.
@@ -40,5 +41,16 @@ data class EmailAddressRequest (
     @field:JsonProperty("email_address_type")
     val emailAddressType: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("email_address")
+        val emailAddress: JsonNode?,
+
+        @field:JsonProperty("email_address_type")
+        val emailAddressType: JsonNode?
+
+    )
+
+}
 

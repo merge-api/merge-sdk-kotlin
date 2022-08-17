@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The ExpenseLine Object ### Description The `ExpenseLine` object is used to represent an expense's line items.  ### Usage Example Fetch from the `GET Expense` endpoint and view the expense's line items.
@@ -58,5 +59,28 @@ data class ExpenseLine (
     @field:JsonProperty("description")
     val description: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("item")
+        val item: JsonNode?,
+
+        @field:JsonProperty("net_amount")
+        val netAmount: JsonNode?,
+
+        @field:JsonProperty("tracking_category")
+        val trackingCategory: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?
+
+    )
+
+}
 

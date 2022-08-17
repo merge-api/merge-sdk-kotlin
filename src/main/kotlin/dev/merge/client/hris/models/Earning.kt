@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.EarningTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Earning Object ### Description The `Earning` object is used to represent an earning for a given employee's payroll run. One run could include several earnings.  ### Usage Example Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
@@ -54,5 +55,25 @@ data class Earning (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("employee_payroll_run")
+        val employeePayrollRun: JsonNode?,
+
+        @field:JsonProperty("amount")
+        val amount: JsonNode?,
+
+        @field:JsonProperty("type")
+        val type: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

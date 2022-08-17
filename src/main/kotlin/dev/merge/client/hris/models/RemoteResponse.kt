@@ -22,6 +22,7 @@ package dev.merge.client.hris.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The RemoteResponse Object ### Description The `RemoteResponse` object is used to represent information returned from a third-party endpoint.  ### Usage Example View the `RemoteResponse` returned from your `DataPassthrough`.
@@ -54,5 +55,28 @@ data class RemoteResponse (
     @field:JsonProperty("headers")
     val headers: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("method")
+        val method: JsonNode?,
+
+        @field:JsonProperty("path")
+        val path: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("response")
+        val response: JsonNode?,
+
+        @field:JsonProperty("response_headers")
+        val responseHeaders: JsonNode?,
+
+        @field:JsonProperty("headers")
+        val headers: JsonNode?
+
+    )
+
+}
 

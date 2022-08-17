@@ -22,6 +22,7 @@ package dev.merge.client.ticketing.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Comment Object ### Description The `Comment` object is used to represent a comment on a ticket.  ### Usage Example TODO
@@ -67,5 +68,34 @@ data class CommentRequest (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("user")
+        val user: JsonNode?,
+
+        @field:JsonProperty("contact")
+        val contact: JsonNode?,
+
+        @field:JsonProperty("body")
+        val body: JsonNode?,
+
+        @field:JsonProperty("html_body")
+        val htmlBody: JsonNode?,
+
+        @field:JsonProperty("ticket")
+        val ticket: JsonNode?,
+
+        @field:JsonProperty("is_private")
+        val isPrivate: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?
+
+    )
+
+}
 

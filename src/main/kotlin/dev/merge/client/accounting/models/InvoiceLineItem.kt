@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object is used to represent an invoice's line items.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
@@ -71,5 +72,37 @@ data class InvoiceLineItem (
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("unit_price")
+        val unitPrice: JsonNode?,
+
+        @field:JsonProperty("quantity")
+        val quantity: JsonNode?,
+
+        @field:JsonProperty("total_amount")
+        val totalAmount: JsonNode?,
+
+        @field:JsonProperty("item")
+        val item: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("tracking_category")
+        val trackingCategory: JsonNode?
+
+    )
+
+}
 

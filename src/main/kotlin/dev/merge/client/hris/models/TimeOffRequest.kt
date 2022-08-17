@@ -25,6 +25,7 @@ import dev.merge.client.hris.models.TimeOffStatusEnum
 import dev.merge.client.hris.models.UnitsEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
@@ -81,5 +82,40 @@ data class TimeOffRequest (
     @field:JsonProperty("end_time")
     val endTime: java.time.OffsetDateTime? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee")
+        val employee: JsonNode?,
+
+        @field:JsonProperty("approver")
+        val approver: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("employee_note")
+        val employeeNote: JsonNode?,
+
+        @field:JsonProperty("units")
+        val units: JsonNode?,
+
+        @field:JsonProperty("amount")
+        val amount: JsonNode?,
+
+        @field:JsonProperty("request_type")
+        val requestType: JsonNode?,
+
+        @field:JsonProperty("start_time")
+        val startTime: JsonNode?,
+
+        @field:JsonProperty("end_time")
+        val endTime: JsonNode?
+
+    )
+
+}
 

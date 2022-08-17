@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.ReasonEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -39,5 +40,16 @@ data class IgnoreCommonModel (
     @field:JsonProperty("message")
     val message: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("reason")
+        val reason: JsonNode?,
+
+        @field:JsonProperty("message")
+        val message: JsonNode?
+
+    )
+
+}
 

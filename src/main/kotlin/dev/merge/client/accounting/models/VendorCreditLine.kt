@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The VendorCreditLine Object ### Description The `VendorCreditLine` object is used to represent a vendor credit's line items.  ### Usage Example Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
@@ -55,5 +56,25 @@ data class VendorCreditLine (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("net_amount")
+        val netAmount: JsonNode?,
+
+        @field:JsonProperty("tracking_category")
+        val trackingCategory: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?
+
+    )
+
+}
 

@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The ReportItem Object ### Description The `ReportItem` object is used to represent a report item for a Balance Sheet, Cash Flow Statement or Profit and Loss Report.  ### Usage Example Fetch from the `GET BalanceSheet` endpoint and view the balance sheet's report items.
@@ -49,5 +50,22 @@ data class ReportItem (
     @field:JsonProperty("sub_items")
     val subItems: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("value")
+        val `value`: JsonNode?,
+
+        @field:JsonProperty("sub_items")
+        val subItems: JsonNode?
+
+    )
+
+}
 

@@ -53,6 +53,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountTokenRetrieve(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): AccountToken {
+        return accountTokenRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param publicToken  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountTokenRetrieveExpanded(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): AccountToken.Expanded {
+        return accountTokenRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountTokenRetrieveImpl(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 

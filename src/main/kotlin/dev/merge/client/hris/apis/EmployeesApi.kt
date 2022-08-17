@@ -64,6 +64,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val cursor: kotlin.String? = null,
         val displayFullName: kotlin.String? = null,
         val employmentStatus: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val firstName: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
@@ -84,6 +85,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class EmployeesRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val includeSensitiveFields: kotlin.Boolean? = null,
         val remoteFields: kotlin.String? = null
@@ -99,6 +101,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesCreate(requestModel: EmployeesApi.EmployeesCreateRequest): EmployeeResponse {
+        return employeesCreateImpl(requestModel)
+    }
+
+    /**
+     * @param employeeEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeesCreateExpanded(requestModel: EmployeesApi.EmployeesCreateRequest): EmployeeResponse.Expanded {
+        return employeesCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeesCreateImpl(requestModel: EmployeesApi.EmployeesCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -133,6 +147,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesIgnoreCreate(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel {
+        return employeesIgnoreCreateImpl(requestModel)
+    }
+
+    /**
+     * @param modelId   * @param ignoreCommonModelRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeesIgnoreCreateExpanded(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+        return employeesIgnoreCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeesIgnoreCreateImpl(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -165,6 +191,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param cursor The pagination cursor value. (optional)
      * @param displayFullName If provided, will only return employees with this display name. (optional)
      * @param employmentStatus If provided, will only return employees with this employment status. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param firstName If provided, will only return employees with this first name. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
@@ -185,6 +212,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesList(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee> {
+        return employeesListImpl(requestModel)
+    }
+
+    /**
+     * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeesListExpanded(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee.Expanded> {
+        return employeesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeesListImpl(requestModel: EmployeesApi.EmployeesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -198,6 +237,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
             requestModel.displayFullName?.apply { localVariableQuery["display_full_name"] = listOf(this) }
             requestModel.employmentStatus?.apply { localVariableQuery["employment_status"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.firstName?.apply { localVariableQuery["first_name"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
@@ -238,6 +278,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesMetaPostRetrieve(): MetaResponse {
+        return employeesMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return employeesMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> employeesMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -266,6 +318,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns an &#x60;Employee&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional)
      * @param remoteFields Which fields should be returned in non-normalized form. (optional)
@@ -273,6 +326,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesRetrieve(requestModel: EmployeesApi.EmployeesRetrieveRequest): Employee {
+        return employeesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun employeesRetrieveExpanded(requestModel: EmployeesApi.EmployeesRetrieveRequest): Employee.Expanded {
+        return employeesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> employeesRetrieveImpl(requestModel: EmployeesApi.EmployeesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -280,6 +345,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.includeSensitiveFields?.apply { localVariableQuery["include_sensitive_fields"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }

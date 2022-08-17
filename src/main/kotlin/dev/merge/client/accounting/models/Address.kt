@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.CountryEnum
 import dev.merge.client.accounting.models.StateEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Address Object ### Description The `Address` object is used to represent a contact's or company's address.  ### Usage Example Fetch from the `GET CompanyInfo` endpoint and view the company's addresses.
@@ -68,5 +69,31 @@ data class Address (
     @field:JsonProperty("zip_code")
     val zipCode: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("type")
+        val type: JsonNode?,
+
+        @field:JsonProperty("street_1")
+        val street1: JsonNode?,
+
+        @field:JsonProperty("street_2")
+        val street2: JsonNode?,
+
+        @field:JsonProperty("city")
+        val city: JsonNode?,
+
+        @field:JsonProperty("state")
+        val state: JsonNode?,
+
+        @field:JsonProperty("country")
+        val country: JsonNode?,
+
+        @field:JsonProperty("zip_code")
+        val zipCode: JsonNode?
+
+    )
+
+}
 

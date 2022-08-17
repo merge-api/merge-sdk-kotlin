@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="employeePayrollRunsList"></a>
 # **employeePayrollRunsList**
-> PaginatedEmployeePayrollRunList employeePayrollRunsList(createdAfter, createdBefore, cursor, employeeId, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, payrollRunId, remoteId, startedAfter, startedBefore)
+> PaginatedEmployeePayrollRunList employeePayrollRunsList(createdAfter, createdBefore, cursor, employeeId, endedAfter, endedBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, payrollRunId, remoteId, startedAfter, startedBefore)
 
 
 
@@ -29,6 +29,7 @@ val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCU
 val employeeId : kotlin.String = employeeId_example // kotlin.String | If provided, will only return employee payroll runs for this employee.
 val endedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return employee payroll runs ended after this datetime.
 val endedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return employee payroll runs ended before this datetime.
+val expand : kotlin.String = employee,payroll_run // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
@@ -39,7 +40,7 @@ val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provi
 val startedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return employee payroll runs started after this datetime.
 val startedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return employee payroll runs started before this datetime.
 try {
-    val result : PaginatedEmployeePayrollRunList = apiInstance.employeePayrollRunsList(createdAfter, createdBefore, cursor, employeeId, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, payrollRunId, remoteId, startedAfter, startedBefore)
+    val result : PaginatedEmployeePayrollRunList = apiInstance.employeePayrollRunsList(createdAfter, createdBefore, cursor, employeeId, endedAfter, endedBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, payrollRunId, remoteId, startedAfter, startedBefore)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling EmployeePayrollRunsApi#employeePayrollRunsList")
@@ -60,6 +61,7 @@ Name | Type | Description  | Notes
  **employeeId** | **kotlin.String**| If provided, will only return employee payroll runs for this employee. | [optional]
  **endedAfter** | **java.time.OffsetDateTime**| If provided, will only return employee payroll runs ended after this datetime. | [optional]
  **endedBefore** | **java.time.OffsetDateTime**| If provided, will only return employee payroll runs ended before this datetime. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: employee, employee,payroll_run, payroll_run]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
@@ -90,7 +92,7 @@ Configure bearerAuth:
 
 <a name="employeePayrollRunsRetrieve"></a>
 # **employeePayrollRunsRetrieve**
-> EmployeePayrollRun employeePayrollRunsRetrieve(id, includeRemoteData)
+> EmployeePayrollRun employeePayrollRunsRetrieve(id, expand, includeRemoteData)
 
 
 
@@ -104,9 +106,10 @@ Returns an &#x60;EmployeePayrollRun&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = EmployeePayrollRunsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = employee,payroll_run // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 try {
-    val result : EmployeePayrollRun = apiInstance.employeePayrollRunsRetrieve(id, includeRemoteData)
+    val result : EmployeePayrollRun = apiInstance.employeePayrollRunsRetrieve(id, expand, includeRemoteData)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling EmployeePayrollRunsApi#employeePayrollRunsRetrieve")
@@ -122,6 +125,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: employee, employee,payroll_run, payroll_run]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
 
 ### Return type

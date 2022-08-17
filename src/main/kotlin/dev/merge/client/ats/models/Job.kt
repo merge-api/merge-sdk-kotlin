@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.ats.models.Url
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Job Object ### Description The `Job` object is used to represent a Job offering at a company. ### Usage Example Fetch from the `LIST Jobs` endpoint to show all job postings.
@@ -110,5 +111,58 @@ data class Job (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("code")
+        val code: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("job_posting_urls")
+        val jobPostingUrls: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("confidential")
+        val confidential: JsonNode?,
+
+        @field:JsonProperty("departments")
+        val departments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("offices")
+        val offices: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("hiring_managers")
+        val hiringManagers: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("recruiters")
+        val recruiters: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.PurchaseOrderStatusEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The PurchaseOrder Object ### Description The `PurchaseOrder` object is used to represent a company's purchase orders.  ### Usage Example Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
@@ -111,5 +112,58 @@ data class PurchaseOrder (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("issue_date")
+        val issueDate: JsonNode?,
+
+        @field:JsonProperty("delivery_date")
+        val deliveryDate: JsonNode?,
+
+        @field:JsonProperty("delivery_address")
+        val deliveryAddress: JsonNode?,
+
+        @field:JsonProperty("customer")
+        val customer: JsonNode?,
+
+        @field:JsonProperty("vendor")
+        val vendor: JsonNode?,
+
+        @field:JsonProperty("memo")
+        val memo: JsonNode?,
+
+        @field:JsonProperty("total_amount")
+        val totalAmount: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("line_items")
+        val lineItems: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

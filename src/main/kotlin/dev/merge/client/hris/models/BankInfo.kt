@@ -24,6 +24,7 @@ import dev.merge.client.hris.models.AccountTypeEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The BankInfo Object ### Description The `BankInfo` object is used to represent the Bank Account information for an Employee. This is often referenced with an Employee object.  ### Usage Example Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
@@ -79,5 +80,40 @@ data class BankInfo (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee")
+        val employee: JsonNode?,
+
+        @field:JsonProperty("account_number")
+        val accountNumber: JsonNode?,
+
+        @field:JsonProperty("routing_number")
+        val routingNumber: JsonNode?,
+
+        @field:JsonProperty("bank_name")
+        val bankName: JsonNode?,
+
+        @field:JsonProperty("account_type")
+        val accountType: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

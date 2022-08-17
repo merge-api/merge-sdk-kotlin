@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.ActivityTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Engagement Type Object ### Description The `Engagement Type` object is used to represent the type of an engagement in the remote system. ### Usage Example TODO
@@ -50,5 +51,22 @@ data class EngagementType (
     @field:JsonProperty("name")
     val name: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("activity_type")
+        val activityType: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?
+
+    )
+
+}
 

@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.Status7d1Enum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent a Contact. This can be either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
@@ -101,5 +102,52 @@ data class Contact (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("is_supplier")
+        val isSupplier: JsonNode?,
+
+        @field:JsonProperty("is_customer")
+        val isCustomer: JsonNode?,
+
+        @field:JsonProperty("email_address")
+        val emailAddress: JsonNode?,
+
+        @field:JsonProperty("tax_number")
+        val taxNumber: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("addresses")
+        val addresses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("phone_numbers")
+        val phoneNumbers: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

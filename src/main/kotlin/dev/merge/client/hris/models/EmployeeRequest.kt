@@ -26,6 +26,7 @@ import dev.merge.client.hris.models.GenderEnum
 import dev.merge.client.hris.models.MaritalStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Employee Object ### Description The `Employee` object is used to represent an Employee for a company.  ### Usage Example Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
@@ -173,5 +174,97 @@ data class EmployeeRequest (
     @field:JsonProperty("custom_fields")
     val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee_number")
+        val employeeNumber: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
+        @field:JsonProperty("first_name")
+        val firstName: JsonNode?,
+
+        @field:JsonProperty("last_name")
+        val lastName: JsonNode?,
+
+        @field:JsonProperty("display_full_name")
+        val displayFullName: JsonNode?,
+
+        @field:JsonProperty("username")
+        val username: JsonNode?,
+
+        @field:JsonProperty("groups")
+        val groups: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("work_email")
+        val workEmail: JsonNode?,
+
+        @field:JsonProperty("personal_email")
+        val personalEmail: JsonNode?,
+
+        @field:JsonProperty("mobile_phone_number")
+        val mobilePhoneNumber: JsonNode?,
+
+        @field:JsonProperty("employments")
+        val employments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("home_location")
+        val homeLocation: JsonNode?,
+
+        @field:JsonProperty("work_location")
+        val workLocation: JsonNode?,
+
+        @field:JsonProperty("manager")
+        val manager: JsonNode?,
+
+        @field:JsonProperty("team")
+        val team: JsonNode?,
+
+        @field:JsonProperty("pay_group")
+        val payGroup: JsonNode?,
+
+        @field:JsonProperty("ssn")
+        val ssn: JsonNode?,
+
+        @field:JsonProperty("gender")
+        val gender: JsonNode?,
+
+        @field:JsonProperty("ethnicity")
+        val ethnicity: JsonNode?,
+
+        @field:JsonProperty("marital_status")
+        val maritalStatus: JsonNode?,
+
+        @field:JsonProperty("date_of_birth")
+        val dateOfBirth: JsonNode?,
+
+        @field:JsonProperty("hire_date")
+        val hireDate: JsonNode?,
+
+        @field:JsonProperty("start_date")
+        val startDate: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("employment_status")
+        val employmentStatus: JsonNode?,
+
+        @field:JsonProperty("termination_date")
+        val terminationDate: JsonNode?,
+
+        @field:JsonProperty("avatar")
+        val avatar: JsonNode?,
+
+        @field:JsonProperty("custom_fields")
+        val customFields: JsonNode?
+
+    )
+
+}
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="teamsList"></a>
 # **teamsList**
-> PaginatedTeamList teamsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTeamId, remoteId)
+> PaginatedTeamList teamsList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTeamId, remoteId)
 
 
 
@@ -26,6 +26,7 @@ val apiInstance = TeamsApi()
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = parent_team // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
@@ -34,7 +35,7 @@ val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per p
 val parentTeamId : kotlin.String = parentTeamId_example // kotlin.String | If provided, will only return teams with this parent team.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedTeamList = apiInstance.teamsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTeamId, remoteId)
+    val result : PaginatedTeamList = apiInstance.teamsList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTeamId, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TeamsApi#teamsList")
@@ -52,6 +53,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: parent_team]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
@@ -80,7 +82,7 @@ Configure bearerAuth:
 
 <a name="teamsRetrieve"></a>
 # **teamsRetrieve**
-> Team teamsRetrieve(id, includeRemoteData)
+> Team teamsRetrieve(id, expand, includeRemoteData)
 
 
 
@@ -94,9 +96,10 @@ Returns a &#x60;Team&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = TeamsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = parent_team // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 try {
-    val result : Team = apiInstance.teamsRetrieve(id, includeRemoteData)
+    val result : Team = apiInstance.teamsRetrieve(id, expand, includeRemoteData)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TeamsApi#teamsRetrieve")
@@ -112,6 +115,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: parent_team]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
 
 ### Return type

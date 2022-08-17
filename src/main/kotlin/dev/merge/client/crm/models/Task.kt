@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.crm.models.TaskStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Task Object ### Description The `Task` object is used to represent a task in the remote system. ### Usage Example TODO
@@ -83,5 +84,43 @@ data class Task (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("subject")
+        val subject: JsonNode?,
+
+        @field:JsonProperty("content")
+        val content: JsonNode?,
+
+        @field:JsonProperty("owner")
+        val owner: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("completed_date")
+        val completedDate: JsonNode?,
+
+        @field:JsonProperty("due_date")
+        val dueDate: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

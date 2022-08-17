@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.AccountRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -35,5 +36,13 @@ data class CRMAccountEndpointRequest (
     @field:JsonProperty("model")
     val model: AccountRequest
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?
+
+    )
+
+}
 

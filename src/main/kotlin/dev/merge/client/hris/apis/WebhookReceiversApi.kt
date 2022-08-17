@@ -54,6 +54,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun webhookReceiversCreate(requestModel: WebhookReceiversApi.WebhookReceiversCreateRequest): WebhookReceiver {
+        return webhookReceiversCreateImpl(requestModel)
+    }
+
+    /**
+     * @param webhookReceiverRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun webhookReceiversCreateExpanded(requestModel: WebhookReceiversApi.WebhookReceiversCreateRequest): WebhookReceiver.Expanded {
+        return webhookReceiversCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> webhookReceiversCreateImpl(requestModel: WebhookReceiversApi.WebhookReceiversCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -84,6 +96,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun webhookReceiversList(): kotlin.collections.List<WebhookReceiver> {
+        return webhookReceiversListImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun webhookReceiversListExpanded(): kotlin.collections.List<WebhookReceiver.Expanded> {
+        return webhookReceiversListImpl()
+    }
+
+    private suspend inline fun <reified T> webhookReceiversListImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

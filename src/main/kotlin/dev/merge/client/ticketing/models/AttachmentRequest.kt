@@ -22,6 +22,7 @@ package dev.merge.client.ticketing.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
@@ -63,5 +64,31 @@ data class AttachmentRequest (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("file_name")
+        val fileName: JsonNode?,
+
+        @field:JsonProperty("ticket")
+        val ticket: JsonNode?,
+
+        @field:JsonProperty("file_url")
+        val fileUrl: JsonNode?,
+
+        @field:JsonProperty("content_type")
+        val contentType: JsonNode?,
+
+        @field:JsonProperty("uploaded_by")
+        val uploadedBy: JsonNode?,
+
+        @field:JsonProperty("remote_created_at")
+        val remoteCreatedAt: JsonNode?
+
+    )
+
+}
 

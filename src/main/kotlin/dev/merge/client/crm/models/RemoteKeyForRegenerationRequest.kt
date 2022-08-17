@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The RemoteKeyForRegeneration Object ### Description The `RemoteKeyForRegeneration` object is used to exchange an old remote key for a new one  ### Usage Example Post a `RemoteKeyForRegeneration` to swap out an old remote key for a new one
@@ -34,5 +35,13 @@ data class RemoteKeyForRegenerationRequest (
     @field:JsonProperty("name")
     val name: kotlin.String
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?
+
+    )
+
+}
 

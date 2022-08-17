@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Application Object ### Description The `Application` object is used to represent an Application for a job position. This is separate from the Candidate object, although some systems may only allow a Candidate to have one Application.  Please note: Application objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
@@ -87,5 +88,49 @@ data class ApplicationRequest (
     @field:JsonProperty("linked_account_params")
     val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("candidate")
+        val candidate: JsonNode?,
+
+        @field:JsonProperty("job")
+        val job: JsonNode?,
+
+        @field:JsonProperty("applied_at")
+        val appliedAt: JsonNode?,
+
+        @field:JsonProperty("rejected_at")
+        val rejectedAt: JsonNode?,
+
+        @field:JsonProperty("source")
+        val source: JsonNode?,
+
+        @field:JsonProperty("credited_to")
+        val creditedTo: JsonNode?,
+
+        @field:JsonProperty("current_stage")
+        val currentStage: JsonNode?,
+
+        @field:JsonProperty("reject_reason")
+        val rejectReason: JsonNode?,
+
+        @field:JsonProperty("custom_fields")
+        val customFields: JsonNode?,
+
+        @field:JsonProperty("remote_template_id")
+        val remoteTemplateId: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
+
+    )
+
+}
 

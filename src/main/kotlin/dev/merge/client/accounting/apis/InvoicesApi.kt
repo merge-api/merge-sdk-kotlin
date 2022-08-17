@@ -55,6 +55,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
@@ -67,6 +68,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class InvoicesRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val remoteFields: kotlin.String? = null
     )
@@ -81,6 +83,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesCreate(requestModel: InvoicesApi.InvoicesCreateRequest): InvoiceResponse {
+        return invoicesCreateImpl(requestModel)
+    }
+
+    /**
+     * @param invoiceEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun invoicesCreateExpanded(requestModel: InvoicesApi.InvoicesCreateRequest): InvoiceResponse.Expanded {
+        return invoicesCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> invoicesCreateImpl(requestModel: InvoicesApi.InvoicesCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -113,6 +127,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
@@ -125,6 +140,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesList(requestModel: InvoicesApi.InvoicesListRequest): MergePaginatedResponse<Invoice> {
+        return invoicesListImpl(requestModel)
+    }
+
+    /**
+     * @param contactId If provided, will only return invoices for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param type If provided, will only return Invoices with this type (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun invoicesListExpanded(requestModel: InvoicesApi.InvoicesListRequest): MergePaginatedResponse<Invoice.Expanded> {
+        return invoicesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> invoicesListImpl(requestModel: InvoicesApi.InvoicesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -136,6 +163,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
@@ -168,6 +196,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesMetaPostRetrieve(): MetaResponse {
+        return invoicesMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun invoicesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return invoicesMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> invoicesMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -196,12 +236,25 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns an &#x60;Invoice&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param remoteFields Which fields should be returned in non-normalized form. (optional)
      * @return Invoice
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesRetrieve(requestModel: InvoicesApi.InvoicesRetrieveRequest): Invoice {
+        return invoicesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun invoicesRetrieveExpanded(requestModel: InvoicesApi.InvoicesRetrieveRequest): Invoice.Expanded {
+        return invoicesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> invoicesRetrieveImpl(requestModel: InvoicesApi.InvoicesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -209,6 +262,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
 

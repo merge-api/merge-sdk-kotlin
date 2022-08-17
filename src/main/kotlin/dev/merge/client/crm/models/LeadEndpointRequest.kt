@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.LeadRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -35,5 +36,13 @@ data class LeadEndpointRequest (
     @field:JsonProperty("model")
     val model: LeadRequest
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?
+
+    )
+
+}
 

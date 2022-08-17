@@ -25,6 +25,7 @@ import dev.merge.client.hris.models.RunStateEnum
 import dev.merge.client.hris.models.RunTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The PayrollRun Object ### Description The `PayrollRun` object is used to represent a payroll run. This payroll run is not specific to an employee.  ### Usage Example Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
@@ -76,5 +77,37 @@ data class PayrollRun (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("run_state")
+        val runState: JsonNode?,
+
+        @field:JsonProperty("run_type")
+        val runType: JsonNode?,
+
+        @field:JsonProperty("start_date")
+        val startDate: JsonNode?,
+
+        @field:JsonProperty("end_date")
+        val endDate: JsonNode?,
+
+        @field:JsonProperty("check_date")
+        val checkDate: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

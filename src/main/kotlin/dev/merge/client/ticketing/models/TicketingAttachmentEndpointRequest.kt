@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.ticketing.models.AttachmentRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -35,5 +36,13 @@ data class TicketingAttachmentEndpointRequest (
     @field:JsonProperty("model")
     val model: AttachmentRequest
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?
+
+    )
+
+}
 

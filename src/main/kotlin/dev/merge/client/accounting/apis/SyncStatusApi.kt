@@ -55,6 +55,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun syncStatusList(requestModel: SyncStatusApi.SyncStatusListRequest): MergePaginatedResponse<SyncStatus> {
+        return syncStatusListImpl(requestModel)
+    }
+
+    /**
+     * @param cursor The pagination cursor value. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun syncStatusListExpanded(requestModel: SyncStatusApi.SyncStatusListRequest): MergePaginatedResponse<SyncStatus.Expanded> {
+        return syncStatusListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> syncStatusListImpl(requestModel: SyncStatusApi.SyncStatusListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

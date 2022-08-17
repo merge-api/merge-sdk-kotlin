@@ -25,6 +25,7 @@ import dev.merge.client.crm.models.MultipartFormFieldRequest
 import dev.merge.client.crm.models.RequestFormatEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The DataPassthrough Object ### Description The `DataPassthrough` object is used to send information to an otherwise-unsupported third-party endpoint.  ### Usage Example Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
@@ -67,5 +68,34 @@ data class DataPassthroughRequest (
     @field:JsonProperty("normalize_response")
     val normalizeResponse: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("method")
+        val method: JsonNode?,
+
+        @field:JsonProperty("path")
+        val path: JsonNode?,
+
+        @field:JsonProperty("base_url_override")
+        val baseUrlOverride: JsonNode?,
+
+        @field:JsonProperty("data")
+        val `data`: JsonNode?,
+
+        @field:JsonProperty("multipart_form_data")
+        val multipartFormData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("headers")
+        val headers: JsonNode?,
+
+        @field:JsonProperty("request_format")
+        val requestFormat: JsonNode?,
+
+        @field:JsonProperty("normalize_response")
+        val normalizeResponse: JsonNode?
+
+    )
+
+}
 

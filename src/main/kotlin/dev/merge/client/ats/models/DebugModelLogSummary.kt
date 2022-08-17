@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -42,5 +43,19 @@ data class DebugModelLogSummary (
     @field:JsonProperty("status_code")
     val statusCode: kotlin.Int
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("url")
+        val url: JsonNode?,
+
+        @field:JsonProperty("method")
+        val method: JsonNode?,
+
+        @field:JsonProperty("status_code")
+        val statusCode: JsonNode?
+
+    )
+
+}
 

@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Benefit Object ### Description The `Benefit` object is used to represent a Benefit for an employee.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
@@ -73,5 +74,37 @@ data class Benefit (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee")
+        val employee: JsonNode?,
+
+        @field:JsonProperty("provider_name")
+        val providerName: JsonNode?,
+
+        @field:JsonProperty("benefit_plan_type")
+        val benefitPlanType: JsonNode?,
+
+        @field:JsonProperty("employee_contribution")
+        val employeeContribution: JsonNode?,
+
+        @field:JsonProperty("company_contribution")
+        val companyContribution: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

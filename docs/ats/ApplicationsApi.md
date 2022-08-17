@@ -127,7 +127,7 @@ Configure bearerAuth:
 
 <a name="applicationsList"></a>
 # **applicationsList**
-> PaginatedApplicationList applicationsList(candidateId, createdAfter, createdBefore, creditedToId, currentStageId, cursor, includeDeletedData, includeRemoteData, jobId, modifiedAfter, modifiedBefore, pageSize, rejectReasonId, remoteId, source)
+> PaginatedApplicationList applicationsList(candidateId, createdAfter, createdBefore, creditedToId, currentStageId, cursor, expand, includeDeletedData, includeRemoteData, jobId, modifiedAfter, modifiedBefore, pageSize, rejectReasonId, remoteId, source)
 
 
 
@@ -146,6 +146,7 @@ val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java
 val creditedToId : kotlin.String = creditedToId_example // kotlin.String | If provided, will only return applications credited to this user.
 val currentStageId : kotlin.String = currentStageId_example // kotlin.String | If provided, will only return applications at this interview stage.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = candidate,job,credited_to,current_stage,reject_reason // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val jobId : kotlin.String = jobId_example // kotlin.String | If provided, will only return applications for this job.
@@ -156,7 +157,7 @@ val rejectReasonId : kotlin.String = rejectReasonId_example // kotlin.String | I
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 val source : kotlin.String = source_example // kotlin.String | If provided, will only return applications with this source.
 try {
-    val result : PaginatedApplicationList = apiInstance.applicationsList(candidateId, createdAfter, createdBefore, creditedToId, currentStageId, cursor, includeDeletedData, includeRemoteData, jobId, modifiedAfter, modifiedBefore, pageSize, rejectReasonId, remoteId, source)
+    val result : PaginatedApplicationList = apiInstance.applicationsList(candidateId, createdAfter, createdBefore, creditedToId, currentStageId, cursor, expand, includeDeletedData, includeRemoteData, jobId, modifiedAfter, modifiedBefore, pageSize, rejectReasonId, remoteId, source)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ApplicationsApi#applicationsList")
@@ -177,6 +178,7 @@ Name | Type | Description  | Notes
  **creditedToId** | **kotlin.String**| If provided, will only return applications credited to this user. | [optional]
  **currentStageId** | **kotlin.String**| If provided, will only return applications at this interview stage. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: candidate, candidate,credited_to, candidate,credited_to,current_stage, candidate,credited_to,current_stage,reject_reason, candidate,credited_to,reject_reason, candidate,current_stage, candidate,current_stage,reject_reason, candidate,job, candidate,job,credited_to, candidate,job,credited_to,current_stage, candidate,job,credited_to,current_stage,reject_reason, candidate,job,credited_to,reject_reason, candidate,job,current_stage, candidate,job,current_stage,reject_reason, candidate,job,reject_reason, candidate,reject_reason, credited_to, credited_to,current_stage, credited_to,current_stage,reject_reason, credited_to,reject_reason, current_stage, current_stage,reject_reason, job, job,credited_to, job,credited_to,current_stage, job,credited_to,current_stage,reject_reason, job,credited_to,reject_reason, job,current_stage, job,current_stage,reject_reason, job,reject_reason, reject_reason]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **jobId** | **kotlin.String**| If provided, will only return applications for this job. | [optional]
@@ -259,7 +261,7 @@ Configure bearerAuth:
 
 <a name="applicationsRetrieve"></a>
 # **applicationsRetrieve**
-> Application applicationsRetrieve(id, includeRemoteData)
+> Application applicationsRetrieve(id, expand, includeRemoteData)
 
 
 
@@ -273,9 +275,10 @@ Returns an &#x60;Application&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = ApplicationsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = candidate,job,credited_to,current_stage,reject_reason // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 try {
-    val result : Application = apiInstance.applicationsRetrieve(id, includeRemoteData)
+    val result : Application = apiInstance.applicationsRetrieve(id, expand, includeRemoteData)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ApplicationsApi#applicationsRetrieve")
@@ -291,6 +294,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: candidate, candidate,credited_to, candidate,credited_to,current_stage, candidate,credited_to,current_stage,reject_reason, candidate,credited_to,reject_reason, candidate,current_stage, candidate,current_stage,reject_reason, candidate,job, candidate,job,credited_to, candidate,job,credited_to,current_stage, candidate,job,credited_to,current_stage,reject_reason, candidate,job,credited_to,reject_reason, candidate,job,current_stage, candidate,job,current_stage,reject_reason, candidate,job,reject_reason, candidate,reject_reason, credited_to, credited_to,current_stage, credited_to,current_stage,reject_reason, credited_to,reject_reason, current_stage, current_stage,reject_reason, job, job,credited_to, job,credited_to,current_stage, job,credited_to,current_stage,reject_reason, job,credited_to,reject_reason, job,current_stage, job,current_stage,reject_reason, job,reject_reason, reject_reason]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
 
 ### Return type

@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The CashFlowStatement Object ### Description The `CashFlowStatement` object is used to represent a company's cash flow statement.  ### Usage Example Fetch from the `LIST CashFlowStatements` endpoint and view a company's cash flow statements.
@@ -92,5 +93,49 @@ data class CashFlowStatement (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("start_period")
+        val startPeriod: JsonNode?,
+
+        @field:JsonProperty("end_period")
+        val endPeriod: JsonNode?,
+
+        @field:JsonProperty("cash_at_beginning_of_period")
+        val cashAtBeginningOfPeriod: JsonNode?,
+
+        @field:JsonProperty("cash_at_end_of_period")
+        val cashAtEndOfPeriod: JsonNode?,
+
+        @field:JsonProperty("operating_activities")
+        val operatingActivities: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("investing_activities")
+        val investingActivities: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("financing_activities")
+        val financingActivities: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_generated_at")
+        val remoteGeneratedAt: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

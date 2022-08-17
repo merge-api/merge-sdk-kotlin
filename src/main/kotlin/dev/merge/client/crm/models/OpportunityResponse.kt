@@ -26,6 +26,7 @@ import dev.merge.client.crm.models.Opportunity
 import dev.merge.client.crm.models.WarningValidationProblem
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -50,5 +51,22 @@ data class OpportunityResponse (
     @field:JsonProperty("logs")
     val logs: kotlin.collections.List<DebugModeLog>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?,
+
+        @field:JsonProperty("warnings")
+        val warnings: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("errors")
+        val errors: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("logs")
+        val logs: kotlin.collections.List<JsonNode>?
+
+    )
+
+}
 

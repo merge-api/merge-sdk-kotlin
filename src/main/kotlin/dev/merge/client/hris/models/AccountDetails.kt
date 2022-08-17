@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.CategoryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -72,5 +73,40 @@ data class AccountDetails (
     @field:JsonProperty("is_duplicate")
     val isDuplicate: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("integration")
+        val integration: JsonNode?,
+
+        @field:JsonProperty("integration_slug")
+        val integrationSlug: JsonNode?,
+
+        @field:JsonProperty("category")
+        val category: JsonNode?,
+
+        @field:JsonProperty("end_user_origin_id")
+        val endUserOriginId: JsonNode?,
+
+        @field:JsonProperty("end_user_organization_name")
+        val endUserOrganizationName: JsonNode?,
+
+        @field:JsonProperty("end_user_email_address")
+        val endUserEmailAddress: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("webhook_listener_url")
+        val webhookListenerUrl: JsonNode?,
+
+        @field:JsonProperty("is_duplicate")
+        val isDuplicate: JsonNode?
+
+    )
+
+}
 

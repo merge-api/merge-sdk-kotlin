@@ -54,6 +54,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun regenerateKeyCreate(requestModel: RegenerateKeyApi.RegenerateKeyCreateRequest): RemoteKey {
+        return regenerateKeyCreateImpl(requestModel)
+    }
+
+    /**
+     * @param remoteKeyForRegenerationRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun regenerateKeyCreateExpanded(requestModel: RegenerateKeyApi.RegenerateKeyCreateRequest): RemoteKey.Expanded {
+        return regenerateKeyCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> regenerateKeyCreateImpl(requestModel: RegenerateKeyApi.RegenerateKeyCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 

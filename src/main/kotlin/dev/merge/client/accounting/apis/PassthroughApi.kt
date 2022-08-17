@@ -54,6 +54,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun passthroughCreate(requestModel: PassthroughApi.PassthroughCreateRequest): RemoteResponse {
+        return passthroughCreateImpl(requestModel)
+    }
+
+    /**
+     * @param dataPassthroughRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun passthroughCreateExpanded(requestModel: PassthroughApi.PassthroughCreateRequest): RemoteResponse.Expanded {
+        return passthroughCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> passthroughCreateImpl(requestModel: PassthroughApi.PassthroughCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

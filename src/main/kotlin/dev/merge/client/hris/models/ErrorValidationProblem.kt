@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.ValidationProblemSource
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -47,5 +48,22 @@ data class ErrorValidationProblem (
     @field:JsonProperty("source")
     val source: ValidationProblemSource? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("title")
+        val title: JsonNode?,
+
+        @field:JsonProperty("detail")
+        val detail: JsonNode?,
+
+        @field:JsonProperty("problem_type")
+        val problemType: JsonNode?,
+
+        @field:JsonProperty("source")
+        val source: JsonNode?
+
+    )
+
+}
 

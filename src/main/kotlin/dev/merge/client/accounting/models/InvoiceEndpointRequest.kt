@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 import dev.merge.client.accounting.models.InvoiceRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -35,5 +36,13 @@ data class InvoiceEndpointRequest (
     @field:JsonProperty("model")
     val model: InvoiceRequest
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?
+
+    )
+
+}
 

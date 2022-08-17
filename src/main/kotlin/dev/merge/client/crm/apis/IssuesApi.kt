@@ -81,6 +81,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun issuesList(requestModel: IssuesApi.IssuesListRequest): MergePaginatedResponse<Issue> {
+        return issuesListImpl(requestModel)
+    }
+
+    /**
+     * @param accountToken  (optional) * @param cursor The pagination cursor value. (optional) * @param endDate If included, will only include issues whose most recent action occurred before this time (optional) * @param endUserOrganizationName  (optional) * @param firstIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional) * @param firstIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional) * @param includeMuted If True, will include muted issues (optional) * @param integrationName  (optional) * @param lastIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional) * @param lastIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param startDate If included, will only include issues whose most recent action occurred after this time (optional) * @param status  (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun issuesListExpanded(requestModel: IssuesApi.IssuesListRequest): MergePaginatedResponse<Issue.Expanded> {
+        return issuesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> issuesListImpl(requestModel: IssuesApi.IssuesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 
@@ -126,6 +138,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun issuesRetrieve(requestModel: IssuesApi.IssuesRetrieveRequest): Issue {
+        return issuesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun issuesRetrieveExpanded(requestModel: IssuesApi.IssuesRetrieveRequest): Issue.Expanded {
+        return issuesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> issuesRetrieveImpl(requestModel: IssuesApi.IssuesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 

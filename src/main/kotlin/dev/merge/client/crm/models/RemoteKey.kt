@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The RemoteKey Object ### Description The `RemoteKey` object is used to represent a request for a new remote key.  ### Usage Example Post a `GenerateRemoteKey` to receive a new `RemoteKey`.
@@ -38,5 +39,16 @@ data class RemoteKey (
     @field:JsonProperty("key")
     val key: kotlin.String
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("key")
+        val key: JsonNode?
+
+    )
+
+}
 

@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.PhoneNumberTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The PhoneNumber Object ### Description The `PhoneNumber` object is used to represent a candidate's phone number. ### Usage Example Fetch from the `GET Candidate` endpoint and view their phone numbers.
@@ -41,5 +42,16 @@ data class PhoneNumber (
     @field:JsonProperty("phone_number_type")
     val phoneNumberType: PhoneNumberTypeEnum? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("value")
+        val `value`: JsonNode?,
+
+        @field:JsonProperty("phone_number_type")
+        val phoneNumberType: JsonNode?
+
+    )
+
+}
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="jobsList"></a>
 # **jobsList**
-> PaginatedJobList jobsList(code, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, status)
+> PaginatedJobList jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, status)
 
 
 
@@ -27,6 +27,7 @@ val code : kotlin.String = code_example // kotlin.String | If provided, will onl
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val expand : kotlin.String = departments,offices,hiring_managers,recruiters // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
@@ -36,7 +37,7 @@ val remoteFields : kotlin.String = status // kotlin.String | Which fields should
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 val status : kotlin.String = status_example // kotlin.String | If provided, will only return jobs with this status. Options: ('OPEN', 'CLOSED', 'DRAFT', 'ARCHIVED', 'PENDING')
 try {
-    val result : PaginatedJobList = apiInstance.jobsList(code, createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, status)
+    val result : PaginatedJobList = apiInstance.jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, status)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling JobsApi#jobsList")
@@ -55,6 +56,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: departments, departments,hiring_managers, departments,hiring_managers,recruiters, departments,offices, departments,offices,hiring_managers, departments,offices,hiring_managers,recruiters, departments,offices,recruiters, departments,recruiters, hiring_managers, hiring_managers,recruiters, offices, offices,hiring_managers, offices,hiring_managers,recruiters, offices,recruiters, recruiters]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
@@ -84,7 +86,7 @@ Configure bearerAuth:
 
 <a name="jobsRetrieve"></a>
 # **jobsRetrieve**
-> Job jobsRetrieve(id, includeRemoteData, remoteFields)
+> Job jobsRetrieve(id, expand, includeRemoteData, remoteFields)
 
 
 
@@ -98,10 +100,11 @@ Returns a &#x60;Job&#x60; object with the given &#x60;id&#x60;.
 
 val apiInstance = JobsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val expand : kotlin.String = departments,offices,hiring_managers,recruiters // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val remoteFields : kotlin.String = status // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : Job = apiInstance.jobsRetrieve(id, includeRemoteData, remoteFields)
+    val result : Job = apiInstance.jobsRetrieve(id, expand, includeRemoteData, remoteFields)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling JobsApi#jobsRetrieve")
@@ -117,6 +120,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
+ **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: departments, departments,hiring_managers, departments,hiring_managers,recruiters, departments,offices, departments,offices,hiring_managers, departments,offices,hiring_managers,recruiters, departments,offices,recruiters, departments,recruiters, hiring_managers, hiring_managers,recruiters, offices, offices,hiring_managers, offices,hiring_managers,recruiters, offices,recruiters, recruiters]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: status]
 

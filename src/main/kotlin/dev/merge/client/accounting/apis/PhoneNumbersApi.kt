@@ -55,6 +55,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun phoneNumbersRetrieve(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): AccountingPhoneNumber {
+        return phoneNumbersRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun phoneNumbersRetrieveExpanded(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): AccountingPhoneNumber.Expanded {
+        return phoneNumbersRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> phoneNumbersRetrieveImpl(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

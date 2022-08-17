@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.AttachmentRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -39,5 +40,16 @@ data class AttachmentEndpointRequest (
     @field:JsonProperty("remote_user_id")
     val remoteUserId: kotlin.String
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model")
+        val model: JsonNode?,
+
+        @field:JsonProperty("remote_user_id")
+        val remoteUserId: JsonNode?
+
+    )
+
+}
 

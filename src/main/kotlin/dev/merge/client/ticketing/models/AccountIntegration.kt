@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.ticketing.models.CategoriesEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -60,5 +61,28 @@ data class AccountIntegration (
     @field:JsonProperty("slug")
     val slug: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("categories")
+        val categories: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("image")
+        val image: JsonNode?,
+
+        @field:JsonProperty("square_image")
+        val squareImage: JsonNode?,
+
+        @field:JsonProperty("color")
+        val color: JsonNode?,
+
+        @field:JsonProperty("slug")
+        val slug: JsonNode?
+
+    )
+
+}
 

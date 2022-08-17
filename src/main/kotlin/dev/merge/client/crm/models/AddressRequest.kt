@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.AddressTypeEnum
 import dev.merge.client.crm.models.CountryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Address Object ### Description The `Address` object is used to represent an entity's address. ### Usage Example TODO
@@ -67,5 +68,31 @@ data class AddressRequest (
     @field:JsonProperty("address_type")
     val addressType: AddressTypeEnum? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("street_1")
+        val street1: JsonNode?,
+
+        @field:JsonProperty("street_2")
+        val street2: JsonNode?,
+
+        @field:JsonProperty("city")
+        val city: JsonNode?,
+
+        @field:JsonProperty("state")
+        val state: JsonNode?,
+
+        @field:JsonProperty("postal_code")
+        val postalCode: JsonNode?,
+
+        @field:JsonProperty("country")
+        val country: JsonNode?,
+
+        @field:JsonProperty("address_type")
+        val addressType: JsonNode?
+
+    )
+
+}
 

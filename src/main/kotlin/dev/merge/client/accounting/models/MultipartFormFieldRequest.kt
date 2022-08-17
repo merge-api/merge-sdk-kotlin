@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 import dev.merge.client.accounting.models.EncodingEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The MultipartFormField Object ### Description The `MultipartFormField` object is used to represent fields in an HTTP request using `multipart/form-data`.  ### Usage Example Create a `MultipartFormField` to define a multipart form entry.
@@ -56,5 +57,25 @@ data class MultipartFormFieldRequest (
     @field:JsonProperty("content_type")
     val contentType: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("data")
+        val `data`: JsonNode?,
+
+        @field:JsonProperty("encoding")
+        val encoding: JsonNode?,
+
+        @field:JsonProperty("file_name")
+        val fileName: JsonNode?,
+
+        @field:JsonProperty("content_type")
+        val contentType: JsonNode?
+
+    )
+
+}
 

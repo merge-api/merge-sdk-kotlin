@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 import dev.merge.client.ats.models.VeteranStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The EEOC Object ### Description The `EEOC` object is used to represent the Equal Employment Opportunity Commission information for a candidate. ### Usage Example Fetch from the `LIST EEOCs` endpoint and filter by `candidate` to show all EEOC information for a candidate.
@@ -82,5 +83,40 @@ data class EEOC (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("candidate")
+        val candidate: JsonNode?,
+
+        @field:JsonProperty("submitted_at")
+        val submittedAt: JsonNode?,
+
+        @field:JsonProperty("race")
+        val race: JsonNode?,
+
+        @field:JsonProperty("gender")
+        val gender: JsonNode?,
+
+        @field:JsonProperty("veteran_status")
+        val veteranStatus: JsonNode?,
+
+        @field:JsonProperty("disability_status")
+        val disabilityStatus: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

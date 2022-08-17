@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.SyncStatusStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The SyncStatus Object ### Description The `SyncStatus` object is used to represent the syncing state of an account  ### Usage Example View the `SyncStatus` for an account to see how recently its models were synced.
@@ -55,5 +56,28 @@ data class SyncStatus (
     @field:JsonProperty("is_initial_sync")
     val isInitialSync: kotlin.Boolean
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model_name")
+        val modelName: JsonNode?,
+
+        @field:JsonProperty("model_id")
+        val modelId: JsonNode?,
+
+        @field:JsonProperty("last_sync_start")
+        val lastSyncStart: JsonNode?,
+
+        @field:JsonProperty("next_sync_start")
+        val nextSyncStart: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?,
+
+        @field:JsonProperty("is_initial_sync")
+        val isInitialSync: JsonNode?
+
+    )
+
+}
 

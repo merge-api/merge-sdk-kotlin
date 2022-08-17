@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent the customer, lead, or external user that a ticket is associated with.  ### Usage Example TODO
@@ -74,5 +75,37 @@ data class Contact (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("email_address")
+        val emailAddress: JsonNode?,
+
+        @field:JsonProperty("phone_number")
+        val phoneNumber: JsonNode?,
+
+        @field:JsonProperty("details")
+        val details: JsonNode?,
+
+        @field:JsonProperty("account")
+        val account: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

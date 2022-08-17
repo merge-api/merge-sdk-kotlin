@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.CategoriesEnum
 import dev.merge.client.crm.models.ModelOperation
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -64,5 +65,34 @@ data class AccountDetailsAndActionsIntegration (
     @field:JsonProperty("available_model_operations")
     val availableModelOperations: kotlin.collections.List<ModelOperation>? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("categories")
+        val categories: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("color")
+        val color: JsonNode?,
+
+        @field:JsonProperty("slug")
+        val slug: JsonNode?,
+
+        @field:JsonProperty("passthrough_available")
+        val passthroughAvailable: JsonNode?,
+
+        @field:JsonProperty("image")
+        val image: JsonNode?,
+
+        @field:JsonProperty("square_image")
+        val squareImage: JsonNode?,
+
+        @field:JsonProperty("available_model_operations")
+        val availableModelOperations: kotlin.collections.List<JsonNode>?
+
+    )
+
+}
 

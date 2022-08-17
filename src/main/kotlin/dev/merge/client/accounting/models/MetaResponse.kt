@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 import dev.merge.client.accounting.models.LinkedAccountStatus
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -47,5 +48,22 @@ data class MetaResponse (
     @field:JsonProperty("status")
     val status: LinkedAccountStatus? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("request_schema")
+        val requestSchema: JsonNode?,
+
+        @field:JsonProperty("has_conditional_params")
+        val hasConditionalParams: JsonNode?,
+
+        @field:JsonProperty("has_required_linked_account_params")
+        val hasRequiredLinkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("status")
+        val status: JsonNode?
+
+    )
+
+}
 

@@ -77,6 +77,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun linkedAccountsList(requestModel: LinkedAccountsApi.LinkedAccountsListRequest): MergePaginatedResponse<AccountDetailsAndActions> {
+        return linkedAccountsListImpl(requestModel)
+    }
+
+    /**
+     * @param category  (optional) * @param cursor The pagination cursor value. (optional) * @param endUserEmailAddress If provided, will only return linked accounts associated with the given email address. (optional) * @param endUserOrganizationName If provided, will only return linked accounts associated with the given organization name. (optional) * @param endUserOriginId If provided, will only return linked accounts associated with the given origin ID. (optional) * @param endUserOriginIds Comma-separated list of EndUser origin IDs, making it possible to specify multiple EndUsers at once. (optional) * @param id  (optional) * @param ids Comma-separated list of LinkedAccount IDs, making it possible to specify multiple LinkedAccounts at once. (optional) * @param includeDuplicates If &#x60;true&#x60;, will include complete production duplicates of the account specified by the &#x60;id&#x60; query parameter in the response. &#x60;id&#x60; must be for a complete production linked account. (optional) * @param integrationName If provided, will only return linked accounts associated with the given integration name. (optional) * @param isTestAccount If included, will only include test linked accounts. If not included, will only include non-test linked accounts. (optional) * @param pageSize Number of results to return per page. (optional) * @param status Filter by status. Options: &#x60;COMPLETE&#x60;, &#x60;INCOMPLETE&#x60;, &#x60;RELINK_NEEDED&#x60; (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun linkedAccountsListExpanded(requestModel: LinkedAccountsApi.LinkedAccountsListRequest): MergePaginatedResponse<AccountDetailsAndActions.Expanded> {
+        return linkedAccountsListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> linkedAccountsListImpl(requestModel: LinkedAccountsApi.LinkedAccountsListRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 

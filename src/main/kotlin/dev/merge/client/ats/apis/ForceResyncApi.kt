@@ -48,6 +48,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun syncStatusResyncCreate(): kotlin.collections.List<SyncStatus> {
+        return syncStatusResyncCreateImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun syncStatusResyncCreateExpanded(): kotlin.collections.List<SyncStatus.Expanded> {
+        return syncStatusResyncCreateImpl()
+    }
+
+    private suspend inline fun <reified T> syncStatusResyncCreateImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

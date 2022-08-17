@@ -55,6 +55,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
@@ -69,6 +70,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class OpportunitiesRetrieveRequest (
         val id: java.util.UUID,
+        val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val remoteFields: kotlin.String? = null
     )
@@ -83,6 +85,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesCreate(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): OpportunityResponse {
+        return opportunitiesCreateImpl(requestModel)
+    }
+
+    /**
+     * @param opportunityEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesCreateExpanded(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): OpportunityResponse.Expanded {
+        return opportunitiesCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> opportunitiesCreateImpl(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -115,6 +129,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
@@ -129,6 +144,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesList(requestModel: OpportunitiesApi.OpportunitiesListRequest): MergePaginatedResponse<Opportunity> {
+        return opportunitiesListImpl(requestModel)
+    }
+
+    /**
+     * @param accountId If provided, will only return opportunities with this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param ownerId If provided, will only return opportunities with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param stageId If provided, will only return opportunities with this stage. (optional) * @param status If provided, will only return opportunities with this status. Options: (&#39;OPEN&#39;, &#39;WON&#39;, &#39;LOST&#39;) (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesListExpanded(requestModel: OpportunitiesApi.OpportunitiesListRequest): MergePaginatedResponse<Opportunity.Expanded> {
+        return opportunitiesListImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> opportunitiesListImpl(requestModel: OpportunitiesApi.OpportunitiesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -140,6 +167,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
@@ -174,6 +202,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesMetaPostRetrieve(): MetaResponse {
+        return opportunitiesMetaPostRetrieveImpl()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return opportunitiesMetaPostRetrieveImpl()
+    }
+
+    private suspend inline fun <reified T> opportunitiesMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -202,12 +242,25 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns an &#x60;Opportunity&#x60; object with the given &#x60;id&#x60;.
      * @param id  
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param remoteFields Which fields should be returned in non-normalized form. (optional)
      * @return Opportunity
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesRetrieve(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): Opportunity {
+        return opportunitiesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesRetrieveExpanded(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): Opportunity.Expanded {
+        return opportunitiesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> opportunitiesRetrieveImpl(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -215,6 +268,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
 

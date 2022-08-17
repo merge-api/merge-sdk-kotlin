@@ -57,6 +57,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun addressesRetrieve(requestModel: AddressesApi.AddressesRetrieveRequest): Address {
+        return addressesRetrieveImpl(requestModel)
+    }
+
+    /**
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun addressesRetrieveExpanded(requestModel: AddressesApi.AddressesRetrieveRequest): Address.Expanded {
+        return addressesRetrieveImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> addressesRetrieveImpl(requestModel: AddressesApi.AddressesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 

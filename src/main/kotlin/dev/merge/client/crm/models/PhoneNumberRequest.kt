@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The PhoneNumber Object ### Description The `PhoneNumber` object is used to represent an entity's phone number. ### Usage Example Fetch from the `GET Contact` endpoint and view their phone numbers.
@@ -40,5 +41,16 @@ data class PhoneNumberRequest (
     @field:JsonProperty("phone_number_type")
     val phoneNumberType: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("phone_number")
+        val phoneNumber: JsonNode?,
+
+        @field:JsonProperty("phone_number_type")
+        val phoneNumberType: JsonNode?
+
+    )
+
+}
 

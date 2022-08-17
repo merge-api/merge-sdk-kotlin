@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -42,5 +43,19 @@ data class WebhookReceiver (
     @field:JsonProperty("key")
     val key: kotlin.String? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("event")
+        val event: JsonNode?,
+
+        @field:JsonProperty("is_active")
+        val isActive: JsonNode?,
+
+        @field:JsonProperty("key")
+        val key: JsonNode?
+
+    )
+
+}
 

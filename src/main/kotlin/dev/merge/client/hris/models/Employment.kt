@@ -28,6 +28,7 @@ import dev.merge.client.hris.models.PayPeriodEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The Employment Object ### Description The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.  Please note: Employment objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
@@ -102,5 +103,52 @@ data class Employment (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("employee")
+        val employee: JsonNode?,
+
+        @field:JsonProperty("job_title")
+        val jobTitle: JsonNode?,
+
+        @field:JsonProperty("pay_rate")
+        val payRate: JsonNode?,
+
+        @field:JsonProperty("pay_period")
+        val payPeriod: JsonNode?,
+
+        @field:JsonProperty("pay_frequency")
+        val payFrequency: JsonNode?,
+
+        @field:JsonProperty("pay_currency")
+        val payCurrency: JsonNode?,
+
+        @field:JsonProperty("pay_group")
+        val payGroup: JsonNode?,
+
+        @field:JsonProperty("flsa_status")
+        val flsaStatus: JsonNode?,
+
+        @field:JsonProperty("effective_date")
+        val effectiveDate: JsonNode?,
+
+        @field:JsonProperty("employment_type")
+        val employmentType: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?
+
+    )
+
+}
 

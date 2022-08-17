@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 import dev.merge.client.ats.models.EmailAddressTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent a candidate's email address. ### Usage Example Fetch from the `GET Candidate` endpoint and view their email addresses.
@@ -41,5 +42,16 @@ data class EmailAddressRequest (
     @field:JsonProperty("email_address_type")
     val emailAddressType: EmailAddressTypeEnum? = null
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("value")
+        val `value`: JsonNode?,
+
+        @field:JsonProperty("email_address_type")
+        val emailAddressType: JsonNode?
+
+    )
+
+}
 

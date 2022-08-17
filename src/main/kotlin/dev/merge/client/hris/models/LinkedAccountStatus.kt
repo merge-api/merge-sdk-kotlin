@@ -22,6 +22,7 @@ package dev.merge.client.hris.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -38,5 +39,16 @@ data class LinkedAccountStatus (
     @field:JsonProperty("can_make_request")
     val canMakeRequest: kotlin.Boolean
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("linked_account_status")
+        val linkedAccountStatus: JsonNode?,
+
+        @field:JsonProperty("can_make_request")
+        val canMakeRequest: JsonNode?
+
+    )
+
+}
 

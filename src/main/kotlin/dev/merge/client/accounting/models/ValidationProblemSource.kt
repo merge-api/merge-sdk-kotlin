@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * 
@@ -34,5 +35,13 @@ data class ValidationProblemSource (
     @field:JsonProperty("pointer")
     val pointer: kotlin.String
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("pointer")
+        val pointer: JsonNode?
+
+    )
+
+}
 

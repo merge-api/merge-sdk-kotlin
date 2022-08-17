@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 
 /**
  * # The ModelOperation Object ### Description The `ModelOperation` object is used to represent the operations that are currently supported for a given model.  ### Usage Example View what operations are supported for the `Candidate` endpoint.
@@ -46,5 +47,22 @@ data class ModelOperation (
     @field:JsonProperty("supported_fields")
     val supportedFields: kotlin.collections.List<kotlin.String>
 
-)
+) {
+
+    data class Expanded(
+        @field:JsonProperty("model_name")
+        val modelName: JsonNode?,
+
+        @field:JsonProperty("available_operations")
+        val availableOperations: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("required_post_parameters")
+        val requiredPostParameters: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("supported_fields")
+        val supportedFields: kotlin.collections.List<JsonNode>?
+
+    )
+
+}
 

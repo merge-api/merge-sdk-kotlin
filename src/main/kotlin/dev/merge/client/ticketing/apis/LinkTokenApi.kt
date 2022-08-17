@@ -54,6 +54,18 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun linkTokenCreate(requestModel: LinkTokenApi.LinkTokenCreateRequest): LinkToken {
+        return linkTokenCreateImpl(requestModel)
+    }
+
+    /**
+     * @param endUserDetailsRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun linkTokenCreateExpanded(requestModel: LinkTokenApi.LinkTokenCreateRequest): LinkToken.Expanded {
+        return linkTokenCreateImpl(requestModel)
+    }
+
+    private suspend inline fun <reified T> linkTokenCreateImpl(requestModel: LinkTokenApi.LinkTokenCreateRequest): T {
 
         val localVariableAuthNames = listOf<String>("bearerAuth")
 
