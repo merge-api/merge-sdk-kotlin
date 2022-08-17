@@ -15,3 +15,5 @@
   - ktor for client library
   - jackson for serialization library
   - data classes for request and response models (request models did not exist at all in prior Merge SDK's)
+- Preliminary support for the Merge API `expand` parameter, which changes some response values
+  - note that due to the dynamic nature of the response, it results in jackson `JsonNode` property values that can be further deserialized (see README). 
