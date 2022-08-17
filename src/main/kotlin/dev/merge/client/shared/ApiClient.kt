@@ -1,26 +1,20 @@
 package dev.merge.client.shared
 
-import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.apache.Apache
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.FormDataContent
-import io.ktor.client.request.forms.MultiPartFormDataContent
-import io.ktor.client.request.header
-import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
-import io.ktor.http.*
-import io.ktor.http.content.PartData
-import kotlin.Unit
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.jackson.*
-
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-
 import dev.merge.client.shared.auth.*
+import io.ktor.client.*
+import io.ktor.client.engine.*
+import io.ktor.client.engine.apache.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.http.content.*
+import io.ktor.serialization.jackson.*
 import io.ktor.util.*
 import io.ktor.util.reflect.*
 import io.ktor.utils.io.core.*
@@ -71,6 +65,23 @@ open class ApiClient(
 
         init {
             JSON_DEFAULT.findAndRegisterModules()
+        }
+
+        inline fun <reified T> jsonConvertSafe(raw: List<JsonNode>?): List<T>? {
+            if (raw == null) {
+                return null
+            }
+
+            return raw.map {
+                jsonConvertSafe<T>(it)
+            }.toList().filterNotNull()
+        }
+
+        inline fun <reified T> jsonConvertSafe(raw: JsonNode?): T? {
+            try {
+                return JSON_DEFAULT.convertValue(raw, T::class.java)
+            } catch (exc: Exception) { }
+            return null
         }
     }
 
