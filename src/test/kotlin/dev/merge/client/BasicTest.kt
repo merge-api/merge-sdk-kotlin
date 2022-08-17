@@ -2,7 +2,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import com.fasterxml.jackson.databind.ObjectMapper
 
 import dev.merge.client.shared.ApiClient
 import dev.merge.client.accounting.apis.AccountsApi
@@ -24,28 +23,64 @@ internal class BasicTest {
         accountsApi.setApiKey(apiKey)
         accountsApi.setAccountToken("REDACTED")
 
-        val accountsPromise = async { accountsApi.accountsList(AccountsApi.AccountsListRequest()) }
-
         val candidatesApi = CandidatesApi()
         candidatesApi.setApiKey(apiKey)
         candidatesApi.setAccountToken("REDACTED")
 
-        val candidatesPromise = async { candidatesApi.candidatesList(CandidatesApi.CandidatesListRequest()) }
+        val contactsApi = ContactsApi()
+        contactsApi.setApiKey(apiKey)
+        contactsApi.setAccountToken("REDACTED")
 
+        val employeesApi = EmployeesApi()
+        employeesApi.setApiKey(apiKey)
+        employeesApi.setAccountToken("REDACTED")
 
+        val ticketsApi = TicketsApi()
+        ticketsApi.setApiKey(apiKey)
+        ticketsApi.setAccountToken("REDACTED")
 
-        val accountsResponse = accountsPromise.await()
+        // make requests async
 
-        assertNotNull(accountsResponse)
-        assertNotNull(accountsResponse.results)
-        println(mapper.writeValueAsString(accountsResponse))
+        val accountingAccountsPromise = async { accountsApi.accountsList(AccountsApi.AccountsListRequest()) }
 
-        val candidatesResponse = candidatesPromise.await()
+        val atsCandidatesPromise = async { candidatesApi.candidatesList(CandidatesApi.CandidatesListRequest()) }
 
-        assertNotNull(candidatesResponse)
-        assertNotNull(candidatesResponse.results)
-        println(mapper.writeValueAsString(candidatesResponse))
+        val crmContactsPromise = async { contactsApi.contactsList(ContactsApi.ContactsListRequest()) }
 
+        val hrisEmployeesPromise = async { employeesApi.employeesList(EmployeesApi.EmployeesListRequest()) }
 
+        val ticketingTicketsPromise = async { ticketsApi.ticketsList(TicketsApi.TicketsListRequest()) }
+
+        // check all results
+
+        val accountingAccountsResponse = accountingAccountsPromise.await()
+
+        assertNotNull(accountingAccountsResponse)
+        assertNotNull(accountingAccountsResponse.results)
+        println(mapper.writeValueAsString(accountingAccountsResponse))
+
+        val atsCandidatesResponse = atsCandidatesPromise.await()
+
+        assertNotNull(atsCandidatesResponse)
+        assertNotNull(atsCandidatesResponse.results)
+        println(mapper.writeValueAsString(atsCandidatesResponse))
+
+        val crmContactsResponse = crmContactsPromise.await()
+
+        assertNotNull(crmContactsResponse)
+        assertNotNull(crmContactsResponse.results)
+        println(mapper.writeValueAsString(crmContactsResponse))
+
+        val hrisEmployeesResponse = hrisEmployeesPromise.await()
+
+        assertNotNull(hrisEmployeesResponse)
+        assertNotNull(hrisEmployeesResponse.results)
+        println(mapper.writeValueAsString(hrisEmployeesResponse))
+
+        val ticketingTicketsResponse = ticketingTicketsPromise.await()
+
+        assertNotNull(ticketingTicketsResponse)
+        assertNotNull(ticketingTicketsResponse.results)
+        println(mapper.writeValueAsString(ticketingTicketsResponse))
     }
 }
