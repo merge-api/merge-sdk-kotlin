@@ -67,7 +67,6 @@ for (candidate in atsCandidatesExpandedResponse.results ?: listOf()) {
         )
 
         assertNotNull(applicationFromExpandedCandidate)
-        atLeastOneExpandedApplication = true
     }
 }
 ```
