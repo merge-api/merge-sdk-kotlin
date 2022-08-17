@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The PayGroup Object ### Description The `PayGroup` object is used to represent Pay Group information that employees belong to. This is often referenced with an Employee object.  ### Usage Example Fetch from the `LIST PayGroup` endpoint and filter by `ID` to show all pay group information.
@@ -75,5 +76,17 @@ data class PayGroup (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: PayGroup.Expanded): PayGroup {
+            return PayGroup(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                payGroupName = ApiClient.jsonConvertSafe(expanded.payGroupName),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

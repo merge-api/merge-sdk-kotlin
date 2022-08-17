@@ -27,6 +27,7 @@ import dev.merge.client.ats.models.Url
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Candidate Object ### Description The `Candidate` object is used to represent a Candidate for various positions. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
@@ -202,5 +203,33 @@ data class Candidate (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Candidate.Expanded): Candidate {
+            return Candidate(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                firstName = ApiClient.jsonConvertSafe(expanded.firstName),
+                lastName = ApiClient.jsonConvertSafe(expanded.lastName),
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                title = ApiClient.jsonConvertSafe(expanded.title),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                lastInteractionAt = ApiClient.jsonConvertSafe(expanded.lastInteractionAt),
+                isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
+                canEmail = ApiClient.jsonConvertSafe(expanded.canEmail),
+                locations = ApiClient.jsonConvertSafe(expanded.locations),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
+                emailAddresses = ApiClient.jsonConvertSafe(expanded.emailAddresses),
+                urls = ApiClient.jsonConvertSafe(expanded.urls),
+                tags = ApiClient.jsonConvertSafe(expanded.tags),
+                applications = ApiClient.jsonConvertSafe(expanded.applications),
+                attachments = ApiClient.jsonConvertSafe(expanded.attachments),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

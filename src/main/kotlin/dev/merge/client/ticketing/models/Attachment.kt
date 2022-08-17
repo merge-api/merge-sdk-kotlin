@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
@@ -112,5 +113,22 @@ data class Attachment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Attachment.Expanded): Attachment {
+            return Attachment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                ticket = ApiClient.jsonConvertSafe(expanded.ticket),
+                fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                contentType = ApiClient.jsonConvertSafe(expanded.contentType),
+                uploadedBy = ApiClient.jsonConvertSafe(expanded.uploadedBy),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

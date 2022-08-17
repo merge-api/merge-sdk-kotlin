@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The JobInterviewStage Object ### Description The `JobInterviewStage` object is used to represent the stage that a job application is in. ### Usage Example Fetch from the `LIST JobInterviewStages` endpoint and view the job interview stages used by a company.
@@ -83,5 +84,18 @@ data class JobInterviewStage (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: JobInterviewStage.Expanded): JobInterviewStage {
+            return JobInterviewStage(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                job = ApiClient.jsonConvertSafe(expanded.job),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

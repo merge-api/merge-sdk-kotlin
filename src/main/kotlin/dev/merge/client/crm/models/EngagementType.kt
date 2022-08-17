@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.ActivityTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Engagement Type Object ### Description The `Engagement Type` object is used to represent the type of an engagement in the remote system. ### Usage Example TODO
@@ -68,5 +69,16 @@ data class EngagementType (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EngagementType.Expanded): EngagementType {
+            return EngagementType(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                activityType = ApiClient.jsonConvertSafe(expanded.activityType),
+                name = ApiClient.jsonConvertSafe(expanded.name)
+            )
+        }
+    }
 }
 

@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The PurchaseOrderLineItem Object ### Description The `PurchaseOrderLineItem` object is used to represent a purchase order's line item.  ### Usage Example Fetch from the `GET PurchaseOrder` endpoint and view a company's purchase orders.
@@ -99,5 +100,20 @@ data class PurchaseOrderLineItem (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: PurchaseOrderLineItem.Expanded): PurchaseOrderLineItem {
+            return PurchaseOrderLineItem(
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
+                quantity = ApiClient.jsonConvertSafe(expanded.quantity),
+                item = ApiClient.jsonConvertSafe(expanded.item),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                taxAmount = ApiClient.jsonConvertSafe(expanded.taxAmount),
+                totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount)
+            )
+        }
+    }
 }
 

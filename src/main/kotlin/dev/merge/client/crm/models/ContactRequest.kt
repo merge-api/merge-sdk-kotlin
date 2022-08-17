@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent a contact in the remote system. ### Usage Example TODO
@@ -97,5 +98,20 @@ data class ContactRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ContactRequest.Expanded): ContactRequest {
+            return ContactRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                firstName = ApiClient.jsonConvertSafe(expanded.firstName),
+                lastName = ApiClient.jsonConvertSafe(expanded.lastName),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

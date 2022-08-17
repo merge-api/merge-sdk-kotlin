@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The VendorCreditLine Object ### Description The `VendorCreditLine` object is used to represent a vendor credit's line items.  ### Usage Example Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
@@ -76,5 +77,17 @@ data class VendorCreditLine (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: VendorCreditLine.Expanded): VendorCreditLine {
+            return VendorCreditLine(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                account = ApiClient.jsonConvertSafe(expanded.account)
+            )
+        }
+    }
 }
 

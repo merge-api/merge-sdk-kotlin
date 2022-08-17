@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Tag Object ### Description The `Tag` object is used to represent a tag for a candidate. ### Usage Example Fetch from the `LIST Tags` endpoint and view the tags used within a company.
@@ -67,5 +68,16 @@ data class Tag (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Tag.Expanded): Tag {
+            return Tag(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

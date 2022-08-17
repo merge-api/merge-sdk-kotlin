@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.IssueStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -64,7 +65,7 @@ data class Issue (
 
     data class Expanded(
         @field:JsonProperty("error_description")
-        val errorDescription: JsonNode?,
+        val errorDescription: JsonNode,
 
         @field:JsonProperty("id")
         val id: JsonNode?,
@@ -86,5 +87,19 @@ data class Issue (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Issue.Expanded): Issue {
+            return Issue(
+                errorDescription = ApiClient.jsonConvertRequiredSafe(expanded.errorDescription),
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                endUser = ApiClient.jsonConvertSafe(expanded.endUser),
+                firstIncidentTime = ApiClient.jsonConvertSafe(expanded.firstIncidentTime),
+                lastIncidentTime = ApiClient.jsonConvertSafe(expanded.lastIncidentTime),
+                isMuted = ApiClient.jsonConvertSafe(expanded.isMuted)
+            )
+        }
+    }
 }
 

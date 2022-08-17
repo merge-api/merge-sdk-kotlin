@@ -25,6 +25,7 @@ import dev.merge.client.crm.models.CountryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Address Object ### Description The `Address` object is used to represent an entity's address. ### Usage Example TODO
@@ -94,5 +95,19 @@ data class AddressRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AddressRequest.Expanded): AddressRequest {
+            return AddressRequest(
+                street1 = ApiClient.jsonConvertSafe(expanded.street1),
+                street2 = ApiClient.jsonConvertSafe(expanded.street2),
+                city = ApiClient.jsonConvertSafe(expanded.city),
+                state = ApiClient.jsonConvertSafe(expanded.state),
+                postalCode = ApiClient.jsonConvertSafe(expanded.postalCode),
+                country = ApiClient.jsonConvertSafe(expanded.country),
+                addressType = ApiClient.jsonConvertSafe(expanded.addressType)
+            )
+        }
+    }
 }
 

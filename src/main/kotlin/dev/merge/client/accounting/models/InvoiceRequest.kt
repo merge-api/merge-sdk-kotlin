@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.InvoiceTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Invoice Object ### Description The `Invoice` object is used to represent a company's invoices.  ### Usage Example Fetch from the `LIST Invoices` endpoint and view a company's invoices.
@@ -165,5 +166,28 @@ data class InvoiceRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: InvoiceRequest.Expanded): InvoiceRequest {
+            return InvoiceRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                type = ApiClient.jsonConvertSafe(expanded.type),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                number = ApiClient.jsonConvertSafe(expanded.number),
+                issueDate = ApiClient.jsonConvertSafe(expanded.issueDate),
+                dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
+                paidOnDate = ApiClient.jsonConvertSafe(expanded.paidOnDate),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                totalDiscount = ApiClient.jsonConvertSafe(expanded.totalDiscount),
+                subTotal = ApiClient.jsonConvertSafe(expanded.subTotal),
+                totalTaxAmount = ApiClient.jsonConvertSafe(expanded.totalTaxAmount),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                balance = ApiClient.jsonConvertSafe(expanded.balance),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                payments = ApiClient.jsonConvertSafe(expanded.payments)
+            )
+        }
+    }
 }
 

@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Team Object ### Description The `Team` object is used to represent a team within the company receiving the ticket.  ### Usage Example TODO
@@ -83,5 +84,18 @@ data class Team (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Team.Expanded): Team {
+            return Team(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.DirectionEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Engagement Object ### Description The `Engagement` object is used to represent an engagement in the remote system. ### Usage Example TODO
@@ -120,5 +121,23 @@ data class EngagementRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EngagementRequest.Expanded): EngagementRequest {
+            return EngagementRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                content = ApiClient.jsonConvertSafe(expanded.content),
+                subject = ApiClient.jsonConvertSafe(expanded.subject),
+                direction = ApiClient.jsonConvertSafe(expanded.direction),
+                engagementType = ApiClient.jsonConvertSafe(expanded.engagementType),
+                startTime = ApiClient.jsonConvertSafe(expanded.startTime),
+                endTime = ApiClient.jsonConvertSafe(expanded.endTime),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

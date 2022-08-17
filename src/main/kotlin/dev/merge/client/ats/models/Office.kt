@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Office Object ### Description The `Office` object is used to represent an office within a company. ### Usage Example Fetch from the `LIST Offices` endpoint and view the offices within a company.
@@ -83,5 +84,18 @@ data class Office (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Office.Expanded): Office {
+            return Office(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                location = ApiClient.jsonConvertSafe(expanded.location),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

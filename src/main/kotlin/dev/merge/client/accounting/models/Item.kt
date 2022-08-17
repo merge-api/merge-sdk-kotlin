@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.Status7d1Enum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Item Object ### Description The `Item` object is used to represent an item that a company buys, sells, or resells, such as products and services.  ### Usage Example Fetch from the `LIST Items` endpoint and view a company's items.
@@ -122,5 +123,23 @@ data class Item (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Item.Expanded): Item {
+            return Item(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
+                purchasePrice = ApiClient.jsonConvertSafe(expanded.purchasePrice),
+                purchaseAccount = ApiClient.jsonConvertSafe(expanded.purchaseAccount),
+                salesAccount = ApiClient.jsonConvertSafe(expanded.salesAccount),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

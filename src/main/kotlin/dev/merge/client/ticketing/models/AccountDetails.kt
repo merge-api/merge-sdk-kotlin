@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.CategoryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -108,5 +109,22 @@ data class AccountDetails (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountDetails.Expanded): AccountDetails {
+            return AccountDetails(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                integration = ApiClient.jsonConvertSafe(expanded.integration),
+                integrationSlug = ApiClient.jsonConvertSafe(expanded.integrationSlug),
+                category = ApiClient.jsonConvertSafe(expanded.category),
+                endUserOriginId = ApiClient.jsonConvertSafe(expanded.endUserOriginId),
+                endUserOrganizationName = ApiClient.jsonConvertSafe(expanded.endUserOrganizationName),
+                endUserEmailAddress = ApiClient.jsonConvertSafe(expanded.endUserEmailAddress),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                webhookListenerUrl = ApiClient.jsonConvertSafe(expanded.webhookListenerUrl),
+                isDuplicate = ApiClient.jsonConvertSafe(expanded.isDuplicate)
+            )
+        }
+    }
 }
 

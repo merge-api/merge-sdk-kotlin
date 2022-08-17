@@ -1,20 +1,18 @@
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 import dev.merge.client.accounting.apis.AccountsApi
 import dev.merge.client.ats.apis.CandidatesApi
 import dev.merge.client.ats.models.Application
+import dev.merge.client.ats.models.Candidate
 import dev.merge.client.crm.apis.ContactsApi
 import dev.merge.client.hris.apis.EmployeesApi
 import dev.merge.client.ticketing.apis.TicketsApi
 import io.ktor.client.plugins.*
 import io.ktor.http.*
 import kotlinx.coroutines.async
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 internal class BasicTest {
     @Test
@@ -83,6 +81,13 @@ internal class BasicTest {
 
         var atLeastOneExpandedApplication = false
         for (candidate in atsCandidatesExpandedResponse.results ?: listOf()) {
+            // this will turn every json node field back into its normal on except the ones which cannot be, i.e. the
+            // expanded applications field will be empty
+            val candidateNormalized = Candidate.normalize(candidate)
+            assertContentEquals(listOf(), candidateNormalized.applications)
+            // check the id was deserialized to a non null uuid
+            assertNotNull(candidateNormalized.id)
+
             if (candidate.applications?.isNotEmpty() == true) {
                 val applicationFromExpandedCandidate = mapper.convertValue(
                     candidate.applications?.first(),
@@ -91,6 +96,8 @@ internal class BasicTest {
 
                 assertNotNull(applicationFromExpandedCandidate)
                 atLeastOneExpandedApplication = true
+
+                break
             }
         }
         assertTrue(atLeastOneExpandedApplication)

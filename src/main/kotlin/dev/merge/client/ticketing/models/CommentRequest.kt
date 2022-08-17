@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Comment Object ### Description The `Comment` object is used to represent a comment on a ticket.  ### Usage Example TODO
@@ -97,5 +98,20 @@ data class CommentRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CommentRequest.Expanded): CommentRequest {
+            return CommentRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                user = ApiClient.jsonConvertSafe(expanded.user),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                body = ApiClient.jsonConvertSafe(expanded.body),
+                htmlBody = ApiClient.jsonConvertSafe(expanded.htmlBody),
+                ticket = ApiClient.jsonConvertSafe(expanded.ticket),
+                isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt)
+            )
+        }
+    }
 }
 

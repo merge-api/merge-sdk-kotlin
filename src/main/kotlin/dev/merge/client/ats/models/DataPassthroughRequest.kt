@@ -26,6 +26,7 @@ import dev.merge.client.ats.models.RequestFormatEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The DataPassthrough Object ### Description The `DataPassthrough` object is used to send information to an otherwise-unsupported third-party endpoint.  ### Usage Example Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
@@ -72,10 +73,10 @@ data class DataPassthroughRequest (
 
     data class Expanded(
         @field:JsonProperty("method")
-        val method: JsonNode?,
+        val method: JsonNode,
 
         @field:JsonProperty("path")
-        val path: JsonNode?,
+        val path: JsonNode,
 
         @field:JsonProperty("base_url_override")
         val baseUrlOverride: JsonNode?,
@@ -97,5 +98,20 @@ data class DataPassthroughRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: DataPassthroughRequest.Expanded): DataPassthroughRequest {
+            return DataPassthroughRequest(
+                method = ApiClient.jsonConvertRequiredSafe(expanded.method),
+                path = ApiClient.jsonConvertRequiredSafe(expanded.path),
+                baseUrlOverride = ApiClient.jsonConvertSafe(expanded.baseUrlOverride),
+                `data` = ApiClient.jsonConvertSafe(expanded.`data`),
+                multipartFormData = ApiClient.jsonConvertSafe(expanded.multipartFormData),
+                headers = ApiClient.jsonConvertSafe(expanded.headers),
+                requestFormat = ApiClient.jsonConvertSafe(expanded.requestFormat),
+                normalizeResponse = ApiClient.jsonConvertSafe(expanded.normalizeResponse)
+            )
+        }
+    }
 }
 

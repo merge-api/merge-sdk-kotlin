@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The TaxRate Object ### Description The `TaxRate` object is used to represent a tax rate.  ### Usage Example Fetch from the `LIST TaxRates` endpoint and view tax rates relevant to a company.
@@ -91,5 +92,19 @@ data class TaxRate (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TaxRate.Expanded): TaxRate {
+            return TaxRate(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                totalTaxRate = ApiClient.jsonConvertSafe(expanded.totalTaxRate),
+                effectiveTaxRate = ApiClient.jsonConvertSafe(expanded.effectiveTaxRate),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

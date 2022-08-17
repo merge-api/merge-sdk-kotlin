@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
@@ -90,5 +91,19 @@ data class AttachmentRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AttachmentRequest.Expanded): AttachmentRequest {
+            return AttachmentRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                ticket = ApiClient.jsonConvertSafe(expanded.ticket),
+                fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                contentType = ApiClient.jsonConvertSafe(expanded.contentType),
+                uploadedBy = ApiClient.jsonConvertSafe(expanded.uploadedBy),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt)
+            )
+        }
+    }
 }
 

@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.AttachmentTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent a attachment for a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
@@ -90,5 +91,19 @@ data class AttachmentRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AttachmentRequest.Expanded): AttachmentRequest {
+            return AttachmentRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                candidate = ApiClient.jsonConvertSafe(expanded.candidate),
+                attachmentType = ApiClient.jsonConvertSafe(expanded.attachmentType),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

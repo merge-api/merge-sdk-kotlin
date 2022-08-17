@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Accounting Attachment Object ### Description The `AccountingAttachment` object is used to represent a company's attachments.  ### Usage Example Fetch from the `LIST AccountingAttachments` endpoint and view a company's attachments.
@@ -83,5 +84,18 @@ data class AccountingAttachment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountingAttachment.Expanded): AccountingAttachment {
+            return AccountingAttachment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

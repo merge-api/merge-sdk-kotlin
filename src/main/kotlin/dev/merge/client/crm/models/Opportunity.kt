@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Opportunity Object ### Description The `Opportunity` object is used to represent an opportunity in the remote system. ### Usage Example TODO
@@ -144,5 +145,26 @@ data class Opportunity (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Opportunity.Expanded): Opportunity {
+            return Opportunity(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                amount = ApiClient.jsonConvertSafe(expanded.amount),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                stage = ApiClient.jsonConvertSafe(expanded.stage),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
+                closeDate = ApiClient.jsonConvertSafe(expanded.closeDate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

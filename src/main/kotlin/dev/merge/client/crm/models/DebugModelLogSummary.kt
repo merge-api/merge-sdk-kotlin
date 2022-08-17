@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -47,15 +48,25 @@ data class DebugModelLogSummary (
 
     data class Expanded(
         @field:JsonProperty("url")
-        val url: JsonNode?,
+        val url: JsonNode,
 
         @field:JsonProperty("method")
-        val method: JsonNode?,
+        val method: JsonNode,
 
         @field:JsonProperty("status_code")
-        val statusCode: JsonNode?
+        val statusCode: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: DebugModelLogSummary.Expanded): DebugModelLogSummary {
+            return DebugModelLogSummary(
+                url = ApiClient.jsonConvertRequiredSafe(expanded.url),
+                method = ApiClient.jsonConvertRequiredSafe(expanded.method),
+                statusCode = ApiClient.jsonConvertRequiredSafe(expanded.statusCode)
+            )
+        }
+    }
 }
 

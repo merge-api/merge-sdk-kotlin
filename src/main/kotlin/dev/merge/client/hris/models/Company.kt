@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Company Object ### Description The `Company` object is used to represent a Company within the HRIS / Payroll system.  ### Usage Example Fetch from the `LIST Companies` endpoint and filter by `ID` to show all companies.
@@ -91,5 +92,19 @@ data class Company (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Company.Expanded): Company {
+            return Company(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                legalName = ApiClient.jsonConvertSafe(expanded.legalName),
+                displayName = ApiClient.jsonConvertSafe(expanded.displayName),
+                eins = ApiClient.jsonConvertSafe(expanded.eins),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

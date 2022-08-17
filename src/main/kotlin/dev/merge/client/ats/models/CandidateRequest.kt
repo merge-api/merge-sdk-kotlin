@@ -26,6 +26,7 @@ import dev.merge.client.ats.models.UrlRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Candidate Object ### Description The `Candidate` object is used to represent a Candidate for various positions. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
@@ -201,5 +202,33 @@ data class CandidateRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CandidateRequest.Expanded): CandidateRequest {
+            return CandidateRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                firstName = ApiClient.jsonConvertSafe(expanded.firstName),
+                lastName = ApiClient.jsonConvertSafe(expanded.lastName),
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                title = ApiClient.jsonConvertSafe(expanded.title),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                lastInteractionAt = ApiClient.jsonConvertSafe(expanded.lastInteractionAt),
+                isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
+                canEmail = ApiClient.jsonConvertSafe(expanded.canEmail),
+                locations = ApiClient.jsonConvertSafe(expanded.locations),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
+                emailAddresses = ApiClient.jsonConvertSafe(expanded.emailAddresses),
+                urls = ApiClient.jsonConvertSafe(expanded.urls),
+                tags = ApiClient.jsonConvertSafe(expanded.tags),
+                applications = ApiClient.jsonConvertSafe(expanded.applications),
+                attachments = ApiClient.jsonConvertSafe(expanded.attachments),
+                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
+                remoteTemplateId = ApiClient.jsonConvertSafe(expanded.remoteTemplateId),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

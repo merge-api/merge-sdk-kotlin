@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object is used to represent an invoice's line items.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
@@ -97,5 +98,20 @@ data class InvoiceLineItemRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: InvoiceLineItemRequest.Expanded): InvoiceLineItemRequest {
+            return InvoiceLineItemRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
+                quantity = ApiClient.jsonConvertSafe(expanded.quantity),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                item = ApiClient.jsonConvertSafe(expanded.item),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory)
+            )
+        }
+    }
 }
 

@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent an entity's email address. ### Usage Example Fetch from the `GET Contact` endpoint and view their email addresses.
@@ -52,5 +53,14 @@ data class EmailAddress (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EmailAddress.Expanded): EmailAddress {
+            return EmailAddress(
+                emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
+                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType)
+            )
+        }
+    }
 }
 

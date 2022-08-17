@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.TicketStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Ticket Object ### Description The `Ticket` object is used to represent a ticket or a task within a system.  ### Usage Example TODO
@@ -150,5 +151,27 @@ data class TicketRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TicketRequest.Expanded): TicketRequest {
+            return TicketRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                assignees = ApiClient.jsonConvertSafe(expanded.assignees),
+                dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                project = ApiClient.jsonConvertSafe(expanded.project),
+                ticketType = ApiClient.jsonConvertSafe(expanded.ticketType),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                parentTicket = ApiClient.jsonConvertSafe(expanded.parentTicket),
+                attachments = ApiClient.jsonConvertSafe(expanded.attachments),
+                tags = ApiClient.jsonConvertSafe(expanded.tags),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt)
+            )
+        }
+    }
 }
 

@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
@@ -129,5 +130,24 @@ data class AccountRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountRequest.Expanded): AccountRequest {
+            return AccountRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                industry = ApiClient.jsonConvertSafe(expanded.industry),
+                website = ApiClient.jsonConvertSafe(expanded.website),
+                numberOfEmployees = ApiClient.jsonConvertSafe(expanded.numberOfEmployees),
+                lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

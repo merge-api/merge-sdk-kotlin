@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.Status7d1Enum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The TrackingCategory Object ### Description The `TrackingCategory` object is used to represent a company's tracking categories.  ### Usage Example Fetch from the `GET TrackingCategory` endpoint and view a company's tracking category.
@@ -84,5 +85,18 @@ data class TrackingCategory (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TrackingCategory.Expanded): TrackingCategory {
+            return TrackingCategory(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

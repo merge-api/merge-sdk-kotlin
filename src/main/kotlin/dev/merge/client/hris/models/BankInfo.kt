@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The BankInfo Object ### Description The `BankInfo` object is used to represent the Bank Account information for an Employee. This is often referenced with an Employee object.  ### Usage Example Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
@@ -115,5 +116,22 @@ data class BankInfo (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: BankInfo.Expanded): BankInfo {
+            return BankInfo(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                accountNumber = ApiClient.jsonConvertSafe(expanded.accountNumber),
+                routingNumber = ApiClient.jsonConvertSafe(expanded.routingNumber),
+                bankName = ApiClient.jsonConvertSafe(expanded.bankName),
+                accountType = ApiClient.jsonConvertSafe(expanded.accountType),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

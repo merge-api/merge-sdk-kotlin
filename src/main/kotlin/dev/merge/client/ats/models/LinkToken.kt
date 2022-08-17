@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -47,15 +48,25 @@ data class LinkToken (
 
     data class Expanded(
         @field:JsonProperty("link_token")
-        val linkToken: JsonNode?,
+        val linkToken: JsonNode,
 
         @field:JsonProperty("integration_name")
-        val integrationName: JsonNode?,
+        val integrationName: JsonNode,
 
         @field:JsonProperty("magic_link_url")
         val magicLinkUrl: JsonNode?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: LinkToken.Expanded): LinkToken {
+            return LinkToken(
+                linkToken = ApiClient.jsonConvertRequiredSafe(expanded.linkToken),
+                integrationName = ApiClient.jsonConvertRequiredSafe(expanded.integrationName),
+                magicLinkUrl = ApiClient.jsonConvertSafe(expanded.magicLinkUrl)
+            )
+        }
+    }
 }
 

@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The PurchaseOrder Object ### Description The `PurchaseOrder` object is used to represent a company's purchase orders.  ### Usage Example Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
@@ -165,5 +166,28 @@ data class PurchaseOrder (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: PurchaseOrder.Expanded): PurchaseOrder {
+            return PurchaseOrder(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                issueDate = ApiClient.jsonConvertSafe(expanded.issueDate),
+                deliveryDate = ApiClient.jsonConvertSafe(expanded.deliveryDate),
+                deliveryAddress = ApiClient.jsonConvertSafe(expanded.deliveryAddress),
+                customer = ApiClient.jsonConvertSafe(expanded.customer),
+                vendor = ApiClient.jsonConvertSafe(expanded.vendor),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The BalanceSheet Object ### Description The `BalanceSheet` object is used to represent a company's balance sheet.  ### Usage Example Fetch from the `LIST BalanceSheets` endpoint and view a company's balance sheets.
@@ -121,5 +122,23 @@ data class BalanceSheet (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: BalanceSheet.Expanded): BalanceSheet {
+            return BalanceSheet(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                date = ApiClient.jsonConvertSafe(expanded.date),
+                netAssets = ApiClient.jsonConvertSafe(expanded.netAssets),
+                assets = ApiClient.jsonConvertSafe(expanded.assets),
+                liabilities = ApiClient.jsonConvertSafe(expanded.liabilities),
+                equity = ApiClient.jsonConvertSafe(expanded.equity),
+                remoteGeneratedAt = ApiClient.jsonConvertSafe(expanded.remoteGeneratedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

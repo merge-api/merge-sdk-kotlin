@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent the customer, lead, or external user that a ticket is associated with.  ### Usage Example TODO
@@ -107,5 +108,21 @@ data class Contact (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Contact.Expanded): Contact {
+            return Contact(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
+                phoneNumber = ApiClient.jsonConvertSafe(expanded.phoneNumber),
+                details = ApiClient.jsonConvertSafe(expanded.details),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

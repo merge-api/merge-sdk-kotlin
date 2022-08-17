@@ -83,6 +83,20 @@ open class ApiClient(
             } catch (exc: Exception) { }
             return null
         }
+
+        inline fun <reified T> jsonConvertRequiredSafe(raw: List<JsonNode>): List<T> {
+            if (raw.isEmpty()) {
+                return listOf()
+            }
+
+            return raw.map {
+                jsonConvertSafe<T>(it)
+            }.toList().filterNotNull()
+        }
+
+        inline fun <reified T> jsonConvertRequiredSafe(raw: JsonNode): T {
+            return JSON_DEFAULT.convertValue(raw, T::class.java)
+        }
     }
 
     /**

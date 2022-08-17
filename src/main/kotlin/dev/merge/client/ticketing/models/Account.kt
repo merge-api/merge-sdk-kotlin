@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Account Object ### Description The `Account` object is used to represent the account that a ticket is associated with.  The account is a company that may be a customer. This does not represent the company that is receiving the ticket.  ### Usage Example TODO
@@ -83,5 +84,18 @@ data class Account (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Account.Expanded): Account {
+            return Account(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                domains = ApiClient.jsonConvertSafe(expanded.domains),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The AccountingPhoneNumber Object ### Description The `AccountingPhoneNumber` object is used to represent a contact's or company's phone number.  ### Usage Example Fetch from the `GET CompanyInfo` endpoint and view the company's phone numbers.
@@ -52,5 +53,14 @@ data class AccountingPhoneNumber (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountingPhoneNumber.Expanded): AccountingPhoneNumber {
+            return AccountingPhoneNumber(
+                number = ApiClient.jsonConvertSafe(expanded.number),
+                type = ApiClient.jsonConvertSafe(expanded.type)
+            )
+        }
+    }
 }
 

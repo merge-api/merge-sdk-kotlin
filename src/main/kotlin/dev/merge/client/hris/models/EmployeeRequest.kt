@@ -27,6 +27,7 @@ import dev.merge.client.hris.models.MaritalStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Employee Object ### Description The `Employee` object is used to represent an Employee for a company.  ### Usage Example Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
@@ -266,5 +267,41 @@ data class EmployeeRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EmployeeRequest.Expanded): EmployeeRequest {
+            return EmployeeRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employeeNumber = ApiClient.jsonConvertSafe(expanded.employeeNumber),
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                firstName = ApiClient.jsonConvertSafe(expanded.firstName),
+                lastName = ApiClient.jsonConvertSafe(expanded.lastName),
+                displayFullName = ApiClient.jsonConvertSafe(expanded.displayFullName),
+                username = ApiClient.jsonConvertSafe(expanded.username),
+                groups = ApiClient.jsonConvertSafe(expanded.groups),
+                workEmail = ApiClient.jsonConvertSafe(expanded.workEmail),
+                personalEmail = ApiClient.jsonConvertSafe(expanded.personalEmail),
+                mobilePhoneNumber = ApiClient.jsonConvertSafe(expanded.mobilePhoneNumber),
+                employments = ApiClient.jsonConvertSafe(expanded.employments),
+                homeLocation = ApiClient.jsonConvertSafe(expanded.homeLocation),
+                workLocation = ApiClient.jsonConvertSafe(expanded.workLocation),
+                manager = ApiClient.jsonConvertSafe(expanded.manager),
+                team = ApiClient.jsonConvertSafe(expanded.team),
+                payGroup = ApiClient.jsonConvertSafe(expanded.payGroup),
+                ssn = ApiClient.jsonConvertSafe(expanded.ssn),
+                gender = ApiClient.jsonConvertSafe(expanded.gender),
+                ethnicity = ApiClient.jsonConvertSafe(expanded.ethnicity),
+                maritalStatus = ApiClient.jsonConvertSafe(expanded.maritalStatus),
+                dateOfBirth = ApiClient.jsonConvertSafe(expanded.dateOfBirth),
+                hireDate = ApiClient.jsonConvertSafe(expanded.hireDate),
+                startDate = ApiClient.jsonConvertSafe(expanded.startDate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                employmentStatus = ApiClient.jsonConvertSafe(expanded.employmentStatus),
+                terminationDate = ApiClient.jsonConvertSafe(expanded.terminationDate),
+                avatar = ApiClient.jsonConvertSafe(expanded.avatar),
+                customFields = ApiClient.jsonConvertSafe(expanded.customFields)
+            )
+        }
+    }
 }
 

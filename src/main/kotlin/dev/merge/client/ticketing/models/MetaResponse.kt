@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.LinkedAccountStatus
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -52,18 +53,29 @@ data class MetaResponse (
 
     data class Expanded(
         @field:JsonProperty("request_schema")
-        val requestSchema: JsonNode?,
+        val requestSchema: JsonNode,
 
         @field:JsonProperty("has_conditional_params")
-        val hasConditionalParams: JsonNode?,
+        val hasConditionalParams: JsonNode,
 
         @field:JsonProperty("has_required_linked_account_params")
-        val hasRequiredLinkedAccountParams: JsonNode?,
+        val hasRequiredLinkedAccountParams: JsonNode,
 
         @field:JsonProperty("status")
         val status: JsonNode?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: MetaResponse.Expanded): MetaResponse {
+            return MetaResponse(
+                requestSchema = ApiClient.jsonConvertRequiredSafe(expanded.requestSchema),
+                hasConditionalParams = ApiClient.jsonConvertRequiredSafe(expanded.hasConditionalParams),
+                hasRequiredLinkedAccountParams = ApiClient.jsonConvertRequiredSafe(expanded.hasRequiredLinkedAccountParams),
+                status = ApiClient.jsonConvertSafe(expanded.status)
+            )
+        }
+    }
 }
 

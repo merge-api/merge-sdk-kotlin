@@ -24,6 +24,7 @@ import dev.merge.client.hris.models.CategoriesEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -65,7 +66,7 @@ data class AccountIntegration (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?,
+        val name: JsonNode,
 
         @field:JsonProperty("categories")
         val categories: kotlin.collections.List<JsonNode>?,
@@ -84,5 +85,18 @@ data class AccountIntegration (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountIntegration.Expanded): AccountIntegration {
+            return AccountIntegration(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name),
+                categories = ApiClient.jsonConvertSafe(expanded.categories),
+                image = ApiClient.jsonConvertSafe(expanded.image),
+                squareImage = ApiClient.jsonConvertSafe(expanded.squareImage),
+                color = ApiClient.jsonConvertSafe(expanded.color),
+                slug = ApiClient.jsonConvertSafe(expanded.slug)
+            )
+        }
+    }
 }
 

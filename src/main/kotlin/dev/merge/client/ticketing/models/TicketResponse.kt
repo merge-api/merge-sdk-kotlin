@@ -27,6 +27,7 @@ import dev.merge.client.ticketing.models.WarningValidationProblem
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -55,18 +56,29 @@ data class TicketResponse (
 
     data class Expanded(
         @field:JsonProperty("model")
-        val model: JsonNode?,
+        val model: JsonNode,
 
         @field:JsonProperty("warnings")
-        val warnings: kotlin.collections.List<JsonNode>?,
+        val warnings: kotlin.collections.List<JsonNode>,
 
         @field:JsonProperty("errors")
-        val errors: kotlin.collections.List<JsonNode>?,
+        val errors: kotlin.collections.List<JsonNode>,
 
         @field:JsonProperty("logs")
         val logs: kotlin.collections.List<JsonNode>?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TicketResponse.Expanded): TicketResponse {
+            return TicketResponse(
+                model = ApiClient.jsonConvertRequiredSafe(expanded.model),
+                warnings = ApiClient.jsonConvertRequiredSafe(expanded.warnings),
+                errors = ApiClient.jsonConvertRequiredSafe(expanded.errors),
+                logs = ApiClient.jsonConvertSafe(expanded.logs)
+            )
+        }
+    }
 }
 

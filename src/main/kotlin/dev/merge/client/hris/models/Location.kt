@@ -26,6 +26,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Location Object ### Description The `Location` object is used to represent a Location for a Company or Employee address. This is shared across many models and is referenced whenever a location is stored.  ### Usage Example Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
@@ -141,5 +142,25 @@ data class Location (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Location.Expanded): Location {
+            return Location(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                phoneNumber = ApiClient.jsonConvertSafe(expanded.phoneNumber),
+                street1 = ApiClient.jsonConvertSafe(expanded.street1),
+                street2 = ApiClient.jsonConvertSafe(expanded.street2),
+                city = ApiClient.jsonConvertSafe(expanded.city),
+                state = ApiClient.jsonConvertSafe(expanded.state),
+                zipCode = ApiClient.jsonConvertSafe(expanded.zipCode),
+                country = ApiClient.jsonConvertSafe(expanded.country),
+                locationType = ApiClient.jsonConvertSafe(expanded.locationType),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

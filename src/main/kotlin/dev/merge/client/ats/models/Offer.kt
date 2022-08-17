@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Offer Object ### Description The `Offer` object is used to represent an offer for an application. ### Usage Example Fetch from the `LIST Offers` endpoint and filter by `ID` to show all offers.
@@ -122,5 +123,23 @@ data class Offer (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Offer.Expanded): Offer {
+            return Offer(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                application = ApiClient.jsonConvertSafe(expanded.application),
+                creator = ApiClient.jsonConvertSafe(expanded.creator),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                closedAt = ApiClient.jsonConvertSafe(expanded.closedAt),
+                sentAt = ApiClient.jsonConvertSafe(expanded.sentAt),
+                startDate = ApiClient.jsonConvertSafe(expanded.startDate),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

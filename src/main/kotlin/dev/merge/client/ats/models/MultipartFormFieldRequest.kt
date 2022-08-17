@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.EncodingEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The MultipartFormField Object ### Description The `MultipartFormField` object is used to represent fields in an HTTP request using `multipart/form-data`.  ### Usage Example Create a `MultipartFormField` to define a multipart form entry.
@@ -61,10 +62,10 @@ data class MultipartFormFieldRequest (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?,
+        val name: JsonNode,
 
         @field:JsonProperty("data")
-        val `data`: JsonNode?,
+        val `data`: JsonNode,
 
         @field:JsonProperty("encoding")
         val encoding: JsonNode?,
@@ -77,5 +78,17 @@ data class MultipartFormFieldRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: MultipartFormFieldRequest.Expanded): MultipartFormFieldRequest {
+            return MultipartFormFieldRequest(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name),
+                `data` = ApiClient.jsonConvertRequiredSafe(expanded.`data`),
+                encoding = ApiClient.jsonConvertSafe(expanded.encoding),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                contentType = ApiClient.jsonConvertSafe(expanded.contentType)
+            )
+        }
+    }
 }
 

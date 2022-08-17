@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -47,15 +48,25 @@ data class WebhookReceiver (
 
     data class Expanded(
         @field:JsonProperty("event")
-        val event: JsonNode?,
+        val event: JsonNode,
 
         @field:JsonProperty("is_active")
-        val isActive: JsonNode?,
+        val isActive: JsonNode,
 
         @field:JsonProperty("key")
         val key: JsonNode?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: WebhookReceiver.Expanded): WebhookReceiver {
+            return WebhookReceiver(
+                event = ApiClient.jsonConvertRequiredSafe(expanded.event),
+                isActive = ApiClient.jsonConvertRequiredSafe(expanded.isActive),
+                key = ApiClient.jsonConvertSafe(expanded.key)
+            )
+        }
+    }
 }
 

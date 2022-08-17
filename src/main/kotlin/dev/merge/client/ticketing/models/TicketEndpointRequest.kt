@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.TicketRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -40,9 +41,17 @@ data class TicketEndpointRequest (
 
     data class Expanded(
         @field:JsonProperty("model")
-        val model: JsonNode?
+        val model: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TicketEndpointRequest.Expanded): TicketEndpointRequest {
+            return TicketEndpointRequest(
+                model = ApiClient.jsonConvertRequiredSafe(expanded.model)
+            )
+        }
+    }
 }
 

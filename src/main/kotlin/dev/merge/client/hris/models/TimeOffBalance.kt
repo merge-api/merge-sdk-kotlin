@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The TimeOffBalance Object ### Description The `TimeOffBalance` object is used to represent a Time Off Balance for an employee.  ### Usage Example Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
@@ -99,5 +100,20 @@ data class TimeOffBalance (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TimeOffBalance.Expanded): TimeOffBalance {
+            return TimeOffBalance(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                balance = ApiClient.jsonConvertSafe(expanded.balance),
+                used = ApiClient.jsonConvertSafe(expanded.used),
+                policyType = ApiClient.jsonConvertSafe(expanded.policyType),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

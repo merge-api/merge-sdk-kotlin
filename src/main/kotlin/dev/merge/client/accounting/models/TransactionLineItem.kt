@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -107,5 +108,21 @@ data class TransactionLineItem (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TransactionLineItem.Expanded): TransactionLineItem {
+            return TransactionLineItem(
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
+                quantity = ApiClient.jsonConvertSafe(expanded.quantity),
+                item = ApiClient.jsonConvertSafe(expanded.item),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
+                taxRate = ApiClient.jsonConvertSafe(expanded.taxRate),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+            )
+        }
+    }
 }
 

@@ -26,6 +26,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Expense Object ### Description The `Expense` object is used to represent a company's expenses  ### Usage Example Fetch from the `GET Expense` endpoint and view a company's expense.
@@ -130,5 +131,24 @@ data class Expense (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Expense.Expanded): Expense {
+            return Expense(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                lines = ApiClient.jsonConvertSafe(expanded.lines),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

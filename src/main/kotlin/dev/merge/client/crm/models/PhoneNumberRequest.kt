@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The PhoneNumber Object ### Description The `PhoneNumber` object is used to represent an entity's phone number. ### Usage Example Fetch from the `GET Contact` endpoint and view their phone numbers.
@@ -52,5 +53,14 @@ data class PhoneNumberRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: PhoneNumberRequest.Expanded): PhoneNumberRequest {
+            return PhoneNumberRequest(
+                phoneNumber = ApiClient.jsonConvertSafe(expanded.phoneNumber),
+                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType)
+            )
+        }
+    }
 }
 

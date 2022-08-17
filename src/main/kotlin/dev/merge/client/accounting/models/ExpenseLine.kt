@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The ExpenseLine Object ### Description The `ExpenseLine` object is used to represent an expense's line items.  ### Usage Example Fetch from the `GET Expense` endpoint and view the expense's line items.
@@ -82,5 +83,18 @@ data class ExpenseLine (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ExpenseLine.Expanded): ExpenseLine {
+            return ExpenseLine(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                item = ApiClient.jsonConvertSafe(expanded.item),
+                netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                description = ApiClient.jsonConvertSafe(expanded.description)
+            )
+        }
+    }
 }
 

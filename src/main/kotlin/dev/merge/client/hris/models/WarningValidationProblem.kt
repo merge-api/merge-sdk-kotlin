@@ -24,6 +24,7 @@ import dev.merge.client.hris.models.ValidationProblemSource
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -52,18 +53,29 @@ data class WarningValidationProblem (
 
     data class Expanded(
         @field:JsonProperty("title")
-        val title: JsonNode?,
+        val title: JsonNode,
 
         @field:JsonProperty("detail")
-        val detail: JsonNode?,
+        val detail: JsonNode,
 
         @field:JsonProperty("problem_type")
-        val problemType: JsonNode?,
+        val problemType: JsonNode,
 
         @field:JsonProperty("source")
         val source: JsonNode?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: WarningValidationProblem.Expanded): WarningValidationProblem {
+            return WarningValidationProblem(
+                title = ApiClient.jsonConvertRequiredSafe(expanded.title),
+                detail = ApiClient.jsonConvertRequiredSafe(expanded.detail),
+                problemType = ApiClient.jsonConvertRequiredSafe(expanded.problemType),
+                source = ApiClient.jsonConvertSafe(expanded.source)
+            )
+        }
+    }
 }
 

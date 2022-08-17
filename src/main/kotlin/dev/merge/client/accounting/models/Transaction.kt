@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.TransactionLineItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -132,5 +133,24 @@ data class Transaction (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Transaction.Expanded): Transaction {
+            return Transaction(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                transactionType = ApiClient.jsonConvertSafe(expanded.transactionType),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                number = ApiClient.jsonConvertSafe(expanded.number),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

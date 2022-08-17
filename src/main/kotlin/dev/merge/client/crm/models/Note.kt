@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Note Object ### Description The `Note` object is used to represent a note in the remote system. ### Usage Example TODO
@@ -118,5 +119,23 @@ data class Note (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Note.Expanded): Note {
+            return Note(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                content = ApiClient.jsonConvertSafe(expanded.content),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                opportunity = ApiClient.jsonConvertSafe(expanded.opportunity),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

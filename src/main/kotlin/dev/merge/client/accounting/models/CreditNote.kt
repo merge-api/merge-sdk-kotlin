@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The CreditNote Object ### Description The `CreditNote` object is used to represent a refund or credit of payment.  ### Usage Example Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
@@ -157,5 +158,27 @@ data class CreditNote (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CreditNote.Expanded): CreditNote {
+            return CreditNote(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                number = ApiClient.jsonConvertSafe(expanded.number),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                remainingCredit = ApiClient.jsonConvertSafe(expanded.remainingCredit),
+                lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                payments = ApiClient.jsonConvertSafe(expanded.payments),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

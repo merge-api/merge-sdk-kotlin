@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.NoteRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -40,9 +41,17 @@ data class NoteEndpointRequest (
 
     data class Expanded(
         @field:JsonProperty("model")
-        val model: JsonNode?
+        val model: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: NoteEndpointRequest.Expanded): NoteEndpointRequest {
+            return NoteEndpointRequest(
+                model = ApiClient.jsonConvertRequiredSafe(expanded.model)
+            )
+        }
+    }
 }
 

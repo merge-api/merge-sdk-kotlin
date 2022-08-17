@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.CategoriesEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -71,16 +72,16 @@ data class EndUserDetailsRequest (
 
     data class Expanded(
         @field:JsonProperty("end_user_email_address")
-        val endUserEmailAddress: JsonNode?,
+        val endUserEmailAddress: JsonNode,
 
         @field:JsonProperty("end_user_organization_name")
-        val endUserOrganizationName: JsonNode?,
+        val endUserOrganizationName: JsonNode,
 
         @field:JsonProperty("end_user_origin_id")
-        val endUserOriginId: JsonNode?,
+        val endUserOriginId: JsonNode,
 
         @field:JsonProperty("categories")
-        val categories: kotlin.collections.List<JsonNode>?,
+        val categories: kotlin.collections.List<JsonNode>,
 
         @field:JsonProperty("integration")
         val integration: JsonNode?,
@@ -93,5 +94,19 @@ data class EndUserDetailsRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EndUserDetailsRequest.Expanded): EndUserDetailsRequest {
+            return EndUserDetailsRequest(
+                endUserEmailAddress = ApiClient.jsonConvertRequiredSafe(expanded.endUserEmailAddress),
+                endUserOrganizationName = ApiClient.jsonConvertRequiredSafe(expanded.endUserOrganizationName),
+                endUserOriginId = ApiClient.jsonConvertRequiredSafe(expanded.endUserOriginId),
+                categories = ApiClient.jsonConvertRequiredSafe(expanded.categories),
+                integration = ApiClient.jsonConvertSafe(expanded.integration),
+                linkExpiryMins = ApiClient.jsonConvertSafe(expanded.linkExpiryMins),
+                shouldCreateMagicLinkUrl = ApiClient.jsonConvertSafe(expanded.shouldCreateMagicLinkUrl)
+            )
+        }
+    }
 }
 

@@ -24,6 +24,7 @@ import dev.merge.client.hris.models.EarningTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Earning Object ### Description The `Earning` object is used to represent an earning for a given employee's payroll run. One run could include several earnings.  ### Usage Example Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
@@ -75,5 +76,17 @@ data class Earning (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Earning.Expanded): Earning {
+            return Earning(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
+                amount = ApiClient.jsonConvertSafe(expanded.amount),
+                type = ApiClient.jsonConvertSafe(expanded.type),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

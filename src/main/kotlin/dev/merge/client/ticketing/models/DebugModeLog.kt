@@ -24,6 +24,7 @@ import dev.merge.client.ticketing.models.DebugModelLogSummary
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -48,15 +49,25 @@ data class DebugModeLog (
 
     data class Expanded(
         @field:JsonProperty("log_id")
-        val logId: JsonNode?,
+        val logId: JsonNode,
 
         @field:JsonProperty("dashboard_view")
-        val dashboardView: JsonNode?,
+        val dashboardView: JsonNode,
 
         @field:JsonProperty("log_summary")
-        val logSummary: JsonNode?
+        val logSummary: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: DebugModeLog.Expanded): DebugModeLog {
+            return DebugModeLog(
+                logId = ApiClient.jsonConvertRequiredSafe(expanded.logId),
+                dashboardView = ApiClient.jsonConvertRequiredSafe(expanded.dashboardView),
+                logSummary = ApiClient.jsonConvertRequiredSafe(expanded.logSummary)
+            )
+        }
+    }
 }
 

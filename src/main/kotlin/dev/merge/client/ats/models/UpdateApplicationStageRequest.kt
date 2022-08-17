@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -51,5 +52,14 @@ data class UpdateApplicationStageRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: UpdateApplicationStageRequest.Expanded): UpdateApplicationStageRequest {
+            return UpdateApplicationStageRequest(
+                jobInterviewStage = ApiClient.jsonConvertSafe(expanded.jobInterviewStage),
+                remoteUserId = ApiClient.jsonConvertSafe(expanded.remoteUserId)
+            )
+        }
+    }
 }
 

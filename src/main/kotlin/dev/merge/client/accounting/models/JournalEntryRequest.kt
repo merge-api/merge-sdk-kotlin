@@ -24,6 +24,7 @@ import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The JournalEntry Object ### Description The `JournalEntry` object is used to represent a company's journey entries.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
@@ -85,5 +86,18 @@ data class JournalEntryRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: JournalEntryRequest.Expanded): JournalEntryRequest {
+            return JournalEntryRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                payments = ApiClient.jsonConvertSafe(expanded.payments),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                currency = ApiClient.jsonConvertSafe(expanded.currency)
+            )
+        }
+    }
 }
 

@@ -27,6 +27,7 @@ import dev.merge.client.hris.models.Tax
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent a payroll run for a specific employee.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
@@ -145,5 +146,26 @@ data class EmployeePayrollRun (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EmployeePayrollRun.Expanded): EmployeePayrollRun {
+            return EmployeePayrollRun(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                payrollRun = ApiClient.jsonConvertSafe(expanded.payrollRun),
+                grossPay = ApiClient.jsonConvertSafe(expanded.grossPay),
+                netPay = ApiClient.jsonConvertSafe(expanded.netPay),
+                startDate = ApiClient.jsonConvertSafe(expanded.startDate),
+                endDate = ApiClient.jsonConvertSafe(expanded.endDate),
+                checkDate = ApiClient.jsonConvertSafe(expanded.checkDate),
+                earnings = ApiClient.jsonConvertSafe(expanded.earnings),
+                deductions = ApiClient.jsonConvertSafe(expanded.deductions),
+                taxes = ApiClient.jsonConvertSafe(expanded.taxes),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

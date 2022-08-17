@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.SyncStatusStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The SyncStatus Object ### Description The `SyncStatus` object is used to represent the syncing state of an account  ### Usage Example View the `SyncStatus` for an account to see how recently its models were synced.
@@ -60,24 +61,37 @@ data class SyncStatus (
 
     data class Expanded(
         @field:JsonProperty("model_name")
-        val modelName: JsonNode?,
+        val modelName: JsonNode,
 
         @field:JsonProperty("model_id")
-        val modelId: JsonNode?,
+        val modelId: JsonNode,
 
         @field:JsonProperty("last_sync_start")
-        val lastSyncStart: JsonNode?,
+        val lastSyncStart: JsonNode,
 
         @field:JsonProperty("next_sync_start")
-        val nextSyncStart: JsonNode?,
+        val nextSyncStart: JsonNode,
 
         @field:JsonProperty("status")
-        val status: JsonNode?,
+        val status: JsonNode,
 
         @field:JsonProperty("is_initial_sync")
-        val isInitialSync: JsonNode?
+        val isInitialSync: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: SyncStatus.Expanded): SyncStatus {
+            return SyncStatus(
+                modelName = ApiClient.jsonConvertRequiredSafe(expanded.modelName),
+                modelId = ApiClient.jsonConvertRequiredSafe(expanded.modelId),
+                lastSyncStart = ApiClient.jsonConvertRequiredSafe(expanded.lastSyncStart),
+                nextSyncStart = ApiClient.jsonConvertRequiredSafe(expanded.nextSyncStart),
+                status = ApiClient.jsonConvertRequiredSafe(expanded.status),
+                isInitialSync = ApiClient.jsonConvertRequiredSafe(expanded.isInitialSync)
+            )
+        }
+    }
 }
 

@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.Status7d1Enum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Contact Object ### Description The `Contact` object is used to represent a Contact. This can be either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
@@ -149,5 +150,26 @@ data class Contact (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Contact.Expanded): Contact {
+            return Contact(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                isSupplier = ApiClient.jsonConvertSafe(expanded.isSupplier),
+                isCustomer = ApiClient.jsonConvertSafe(expanded.isCustomer),
+                emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
+                taxNumber = ApiClient.jsonConvertSafe(expanded.taxNumber),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                addresses = ApiClient.jsonConvertSafe(expanded.addresses),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -26,6 +26,7 @@ import dev.merge.client.ats.models.VisibilityEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Activity Object ### Description The `Activity` object is used to represent an activity performed by a user. ### Usage Example Fetch from the `LIST Activities` endpoint and filter by `ID` to show all activities.
@@ -116,5 +117,22 @@ data class Activity (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Activity.Expanded): Activity {
+            return Activity(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                user = ApiClient.jsonConvertSafe(expanded.user),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                activityType = ApiClient.jsonConvertSafe(expanded.activityType),
+                subject = ApiClient.jsonConvertSafe(expanded.subject),
+                body = ApiClient.jsonConvertSafe(expanded.body),
+                visibility = ApiClient.jsonConvertSafe(expanded.visibility),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

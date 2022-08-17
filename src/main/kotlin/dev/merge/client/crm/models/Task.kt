@@ -25,6 +25,7 @@ import dev.merge.client.crm.models.TaskStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Task Object ### Description The `Task` object is used to represent a task in the remote system. ### Usage Example TODO
@@ -122,5 +123,23 @@ data class Task (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Task.Expanded): Task {
+            return Task(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                subject = ApiClient.jsonConvertSafe(expanded.subject),
+                content = ApiClient.jsonConvertSafe(expanded.content),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                completedDate = ApiClient.jsonConvertSafe(expanded.completedDate),
+                dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

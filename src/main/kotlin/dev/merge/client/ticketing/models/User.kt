@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The User Object ### Description The `User` object is used to represent an employee within a company.  ### Usage Example TODO
@@ -98,5 +99,20 @@ data class User (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: User.Expanded): User {
+            return User(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
+                isActive = ApiClient.jsonConvertSafe(expanded.isActive),
+                teams = ApiClient.jsonConvertSafe(expanded.teams),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

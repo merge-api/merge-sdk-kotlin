@@ -25,6 +25,7 @@ import dev.merge.client.ats.models.ScheduledInterviewStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The ScheduledInterview Object ### Description The `ScheduledInterview` object is used to represent an interview. ### Usage Example Fetch from the `LIST ScheduledInterviews` endpoint and filter by `interviewers` to show all office locations.
@@ -145,5 +146,26 @@ data class ScheduledInterview (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ScheduledInterview.Expanded): ScheduledInterview {
+            return ScheduledInterview(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                application = ApiClient.jsonConvertSafe(expanded.application),
+                jobInterviewStage = ApiClient.jsonConvertSafe(expanded.jobInterviewStage),
+                organizer = ApiClient.jsonConvertSafe(expanded.organizer),
+                interviewers = ApiClient.jsonConvertSafe(expanded.interviewers),
+                location = ApiClient.jsonConvertSafe(expanded.location),
+                startAt = ApiClient.jsonConvertSafe(expanded.startAt),
+                endAt = ApiClient.jsonConvertSafe(expanded.endAt),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

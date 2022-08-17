@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Tax Object ### Description The `Tax` object is used to represent a tax for a given employee's payroll run. One run could include several taxes.  ### Usage Example Fetch from the `LIST Taxes` endpoint and filter by `ID` to show all taxes.
@@ -82,5 +83,18 @@ data class Tax (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Tax.Expanded): Tax {
+            return Tax(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                amount = ApiClient.jsonConvertSafe(expanded.amount),
+                employerTax = ApiClient.jsonConvertSafe(expanded.employerTax),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

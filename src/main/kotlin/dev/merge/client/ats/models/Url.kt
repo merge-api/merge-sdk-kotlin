@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.UrlTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Url Object ### Description The `Url` object is used to represent a candidate's website. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
@@ -53,5 +54,14 @@ data class Url (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Url.Expanded): Url {
+            return Url(
+                `value` = ApiClient.jsonConvertSafe(expanded.`value`),
+                urlType = ApiClient.jsonConvertSafe(expanded.urlType)
+            )
+        }
+    }
 }
 

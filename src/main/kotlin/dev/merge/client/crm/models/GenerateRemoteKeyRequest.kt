@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The GenerateRemoteKey Object ### Description The `GenerateRemoteKey` object is used to represent a request for a new remote key.  ### Usage Example Post a `GenerateRemoteKey` to create a new remote key.
@@ -39,9 +40,17 @@ data class GenerateRemoteKeyRequest (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?
+        val name: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: GenerateRemoteKeyRequest.Expanded): GenerateRemoteKeyRequest {
+            return GenerateRemoteKeyRequest(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name)
+            )
+        }
+    }
 }
 

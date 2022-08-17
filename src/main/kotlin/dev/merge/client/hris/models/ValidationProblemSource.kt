@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -39,9 +40,17 @@ data class ValidationProblemSource (
 
     data class Expanded(
         @field:JsonProperty("pointer")
-        val pointer: JsonNode?
+        val pointer: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ValidationProblemSource.Expanded): ValidationProblemSource {
+            return ValidationProblemSource(
+                pointer = ApiClient.jsonConvertRequiredSafe(expanded.pointer)
+            )
+        }
+    }
 }
 

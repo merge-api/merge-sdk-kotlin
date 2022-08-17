@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The ReportItem Object ### Description The `ReportItem` object is used to represent a report item for a Balance Sheet, Cash Flow Statement or Profit and Loss Report.  ### Usage Example Fetch from the `GET BalanceSheet` endpoint and view the balance sheet's report items.
@@ -67,5 +68,16 @@ data class ReportItem (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ReportItem.Expanded): ReportItem {
+            return ReportItem(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                `value` = ApiClient.jsonConvertSafe(expanded.`value`),
+                subItems = ApiClient.jsonConvertSafe(expanded.subItems)
+            )
+        }
+    }
 }
 

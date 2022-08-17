@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.AccountIntegration
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -44,12 +45,21 @@ data class AccountToken (
 
     data class Expanded(
         @field:JsonProperty("account_token")
-        val accountToken: JsonNode?,
+        val accountToken: JsonNode,
 
         @field:JsonProperty("integration")
-        val integration: JsonNode?
+        val integration: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountToken.Expanded): AccountToken {
+            return AccountToken(
+                accountToken = ApiClient.jsonConvertRequiredSafe(expanded.accountToken),
+                integration = ApiClient.jsonConvertRequiredSafe(expanded.integration)
+            )
+        }
+    }
 }
 

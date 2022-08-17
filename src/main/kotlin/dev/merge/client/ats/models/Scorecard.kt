@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Scorecard Object ### Description The `Scorecard` object is used to represent a Scorecard for an interview. ### Usage Example Fetch from the `LIST Scorecards` endpoint and filter by `application` to show all scorecard for an applicant.
@@ -113,5 +114,22 @@ data class Scorecard (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Scorecard.Expanded): Scorecard {
+            return Scorecard(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                application = ApiClient.jsonConvertSafe(expanded.application),
+                interview = ApiClient.jsonConvertSafe(expanded.interview),
+                interviewer = ApiClient.jsonConvertSafe(expanded.interviewer),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                submittedAt = ApiClient.jsonConvertSafe(expanded.submittedAt),
+                overallRecommendation = ApiClient.jsonConvertSafe(expanded.overallRecommendation),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

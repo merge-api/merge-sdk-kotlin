@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -123,5 +124,23 @@ data class CreditNoteLineItem (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CreditNoteLineItem.Expanded): CreditNoteLineItem {
+            return CreditNoteLineItem(
+                item = ApiClient.jsonConvertSafe(expanded.item),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                quantity = ApiClient.jsonConvertSafe(expanded.quantity),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
+                taxRate = ApiClient.jsonConvertSafe(expanded.taxRate),
+                totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+            )
+        }
+    }
 }
 

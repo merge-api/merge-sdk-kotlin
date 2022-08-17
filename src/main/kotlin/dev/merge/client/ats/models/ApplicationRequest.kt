@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Application Object ### Description The `Application` object is used to represent an Application for a job position. This is separate from the Candidate object, although some systems may only allow a Candidate to have one Application.  Please note: Application objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
@@ -132,5 +133,25 @@ data class ApplicationRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: ApplicationRequest.Expanded): ApplicationRequest {
+            return ApplicationRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                candidate = ApiClient.jsonConvertSafe(expanded.candidate),
+                job = ApiClient.jsonConvertSafe(expanded.job),
+                appliedAt = ApiClient.jsonConvertSafe(expanded.appliedAt),
+                rejectedAt = ApiClient.jsonConvertSafe(expanded.rejectedAt),
+                source = ApiClient.jsonConvertSafe(expanded.source),
+                creditedTo = ApiClient.jsonConvertSafe(expanded.creditedTo),
+                currentStage = ApiClient.jsonConvertSafe(expanded.currentStage),
+                rejectReason = ApiClient.jsonConvertSafe(expanded.rejectReason),
+                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
+                remoteTemplateId = ApiClient.jsonConvertSafe(expanded.remoteTemplateId),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+            )
+        }
+    }
 }
 

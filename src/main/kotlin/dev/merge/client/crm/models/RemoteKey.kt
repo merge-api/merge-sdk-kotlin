@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The RemoteKey Object ### Description The `RemoteKey` object is used to represent a request for a new remote key.  ### Usage Example Post a `GenerateRemoteKey` to receive a new `RemoteKey`.
@@ -43,12 +44,21 @@ data class RemoteKey (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?,
+        val name: JsonNode,
 
         @field:JsonProperty("key")
-        val key: JsonNode?
+        val key: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: RemoteKey.Expanded): RemoteKey {
+            return RemoteKey(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name),
+                key = ApiClient.jsonConvertRequiredSafe(expanded.key)
+            )
+        }
+    }
 }
 

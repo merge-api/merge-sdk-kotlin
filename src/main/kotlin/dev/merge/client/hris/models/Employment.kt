@@ -29,6 +29,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Employment Object ### Description The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.  Please note: Employment objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
@@ -150,5 +151,26 @@ data class Employment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Employment.Expanded): Employment {
+            return Employment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                jobTitle = ApiClient.jsonConvertSafe(expanded.jobTitle),
+                payRate = ApiClient.jsonConvertSafe(expanded.payRate),
+                payPeriod = ApiClient.jsonConvertSafe(expanded.payPeriod),
+                payFrequency = ApiClient.jsonConvertSafe(expanded.payFrequency),
+                payCurrency = ApiClient.jsonConvertSafe(expanded.payCurrency),
+                payGroup = ApiClient.jsonConvertSafe(expanded.payGroup),
+                flsaStatus = ApiClient.jsonConvertSafe(expanded.flsaStatus),
+                effectiveDate = ApiClient.jsonConvertSafe(expanded.effectiveDate),
+                employmentType = ApiClient.jsonConvertSafe(expanded.employmentType),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

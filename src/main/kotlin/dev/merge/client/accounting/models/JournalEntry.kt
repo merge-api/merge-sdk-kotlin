@@ -26,6 +26,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The JournalEntry Object ### Description The `JournalEntry` object is used to represent a company's journey entries.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
@@ -115,5 +116,22 @@ data class JournalEntry (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: JournalEntry.Expanded): JournalEntry {
+            return JournalEntry(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                payments = ApiClient.jsonConvertSafe(expanded.payments),
+                memo = ApiClient.jsonConvertSafe(expanded.memo),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                lines = ApiClient.jsonConvertSafe(expanded.lines),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

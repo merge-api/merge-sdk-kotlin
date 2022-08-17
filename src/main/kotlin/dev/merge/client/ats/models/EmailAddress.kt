@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.EmailAddressTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent a candidate's email address. ### Usage Example Fetch from the `GET Candidate` endpoint and view their email addresses.
@@ -53,5 +54,14 @@ data class EmailAddress (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EmailAddress.Expanded): EmailAddress {
+            return EmailAddress(
+                `value` = ApiClient.jsonConvertSafe(expanded.`value`),
+                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType)
+            )
+        }
+    }
 }
 

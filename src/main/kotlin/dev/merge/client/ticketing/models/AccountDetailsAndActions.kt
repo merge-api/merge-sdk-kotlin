@@ -26,6 +26,7 @@ import dev.merge.client.ticketing.models.CategoryEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The LinkedAccount Object ### Description The `LinkedAccount` object is used to represent an end user's link with a specific integration.  ### Usage Example View a list of your organization's `LinkedAccount` objects.
@@ -79,19 +80,19 @@ data class AccountDetailsAndActions (
 
     data class Expanded(
         @field:JsonProperty("id")
-        val id: JsonNode?,
+        val id: JsonNode,
 
         @field:JsonProperty("status")
-        val status: JsonNode?,
+        val status: JsonNode,
 
         @field:JsonProperty("end_user_organization_name")
-        val endUserOrganizationName: JsonNode?,
+        val endUserOrganizationName: JsonNode,
 
         @field:JsonProperty("end_user_email_address")
-        val endUserEmailAddress: JsonNode?,
+        val endUserEmailAddress: JsonNode,
 
         @field:JsonProperty("webhook_listener_url")
-        val webhookListenerUrl: JsonNode?,
+        val webhookListenerUrl: JsonNode,
 
         @field:JsonProperty("category")
         val category: JsonNode?,
@@ -110,5 +111,22 @@ data class AccountDetailsAndActions (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountDetailsAndActions.Expanded): AccountDetailsAndActions {
+            return AccountDetailsAndActions(
+                id = ApiClient.jsonConvertRequiredSafe(expanded.id),
+                status = ApiClient.jsonConvertRequiredSafe(expanded.status),
+                endUserOrganizationName = ApiClient.jsonConvertRequiredSafe(expanded.endUserOrganizationName),
+                endUserEmailAddress = ApiClient.jsonConvertRequiredSafe(expanded.endUserEmailAddress),
+                webhookListenerUrl = ApiClient.jsonConvertRequiredSafe(expanded.webhookListenerUrl),
+                category = ApiClient.jsonConvertSafe(expanded.category),
+                statusDetail = ApiClient.jsonConvertSafe(expanded.statusDetail),
+                endUserOriginId = ApiClient.jsonConvertSafe(expanded.endUserOriginId),
+                isDuplicate = ApiClient.jsonConvertSafe(expanded.isDuplicate),
+                integration = ApiClient.jsonConvertSafe(expanded.integration)
+            )
+        }
+    }
 }
 

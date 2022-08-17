@@ -28,6 +28,7 @@ import dev.merge.client.ats.models.VeteranStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The EEOC Object ### Description The `EEOC` object is used to represent the Equal Employment Opportunity Commission information for a candidate. ### Usage Example Fetch from the `LIST EEOCs` endpoint and filter by `candidate` to show all EEOC information for a candidate.
@@ -118,5 +119,22 @@ data class EEOC (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: EEOC.Expanded): EEOC {
+            return EEOC(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                candidate = ApiClient.jsonConvertSafe(expanded.candidate),
+                submittedAt = ApiClient.jsonConvertSafe(expanded.submittedAt),
+                race = ApiClient.jsonConvertSafe(expanded.race),
+                gender = ApiClient.jsonConvertSafe(expanded.gender),
+                veteranStatus = ApiClient.jsonConvertSafe(expanded.veteranStatus),
+                disabilityStatus = ApiClient.jsonConvertSafe(expanded.disabilityStatus),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

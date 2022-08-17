@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Comment Object ### Description The `Comment` object is used to represent a comment on a ticket.  ### Usage Example TODO
@@ -119,5 +120,23 @@ data class Comment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Comment.Expanded): Comment {
+            return Comment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                user = ApiClient.jsonConvertSafe(expanded.user),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                body = ApiClient.jsonConvertSafe(expanded.body),
+                htmlBody = ApiClient.jsonConvertSafe(expanded.htmlBody),
+                ticket = ApiClient.jsonConvertSafe(expanded.ticket),
+                isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

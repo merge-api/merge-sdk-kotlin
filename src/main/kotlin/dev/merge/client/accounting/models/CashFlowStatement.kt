@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The CashFlowStatement Object ### Description The `CashFlowStatement` object is used to represent a company's cash flow statement.  ### Usage Example Fetch from the `LIST CashFlowStatements` endpoint and view a company's cash flow statements.
@@ -137,5 +138,25 @@ data class CashFlowStatement (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CashFlowStatement.Expanded): CashFlowStatement {
+            return CashFlowStatement(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                startPeriod = ApiClient.jsonConvertSafe(expanded.startPeriod),
+                endPeriod = ApiClient.jsonConvertSafe(expanded.endPeriod),
+                cashAtBeginningOfPeriod = ApiClient.jsonConvertSafe(expanded.cashAtBeginningOfPeriod),
+                cashAtEndOfPeriod = ApiClient.jsonConvertSafe(expanded.cashAtEndOfPeriod),
+                operatingActivities = ApiClient.jsonConvertSafe(expanded.operatingActivities),
+                investingActivities = ApiClient.jsonConvertSafe(expanded.investingActivities),
+                financingActivities = ApiClient.jsonConvertSafe(expanded.financingActivities),
+                remoteGeneratedAt = ApiClient.jsonConvertSafe(expanded.remoteGeneratedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.CandidateRequest
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -44,12 +45,21 @@ data class CandidateEndpointRequest (
 
     data class Expanded(
         @field:JsonProperty("model")
-        val model: JsonNode?,
+        val model: JsonNode,
 
         @field:JsonProperty("remote_user_id")
-        val remoteUserId: JsonNode?
+        val remoteUserId: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CandidateEndpointRequest.Expanded): CandidateEndpointRequest {
+            return CandidateEndpointRequest(
+                model = ApiClient.jsonConvertRequiredSafe(expanded.model),
+                remoteUserId = ApiClient.jsonConvertRequiredSafe(expanded.remoteUserId)
+            )
+        }
+    }
 }
 

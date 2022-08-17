@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Benefit Object ### Description The `Benefit` object is used to represent a Benefit for an employee.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
@@ -106,5 +107,21 @@ data class Benefit (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Benefit.Expanded): Benefit {
+            return Benefit(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                providerName = ApiClient.jsonConvertSafe(expanded.providerName),
+                benefitPlanType = ApiClient.jsonConvertSafe(expanded.benefitPlanType),
+                employeeContribution = ApiClient.jsonConvertSafe(expanded.employeeContribution),
+                companyContribution = ApiClient.jsonConvertSafe(expanded.companyContribution),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

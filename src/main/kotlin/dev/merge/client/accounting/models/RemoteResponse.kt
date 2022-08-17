@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The RemoteResponse Object ### Description The `RemoteResponse` object is used to represent information returned from a third-party endpoint.  ### Usage Example View the `RemoteResponse` returned from your `DataPassthrough`.
@@ -59,16 +60,16 @@ data class RemoteResponse (
 
     data class Expanded(
         @field:JsonProperty("method")
-        val method: JsonNode?,
+        val method: JsonNode,
 
         @field:JsonProperty("path")
-        val path: JsonNode?,
+        val path: JsonNode,
 
         @field:JsonProperty("status")
-        val status: JsonNode?,
+        val status: JsonNode,
 
         @field:JsonProperty("response")
-        val response: JsonNode?,
+        val response: JsonNode,
 
         @field:JsonProperty("response_headers")
         val responseHeaders: JsonNode?,
@@ -78,5 +79,18 @@ data class RemoteResponse (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: RemoteResponse.Expanded): RemoteResponse {
+            return RemoteResponse(
+                method = ApiClient.jsonConvertRequiredSafe(expanded.method),
+                path = ApiClient.jsonConvertRequiredSafe(expanded.path),
+                status = ApiClient.jsonConvertRequiredSafe(expanded.status),
+                response = ApiClient.jsonConvertRequiredSafe(expanded.response),
+                responseHeaders = ApiClient.jsonConvertSafe(expanded.responseHeaders),
+                headers = ApiClient.jsonConvertSafe(expanded.headers)
+            )
+        }
+    }
 }
 

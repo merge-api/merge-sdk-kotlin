@@ -24,6 +24,7 @@ import dev.merge.client.hris.models.ReasonEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -44,12 +45,21 @@ data class IgnoreCommonModelRequest (
 
     data class Expanded(
         @field:JsonProperty("reason")
-        val reason: JsonNode?,
+        val reason: JsonNode,
 
         @field:JsonProperty("message")
         val message: JsonNode?
 
     )
 
+
+    companion object {
+        fun normalize(expanded: IgnoreCommonModelRequest.Expanded): IgnoreCommonModelRequest {
+            return IgnoreCommonModelRequest(
+                reason = ApiClient.jsonConvertRequiredSafe(expanded.reason),
+                message = ApiClient.jsonConvertSafe(expanded.message)
+            )
+        }
+    }
 }
 

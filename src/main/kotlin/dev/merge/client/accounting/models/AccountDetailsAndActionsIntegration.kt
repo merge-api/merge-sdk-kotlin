@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.ModelOperation
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -69,19 +70,19 @@ data class AccountDetailsAndActionsIntegration (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?,
+        val name: JsonNode,
 
         @field:JsonProperty("categories")
-        val categories: kotlin.collections.List<JsonNode>?,
+        val categories: kotlin.collections.List<JsonNode>,
 
         @field:JsonProperty("color")
-        val color: JsonNode?,
+        val color: JsonNode,
 
         @field:JsonProperty("slug")
-        val slug: JsonNode?,
+        val slug: JsonNode,
 
         @field:JsonProperty("passthrough_available")
-        val passthroughAvailable: JsonNode?,
+        val passthroughAvailable: JsonNode,
 
         @field:JsonProperty("image")
         val image: JsonNode?,
@@ -94,5 +95,20 @@ data class AccountDetailsAndActionsIntegration (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: AccountDetailsAndActionsIntegration.Expanded): AccountDetailsAndActionsIntegration {
+            return AccountDetailsAndActionsIntegration(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name),
+                categories = ApiClient.jsonConvertRequiredSafe(expanded.categories),
+                color = ApiClient.jsonConvertRequiredSafe(expanded.color),
+                slug = ApiClient.jsonConvertRequiredSafe(expanded.slug),
+                passthroughAvailable = ApiClient.jsonConvertRequiredSafe(expanded.passthroughAvailable),
+                image = ApiClient.jsonConvertSafe(expanded.image),
+                squareImage = ApiClient.jsonConvertSafe(expanded.squareImage),
+                availableModelOperations = ApiClient.jsonConvertSafe(expanded.availableModelOperations)
+            )
+        }
+    }
 }
 

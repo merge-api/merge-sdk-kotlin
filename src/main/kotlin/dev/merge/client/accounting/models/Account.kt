@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Account Object ### Description The `Account` object is what businesses use to track transactions. Accountants often call accounts \"ledgers\".  ### Usage Example Fetch from the `LIST Accounts` endpoint and view a company's accounts.
@@ -134,5 +135,24 @@ data class Account (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Account.Expanded): Account {
+            return Account(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                classification = ApiClient.jsonConvertSafe(expanded.classification),
+                type = ApiClient.jsonConvertSafe(expanded.type),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                currentBalance = ApiClient.jsonConvertSafe(expanded.currentBalance),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                accountNumber = ApiClient.jsonConvertSafe(expanded.accountNumber),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

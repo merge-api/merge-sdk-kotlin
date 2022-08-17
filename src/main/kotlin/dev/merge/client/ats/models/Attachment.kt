@@ -25,6 +25,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent a attachment for a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
@@ -98,5 +99,20 @@ data class Attachment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Attachment.Expanded): Attachment {
+            return Attachment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fileName = ApiClient.jsonConvertSafe(expanded.fileName),
+                fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                candidate = ApiClient.jsonConvertSafe(expanded.candidate),
+                attachmentType = ApiClient.jsonConvertSafe(expanded.attachmentType),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

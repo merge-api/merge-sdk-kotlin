@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * 
@@ -43,12 +44,21 @@ data class LinkedAccountStatus (
 
     data class Expanded(
         @field:JsonProperty("linked_account_status")
-        val linkedAccountStatus: JsonNode?,
+        val linkedAccountStatus: JsonNode,
 
         @field:JsonProperty("can_make_request")
-        val canMakeRequest: JsonNode?
+        val canMakeRequest: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: LinkedAccountStatus.Expanded): LinkedAccountStatus {
+            return LinkedAccountStatus(
+                linkedAccountStatus = ApiClient.jsonConvertRequiredSafe(expanded.linkedAccountStatus),
+                canMakeRequest = ApiClient.jsonConvertRequiredSafe(expanded.canMakeRequest)
+            )
+        }
+    }
 }
 

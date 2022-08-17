@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.VendorCreditLine
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The VendorCredit Object ### Description The `VendorCredit` object is used to represent a company's vendor credits.  ### Usage Example Fetch from the `GET VendorCredit` endpoint and view a company's vendor credits.
@@ -115,5 +116,22 @@ data class VendorCredit (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: VendorCredit.Expanded): VendorCredit {
+            return VendorCredit(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                number = ApiClient.jsonConvertSafe(expanded.number),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                vendor = ApiClient.jsonConvertSafe(expanded.vendor),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                lines = ApiClient.jsonConvertSafe(expanded.lines),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

@@ -23,6 +23,7 @@ package dev.merge.client.ats.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The RemoteKeyForRegeneration Object ### Description The `RemoteKeyForRegeneration` object is used to exchange an old remote key for a new one  ### Usage Example Post a `RemoteKeyForRegeneration` to swap out an old remote key for a new one
@@ -39,9 +40,17 @@ data class RemoteKeyForRegenerationRequest (
 
     data class Expanded(
         @field:JsonProperty("name")
-        val name: JsonNode?
+        val name: JsonNode
 
     )
 
+
+    companion object {
+        fun normalize(expanded: RemoteKeyForRegenerationRequest.Expanded): RemoteKeyForRegenerationRequest {
+            return RemoteKeyForRegenerationRequest(
+                name = ApiClient.jsonConvertRequiredSafe(expanded.name)
+            )
+        }
+    }
 }
 

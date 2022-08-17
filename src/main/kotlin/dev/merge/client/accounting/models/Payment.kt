@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Payment Object ### Description The `Payment` object is used to represent a invoice's payment.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
@@ -105,5 +106,21 @@ data class Payment (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Payment.Expanded): Payment {
+            return Payment(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

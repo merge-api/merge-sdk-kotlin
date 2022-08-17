@@ -26,6 +26,7 @@ import dev.merge.client.hris.models.UnitsEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
@@ -117,5 +118,22 @@ data class TimeOffRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: TimeOffRequest.Expanded): TimeOffRequest {
+            return TimeOffRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                employee = ApiClient.jsonConvertSafe(expanded.employee),
+                approver = ApiClient.jsonConvertSafe(expanded.approver),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                employeeNote = ApiClient.jsonConvertSafe(expanded.employeeNote),
+                units = ApiClient.jsonConvertSafe(expanded.units),
+                amount = ApiClient.jsonConvertSafe(expanded.amount),
+                requestType = ApiClient.jsonConvertSafe(expanded.requestType),
+                startTime = ApiClient.jsonConvertSafe(expanded.startTime),
+                endTime = ApiClient.jsonConvertSafe(expanded.endTime)
+            )
+        }
+    }
 }
 

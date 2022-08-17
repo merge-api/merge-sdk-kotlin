@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Lead Object ### Description The `Lead` object is used to represent a lead in the remote system. ### Usage Example TODO
@@ -175,5 +176,30 @@ data class Lead (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Lead.Expanded): Lead {
+            return Lead(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                owner = ApiClient.jsonConvertSafe(expanded.owner),
+                leadSource = ApiClient.jsonConvertSafe(expanded.leadSource),
+                title = ApiClient.jsonConvertSafe(expanded.title),
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                firstName = ApiClient.jsonConvertSafe(expanded.firstName),
+                lastName = ApiClient.jsonConvertSafe(expanded.lastName),
+                addresses = ApiClient.jsonConvertSafe(expanded.addresses),
+                emailAddresses = ApiClient.jsonConvertSafe(expanded.emailAddresses),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                convertedDate = ApiClient.jsonConvertSafe(expanded.convertedDate),
+                convertedContact = ApiClient.jsonConvertSafe(expanded.convertedContact),
+                convertedAccount = ApiClient.jsonConvertSafe(expanded.convertedAccount),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

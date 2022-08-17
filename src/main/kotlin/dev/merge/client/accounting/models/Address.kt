@@ -26,6 +26,7 @@ import dev.merge.client.accounting.models.StateEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Address Object ### Description The `Address` object is used to represent a contact's or company's address.  ### Usage Example Fetch from the `GET CompanyInfo` endpoint and view the company's addresses.
@@ -95,5 +96,19 @@ data class Address (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Address.Expanded): Address {
+            return Address(
+                type = ApiClient.jsonConvertSafe(expanded.type),
+                street1 = ApiClient.jsonConvertSafe(expanded.street1),
+                street2 = ApiClient.jsonConvertSafe(expanded.street2),
+                city = ApiClient.jsonConvertSafe(expanded.city),
+                state = ApiClient.jsonConvertSafe(expanded.state),
+                country = ApiClient.jsonConvertSafe(expanded.country),
+                zipCode = ApiClient.jsonConvertSafe(expanded.zipCode)
+            )
+        }
+    }
 }
 

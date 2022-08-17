@@ -23,6 +23,7 @@ package dev.merge.client.accounting.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The JournalLine Object ### Description The `JournalLine` object is used to represent a journal entry's line items.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view the journal entry's line items.
@@ -81,5 +82,18 @@ data class JournalLineRequest (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: JournalLineRequest.Expanded): JournalLineRequest {
+            return JournalLineRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
+                description = ApiClient.jsonConvertSafe(expanded.description)
+            )
+        }
+    }
 }
 

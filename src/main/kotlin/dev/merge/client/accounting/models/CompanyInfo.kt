@@ -27,6 +27,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The CompanyInfo Object ### Description The `CompanyInfo` object is used to represent a company's information.  ### Usage Example Fetch from the `GET CompanyInfo` endpoint and view a company's information.
@@ -148,5 +149,26 @@ data class CompanyInfo (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: CompanyInfo.Expanded): CompanyInfo {
+            return CompanyInfo(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                legalName = ApiClient.jsonConvertSafe(expanded.legalName),
+                taxNumber = ApiClient.jsonConvertSafe(expanded.taxNumber),
+                fiscalYearEndMonth = ApiClient.jsonConvertSafe(expanded.fiscalYearEndMonth),
+                fiscalYearEndDay = ApiClient.jsonConvertSafe(expanded.fiscalYearEndDay),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                urls = ApiClient.jsonConvertSafe(expanded.urls),
+                addresses = ApiClient.jsonConvertSafe(expanded.addresses),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

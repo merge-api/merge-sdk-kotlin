@@ -26,6 +26,7 @@ import dev.merge.client.ats.models.Url
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Job Object ### Description The `Job` object is used to represent a Job offering at a company. ### Usage Example Fetch from the `LIST Jobs` endpoint to show all job postings.
@@ -164,5 +165,28 @@ data class Job (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Job.Expanded): Job {
+            return Job(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                code = ApiClient.jsonConvertSafe(expanded.code),
+                status = ApiClient.jsonConvertSafe(expanded.status),
+                jobPostingUrls = ApiClient.jsonConvertSafe(expanded.jobPostingUrls),
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                confidential = ApiClient.jsonConvertSafe(expanded.confidential),
+                departments = ApiClient.jsonConvertSafe(expanded.departments),
+                offices = ApiClient.jsonConvertSafe(expanded.offices),
+                hiringManagers = ApiClient.jsonConvertSafe(expanded.hiringManagers),
+                recruiters = ApiClient.jsonConvertSafe(expanded.recruiters),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

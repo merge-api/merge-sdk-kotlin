@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.ReportItem
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The IncomeStatement Object ### Description The `IncomeStatement` object is used to represent a company's income statements.  ### Usage Example Fetch from the `GET IncomeStatement` endpoint and view a company's income statement for a given period.
@@ -144,5 +145,26 @@ data class IncomeStatement (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: IncomeStatement.Expanded): IncomeStatement {
+            return IncomeStatement(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                startPeriod = ApiClient.jsonConvertSafe(expanded.startPeriod),
+                endPeriod = ApiClient.jsonConvertSafe(expanded.endPeriod),
+                income = ApiClient.jsonConvertSafe(expanded.income),
+                costOfSales = ApiClient.jsonConvertSafe(expanded.costOfSales),
+                grossProfit = ApiClient.jsonConvertSafe(expanded.grossProfit),
+                operatingExpenses = ApiClient.jsonConvertSafe(expanded.operatingExpenses),
+                netOperatingIncome = ApiClient.jsonConvertSafe(expanded.netOperatingIncome),
+                nonOperatingExpenses = ApiClient.jsonConvertSafe(expanded.nonOperatingExpenses),
+                netIncome = ApiClient.jsonConvertSafe(expanded.netIncome),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

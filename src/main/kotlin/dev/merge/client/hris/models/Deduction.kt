@@ -24,6 +24,7 @@ import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The Deduction Object ### Description The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
@@ -90,5 +91,19 @@ data class Deduction (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: Deduction.Expanded): Deduction {
+            return Deduction(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                employeeDeduction = ApiClient.jsonConvertSafe(expanded.employeeDeduction),
+                companyDeduction = ApiClient.jsonConvertSafe(expanded.companyDeduction),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 

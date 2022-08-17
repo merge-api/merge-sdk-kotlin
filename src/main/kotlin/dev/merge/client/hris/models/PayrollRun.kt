@@ -26,6 +26,7 @@ import dev.merge.client.hris.models.RunTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import dev.merge.client.shared.ApiClient
 
 /**
  * # The PayrollRun Object ### Description The `PayrollRun` object is used to represent a payroll run. This payroll run is not specific to an employee.  ### Usage Example Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
@@ -109,5 +110,21 @@ data class PayrollRun (
 
     )
 
+
+    companion object {
+        fun normalize(expanded: PayrollRun.Expanded): PayrollRun {
+            return PayrollRun(
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                runState = ApiClient.jsonConvertSafe(expanded.runState),
+                runType = ApiClient.jsonConvertSafe(expanded.runType),
+                startDate = ApiClient.jsonConvertSafe(expanded.startDate),
+                endDate = ApiClient.jsonConvertSafe(expanded.endDate),
+                checkDate = ApiClient.jsonConvertSafe(expanded.checkDate),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+            )
+        }
+    }
 }
 
