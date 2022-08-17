@@ -36,6 +36,12 @@ assertNotNull(accountingAccountsResponse.results)
 
 ### Expands call, Kotlin
 
+The `expand` parameter of Merge API endpoints take in properties which the caller wishes to "expand" from an id into
+a full sub object. For example, you can expand the applications property of a candidate from a list of ids of that
+candidate's applications into a list of full application objects matching those ids in one call (rather than call list
+applications later). This has historically been a challenge to support in our statically typed language SDK's, but we
+have this pattern:
+
 ```kotlin
 // debugging output
 val mapper = ObjectMapper()
@@ -58,7 +64,7 @@ assertNotNull(atsCandidatesExpandedResponse.results)
 
 for (candidate in atsCandidatesExpandedResponse.results ?: listOf()) {
     // since each candidate is now of type Candidate.Expanded, each property will be of type JsonNode or
-    // List<JsonNode>, so in this case we take the first one and re-deserialize it again to type Applicaton since we
+    // List<JsonNode>, so in this case we take the first one and re-deserialize it again to type Application since we
     // had expanded it in our call. Other properties will remain the same.
     if (candidate.applications?.isNotEmpty() == true) {
         val applicationFromExpandedCandidate = mapper.convertValue(
@@ -68,5 +74,23 @@ for (candidate in atsCandidatesExpandedResponse.results ?: listOf()) {
 
         assertNotNull(applicationFromExpandedCandidate)
     }
+  
+    // of course, you may only want one property to be expanded and still have easy access to the other properties. To
+    // get the non-expanded properties, use
+    val candidateNormalized: Candidate = Candidate.Normalize(candidate)
+    // this will convert all fields back to their strong types from JsonNode, if possible (it will even try to do so on
+    // the expanded applications field which will error and gracefully continue to other properties)
+    println(candidateNormalized.applications) // empty array
+    println(candidateNormalized.id) // non-empty, non-JsonNode, uuid value
 }
 ```
+
+### Remote Fields, Kotlin
+
+Merge attempts to map as many enum values as possible from integrations into a single normalized set of enum values.
+However, there will always be edge cases where the default mapping does not suit our callers. In order to get the raw
+value, you can pass in the name of the enum parameter into the remoteFields request property:
+
+Using this feature looks very similar to the expands feature, in that you will be receiving raw JsonNode values and will
+need to deserialize to `String` yourself for the enum fields that are using the "remote field" functionality
+
