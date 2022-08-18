@@ -36,11 +36,10 @@ assertNotNull(accountingAccountsResponse.results)
 
 ### Expands call, Kotlin
 
-The `expand` parameter of Merge API endpoints take in properties which the caller wishes to "expand" from an id into
-a full sub object. For example, you can expand the applications property of a candidate from a list of ids of that
-candidate's applications into a list of full application objects matching those ids in one call (rather than call list
-applications later). This has historically been a challenge to support in our statically typed language SDK's, but we
-have this pattern:
+The `expand` parameter can be used during GET requests to fetch the related objects in your response body. For example,
+if you sent a request for GET `/employees`, you can use the expand parameter on Teams. This will fetch the associated
+Team data for each given employee. The Employee objects will be returned with the corresponding Teams objects instead of
+the default `List<UUID>`. In the below example, we expand the `applications` property of recruiting `Candidate`.
 
 ```kotlin
 // debugging output
@@ -91,6 +90,16 @@ Merge attempts to map as many enum values as possible from integrations into a s
 However, there will always be edge cases where the default mapping does not suit our callers. In order to get the raw
 value, you can pass in the name of the enum parameter into the remoteFields request property:
 
+```kotlin
+val employeesApi = EmployeesApi()
+employeesApi.setApiKey("REDACTED")
+employeesApi.setAccountToken("REDACTED")
+
+val hrisEmployeesResponse = employeesApi.employeesListExpanded(EmployeesApi.EmployeesListRequest(
+  remoteFields="employment_status"
+))
+```
+
 Using this feature looks very similar to the expands feature, in that you will be receiving raw JsonNode values and will
-need to deserialize to `String` yourself for the enum fields that are using the "remote field" functionality
+need to deserialize to `String` yourself for the enum fields that are using the "remote field" functionality.
 
