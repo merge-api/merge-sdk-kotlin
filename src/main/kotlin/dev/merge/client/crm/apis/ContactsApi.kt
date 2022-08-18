@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -83,12 +86,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return contactsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsCreateAsync(requestModel: ContactsApi.ContactsCreateRequest): CompletableFuture<CRMContactResponse> = GlobalScope.future {
+        contactsCreate(requestModel)
+    }
+
     /**
      * @param crMContactEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsCreateExpanded(requestModel: ContactsApi.ContactsCreateRequest): CRMContactResponse.Expanded {
         return contactsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsCreateExpandedAsync(requestModel: ContactsApi.ContactsCreateRequest): CompletableFuture<CRMContactResponse.Expanded> = GlobalScope.future {
+        contactsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> contactsCreateImpl(requestModel: ContactsApi.ContactsCreateRequest): T {
@@ -138,12 +151,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return contactsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsListAsync(requestModel: ContactsApi.ContactsListRequest): CompletableFuture<MergePaginatedResponse<Contact>> = GlobalScope.future {
+        contactsList(requestModel)
+    }
+
     /**
      * @param accountId If provided, will only return contacts with this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsListExpanded(requestModel: ContactsApi.ContactsListRequest): MergePaginatedResponse<Contact.Expanded> {
         return contactsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsListExpandedAsync(requestModel: ContactsApi.ContactsListRequest): CompletableFuture<MergePaginatedResponse<Contact.Expanded>> = GlobalScope.future {
+        contactsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> contactsListImpl(requestModel: ContactsApi.ContactsListRequest): T {
@@ -192,12 +215,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return contactsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        contactsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return contactsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        contactsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> contactsMetaPostRetrieveImpl(): T {
@@ -238,12 +271,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return contactsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsRetrieveAsync(requestModel: ContactsApi.ContactsRetrieveRequest): CompletableFuture<Contact> = GlobalScope.future {
+        contactsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsRetrieveExpanded(requestModel: ContactsApi.ContactsRetrieveRequest): Contact.Expanded {
         return contactsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsRetrieveExpandedAsync(requestModel: ContactsApi.ContactsRetrieveRequest): CompletableFuture<Contact.Expanded> = GlobalScope.future {
+        contactsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> contactsRetrieveImpl(requestModel: ContactsApi.ContactsRetrieveRequest): T {

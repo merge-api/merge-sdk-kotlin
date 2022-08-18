@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -88,12 +91,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffCreateAsync(requestModel: TimeOffApi.TimeOffCreateRequest): CompletableFuture<TimeOffResponse> = GlobalScope.future {
+        timeOffCreate(requestModel)
+    }
+
     /**
      * @param timeOffEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffCreateExpanded(requestModel: TimeOffApi.TimeOffCreateRequest): TimeOffResponse.Expanded {
         return timeOffCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffCreateExpandedAsync(requestModel: TimeOffApi.TimeOffCreateRequest): CompletableFuture<TimeOffResponse.Expanded> = GlobalScope.future {
+        timeOffCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> timeOffCreateImpl(requestModel: TimeOffApi.TimeOffCreateRequest): T {
@@ -147,12 +160,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffListAsync(requestModel: TimeOffApi.TimeOffListRequest): CompletableFuture<MergePaginatedResponse<TimeOff>> = GlobalScope.future {
+        timeOffList(requestModel)
+    }
+
     /**
      * @param approverId If provided, will only return time off for this approver. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return time off for this employee. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param requestType If provided, will only return TimeOff with this request type. Options: (&#39;VACATION&#39;, &#39;SICK&#39;, &#39;PERSONAL&#39;, &#39;JURY_DUTY&#39;, &#39;VOLUNTEER&#39;, &#39;BEREAVEMENT&#39;) (optional) * @param status If provided, will only return TimeOff with this status. Options: (&#39;REQUESTED&#39;, &#39;APPROVED&#39;, &#39;DECLINED&#39;, &#39;CANCELLED&#39;, &#39;DELETED&#39;) (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffListExpanded(requestModel: TimeOffApi.TimeOffListRequest): MergePaginatedResponse<TimeOff.Expanded> {
         return timeOffListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffListExpandedAsync(requestModel: TimeOffApi.TimeOffListRequest): CompletableFuture<MergePaginatedResponse<TimeOff.Expanded>> = GlobalScope.future {
+        timeOffListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> timeOffListImpl(requestModel: TimeOffApi.TimeOffListRequest): T {
@@ -205,12 +228,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        timeOffMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return timeOffMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        timeOffMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> timeOffMetaPostRetrieveImpl(): T {
@@ -252,12 +285,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffRetrieveAsync(requestModel: TimeOffApi.TimeOffRetrieveRequest): CompletableFuture<TimeOff> = GlobalScope.future {
+        timeOffRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffRetrieveExpanded(requestModel: TimeOffApi.TimeOffRetrieveRequest): TimeOff.Expanded {
         return timeOffRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffRetrieveExpandedAsync(requestModel: TimeOffApi.TimeOffRetrieveRequest): CompletableFuture<TimeOff.Expanded> = GlobalScope.future {
+        timeOffRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> timeOffRetrieveImpl(requestModel: TimeOffApi.TimeOffRetrieveRequest): T {

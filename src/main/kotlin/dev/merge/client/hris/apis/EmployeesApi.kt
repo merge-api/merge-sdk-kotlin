@@ -34,6 +34,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -104,12 +107,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeesCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesCreateAsync(requestModel: EmployeesApi.EmployeesCreateRequest): CompletableFuture<EmployeeResponse> = GlobalScope.future {
+        employeesCreate(requestModel)
+    }
+
     /**
      * @param employeeEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesCreateExpanded(requestModel: EmployeesApi.EmployeesCreateRequest): EmployeeResponse.Expanded {
         return employeesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesCreateExpandedAsync(requestModel: EmployeesApi.EmployeesCreateRequest): CompletableFuture<EmployeeResponse.Expanded> = GlobalScope.future {
+        employeesCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeesCreateImpl(requestModel: EmployeesApi.EmployeesCreateRequest): T {
@@ -150,12 +163,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeesIgnoreCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesIgnoreCreateAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+        employeesIgnoreCreate(requestModel)
+    }
+
     /**
      * @param modelId   * @param ignoreCommonModelRequest  
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesIgnoreCreateExpanded(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
         return employeesIgnoreCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesIgnoreCreateExpandedAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+        employeesIgnoreCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeesIgnoreCreateImpl(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): T {
@@ -215,12 +238,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesListAsync(requestModel: EmployeesApi.EmployeesListRequest): CompletableFuture<MergePaginatedResponse<Employee>> = GlobalScope.future {
+        employeesList(requestModel)
+    }
+
     /**
      * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesListExpanded(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee.Expanded> {
         return employeesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesListExpandedAsync(requestModel: EmployeesApi.EmployeesListRequest): CompletableFuture<MergePaginatedResponse<Employee.Expanded>> = GlobalScope.future {
+        employeesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeesListImpl(requestModel: EmployeesApi.EmployeesListRequest): T {
@@ -281,12 +314,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeesMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        employeesMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return employeesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        employeesMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> employeesMetaPostRetrieveImpl(): T {
@@ -329,12 +372,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesRetrieveAsync(requestModel: EmployeesApi.EmployeesRetrieveRequest): CompletableFuture<Employee> = GlobalScope.future {
+        employeesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesRetrieveExpanded(requestModel: EmployeesApi.EmployeesRetrieveRequest): Employee.Expanded {
         return employeesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeesRetrieveExpandedAsync(requestModel: EmployeesApi.EmployeesRetrieveRequest): CompletableFuture<Employee.Expanded> = GlobalScope.future {
+        employeesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeesRetrieveImpl(requestModel: EmployeesApi.EmployeesRetrieveRequest): T {

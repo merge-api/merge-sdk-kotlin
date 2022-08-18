@@ -28,6 +28,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -49,11 +52,21 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return deleteAccountCreateImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun deleteAccountCreateAsync(): CompletableFuture<Unit> = GlobalScope.future {
+        deleteAccountCreate()
+    }
+
     /**
     
     */
     open suspend fun deleteAccountCreateExpanded(): Unit {
         return deleteAccountCreateImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun deleteAccountCreateExpandedAsync(): CompletableFuture<Unit> = GlobalScope.future {
+        deleteAccountCreateExpanded()
     }
 
     private suspend inline fun <reified T> deleteAccountCreateImpl(): T {

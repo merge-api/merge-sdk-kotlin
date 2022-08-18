@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -85,12 +88,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return eeocsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun eeocsListAsync(requestModel: EeocsApi.EeocsListRequest): CompletableFuture<MergePaginatedResponse<EEOC>> = GlobalScope.future {
+        eeocsList(requestModel)
+    }
+
     /**
      * @param candidateId If provided, will only return EEOC info for this candidate. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun eeocsListExpanded(requestModel: EeocsApi.EeocsListRequest): MergePaginatedResponse<EEOC.Expanded> {
         return eeocsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun eeocsListExpandedAsync(requestModel: EeocsApi.EeocsListRequest): CompletableFuture<MergePaginatedResponse<EEOC.Expanded>> = GlobalScope.future {
+        eeocsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> eeocsListImpl(requestModel: EeocsApi.EeocsListRequest): T {
@@ -144,12 +157,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return eeocsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun eeocsRetrieveAsync(requestModel: EeocsApi.EeocsRetrieveRequest): CompletableFuture<EEOC> = GlobalScope.future {
+        eeocsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun eeocsRetrieveExpanded(requestModel: EeocsApi.EeocsRetrieveRequest): EEOC.Expanded {
         return eeocsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun eeocsRetrieveExpandedAsync(requestModel: EeocsApi.EeocsRetrieveRequest): CompletableFuture<EEOC.Expanded> = GlobalScope.future {
+        eeocsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> eeocsRetrieveImpl(requestModel: EeocsApi.EeocsRetrieveRequest): T {

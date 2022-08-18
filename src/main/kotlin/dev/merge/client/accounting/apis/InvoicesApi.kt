@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -86,12 +89,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return invoicesCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesCreateAsync(requestModel: InvoicesApi.InvoicesCreateRequest): CompletableFuture<InvoiceResponse> = GlobalScope.future {
+        invoicesCreate(requestModel)
+    }
+
     /**
      * @param invoiceEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesCreateExpanded(requestModel: InvoicesApi.InvoicesCreateRequest): InvoiceResponse.Expanded {
         return invoicesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesCreateExpandedAsync(requestModel: InvoicesApi.InvoicesCreateRequest): CompletableFuture<InvoiceResponse.Expanded> = GlobalScope.future {
+        invoicesCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> invoicesCreateImpl(requestModel: InvoicesApi.InvoicesCreateRequest): T {
@@ -143,12 +156,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return invoicesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesListAsync(requestModel: InvoicesApi.InvoicesListRequest): CompletableFuture<MergePaginatedResponse<Invoice>> = GlobalScope.future {
+        invoicesList(requestModel)
+    }
+
     /**
      * @param contactId If provided, will only return invoices for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param type If provided, will only return Invoices with this type (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesListExpanded(requestModel: InvoicesApi.InvoicesListRequest): MergePaginatedResponse<Invoice.Expanded> {
         return invoicesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesListExpandedAsync(requestModel: InvoicesApi.InvoicesListRequest): CompletableFuture<MergePaginatedResponse<Invoice.Expanded>> = GlobalScope.future {
+        invoicesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> invoicesListImpl(requestModel: InvoicesApi.InvoicesListRequest): T {
@@ -199,12 +222,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return invoicesMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        invoicesMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return invoicesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        invoicesMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> invoicesMetaPostRetrieveImpl(): T {
@@ -246,12 +279,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return invoicesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesRetrieveAsync(requestModel: InvoicesApi.InvoicesRetrieveRequest): CompletableFuture<Invoice> = GlobalScope.future {
+        invoicesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun invoicesRetrieveExpanded(requestModel: InvoicesApi.InvoicesRetrieveRequest): Invoice.Expanded {
         return invoicesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun invoicesRetrieveExpandedAsync(requestModel: InvoicesApi.InvoicesRetrieveRequest): CompletableFuture<Invoice.Expanded> = GlobalScope.future {
+        invoicesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> invoicesRetrieveImpl(requestModel: InvoicesApi.InvoicesRetrieveRequest): T {

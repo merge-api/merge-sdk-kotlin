@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -88,12 +91,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return opportunitiesCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesCreateAsync(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): CompletableFuture<OpportunityResponse> = GlobalScope.future {
+        opportunitiesCreate(requestModel)
+    }
+
     /**
      * @param opportunityEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesCreateExpanded(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): OpportunityResponse.Expanded {
         return opportunitiesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesCreateExpandedAsync(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): CompletableFuture<OpportunityResponse.Expanded> = GlobalScope.future {
+        opportunitiesCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> opportunitiesCreateImpl(requestModel: OpportunitiesApi.OpportunitiesCreateRequest): T {
@@ -147,12 +160,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return opportunitiesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesListAsync(requestModel: OpportunitiesApi.OpportunitiesListRequest): CompletableFuture<MergePaginatedResponse<Opportunity>> = GlobalScope.future {
+        opportunitiesList(requestModel)
+    }
+
     /**
      * @param accountId If provided, will only return opportunities with this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param ownerId If provided, will only return opportunities with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param stageId If provided, will only return opportunities with this stage. (optional) * @param status If provided, will only return opportunities with this status. Options: (&#39;OPEN&#39;, &#39;WON&#39;, &#39;LOST&#39;) (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesListExpanded(requestModel: OpportunitiesApi.OpportunitiesListRequest): MergePaginatedResponse<Opportunity.Expanded> {
         return opportunitiesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesListExpandedAsync(requestModel: OpportunitiesApi.OpportunitiesListRequest): CompletableFuture<MergePaginatedResponse<Opportunity.Expanded>> = GlobalScope.future {
+        opportunitiesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> opportunitiesListImpl(requestModel: OpportunitiesApi.OpportunitiesListRequest): T {
@@ -205,12 +228,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return opportunitiesMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        opportunitiesMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return opportunitiesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        opportunitiesMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> opportunitiesMetaPostRetrieveImpl(): T {
@@ -252,12 +285,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return opportunitiesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesRetrieveAsync(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): CompletableFuture<Opportunity> = GlobalScope.future {
+        opportunitiesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun opportunitiesRetrieveExpanded(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): Opportunity.Expanded {
         return opportunitiesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesRetrieveExpandedAsync(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): CompletableFuture<Opportunity.Expanded> = GlobalScope.future {
+        opportunitiesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> opportunitiesRetrieveImpl(requestModel: OpportunitiesApi.OpportunitiesRetrieveRequest): T {

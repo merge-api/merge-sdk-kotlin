@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -82,12 +85,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return benefitsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun benefitsListAsync(requestModel: BenefitsApi.BenefitsListRequest): CompletableFuture<MergePaginatedResponse<Benefit>> = GlobalScope.future {
+        benefitsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return time off for this employee. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun benefitsListExpanded(requestModel: BenefitsApi.BenefitsListRequest): MergePaginatedResponse<Benefit.Expanded> {
         return benefitsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun benefitsListExpandedAsync(requestModel: BenefitsApi.BenefitsListRequest): CompletableFuture<MergePaginatedResponse<Benefit.Expanded>> = GlobalScope.future {
+        benefitsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> benefitsListImpl(requestModel: BenefitsApi.BenefitsListRequest): T {
@@ -139,12 +152,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return benefitsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun benefitsRetrieveAsync(requestModel: BenefitsApi.BenefitsRetrieveRequest): CompletableFuture<Benefit> = GlobalScope.future {
+        benefitsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun benefitsRetrieveExpanded(requestModel: BenefitsApi.BenefitsRetrieveRequest): Benefit.Expanded {
         return benefitsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun benefitsRetrieveExpandedAsync(requestModel: BenefitsApi.BenefitsRetrieveRequest): CompletableFuture<Benefit.Expanded> = GlobalScope.future {
+        benefitsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> benefitsRetrieveImpl(requestModel: BenefitsApi.BenefitsRetrieveRequest): T {

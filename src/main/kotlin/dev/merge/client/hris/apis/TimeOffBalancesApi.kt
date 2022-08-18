@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -87,12 +90,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffBalancesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffBalancesListAsync(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): CompletableFuture<MergePaginatedResponse<TimeOffBalance>> = GlobalScope.future {
+        timeOffBalancesList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return time off balances for this employee. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param policyType If provided, will only return TimeOffBalance with this policy type. Options: (&#39;VACATION&#39;, &#39;SICK&#39;, &#39;PERSONAL&#39;, &#39;JURY_DUTY&#39;, &#39;VOLUNTEER&#39;, &#39;BEREAVEMENT&#39;) (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffBalancesListExpanded(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): MergePaginatedResponse<TimeOffBalance.Expanded> {
         return timeOffBalancesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffBalancesListExpandedAsync(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): CompletableFuture<MergePaginatedResponse<TimeOffBalance.Expanded>> = GlobalScope.future {
+        timeOffBalancesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> timeOffBalancesListImpl(requestModel: TimeOffBalancesApi.TimeOffBalancesListRequest): T {
@@ -147,12 +160,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return timeOffBalancesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffBalancesRetrieveAsync(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): CompletableFuture<TimeOffBalance> = GlobalScope.future {
+        timeOffBalancesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun timeOffBalancesRetrieveExpanded(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): TimeOffBalance.Expanded {
         return timeOffBalancesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun timeOffBalancesRetrieveExpandedAsync(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): CompletableFuture<TimeOffBalance.Expanded> = GlobalScope.future {
+        timeOffBalancesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> timeOffBalancesRetrieveImpl(requestModel: TimeOffBalancesApi.TimeOffBalancesRetrieveRequest): T {

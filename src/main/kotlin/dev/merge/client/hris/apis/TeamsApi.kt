@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -82,12 +85,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return teamsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun teamsListAsync(requestModel: TeamsApi.TeamsListRequest): CompletableFuture<MergePaginatedResponse<Team>> = GlobalScope.future {
+        teamsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTeamId If provided, will only return teams with this parent team. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun teamsListExpanded(requestModel: TeamsApi.TeamsListRequest): MergePaginatedResponse<Team.Expanded> {
         return teamsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun teamsListExpandedAsync(requestModel: TeamsApi.TeamsListRequest): CompletableFuture<MergePaginatedResponse<Team.Expanded>> = GlobalScope.future {
+        teamsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> teamsListImpl(requestModel: TeamsApi.TeamsListRequest): T {
@@ -139,12 +152,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return teamsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun teamsRetrieveAsync(requestModel: TeamsApi.TeamsRetrieveRequest): CompletableFuture<Team> = GlobalScope.future {
+        teamsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun teamsRetrieveExpanded(requestModel: TeamsApi.TeamsRetrieveRequest): Team.Expanded {
         return teamsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun teamsRetrieveExpandedAsync(requestModel: TeamsApi.TeamsRetrieveRequest): CompletableFuture<Team.Expanded> = GlobalScope.future {
+        teamsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> teamsRetrieveImpl(requestModel: TeamsApi.TeamsRetrieveRequest): T {

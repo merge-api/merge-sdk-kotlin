@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -58,12 +61,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return syncStatusListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun syncStatusListAsync(requestModel: SyncStatusApi.SyncStatusListRequest): CompletableFuture<MergePaginatedResponse<SyncStatus>> = GlobalScope.future {
+        syncStatusList(requestModel)
+    }
+
     /**
      * @param cursor The pagination cursor value. (optional) * @param pageSize Number of results to return per page. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun syncStatusListExpanded(requestModel: SyncStatusApi.SyncStatusListRequest): MergePaginatedResponse<SyncStatus.Expanded> {
         return syncStatusListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun syncStatusListExpandedAsync(requestModel: SyncStatusApi.SyncStatusListRequest): CompletableFuture<MergePaginatedResponse<SyncStatus.Expanded>> = GlobalScope.future {
+        syncStatusListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> syncStatusListImpl(requestModel: SyncStatusApi.SyncStatusListRequest): T {

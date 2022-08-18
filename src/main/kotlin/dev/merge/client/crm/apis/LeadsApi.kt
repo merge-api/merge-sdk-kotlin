@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -85,12 +88,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return leadsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsCreateAsync(requestModel: LeadsApi.LeadsCreateRequest): CompletableFuture<LeadResponse> = GlobalScope.future {
+        leadsCreate(requestModel)
+    }
+
     /**
      * @param leadEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun leadsCreateExpanded(requestModel: LeadsApi.LeadsCreateRequest): LeadResponse.Expanded {
         return leadsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsCreateExpandedAsync(requestModel: LeadsApi.LeadsCreateRequest): CompletableFuture<LeadResponse.Expanded> = GlobalScope.future {
+        leadsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> leadsCreateImpl(requestModel: LeadsApi.LeadsCreateRequest): T {
@@ -142,12 +155,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return leadsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsListAsync(requestModel: LeadsApi.LeadsListRequest): CompletableFuture<MergePaginatedResponse<Lead>> = GlobalScope.future {
+        leadsList(requestModel)
+    }
+
     /**
      * @param convertedAccountId If provided, will only return leads with this account. (optional) * @param convertedContactId If provided, will only return leads with this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param ownerId If provided, will only return leads with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun leadsListExpanded(requestModel: LeadsApi.LeadsListRequest): MergePaginatedResponse<Lead.Expanded> {
         return leadsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsListExpandedAsync(requestModel: LeadsApi.LeadsListRequest): CompletableFuture<MergePaginatedResponse<Lead.Expanded>> = GlobalScope.future {
+        leadsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> leadsListImpl(requestModel: LeadsApi.LeadsListRequest): T {
@@ -198,12 +221,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return leadsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        leadsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun leadsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return leadsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        leadsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> leadsMetaPostRetrieveImpl(): T {
@@ -244,12 +277,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return leadsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsRetrieveAsync(requestModel: LeadsApi.LeadsRetrieveRequest): CompletableFuture<Lead> = GlobalScope.future {
+        leadsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun leadsRetrieveExpanded(requestModel: LeadsApi.LeadsRetrieveRequest): Lead.Expanded {
         return leadsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun leadsRetrieveExpandedAsync(requestModel: LeadsApi.LeadsRetrieveRequest): CompletableFuture<Lead.Expanded> = GlobalScope.future {
+        leadsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> leadsRetrieveImpl(requestModel: LeadsApi.LeadsRetrieveRequest): T {

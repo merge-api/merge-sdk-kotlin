@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -79,12 +82,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return deductionsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun deductionsListAsync(requestModel: DeductionsApi.DeductionsListRequest): CompletableFuture<MergePaginatedResponse<Deduction>> = GlobalScope.future {
+        deductionsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeePayrollRunId If provided, will only return deductions for this employee payroll run. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun deductionsListExpanded(requestModel: DeductionsApi.DeductionsListRequest): MergePaginatedResponse<Deduction.Expanded> {
         return deductionsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun deductionsListExpandedAsync(requestModel: DeductionsApi.DeductionsListRequest): CompletableFuture<MergePaginatedResponse<Deduction.Expanded>> = GlobalScope.future {
+        deductionsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> deductionsListImpl(requestModel: DeductionsApi.DeductionsListRequest): T {
@@ -134,12 +147,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return deductionsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun deductionsRetrieveAsync(requestModel: DeductionsApi.DeductionsRetrieveRequest): CompletableFuture<Deduction> = GlobalScope.future {
+        deductionsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun deductionsRetrieveExpanded(requestModel: DeductionsApi.DeductionsRetrieveRequest): Deduction.Expanded {
         return deductionsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun deductionsRetrieveExpandedAsync(requestModel: DeductionsApi.DeductionsRetrieveRequest): CompletableFuture<Deduction.Expanded> = GlobalScope.future {
+        deductionsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> deductionsRetrieveImpl(requestModel: DeductionsApi.DeductionsRetrieveRequest): T {

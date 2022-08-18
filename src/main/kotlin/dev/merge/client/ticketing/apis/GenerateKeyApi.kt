@@ -30,6 +30,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -57,12 +60,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return generateKeyCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun generateKeyCreateAsync(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): CompletableFuture<RemoteKey> = GlobalScope.future {
+        generateKeyCreate(requestModel)
+    }
+
     /**
      * @param generateRemoteKeyRequest  
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun generateKeyCreateExpanded(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): RemoteKey.Expanded {
         return generateKeyCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun generateKeyCreateExpandedAsync(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): CompletableFuture<RemoteKey.Expanded> = GlobalScope.future {
+        generateKeyCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> generateKeyCreateImpl(requestModel: GenerateKeyApi.GenerateKeyCreateRequest): T {

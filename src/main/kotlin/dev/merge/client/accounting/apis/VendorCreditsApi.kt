@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -80,12 +83,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return vendorCreditsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun vendorCreditsListAsync(requestModel: VendorCreditsApi.VendorCreditsListRequest): CompletableFuture<MergePaginatedResponse<VendorCredit>> = GlobalScope.future {
+        vendorCreditsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun vendorCreditsListExpanded(requestModel: VendorCreditsApi.VendorCreditsListRequest): MergePaginatedResponse<VendorCredit.Expanded> {
         return vendorCreditsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun vendorCreditsListExpandedAsync(requestModel: VendorCreditsApi.VendorCreditsListRequest): CompletableFuture<MergePaginatedResponse<VendorCredit.Expanded>> = GlobalScope.future {
+        vendorCreditsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> vendorCreditsListImpl(requestModel: VendorCreditsApi.VendorCreditsListRequest): T {
@@ -136,12 +149,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return vendorCreditsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun vendorCreditsRetrieveAsync(requestModel: VendorCreditsApi.VendorCreditsRetrieveRequest): CompletableFuture<VendorCredit> = GlobalScope.future {
+        vendorCreditsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun vendorCreditsRetrieveExpanded(requestModel: VendorCreditsApi.VendorCreditsRetrieveRequest): VendorCredit.Expanded {
         return vendorCreditsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun vendorCreditsRetrieveExpandedAsync(requestModel: VendorCreditsApi.VendorCreditsRetrieveRequest): CompletableFuture<VendorCredit.Expanded> = GlobalScope.future {
+        vendorCreditsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> vendorCreditsRetrieveImpl(requestModel: VendorCreditsApi.VendorCreditsRetrieveRequest): T {

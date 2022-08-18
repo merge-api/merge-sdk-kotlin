@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -82,12 +85,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return engagementsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsCreateAsync(requestModel: EngagementsApi.EngagementsCreateRequest): CompletableFuture<EngagementResponse> = GlobalScope.future {
+        engagementsCreate(requestModel)
+    }
+
     /**
      * @param engagementEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun engagementsCreateExpanded(requestModel: EngagementsApi.EngagementsCreateRequest): EngagementResponse.Expanded {
         return engagementsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsCreateExpandedAsync(requestModel: EngagementsApi.EngagementsCreateRequest): CompletableFuture<EngagementResponse.Expanded> = GlobalScope.future {
+        engagementsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> engagementsCreateImpl(requestModel: EngagementsApi.EngagementsCreateRequest): T {
@@ -136,12 +149,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return engagementsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsListAsync(requestModel: EngagementsApi.EngagementsListRequest): CompletableFuture<MergePaginatedResponse<Engagement>> = GlobalScope.future {
+        engagementsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun engagementsListExpanded(requestModel: EngagementsApi.EngagementsListRequest): MergePaginatedResponse<Engagement.Expanded> {
         return engagementsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsListExpandedAsync(requestModel: EngagementsApi.EngagementsListRequest): CompletableFuture<MergePaginatedResponse<Engagement.Expanded>> = GlobalScope.future {
+        engagementsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> engagementsListImpl(requestModel: EngagementsApi.EngagementsListRequest): T {
@@ -189,12 +212,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return engagementsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        engagementsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun engagementsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return engagementsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        engagementsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> engagementsMetaPostRetrieveImpl(): T {
@@ -235,12 +268,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return engagementsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsRetrieveAsync(requestModel: EngagementsApi.EngagementsRetrieveRequest): CompletableFuture<Engagement> = GlobalScope.future {
+        engagementsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun engagementsRetrieveExpanded(requestModel: EngagementsApi.EngagementsRetrieveRequest): Engagement.Expanded {
         return engagementsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun engagementsRetrieveExpandedAsync(requestModel: EngagementsApi.EngagementsRetrieveRequest): CompletableFuture<Engagement.Expanded> = GlobalScope.future {
+        engagementsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> engagementsRetrieveImpl(requestModel: EngagementsApi.EngagementsRetrieveRequest): T {

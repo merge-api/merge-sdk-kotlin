@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -89,12 +92,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return scorecardsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun scorecardsListAsync(requestModel: ScorecardsApi.ScorecardsListRequest): CompletableFuture<MergePaginatedResponse<Scorecard>> = GlobalScope.future {
+        scorecardsList(requestModel)
+    }
+
     /**
      * @param applicationId If provided, will only return scorecards for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param interviewId If provided, will only return scorecards for this interview. (optional) * @param interviewerId If provided, will only return scorecards for this interviewer. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun scorecardsListExpanded(requestModel: ScorecardsApi.ScorecardsListRequest): MergePaginatedResponse<Scorecard.Expanded> {
         return scorecardsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun scorecardsListExpandedAsync(requestModel: ScorecardsApi.ScorecardsListRequest): CompletableFuture<MergePaginatedResponse<Scorecard.Expanded>> = GlobalScope.future {
+        scorecardsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> scorecardsListImpl(requestModel: ScorecardsApi.ScorecardsListRequest): T {
@@ -150,12 +163,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return scorecardsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun scorecardsRetrieveAsync(requestModel: ScorecardsApi.ScorecardsRetrieveRequest): CompletableFuture<Scorecard> = GlobalScope.future {
+        scorecardsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun scorecardsRetrieveExpanded(requestModel: ScorecardsApi.ScorecardsRetrieveRequest): Scorecard.Expanded {
         return scorecardsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun scorecardsRetrieveExpandedAsync(requestModel: ScorecardsApi.ScorecardsRetrieveRequest): CompletableFuture<Scorecard.Expanded> = GlobalScope.future {
+        scorecardsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> scorecardsRetrieveImpl(requestModel: ScorecardsApi.ScorecardsRetrieveRequest): T {

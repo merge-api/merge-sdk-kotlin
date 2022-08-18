@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -80,12 +83,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return companyInfoListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun companyInfoListAsync(requestModel: CompanyInfoApi.CompanyInfoListRequest): CompletableFuture<MergePaginatedResponse<CompanyInfo>> = GlobalScope.future {
+        companyInfoList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun companyInfoListExpanded(requestModel: CompanyInfoApi.CompanyInfoListRequest): MergePaginatedResponse<CompanyInfo.Expanded> {
         return companyInfoListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun companyInfoListExpandedAsync(requestModel: CompanyInfoApi.CompanyInfoListRequest): CompletableFuture<MergePaginatedResponse<CompanyInfo.Expanded>> = GlobalScope.future {
+        companyInfoListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> companyInfoListImpl(requestModel: CompanyInfoApi.CompanyInfoListRequest): T {
@@ -136,12 +149,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return companyInfoRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun companyInfoRetrieveAsync(requestModel: CompanyInfoApi.CompanyInfoRetrieveRequest): CompletableFuture<CompanyInfo> = GlobalScope.future {
+        companyInfoRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun companyInfoRetrieveExpanded(requestModel: CompanyInfoApi.CompanyInfoRetrieveRequest): CompanyInfo.Expanded {
         return companyInfoRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun companyInfoRetrieveExpandedAsync(requestModel: CompanyInfoApi.CompanyInfoRetrieveRequest): CompletableFuture<CompanyInfo.Expanded> = GlobalScope.future {
+        companyInfoRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> companyInfoRetrieveImpl(requestModel: CompanyInfoApi.CompanyInfoRetrieveRequest): T {

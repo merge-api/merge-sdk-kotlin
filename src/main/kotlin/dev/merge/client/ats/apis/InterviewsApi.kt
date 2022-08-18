@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -89,12 +92,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return interviewsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsListAsync(requestModel: InterviewsApi.InterviewsListRequest): CompletableFuture<MergePaginatedResponse<ScheduledInterview>> = GlobalScope.future {
+        interviewsList(requestModel)
+    }
+
     /**
      * @param applicationId If provided, will only return interviews for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param jobInterviewStageId If provided, will only return interviews at this stage. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param organizerId If provided, will only return interviews organized by this user. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun interviewsListExpanded(requestModel: InterviewsApi.InterviewsListRequest): MergePaginatedResponse<ScheduledInterview.Expanded> {
         return interviewsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsListExpandedAsync(requestModel: InterviewsApi.InterviewsListRequest): CompletableFuture<MergePaginatedResponse<ScheduledInterview.Expanded>> = GlobalScope.future {
+        interviewsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> interviewsListImpl(requestModel: InterviewsApi.InterviewsListRequest): T {
@@ -150,12 +163,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return interviewsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsRetrieveAsync(requestModel: InterviewsApi.InterviewsRetrieveRequest): CompletableFuture<ScheduledInterview> = GlobalScope.future {
+        interviewsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun interviewsRetrieveExpanded(requestModel: InterviewsApi.InterviewsRetrieveRequest): ScheduledInterview.Expanded {
         return interviewsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsRetrieveExpandedAsync(requestModel: InterviewsApi.InterviewsRetrieveRequest): CompletableFuture<ScheduledInterview.Expanded> = GlobalScope.future {
+        interviewsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> interviewsRetrieveImpl(requestModel: InterviewsApi.InterviewsRetrieveRequest): T {

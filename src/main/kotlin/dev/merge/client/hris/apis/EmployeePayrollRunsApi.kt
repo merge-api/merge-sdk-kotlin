@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -92,12 +95,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeePayrollRunsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeePayrollRunsListAsync(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): CompletableFuture<MergePaginatedResponse<EmployeePayrollRun>> = GlobalScope.future {
+        employeePayrollRunsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return employee payroll runs for this employee. (optional) * @param endedAfter If provided, will only return employee payroll runs ended after this datetime. (optional) * @param endedBefore If provided, will only return employee payroll runs ended before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payrollRunId If provided, will only return employee payroll runs for this employee. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param startedAfter If provided, will only return employee payroll runs started after this datetime. (optional) * @param startedBefore If provided, will only return employee payroll runs started before this datetime. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeePayrollRunsListExpanded(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): MergePaginatedResponse<EmployeePayrollRun.Expanded> {
         return employeePayrollRunsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeePayrollRunsListExpandedAsync(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): CompletableFuture<MergePaginatedResponse<EmployeePayrollRun.Expanded>> = GlobalScope.future {
+        employeePayrollRunsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeePayrollRunsListImpl(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsListRequest): T {
@@ -154,12 +167,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return employeePayrollRunsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun employeePayrollRunsRetrieveAsync(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): CompletableFuture<EmployeePayrollRun> = GlobalScope.future {
+        employeePayrollRunsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeePayrollRunsRetrieveExpanded(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): EmployeePayrollRun.Expanded {
         return employeePayrollRunsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun employeePayrollRunsRetrieveExpandedAsync(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): CompletableFuture<EmployeePayrollRun.Expanded> = GlobalScope.future {
+        employeePayrollRunsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> employeePayrollRunsRetrieveImpl(requestModel: EmployeePayrollRunsApi.EmployeePayrollRunsRetrieveRequest): T {

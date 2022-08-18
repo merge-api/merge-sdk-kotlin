@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -60,12 +63,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return addressesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun addressesRetrieveAsync(requestModel: AddressesApi.AddressesRetrieveRequest): CompletableFuture<Address> = GlobalScope.future {
+        addressesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun addressesRetrieveExpanded(requestModel: AddressesApi.AddressesRetrieveRequest): Address.Expanded {
         return addressesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun addressesRetrieveExpandedAsync(requestModel: AddressesApi.AddressesRetrieveRequest): CompletableFuture<Address.Expanded> = GlobalScope.future {
+        addressesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> addressesRetrieveImpl(requestModel: AddressesApi.AddressesRetrieveRequest): T {

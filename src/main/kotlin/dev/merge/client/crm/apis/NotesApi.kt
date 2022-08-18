@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -86,12 +89,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return notesCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun notesCreateAsync(requestModel: NotesApi.NotesCreateRequest): CompletableFuture<NoteResponse> = GlobalScope.future {
+        notesCreate(requestModel)
+    }
+
     /**
      * @param noteEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesCreateExpanded(requestModel: NotesApi.NotesCreateRequest): NoteResponse.Expanded {
         return notesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesCreateExpandedAsync(requestModel: NotesApi.NotesCreateRequest): CompletableFuture<NoteResponse.Expanded> = GlobalScope.future {
+        notesCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> notesCreateImpl(requestModel: NotesApi.NotesCreateRequest): T {
@@ -144,12 +157,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return notesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun notesListAsync(requestModel: NotesApi.NotesListRequest): CompletableFuture<MergePaginatedResponse<Note>> = GlobalScope.future {
+        notesList(requestModel)
+    }
+
     /**
      * @param accountId If provided, will only return notes with this account. (optional) * @param contactId If provided, will only return notes with this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param opportunityId If provided, will only return notes with this opportunity. (optional) * @param ownerId If provided, will only return notes with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesListExpanded(requestModel: NotesApi.NotesListRequest): MergePaginatedResponse<Note.Expanded> {
         return notesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesListExpandedAsync(requestModel: NotesApi.NotesListRequest): CompletableFuture<MergePaginatedResponse<Note.Expanded>> = GlobalScope.future {
+        notesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> notesListImpl(requestModel: NotesApi.NotesListRequest): T {
@@ -201,12 +224,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return notesMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun notesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        notesMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return notesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        notesMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> notesMetaPostRetrieveImpl(): T {
@@ -247,12 +280,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return notesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun notesRetrieveAsync(requestModel: NotesApi.NotesRetrieveRequest): CompletableFuture<Note> = GlobalScope.future {
+        notesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesRetrieveExpanded(requestModel: NotesApi.NotesRetrieveRequest): Note.Expanded {
         return notesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesRetrieveExpandedAsync(requestModel: NotesApi.NotesRetrieveRequest): CompletableFuture<Note.Expanded> = GlobalScope.future {
+        notesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> notesRetrieveImpl(requestModel: NotesApi.NotesRetrieveRequest): T {

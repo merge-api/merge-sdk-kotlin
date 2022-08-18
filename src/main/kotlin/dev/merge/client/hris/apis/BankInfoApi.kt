@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -91,12 +94,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return bankInfoListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun bankInfoListAsync(requestModel: BankInfoApi.BankInfoListRequest): CompletableFuture<MergePaginatedResponse<BankInfo>> = GlobalScope.future {
+        bankInfoList(requestModel)
+    }
+
     /**
      * @param accountType If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;) (optional) * @param bankName If provided, will only return BankInfo&#39;s with this bank name. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param employeeId If provided, will only return bank accounts for this employee. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param orderBy Overrides the default ordering for this endpoint. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun bankInfoListExpanded(requestModel: BankInfoApi.BankInfoListRequest): MergePaginatedResponse<BankInfo.Expanded> {
         return bankInfoListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun bankInfoListExpandedAsync(requestModel: BankInfoApi.BankInfoListRequest): CompletableFuture<MergePaginatedResponse<BankInfo.Expanded>> = GlobalScope.future {
+        bankInfoListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> bankInfoListImpl(requestModel: BankInfoApi.BankInfoListRequest): T {
@@ -153,12 +166,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return bankInfoRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun bankInfoRetrieveAsync(requestModel: BankInfoApi.BankInfoRetrieveRequest): CompletableFuture<BankInfo> = GlobalScope.future {
+        bankInfoRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun bankInfoRetrieveExpanded(requestModel: BankInfoApi.BankInfoRetrieveRequest): BankInfo.Expanded {
         return bankInfoRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun bankInfoRetrieveExpandedAsync(requestModel: BankInfoApi.BankInfoRetrieveRequest): CompletableFuture<BankInfo.Expanded> = GlobalScope.future {
+        bankInfoRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> bankInfoRetrieveImpl(requestModel: BankInfoApi.BankInfoRetrieveRequest): T {

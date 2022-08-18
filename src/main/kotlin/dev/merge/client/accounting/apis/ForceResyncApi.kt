@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -51,12 +54,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return syncStatusResyncCreateImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun syncStatusResyncCreateAsync(): CompletableFuture<kotlin.collections.List<SyncStatus>> = GlobalScope.future {
+        syncStatusResyncCreate()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun syncStatusResyncCreateExpanded(): kotlin.collections.List<SyncStatus.Expanded> {
         return syncStatusResyncCreateImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun syncStatusResyncCreateExpandedAsync(): CompletableFuture<kotlin.collections.List<SyncStatus.Expanded>> = GlobalScope.future {
+        syncStatusResyncCreateExpanded()
     }
 
     private suspend inline fun <reified T> syncStatusResyncCreateImpl(): T {

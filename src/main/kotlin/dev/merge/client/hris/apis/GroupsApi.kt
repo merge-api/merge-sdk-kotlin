@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -80,12 +83,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return groupsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun groupsListAsync(requestModel: GroupsApi.GroupsListRequest): CompletableFuture<MergePaginatedResponse<Group>> = GlobalScope.future {
+        groupsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun groupsListExpanded(requestModel: GroupsApi.GroupsListRequest): MergePaginatedResponse<Group.Expanded> {
         return groupsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun groupsListExpandedAsync(requestModel: GroupsApi.GroupsListRequest): CompletableFuture<MergePaginatedResponse<Group.Expanded>> = GlobalScope.future {
+        groupsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> groupsListImpl(requestModel: GroupsApi.GroupsListRequest): T {
@@ -136,12 +149,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return groupsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun groupsRetrieveAsync(requestModel: GroupsApi.GroupsRetrieveRequest): CompletableFuture<Group> = GlobalScope.future {
+        groupsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun groupsRetrieveExpanded(requestModel: GroupsApi.GroupsRetrieveRequest): Group.Expanded {
         return groupsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun groupsRetrieveExpandedAsync(requestModel: GroupsApi.GroupsRetrieveRequest): CompletableFuture<Group.Expanded> = GlobalScope.future {
+        groupsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> groupsRetrieveImpl(requestModel: GroupsApi.GroupsRetrieveRequest): T {

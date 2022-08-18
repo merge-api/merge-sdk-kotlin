@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -85,12 +88,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return attachmentsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsCreateAsync(requestModel: AttachmentsApi.AttachmentsCreateRequest): CompletableFuture<AttachmentResponse> = GlobalScope.future {
+        attachmentsCreate(requestModel)
+    }
+
     /**
      * @param attachmentEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun attachmentsCreateExpanded(requestModel: AttachmentsApi.AttachmentsCreateRequest): AttachmentResponse.Expanded {
         return attachmentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsCreateExpandedAsync(requestModel: AttachmentsApi.AttachmentsCreateRequest): CompletableFuture<AttachmentResponse.Expanded> = GlobalScope.future {
+        attachmentsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> attachmentsCreateImpl(requestModel: AttachmentsApi.AttachmentsCreateRequest): T {
@@ -141,12 +154,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return attachmentsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsListAsync(requestModel: AttachmentsApi.AttachmentsListRequest): CompletableFuture<MergePaginatedResponse<Attachment>> = GlobalScope.future {
+        attachmentsList(requestModel)
+    }
+
     /**
      * @param candidateId If provided, will only return attachments for this candidate. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun attachmentsListExpanded(requestModel: AttachmentsApi.AttachmentsListRequest): MergePaginatedResponse<Attachment.Expanded> {
         return attachmentsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsListExpandedAsync(requestModel: AttachmentsApi.AttachmentsListRequest): CompletableFuture<MergePaginatedResponse<Attachment.Expanded>> = GlobalScope.future {
+        attachmentsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> attachmentsListImpl(requestModel: AttachmentsApi.AttachmentsListRequest): T {
@@ -196,12 +219,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return attachmentsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        attachmentsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun attachmentsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return attachmentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        attachmentsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> attachmentsMetaPostRetrieveImpl(): T {
@@ -243,12 +276,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return attachmentsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsRetrieveAsync(requestModel: AttachmentsApi.AttachmentsRetrieveRequest): CompletableFuture<Attachment> = GlobalScope.future {
+        attachmentsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun attachmentsRetrieveExpanded(requestModel: AttachmentsApi.AttachmentsRetrieveRequest): Attachment.Expanded {
         return attachmentsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsRetrieveExpandedAsync(requestModel: AttachmentsApi.AttachmentsRetrieveRequest): CompletableFuture<Attachment.Expanded> = GlobalScope.future {
+        attachmentsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> attachmentsRetrieveImpl(requestModel: AttachmentsApi.AttachmentsRetrieveRequest): T {

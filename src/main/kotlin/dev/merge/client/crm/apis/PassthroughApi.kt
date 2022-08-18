@@ -30,6 +30,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -57,12 +60,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return passthroughCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun passthroughCreateAsync(requestModel: PassthroughApi.PassthroughCreateRequest): CompletableFuture<RemoteResponse> = GlobalScope.future {
+        passthroughCreate(requestModel)
+    }
+
     /**
      * @param dataPassthroughRequest  
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun passthroughCreateExpanded(requestModel: PassthroughApi.PassthroughCreateRequest): RemoteResponse.Expanded {
         return passthroughCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun passthroughCreateExpandedAsync(requestModel: PassthroughApi.PassthroughCreateRequest): CompletableFuture<RemoteResponse.Expanded> = GlobalScope.future {
+        passthroughCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> passthroughCreateImpl(requestModel: PassthroughApi.PassthroughCreateRequest): T {

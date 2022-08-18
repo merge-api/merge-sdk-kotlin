@@ -33,6 +33,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -97,12 +100,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return ticketsCollaboratorsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsCollaboratorsListAsync(requestModel: TicketsApi.TicketsCollaboratorsListRequest): CompletableFuture<MergePaginatedResponse<User>> = GlobalScope.future {
+        ticketsCollaboratorsList(requestModel)
+    }
+
     /**
      * @param id   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsCollaboratorsListExpanded(requestModel: TicketsApi.TicketsCollaboratorsListRequest): MergePaginatedResponse<User.Expanded> {
         return ticketsCollaboratorsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsCollaboratorsListExpandedAsync(requestModel: TicketsApi.TicketsCollaboratorsListRequest): CompletableFuture<MergePaginatedResponse<User.Expanded>> = GlobalScope.future {
+        ticketsCollaboratorsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> ticketsCollaboratorsListImpl(requestModel: TicketsApi.TicketsCollaboratorsListRequest): T {
@@ -147,12 +160,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return ticketsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsCreateAsync(requestModel: TicketsApi.TicketsCreateRequest): CompletableFuture<TicketResponse> = GlobalScope.future {
+        ticketsCreate(requestModel)
+    }
+
     /**
      * @param ticketEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsCreateExpanded(requestModel: TicketsApi.TicketsCreateRequest): TicketResponse.Expanded {
         return ticketsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsCreateExpandedAsync(requestModel: TicketsApi.TicketsCreateRequest): CompletableFuture<TicketResponse.Expanded> = GlobalScope.future {
+        ticketsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> ticketsCreateImpl(requestModel: TicketsApi.TicketsCreateRequest): T {
@@ -204,12 +227,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return ticketsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsListAsync(requestModel: TicketsApi.TicketsListRequest): CompletableFuture<MergePaginatedResponse<Ticket>> = GlobalScope.future {
+        ticketsList(requestModel)
+    }
+
     /**
      * @param accountId If provided, will only return tickets for this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsListExpanded(requestModel: TicketsApi.TicketsListRequest): MergePaginatedResponse<Ticket.Expanded> {
         return ticketsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsListExpandedAsync(requestModel: TicketsApi.TicketsListRequest): CompletableFuture<MergePaginatedResponse<Ticket.Expanded>> = GlobalScope.future {
+        ticketsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> ticketsListImpl(requestModel: TicketsApi.TicketsListRequest): T {
@@ -260,12 +293,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return ticketsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        ticketsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return ticketsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        ticketsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(): T {
@@ -307,12 +350,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return ticketsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsRetrieveAsync(requestModel: TicketsApi.TicketsRetrieveRequest): CompletableFuture<Ticket> = GlobalScope.future {
+        ticketsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsRetrieveExpanded(requestModel: TicketsApi.TicketsRetrieveRequest): Ticket.Expanded {
         return ticketsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsRetrieveExpandedAsync(requestModel: TicketsApi.TicketsRetrieveRequest): CompletableFuture<Ticket.Expanded> = GlobalScope.future {
+        ticketsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> ticketsRetrieveImpl(requestModel: TicketsApi.TicketsRetrieveRequest): T {

@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -87,12 +90,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return offersListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun offersListAsync(requestModel: OffersApi.OffersListRequest): CompletableFuture<MergePaginatedResponse<Offer>> = GlobalScope.future {
+        offersList(requestModel)
+    }
+
     /**
      * @param applicationId If provided, will only return offers for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param creatorId If provided, will only return offers created by this user. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun offersListExpanded(requestModel: OffersApi.OffersListRequest): MergePaginatedResponse<Offer.Expanded> {
         return offersListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun offersListExpandedAsync(requestModel: OffersApi.OffersListRequest): CompletableFuture<MergePaginatedResponse<Offer.Expanded>> = GlobalScope.future {
+        offersListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> offersListImpl(requestModel: OffersApi.OffersListRequest): T {
@@ -147,12 +160,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return offersRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun offersRetrieveAsync(requestModel: OffersApi.OffersRetrieveRequest): CompletableFuture<Offer> = GlobalScope.future {
+        offersRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun offersRetrieveExpanded(requestModel: OffersApi.OffersRetrieveRequest): Offer.Expanded {
         return offersRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun offersRetrieveExpandedAsync(requestModel: OffersApi.OffersRetrieveRequest): CompletableFuture<Offer.Expanded> = GlobalScope.future {
+        offersRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> offersRetrieveImpl(requestModel: OffersApi.OffersRetrieveRequest): T {

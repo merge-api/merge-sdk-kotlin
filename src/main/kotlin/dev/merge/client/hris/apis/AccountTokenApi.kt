@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -56,12 +59,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return accountTokenRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun accountTokenRetrieveAsync(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): CompletableFuture<AccountToken> = GlobalScope.future {
+        accountTokenRetrieve(requestModel)
+    }
+
     /**
      * @param publicToken  
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun accountTokenRetrieveExpanded(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): AccountToken.Expanded {
         return accountTokenRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun accountTokenRetrieveExpandedAsync(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): CompletableFuture<AccountToken.Expanded> = GlobalScope.future {
+        accountTokenRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> accountTokenRetrieveImpl(requestModel: AccountTokenApi.AccountTokenRetrieveRequest): T {

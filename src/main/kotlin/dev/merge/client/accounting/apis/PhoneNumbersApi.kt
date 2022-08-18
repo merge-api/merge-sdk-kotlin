@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -58,12 +61,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return phoneNumbersRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun phoneNumbersRetrieveAsync(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): CompletableFuture<AccountingPhoneNumber> = GlobalScope.future {
+        phoneNumbersRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun phoneNumbersRetrieveExpanded(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): AccountingPhoneNumber.Expanded {
         return phoneNumbersRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun phoneNumbersRetrieveExpandedAsync(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): CompletableFuture<AccountingPhoneNumber.Expanded> = GlobalScope.future {
+        phoneNumbersRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> phoneNumbersRetrieveImpl(requestModel: PhoneNumbersApi.PhoneNumbersRetrieveRequest): T {

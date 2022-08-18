@@ -30,6 +30,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -86,12 +89,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return projectsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsListAsync(requestModel: ProjectsApi.ProjectsListRequest): CompletableFuture<MergePaginatedResponse<Project>> = GlobalScope.future {
+        projectsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsListExpanded(requestModel: ProjectsApi.ProjectsListRequest): MergePaginatedResponse<Project.Expanded> {
         return projectsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsListExpandedAsync(requestModel: ProjectsApi.ProjectsListRequest): CompletableFuture<MergePaginatedResponse<Project.Expanded>> = GlobalScope.future {
+        projectsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> projectsListImpl(requestModel: ProjectsApi.ProjectsListRequest): T {
@@ -140,12 +153,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return projectsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsRetrieveAsync(requestModel: ProjectsApi.ProjectsRetrieveRequest): CompletableFuture<Project> = GlobalScope.future {
+        projectsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsRetrieveExpanded(requestModel: ProjectsApi.ProjectsRetrieveRequest): Project.Expanded {
         return projectsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsRetrieveExpandedAsync(requestModel: ProjectsApi.ProjectsRetrieveRequest): CompletableFuture<Project.Expanded> = GlobalScope.future {
+        projectsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> projectsRetrieveImpl(requestModel: ProjectsApi.ProjectsRetrieveRequest): T {
@@ -189,12 +212,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return projectsUsersListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsUsersListAsync(requestModel: ProjectsApi.ProjectsUsersListRequest): CompletableFuture<MergePaginatedResponse<User>> = GlobalScope.future {
+        projectsUsersList(requestModel)
+    }
+
     /**
      * @param id   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsUsersListExpanded(requestModel: ProjectsApi.ProjectsUsersListRequest): MergePaginatedResponse<User.Expanded> {
         return projectsUsersListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun projectsUsersListExpandedAsync(requestModel: ProjectsApi.ProjectsUsersListRequest): CompletableFuture<MergePaginatedResponse<User.Expanded>> = GlobalScope.future {
+        projectsUsersListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> projectsUsersListImpl(requestModel: ProjectsApi.ProjectsUsersListRequest): T {

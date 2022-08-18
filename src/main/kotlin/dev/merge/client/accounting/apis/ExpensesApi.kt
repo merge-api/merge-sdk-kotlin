@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -80,12 +83,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return expensesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesListAsync(requestModel: ExpensesApi.ExpensesListRequest): CompletableFuture<MergePaginatedResponse<Expense>> = GlobalScope.future {
+        expensesList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun expensesListExpanded(requestModel: ExpensesApi.ExpensesListRequest): MergePaginatedResponse<Expense.Expanded> {
         return expensesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesListExpandedAsync(requestModel: ExpensesApi.ExpensesListRequest): CompletableFuture<MergePaginatedResponse<Expense.Expanded>> = GlobalScope.future {
+        expensesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> expensesListImpl(requestModel: ExpensesApi.ExpensesListRequest): T {
@@ -136,12 +149,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return expensesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesRetrieveAsync(requestModel: ExpensesApi.ExpensesRetrieveRequest): CompletableFuture<Expense> = GlobalScope.future {
+        expensesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun expensesRetrieveExpanded(requestModel: ExpensesApi.ExpensesRetrieveRequest): Expense.Expanded {
         return expensesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesRetrieveExpandedAsync(requestModel: ExpensesApi.ExpensesRetrieveRequest): CompletableFuture<Expense.Expanded> = GlobalScope.future {
+        expensesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> expensesRetrieveImpl(requestModel: ExpensesApi.ExpensesRetrieveRequest): T {

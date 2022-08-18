@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -82,12 +85,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return jobInterviewStagesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun jobInterviewStagesListAsync(requestModel: JobInterviewStagesApi.JobInterviewStagesListRequest): CompletableFuture<MergePaginatedResponse<JobInterviewStage>> = GlobalScope.future {
+        jobInterviewStagesList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param jobId If provided, will only return interview stages for this job. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun jobInterviewStagesListExpanded(requestModel: JobInterviewStagesApi.JobInterviewStagesListRequest): MergePaginatedResponse<JobInterviewStage.Expanded> {
         return jobInterviewStagesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun jobInterviewStagesListExpandedAsync(requestModel: JobInterviewStagesApi.JobInterviewStagesListRequest): CompletableFuture<MergePaginatedResponse<JobInterviewStage.Expanded>> = GlobalScope.future {
+        jobInterviewStagesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> jobInterviewStagesListImpl(requestModel: JobInterviewStagesApi.JobInterviewStagesListRequest): T {
@@ -139,12 +152,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return jobInterviewStagesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun jobInterviewStagesRetrieveAsync(requestModel: JobInterviewStagesApi.JobInterviewStagesRetrieveRequest): CompletableFuture<JobInterviewStage> = GlobalScope.future {
+        jobInterviewStagesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun jobInterviewStagesRetrieveExpanded(requestModel: JobInterviewStagesApi.JobInterviewStagesRetrieveRequest): JobInterviewStage.Expanded {
         return jobInterviewStagesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun jobInterviewStagesRetrieveExpandedAsync(requestModel: JobInterviewStagesApi.JobInterviewStagesRetrieveRequest): CompletableFuture<JobInterviewStage.Expanded> = GlobalScope.future {
+        jobInterviewStagesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> jobInterviewStagesRetrieveImpl(requestModel: JobInterviewStagesApi.JobInterviewStagesRetrieveRequest): T {

@@ -32,6 +32,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -83,12 +86,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return commentsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsCreateAsync(requestModel: CommentsApi.CommentsCreateRequest): CompletableFuture<CommentResponse> = GlobalScope.future {
+        commentsCreate(requestModel)
+    }
+
     /**
      * @param commentEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun commentsCreateExpanded(requestModel: CommentsApi.CommentsCreateRequest): CommentResponse.Expanded {
         return commentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsCreateExpandedAsync(requestModel: CommentsApi.CommentsCreateRequest): CompletableFuture<CommentResponse.Expanded> = GlobalScope.future {
+        commentsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> commentsCreateImpl(requestModel: CommentsApi.CommentsCreateRequest): T {
@@ -138,12 +151,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return commentsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsListAsync(requestModel: CommentsApi.CommentsListRequest): CompletableFuture<MergePaginatedResponse<Comment>> = GlobalScope.future {
+        commentsList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param ticketId If provided, will only return comments for this ticket. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun commentsListExpanded(requestModel: CommentsApi.CommentsListRequest): MergePaginatedResponse<Comment.Expanded> {
         return commentsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsListExpandedAsync(requestModel: CommentsApi.CommentsListRequest): CompletableFuture<MergePaginatedResponse<Comment.Expanded>> = GlobalScope.future {
+        commentsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> commentsListImpl(requestModel: CommentsApi.CommentsListRequest): T {
@@ -192,12 +215,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return commentsMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        commentsMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun commentsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return commentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        commentsMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> commentsMetaPostRetrieveImpl(): T {
@@ -238,12 +271,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return commentsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsRetrieveAsync(requestModel: CommentsApi.CommentsRetrieveRequest): CompletableFuture<Comment> = GlobalScope.future {
+        commentsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun commentsRetrieveExpanded(requestModel: CommentsApi.CommentsRetrieveRequest): Comment.Expanded {
         return commentsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commentsRetrieveExpandedAsync(requestModel: CommentsApi.CommentsRetrieveRequest): CompletableFuture<Comment.Expanded> = GlobalScope.future {
+        commentsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> commentsRetrieveImpl(requestModel: CommentsApi.CommentsRetrieveRequest): T {

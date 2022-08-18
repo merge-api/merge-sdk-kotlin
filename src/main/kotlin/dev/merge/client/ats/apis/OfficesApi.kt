@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -77,12 +80,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return officesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun officesListAsync(requestModel: OfficesApi.OfficesListRequest): CompletableFuture<MergePaginatedResponse<Office>> = GlobalScope.future {
+        officesList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun officesListExpanded(requestModel: OfficesApi.OfficesListRequest): MergePaginatedResponse<Office.Expanded> {
         return officesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun officesListExpandedAsync(requestModel: OfficesApi.OfficesListRequest): CompletableFuture<MergePaginatedResponse<Office.Expanded>> = GlobalScope.future {
+        officesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> officesListImpl(requestModel: OfficesApi.OfficesListRequest): T {
@@ -131,12 +144,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return officesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun officesRetrieveAsync(requestModel: OfficesApi.OfficesRetrieveRequest): CompletableFuture<Office> = GlobalScope.future {
+        officesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun officesRetrieveExpanded(requestModel: OfficesApi.OfficesRetrieveRequest): Office.Expanded {
         return officesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun officesRetrieveExpandedAsync(requestModel: OfficesApi.OfficesRetrieveRequest): CompletableFuture<Office.Expanded> = GlobalScope.future {
+        officesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> officesRetrieveImpl(requestModel: OfficesApi.OfficesRetrieveRequest): T {

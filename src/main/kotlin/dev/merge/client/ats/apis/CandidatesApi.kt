@@ -34,6 +34,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -91,12 +94,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return candidatesCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesCreateAsync(requestModel: CandidatesApi.CandidatesCreateRequest): CompletableFuture<CandidateResponse> = GlobalScope.future {
+        candidatesCreate(requestModel)
+    }
+
     /**
      * @param candidateEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesCreateExpanded(requestModel: CandidatesApi.CandidatesCreateRequest): CandidateResponse.Expanded {
         return candidatesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesCreateExpandedAsync(requestModel: CandidatesApi.CandidatesCreateRequest): CompletableFuture<CandidateResponse.Expanded> = GlobalScope.future {
+        candidatesCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> candidatesCreateImpl(requestModel: CandidatesApi.CandidatesCreateRequest): T {
@@ -137,12 +150,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return candidatesIgnoreCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesIgnoreCreateAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+        candidatesIgnoreCreate(requestModel)
+    }
+
     /**
      * @param modelId   * @param ignoreCommonModelRequest  
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesIgnoreCreateExpanded(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
         return candidatesIgnoreCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesIgnoreCreateExpandedAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+        candidatesIgnoreCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> candidatesIgnoreCreateImpl(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): T {
@@ -191,12 +214,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return candidatesListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesListAsync(requestModel: CandidatesApi.CandidatesListRequest): CompletableFuture<MergePaginatedResponse<Candidate>> = GlobalScope.future {
+        candidatesList(requestModel)
+    }
+
     /**
      * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesListExpanded(requestModel: CandidatesApi.CandidatesListRequest): MergePaginatedResponse<Candidate.Expanded> {
         return candidatesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesListExpandedAsync(requestModel: CandidatesApi.CandidatesListRequest): CompletableFuture<MergePaginatedResponse<Candidate.Expanded>> = GlobalScope.future {
+        candidatesListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> candidatesListImpl(requestModel: CandidatesApi.CandidatesListRequest): T {
@@ -246,12 +279,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return candidatesMetaPostRetrieveImpl()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        candidatesMetaPostRetrieve()
+    }
+
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
         return candidatesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        candidatesMetaPostRetrieveExpanded()
     }
 
     private suspend inline fun <reified T> candidatesMetaPostRetrieveImpl(): T {
@@ -292,12 +335,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return candidatesRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesRetrieveAsync(requestModel: CandidatesApi.CandidatesRetrieveRequest): CompletableFuture<Candidate> = GlobalScope.future {
+        candidatesRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesRetrieveExpanded(requestModel: CandidatesApi.CandidatesRetrieveRequest): Candidate.Expanded {
         return candidatesRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesRetrieveExpandedAsync(requestModel: CandidatesApi.CandidatesRetrieveRequest): CompletableFuture<Candidate.Expanded> = GlobalScope.future {
+        candidatesRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> candidatesRetrieveImpl(requestModel: CandidatesApi.CandidatesRetrieveRequest): T {

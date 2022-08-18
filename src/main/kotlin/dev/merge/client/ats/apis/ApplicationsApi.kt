@@ -33,6 +33,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -101,12 +104,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return applicationsChangeStageCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsChangeStageCreateAsync(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): CompletableFuture<ApplicationResponse> = GlobalScope.future {
+        applicationsChangeStageCreate(requestModel)
+    }
+
     /**
      * @param id   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional) * @param updateApplicationStageRequest  (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun applicationsChangeStageCreateExpanded(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): ApplicationResponse.Expanded {
         return applicationsChangeStageCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsChangeStageCreateExpandedAsync(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): CompletableFuture<ApplicationResponse.Expanded> = GlobalScope.future {
+        applicationsChangeStageCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> applicationsChangeStageCreateImpl(requestModel: ApplicationsApi.ApplicationsChangeStageCreateRequest): T {
@@ -148,12 +161,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return applicationsCreateImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsCreateAsync(requestModel: ApplicationsApi.ApplicationsCreateRequest): CompletableFuture<ApplicationResponse> = GlobalScope.future {
+        applicationsCreate(requestModel)
+    }
+
     /**
      * @param applicationEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun applicationsCreateExpanded(requestModel: ApplicationsApi.ApplicationsCreateRequest): ApplicationResponse.Expanded {
         return applicationsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsCreateExpandedAsync(requestModel: ApplicationsApi.ApplicationsCreateRequest): CompletableFuture<ApplicationResponse.Expanded> = GlobalScope.future {
+        applicationsCreateExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> applicationsCreateImpl(requestModel: ApplicationsApi.ApplicationsCreateRequest): T {
@@ -208,12 +231,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return applicationsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsListAsync(requestModel: ApplicationsApi.ApplicationsListRequest): CompletableFuture<MergePaginatedResponse<Application>> = GlobalScope.future {
+        applicationsList(requestModel)
+    }
+
     /**
      * @param candidateId If provided, will only return applications for this candidate. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param creditedToId If provided, will only return applications credited to this user. (optional) * @param currentStageId If provided, will only return applications at this interview stage. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param jobId If provided, will only return applications for this job. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param rejectReasonId If provided, will only return applications with this reject reason. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param source If provided, will only return applications with this source. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun applicationsListExpanded(requestModel: ApplicationsApi.ApplicationsListRequest): MergePaginatedResponse<Application.Expanded> {
         return applicationsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsListExpandedAsync(requestModel: ApplicationsApi.ApplicationsListRequest): CompletableFuture<MergePaginatedResponse<Application.Expanded>> = GlobalScope.future {
+        applicationsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> applicationsListImpl(requestModel: ApplicationsApi.ApplicationsListRequest): T {
@@ -268,12 +301,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return applicationsMetaPostRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsMetaPostRetrieveAsync(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        applicationsMetaPostRetrieve(requestModel)
+    }
+
     /**
      * @param applicationRemoteTemplateId The template ID associated with the nested application in the request. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun applicationsMetaPostRetrieveExpanded(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): MetaResponse.Expanded {
         return applicationsMetaPostRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsMetaPostRetrieveExpandedAsync(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        applicationsMetaPostRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> applicationsMetaPostRetrieveImpl(requestModel: ApplicationsApi.ApplicationsMetaPostRetrieveRequest): T {
@@ -315,12 +358,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return applicationsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsRetrieveAsync(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): CompletableFuture<Application> = GlobalScope.future {
+        applicationsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun applicationsRetrieveExpanded(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): Application.Expanded {
         return applicationsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun applicationsRetrieveExpandedAsync(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): CompletableFuture<Application.Expanded> = GlobalScope.future {
+        applicationsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> applicationsRetrieveImpl(requestModel: ApplicationsApi.ApplicationsRetrieveRequest): T {

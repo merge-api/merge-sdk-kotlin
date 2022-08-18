@@ -29,6 +29,9 @@ import io.ktor.http.ParametersBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.client.call.body
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
+import java.util.concurrent.CompletableFuture
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
@@ -84,12 +87,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return paymentsListImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsListAsync(requestModel: PaymentsApi.PaymentsListRequest): CompletableFuture<MergePaginatedResponse<Payment>> = GlobalScope.future {
+        paymentsList(requestModel)
+    }
+
     /**
      * @param accountId If provided, will only return payments for this account. (optional) * @param contactId If provided, will only return payments for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun paymentsListExpanded(requestModel: PaymentsApi.PaymentsListRequest): MergePaginatedResponse<Payment.Expanded> {
         return paymentsListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsListExpandedAsync(requestModel: PaymentsApi.PaymentsListRequest): CompletableFuture<MergePaginatedResponse<Payment.Expanded>> = GlobalScope.future {
+        paymentsListExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> paymentsListImpl(requestModel: PaymentsApi.PaymentsListRequest): T {
@@ -142,12 +155,22 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         return paymentsRetrieveImpl(requestModel)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsRetrieveAsync(requestModel: PaymentsApi.PaymentsRetrieveRequest): CompletableFuture<Payment> = GlobalScope.future {
+        paymentsRetrieve(requestModel)
+    }
+
     /**
      * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun paymentsRetrieveExpanded(requestModel: PaymentsApi.PaymentsRetrieveRequest): Payment.Expanded {
         return paymentsRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsRetrieveExpandedAsync(requestModel: PaymentsApi.PaymentsRetrieveRequest): CompletableFuture<Payment.Expanded> = GlobalScope.future {
+        paymentsRetrieveExpanded(requestModel)
     }
 
     private suspend inline fun <reified T> paymentsRetrieveImpl(requestModel: PaymentsApi.PaymentsRetrieveRequest): T {
