@@ -3,7 +3,7 @@
 ## Date: 2022-08-16
 
 - Initial commit of the Merge Kotlin SDK 
-  - /merge-ai/merge-sdk-kotlin in github
+  - /merge-api/merge-sdk-kotlin in github
   - dev.merge.client in java package naming
 - Includes all Merge categories in one package
   - Accounting
