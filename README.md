@@ -10,8 +10,9 @@ The Kotlin/JVM SDK for accessing various Merge Unified APIs. We use the followin
 * NO logging, aside from some `println` in tests
 
 We target Java language level 8 and above. The API methods are written using Kotlin coroutines, but can be called with
-`CompletableFutures` see [https://stackoverflow.com/a/52887677](this example). There should also be some packages that
-can make it work in Java 7, although we do not officially support it.
+`CompletableFutures` see [https://stackoverflow.com/a/52887677](this example), as well as the unit test 
+[src/test/java/dev/merge/client/BasicJavaTest.java](here). There should also be some packages that can make it work in
+Java 7, although we do not officially support it.
 
 ## Usage
 
@@ -32,6 +33,23 @@ val accountingAccountsResponse = accountsApi.accountsList(AccountsApi.AccountsLi
 
 assertNotNull(accountingAccountsResponse)
 assertNotNull(accountingAccountsResponse.results)
+```
+
+### Plain call, Java
+
+```java
+AccountsApi accountsApi = new AccountsApi();
+accountsApi.setApiKey("REDACTED");
+accountsApi.setAccountToken("REDACTED");
+
+CompletableFuture<MergePaginatedResponse<Account>> accountingAccountsPromise = accountsApi.accountsListAsync(
+    new AccountsApi.AccountsListRequest()
+);
+
+MergePaginatedResponse<Account> accountingAccountsResponse = accountingAccountsPromise.get();
+
+assertNotNull(accountingAccountsResponse);
+assertNotNull(accountingAccountsResponse.getResults());
 ```
 
 ### Expands call, Kotlin
