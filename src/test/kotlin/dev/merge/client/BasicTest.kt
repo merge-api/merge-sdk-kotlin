@@ -16,6 +16,7 @@ import kotlin.test.*
 
 internal class BasicTest {
     @Test
+    @Ignore
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     fun testAllCategoriesSimple() = runTest {
         val mapper = ObjectMapper()
