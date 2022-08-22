@@ -62,6 +62,7 @@ data class AvailableActions (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AvailableActions.Expanded): AvailableActions {
             return AvailableActions(
                 integration = ApiClient.jsonConvertRequiredSafe(expanded.integration),

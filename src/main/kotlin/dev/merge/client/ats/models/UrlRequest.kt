@@ -56,6 +56,7 @@ data class UrlRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: UrlRequest.Expanded): UrlRequest {
             return UrlRequest(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),

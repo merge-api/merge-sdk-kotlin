@@ -71,6 +71,7 @@ data class Tag (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Tag.Expanded): Tag {
             return Tag(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

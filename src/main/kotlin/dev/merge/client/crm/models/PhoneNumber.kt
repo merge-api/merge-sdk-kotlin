@@ -55,6 +55,7 @@ data class PhoneNumber (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: PhoneNumber.Expanded): PhoneNumber {
             return PhoneNumber(
                 phoneNumber = ApiClient.jsonConvertSafe(expanded.phoneNumber),

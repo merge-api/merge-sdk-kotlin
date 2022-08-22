@@ -140,6 +140,7 @@ data class CashFlowStatement (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CashFlowStatement.Expanded): CashFlowStatement {
             return CashFlowStatement(
                 id = ApiClient.jsonConvertSafe(expanded.id),

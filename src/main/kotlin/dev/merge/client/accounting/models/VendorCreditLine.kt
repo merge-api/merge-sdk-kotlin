@@ -79,6 +79,7 @@ data class VendorCreditLine (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: VendorCreditLine.Expanded): VendorCreditLine {
             return VendorCreditLine(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -71,6 +71,7 @@ data class TimeOffResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TimeOffResponse.Expanded): TimeOffResponse {
             return TimeOffResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

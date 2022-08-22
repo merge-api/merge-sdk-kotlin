@@ -115,6 +115,7 @@ data class Attachment (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Attachment.Expanded): Attachment {
             return Attachment(
                 id = ApiClient.jsonConvertSafe(expanded.id),

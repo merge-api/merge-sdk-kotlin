@@ -21,24 +21,28 @@
 package dev.merge.client.crm.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: BILLING,SHIPPING,UNKNOWN_DEFAULT_OPEN_API
+ * Values: BILLING,SHIPPING
  */
-
 enum class AddressTypeEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "BILLING")
     BILLING("BILLING"),
 
-    @JsonProperty(value = "SHIPPING")
-    SHIPPING("SHIPPING"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "SHIPPING")
+    SHIPPING("SHIPPING");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -51,19 +55,20 @@ enum class AddressTypeEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is AddressTypeEnum) "$data" else null
 
         /**
-         * Returns a valid [AddressTypeEnum] for [data], null otherwise.
+         * Returns a valid [AddressTypeEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): AddressTypeEnum? = data?.let {
+        fun decode(data: kotlin.Any?): AddressTypeEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

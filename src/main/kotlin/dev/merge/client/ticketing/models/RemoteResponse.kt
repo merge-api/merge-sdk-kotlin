@@ -81,6 +81,7 @@ data class RemoteResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: RemoteResponse.Expanded): RemoteResponse {
             return RemoteResponse(
                 method = ApiClient.jsonConvertRequiredSafe(expanded.method),

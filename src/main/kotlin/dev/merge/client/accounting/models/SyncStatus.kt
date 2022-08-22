@@ -82,6 +82,7 @@ data class SyncStatus (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: SyncStatus.Expanded): SyncStatus {
             return SyncStatus(
                 modelName = ApiClient.jsonConvertRequiredSafe(expanded.modelName),

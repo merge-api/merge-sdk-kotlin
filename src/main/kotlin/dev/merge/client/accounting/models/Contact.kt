@@ -152,6 +152,7 @@ data class Contact (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Contact.Expanded): Contact {
             return Contact(
                 id = ApiClient.jsonConvertSafe(expanded.id),

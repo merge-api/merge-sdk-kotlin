@@ -47,6 +47,7 @@ data class InvoiceEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: InvoiceEndpointRequest.Expanded): InvoiceEndpointRequest {
             return InvoiceEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

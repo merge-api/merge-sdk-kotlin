@@ -95,6 +95,7 @@ data class Group (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Group.Expanded): Group {
             return Group(
                 id = ApiClient.jsonConvertSafe(expanded.id),

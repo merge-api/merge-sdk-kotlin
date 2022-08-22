@@ -47,6 +47,7 @@ data class EngagementEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EngagementEndpointRequest.Expanded): EngagementEndpointRequest {
             return EngagementEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

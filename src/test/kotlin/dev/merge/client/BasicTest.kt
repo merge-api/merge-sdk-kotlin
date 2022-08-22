@@ -6,8 +6,11 @@ import dev.merge.client.accounting.apis.AccountsApi
 import dev.merge.client.ats.apis.CandidatesApi
 import dev.merge.client.ats.models.Application
 import dev.merge.client.ats.models.Candidate
+import dev.merge.client.ats.models.SyncStatus
+import dev.merge.client.ats.models.SyncStatusStatusEnum
 import dev.merge.client.crm.apis.ContactsApi
 import dev.merge.client.hris.apis.EmployeesApi
+import dev.merge.client.shared.ApiClient
 import dev.merge.client.ticketing.apis.TicketsApi
 import io.ktor.client.plugins.*
 import io.ktor.http.*
@@ -149,5 +152,23 @@ internal class BasicTest {
         for (ticketingTicket in ticketingTicketsResponse.results ?: listOf()) {
             assertEquals(ticketingFilterProjects, ticketingTicket.project?.toString())
         }
+    }
+
+    @Test
+    fun testDefaultEnumDeserialization() {
+        val rawSyncStatus = """
+{
+    "model_name": "Candidate",
+    "model_id": "ats.Candidate",
+    "last_sync_start": "2021-03-30T19:44:18.695973Z",
+    "next_sync_start": "2021-03-30T20:44:18.662942Z",
+    "status": "UNKNOWN_SHOULD_BE_DEFAULT_VALUE",
+    "is_initial_sync": true
+}
+        """.trimIndent()
+
+        val deserializedSyncStatus = ApiClient.JSON_DEFAULT.readValue(rawSyncStatus, SyncStatus::class.java)
+
+        assertEquals(SyncStatusStatusEnum.MERGE_NONSTANDARD_VALUE, deserializedSyncStatus.status)
     }
 }

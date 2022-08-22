@@ -205,6 +205,7 @@ data class Candidate (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Candidate.Expanded): Candidate {
             return Candidate(
                 id = ApiClient.jsonConvertSafe(expanded.id),

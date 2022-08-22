@@ -118,6 +118,7 @@ data class BankInfo (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: BankInfo.Expanded): BankInfo {
             return BankInfo(
                 id = ApiClient.jsonConvertSafe(expanded.id),

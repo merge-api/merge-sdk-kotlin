@@ -132,6 +132,7 @@ data class AccountRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountRequest.Expanded): AccountRequest {
             return AccountRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

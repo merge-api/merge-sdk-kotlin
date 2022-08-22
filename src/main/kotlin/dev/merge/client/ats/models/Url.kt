@@ -56,6 +56,7 @@ data class Url (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Url.Expanded): Url {
             return Url(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),

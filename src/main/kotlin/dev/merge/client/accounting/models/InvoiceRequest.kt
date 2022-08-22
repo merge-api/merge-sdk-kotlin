@@ -168,6 +168,7 @@ data class InvoiceRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: InvoiceRequest.Expanded): InvoiceRequest {
             return InvoiceRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -71,6 +71,7 @@ data class LeadResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: LeadResponse.Expanded): LeadResponse {
             return LeadResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

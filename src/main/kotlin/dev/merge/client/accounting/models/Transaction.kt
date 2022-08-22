@@ -135,6 +135,7 @@ data class Transaction (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Transaction.Expanded): Transaction {
             return Transaction(
                 id = ApiClient.jsonConvertSafe(expanded.id),

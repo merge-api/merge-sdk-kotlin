@@ -125,6 +125,7 @@ data class Item (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Item.Expanded): Item {
             return Item(
                 id = ApiClient.jsonConvertSafe(expanded.id),

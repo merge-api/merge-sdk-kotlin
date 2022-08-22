@@ -110,6 +110,7 @@ data class TransactionLineItem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TransactionLineItem.Expanded): TransactionLineItem {
             return TransactionLineItem(
                 memo = ApiClient.jsonConvertSafe(expanded.memo),

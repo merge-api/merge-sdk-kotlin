@@ -80,6 +80,7 @@ data class MultipartFormFieldRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: MultipartFormFieldRequest.Expanded): MultipartFormFieldRequest {
             return MultipartFormFieldRequest(
                 name = ApiClient.jsonConvertRequiredSafe(expanded.name),

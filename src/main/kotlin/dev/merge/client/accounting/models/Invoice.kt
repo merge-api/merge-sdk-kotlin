@@ -198,6 +198,7 @@ data class Invoice (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Invoice.Expanded): Invoice {
             return Invoice(
                 id = ApiClient.jsonConvertSafe(expanded.id),

@@ -97,6 +97,7 @@ data class AccountDetailsAndActionsIntegration (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountDetailsAndActionsIntegration.Expanded): AccountDetailsAndActionsIntegration {
             return AccountDetailsAndActionsIntegration(
                 name = ApiClient.jsonConvertRequiredSafe(expanded.name),

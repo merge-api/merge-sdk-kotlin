@@ -86,6 +86,7 @@ data class Project (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Project.Expanded): Project {
             return Project(
                 id = ApiClient.jsonConvertSafe(expanded.id),

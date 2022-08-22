@@ -47,6 +47,7 @@ data class JournalEntryEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: JournalEntryEndpointRequest.Expanded): JournalEntryEndpointRequest {
             return JournalEntryEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

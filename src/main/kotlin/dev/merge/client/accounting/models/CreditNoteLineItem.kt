@@ -126,6 +126,7 @@ data class CreditNoteLineItem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CreditNoteLineItem.Expanded): CreditNoteLineItem {
             return CreditNoteLineItem(
                 item = ApiClient.jsonConvertSafe(expanded.item),

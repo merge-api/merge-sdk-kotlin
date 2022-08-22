@@ -54,6 +54,7 @@ data class IgnoreCommonModel (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: IgnoreCommonModel.Expanded): IgnoreCommonModel {
             return IgnoreCommonModel(
                 reason = ApiClient.jsonConvertRequiredSafe(expanded.reason),

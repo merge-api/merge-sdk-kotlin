@@ -122,6 +122,7 @@ data class Comment (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Comment.Expanded): Comment {
             return Comment(
                 id = ApiClient.jsonConvertSafe(expanded.id),

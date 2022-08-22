@@ -93,6 +93,7 @@ data class AttachmentRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AttachmentRequest.Expanded): AttachmentRequest {
             return AttachmentRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

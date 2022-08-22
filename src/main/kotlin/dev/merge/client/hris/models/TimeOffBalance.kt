@@ -102,6 +102,7 @@ data class TimeOffBalance (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TimeOffBalance.Expanded): TimeOffBalance {
             return TimeOffBalance(
                 id = ApiClient.jsonConvertSafe(expanded.id),

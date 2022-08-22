@@ -20,7 +20,6 @@
 
     * `PRO_RATA` (value: `"PRO_RATA"`)
 
-    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
-
+    * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

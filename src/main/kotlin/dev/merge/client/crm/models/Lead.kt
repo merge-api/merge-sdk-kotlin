@@ -178,6 +178,7 @@ data class Lead (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Lead.Expanded): Lead {
             return Lead(
                 id = ApiClient.jsonConvertSafe(expanded.id),

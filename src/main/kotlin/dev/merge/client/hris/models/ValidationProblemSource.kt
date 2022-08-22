@@ -46,6 +46,7 @@ data class ValidationProblemSource (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ValidationProblemSource.Expanded): ValidationProblemSource {
             return ValidationProblemSource(
                 pointer = ApiClient.jsonConvertRequiredSafe(expanded.pointer)

@@ -68,6 +68,7 @@ data class WarningValidationProblem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: WarningValidationProblem.Expanded): WarningValidationProblem {
             return WarningValidationProblem(
                 title = ApiClient.jsonConvertRequiredSafe(expanded.title),

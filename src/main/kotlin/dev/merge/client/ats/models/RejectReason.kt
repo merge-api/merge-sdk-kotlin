@@ -78,6 +78,7 @@ data class RejectReason (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: RejectReason.Expanded): RejectReason {
             return RejectReason(
                 id = ApiClient.jsonConvertSafe(expanded.id),

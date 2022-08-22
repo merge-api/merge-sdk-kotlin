@@ -100,6 +100,7 @@ data class DataPassthroughRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: DataPassthroughRequest.Expanded): DataPassthroughRequest {
             return DataPassthroughRequest(
                 method = ApiClient.jsonConvertRequiredSafe(expanded.method),

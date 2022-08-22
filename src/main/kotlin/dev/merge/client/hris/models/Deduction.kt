@@ -93,6 +93,7 @@ data class Deduction (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Deduction.Expanded): Deduction {
             return Deduction(
                 id = ApiClient.jsonConvertSafe(expanded.id),

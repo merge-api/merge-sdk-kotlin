@@ -67,6 +67,7 @@ data class ModelOperation (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ModelOperation.Expanded): ModelOperation {
             return ModelOperation(
                 modelName = ApiClient.jsonConvertRequiredSafe(expanded.modelName),

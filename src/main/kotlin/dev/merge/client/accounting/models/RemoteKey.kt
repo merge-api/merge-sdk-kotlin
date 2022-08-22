@@ -53,6 +53,7 @@ data class RemoteKey (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: RemoteKey.Expanded): RemoteKey {
             return RemoteKey(
                 name = ApiClient.jsonConvertRequiredSafe(expanded.name),

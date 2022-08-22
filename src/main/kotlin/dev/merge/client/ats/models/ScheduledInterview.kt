@@ -148,6 +148,7 @@ data class ScheduledInterview (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ScheduledInterview.Expanded): ScheduledInterview {
             return ScheduledInterview(
                 id = ApiClient.jsonConvertSafe(expanded.id),

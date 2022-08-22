@@ -98,6 +98,7 @@ data class Address (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Address.Expanded): Address {
             return Address(
                 type = ApiClient.jsonConvertSafe(expanded.type),

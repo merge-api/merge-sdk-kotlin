@@ -18,7 +18,6 @@
 
     * `JOB_POSTING` (value: `"JOB_POSTING"`)
 
-    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
-
+    * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

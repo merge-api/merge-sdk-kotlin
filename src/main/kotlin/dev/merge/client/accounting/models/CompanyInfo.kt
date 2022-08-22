@@ -151,6 +151,7 @@ data class CompanyInfo (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CompanyInfo.Expanded): CompanyInfo {
             return CompanyInfo(
                 id = ApiClient.jsonConvertSafe(expanded.id),

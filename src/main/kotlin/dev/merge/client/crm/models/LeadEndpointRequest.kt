@@ -47,6 +47,7 @@ data class LeadEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: LeadEndpointRequest.Expanded): LeadEndpointRequest {
             return LeadEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

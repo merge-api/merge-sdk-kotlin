@@ -47,6 +47,7 @@ data class OpportunityEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: OpportunityEndpointRequest.Expanded): OpportunityEndpointRequest {
             return OpportunityEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

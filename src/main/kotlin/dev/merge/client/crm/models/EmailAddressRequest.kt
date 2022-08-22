@@ -55,6 +55,7 @@ data class EmailAddressRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EmailAddressRequest.Expanded): EmailAddressRequest {
             return EmailAddressRequest(
                 emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),

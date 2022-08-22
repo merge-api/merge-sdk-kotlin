@@ -113,6 +113,7 @@ data class AccountDetailsAndActions (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountDetailsAndActions.Expanded): AccountDetailsAndActions {
             return AccountDetailsAndActions(
                 id = ApiClient.jsonConvertRequiredSafe(expanded.id),

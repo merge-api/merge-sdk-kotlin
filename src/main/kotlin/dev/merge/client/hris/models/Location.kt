@@ -144,6 +144,7 @@ data class Location (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Location.Expanded): Location {
             return Location(
                 id = ApiClient.jsonConvertSafe(expanded.id),

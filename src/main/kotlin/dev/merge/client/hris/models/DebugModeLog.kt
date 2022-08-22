@@ -61,6 +61,7 @@ data class DebugModeLog (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: DebugModeLog.Expanded): DebugModeLog {
             return DebugModeLog(
                 logId = ApiClient.jsonConvertRequiredSafe(expanded.logId),

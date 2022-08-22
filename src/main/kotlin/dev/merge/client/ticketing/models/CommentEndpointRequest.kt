@@ -47,6 +47,7 @@ data class CommentEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CommentEndpointRequest.Expanded): CommentEndpointRequest {
             return CommentEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

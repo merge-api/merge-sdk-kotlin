@@ -71,6 +71,7 @@ data class CommentResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CommentResponse.Expanded): CommentResponse {
             return CommentResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

@@ -78,6 +78,7 @@ data class Stage (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Stage.Expanded): Stage {
             return Stage(
                 id = ApiClient.jsonConvertSafe(expanded.id),

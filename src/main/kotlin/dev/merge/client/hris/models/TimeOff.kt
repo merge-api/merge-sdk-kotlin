@@ -142,6 +142,7 @@ data class TimeOff (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TimeOff.Expanded): TimeOff {
             return TimeOff(
                 id = ApiClient.jsonConvertSafe(expanded.id),

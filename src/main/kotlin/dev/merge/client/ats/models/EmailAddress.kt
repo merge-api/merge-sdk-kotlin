@@ -56,6 +56,7 @@ data class EmailAddress (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EmailAddress.Expanded): EmailAddress {
             return EmailAddress(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),

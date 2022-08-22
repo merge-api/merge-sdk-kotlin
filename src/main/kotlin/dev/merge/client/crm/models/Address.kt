@@ -97,6 +97,7 @@ data class Address (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Address.Expanded): Address {
             return Address(
                 street1 = ApiClient.jsonConvertSafe(expanded.street1),

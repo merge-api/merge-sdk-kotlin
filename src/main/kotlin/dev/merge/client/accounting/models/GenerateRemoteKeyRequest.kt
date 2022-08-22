@@ -46,6 +46,7 @@ data class GenerateRemoteKeyRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: GenerateRemoteKeyRequest.Expanded): GenerateRemoteKeyRequest {
             return GenerateRemoteKeyRequest(
                 name = ApiClient.jsonConvertRequiredSafe(expanded.name)

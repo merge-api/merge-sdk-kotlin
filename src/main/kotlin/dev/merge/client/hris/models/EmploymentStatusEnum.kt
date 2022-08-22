@@ -21,27 +21,32 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: ACTIVE,PENDING,INACTIVE,UNKNOWN_DEFAULT_OPEN_API
+ * Values: ACTIVE,PENDING,INACTIVE
  */
-
 enum class EmploymentStatusEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "ACTIVE")
     ACTIVE("ACTIVE"),
 
+
     @JsonProperty(value = "PENDING")
     PENDING("PENDING"),
 
-    @JsonProperty(value = "INACTIVE")
-    INACTIVE("INACTIVE"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "INACTIVE")
+    INACTIVE("INACTIVE");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -54,19 +59,20 @@ enum class EmploymentStatusEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is EmploymentStatusEnum) "$data" else null
 
         /**
-         * Returns a valid [EmploymentStatusEnum] for [data], null otherwise.
+         * Returns a valid [EmploymentStatusEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): EmploymentStatusEnum? = data?.let {
+        fun decode(data: kotlin.Any?): EmploymentStatusEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

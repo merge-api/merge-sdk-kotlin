@@ -1,5 +1,6 @@
 package dev.merge.client.shared
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -65,6 +66,7 @@ open class ApiClient(
 
         init {
             JSON_DEFAULT.findAndRegisterModules()
+            JSON_DEFAULT.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
         }
 
         inline fun <reified T> jsonConvertSafe(raw: List<JsonNode>?): List<T>? {

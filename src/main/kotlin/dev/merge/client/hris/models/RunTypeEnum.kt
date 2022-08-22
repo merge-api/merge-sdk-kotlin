@@ -21,33 +21,40 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: REGULAR,OFF_CYCLE,CORRECTION,TERMINATION,SIGN_ON_BONUS,UNKNOWN_DEFAULT_OPEN_API
+ * Values: REGULAR,OFF_CYCLE,CORRECTION,TERMINATION,SIGN_ON_BONUS
  */
-
 enum class RunTypeEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "REGULAR")
     REGULAR("REGULAR"),
 
+
     @JsonProperty(value = "OFF_CYCLE")
     OFF_CYCLE("OFF_CYCLE"),
+
 
     @JsonProperty(value = "CORRECTION")
     CORRECTION("CORRECTION"),
 
+
     @JsonProperty(value = "TERMINATION")
     TERMINATION("TERMINATION"),
 
-    @JsonProperty(value = "SIGN_ON_BONUS")
-    SIGN_ON_BONUS("SIGN_ON_BONUS"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "SIGN_ON_BONUS")
+    SIGN_ON_BONUS("SIGN_ON_BONUS");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class RunTypeEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is RunTypeEnum) "$data" else null
 
         /**
-         * Returns a valid [RunTypeEnum] for [data], null otherwise.
+         * Returns a valid [RunTypeEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): RunTypeEnum? = data?.let {
+        fun decode(data: kotlin.Any?): RunTypeEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

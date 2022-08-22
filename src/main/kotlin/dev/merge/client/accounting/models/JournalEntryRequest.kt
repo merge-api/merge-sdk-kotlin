@@ -88,6 +88,7 @@ data class JournalEntryRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: JournalEntryRequest.Expanded): JournalEntryRequest {
             return JournalEntryRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

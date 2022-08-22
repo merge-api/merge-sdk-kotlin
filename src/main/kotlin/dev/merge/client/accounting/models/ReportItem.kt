@@ -70,6 +70,7 @@ data class ReportItem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ReportItem.Expanded): ReportItem {
             return ReportItem(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

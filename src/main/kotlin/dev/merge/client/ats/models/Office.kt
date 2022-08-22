@@ -86,6 +86,7 @@ data class Office (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Office.Expanded): Office {
             return Office(
                 id = ApiClient.jsonConvertSafe(expanded.id),

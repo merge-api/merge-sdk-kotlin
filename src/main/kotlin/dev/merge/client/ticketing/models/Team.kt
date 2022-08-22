@@ -86,6 +86,7 @@ data class Team (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Team.Expanded): Team {
             return Team(
                 id = ApiClient.jsonConvertSafe(expanded.id),

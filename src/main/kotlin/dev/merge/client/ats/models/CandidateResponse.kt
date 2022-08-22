@@ -71,6 +71,7 @@ data class CandidateResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CandidateResponse.Expanded): CandidateResponse {
             return CandidateResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),
