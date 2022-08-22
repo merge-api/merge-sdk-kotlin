@@ -10,6 +10,7 @@ import dev.merge.client.ats.models.Candidate;
 import dev.merge.client.shared.MergePaginatedResponse;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -17,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 public class BasicJavaTest extends TestCase {
 
     @Test
+    @Disabled
     public void testBasic() throws InterruptedException, ExecutionException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.findAndRegisterModules();

@@ -11,8 +11,22 @@ The Kotlin/JVM SDK for accessing various Merge Unified APIs. We use the followin
 
 We target Java language level 8 and above. The API methods are written using Kotlin coroutines, but can be called with
 `CompletableFutures` see [https://stackoverflow.com/a/52887677](this example), as well as the unit test 
-[src/test/java/dev/merge/client/BasicJavaTest.java](here). There should also be some packages that can make it work in
-Java 7, although we do not officially support it.
+[src/test/java/dev/merge/client/BasicJavaTest.java](here). There should also be some packages that can make it 
+work in Java 7, although we do not officially support it.
+
+## Build
+
+You can find the latest published maven package here: https://s01.oss.sonatype.org/#nexus-search;quick~dev.merge.client
+
+The dependency in a maven pom will look something like:
+
+```
+<dependency>
+  <groupId>dev.merge</groupId>
+  <artifactId>client</artifactId>
+  <version>2.0.0</version>
+</dependency>
+```
 
 ## Usage
 
