@@ -15,6 +15,7 @@ buildscript {
 }
 
 plugins {
+    id 'java-library'
     id 'maven-publish'
     id 'java'
 }
@@ -64,6 +65,12 @@ dependencies {
 }
 
 publishing {
+    publications {
+        mergeSdkKotlin(MavenPublication) {
+            from components.java
+        }
+    }
+
     repositories {
         maven {
             name = "OSSRH"
