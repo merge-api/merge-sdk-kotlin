@@ -21,195 +21,256 @@
 package dev.merge.client.accounting.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: AL,AK,AS,AZ,AR,AA,AE,AP,CA,CO,CT,DE,DC,FL,GA,GU,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,MP,OH,OK,OR,PA,PR,RI,SC,SD,TN,TX,UT,VT,VI,VA,WA,WV,WI,WY,UNKNOWN_DEFAULT_OPEN_API
+ * Values: AL,AK,AS,AZ,AR,AA,AE,AP,CA,CO,CT,DE,DC,FL,GA,GU,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,MP,OH,OK,OR,PA,PR,RI,SC,SD,TN,TX,UT,VT,VI,VA,WA,WV,WI,WY
  */
-
 enum class StateEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "AL")
     AL("AL"),
 
+
     @JsonProperty(value = "AK")
     AK("AK"),
+
 
     @JsonProperty(value = "AS")
     AS("AS"),
 
+
     @JsonProperty(value = "AZ")
     AZ("AZ"),
+
 
     @JsonProperty(value = "AR")
     AR("AR"),
 
+
     @JsonProperty(value = "AA")
     AA("AA"),
+
 
     @JsonProperty(value = "AE")
     AE("AE"),
 
+
     @JsonProperty(value = "AP")
     AP("AP"),
+
 
     @JsonProperty(value = "CA")
     CA("CA"),
 
+
     @JsonProperty(value = "CO")
     CO("CO"),
+
 
     @JsonProperty(value = "CT")
     CT("CT"),
 
+
     @JsonProperty(value = "DE")
     DE("DE"),
+
 
     @JsonProperty(value = "DC")
     DC("DC"),
 
+
     @JsonProperty(value = "FL")
     FL("FL"),
+
 
     @JsonProperty(value = "GA")
     GA("GA"),
 
+
     @JsonProperty(value = "GU")
     GU("GU"),
+
 
     @JsonProperty(value = "HI")
     HI("HI"),
 
+
     @JsonProperty(value = "ID")
     ID("ID"),
+
 
     @JsonProperty(value = "IL")
     IL("IL"),
 
+
     @JsonProperty(value = "IN")
     IN("IN"),
+
 
     @JsonProperty(value = "IA")
     IA("IA"),
 
+
     @JsonProperty(value = "KS")
     KS("KS"),
+
 
     @JsonProperty(value = "KY")
     KY("KY"),
 
+
     @JsonProperty(value = "LA")
     LA("LA"),
+
 
     @JsonProperty(value = "ME")
     ME("ME"),
 
+
     @JsonProperty(value = "MD")
     MD("MD"),
+
 
     @JsonProperty(value = "MA")
     MA("MA"),
 
+
     @JsonProperty(value = "MI")
     MI("MI"),
+
 
     @JsonProperty(value = "MN")
     MN("MN"),
 
+
     @JsonProperty(value = "MS")
     MS("MS"),
+
 
     @JsonProperty(value = "MO")
     MO("MO"),
 
+
     @JsonProperty(value = "MT")
     MT("MT"),
+
 
     @JsonProperty(value = "NE")
     NE("NE"),
 
+
     @JsonProperty(value = "NV")
     NV("NV"),
+
 
     @JsonProperty(value = "NH")
     NH("NH"),
 
+
     @JsonProperty(value = "NJ")
     NJ("NJ"),
+
 
     @JsonProperty(value = "NM")
     NM("NM"),
 
+
     @JsonProperty(value = "NY")
     NY("NY"),
+
 
     @JsonProperty(value = "NC")
     NC("NC"),
 
+
     @JsonProperty(value = "ND")
     ND("ND"),
+
 
     @JsonProperty(value = "MP")
     MP("MP"),
 
+
     @JsonProperty(value = "OH")
     OH("OH"),
+
 
     @JsonProperty(value = "OK")
     OK("OK"),
 
+
     @JsonProperty(value = "OR")
     OR("OR"),
+
 
     @JsonProperty(value = "PA")
     PA("PA"),
 
+
     @JsonProperty(value = "PR")
     PR("PR"),
+
 
     @JsonProperty(value = "RI")
     RI("RI"),
 
+
     @JsonProperty(value = "SC")
     SC("SC"),
+
 
     @JsonProperty(value = "SD")
     SD("SD"),
 
+
     @JsonProperty(value = "TN")
     TN("TN"),
+
 
     @JsonProperty(value = "TX")
     TX("TX"),
 
+
     @JsonProperty(value = "UT")
     UT("UT"),
+
 
     @JsonProperty(value = "VT")
     VT("VT"),
 
+
     @JsonProperty(value = "VI")
     VI("VI"),
+
 
     @JsonProperty(value = "VA")
     VA("VA"),
 
+
     @JsonProperty(value = "WA")
     WA("WA"),
+
 
     @JsonProperty(value = "WV")
     WV("WV"),
 
+
     @JsonProperty(value = "WI")
     WI("WI"),
 
-    @JsonProperty(value = "WY")
-    WY("WY"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "WY")
+    WY("WY");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -222,19 +283,20 @@ enum class StateEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is StateEnum) "$data" else null
 
         /**
-         * Returns a valid [StateEnum] for [data], null otherwise.
+         * Returns a valid [StateEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): StateEnum? = data?.let {
+        fun decode(data: kotlin.Any?): StateEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

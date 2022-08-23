@@ -121,6 +121,7 @@ data class Note (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Note.Expanded): Note {
             return Note(
                 id = ApiClient.jsonConvertSafe(expanded.id),

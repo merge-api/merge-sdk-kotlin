@@ -1,3 +1,10 @@
+# Version 2.0.1
+
+## Date: 2022-08-22
+
+- Changed UNKNOWN_DEFAULT_OPEN_API to MERGE_NONSTANDARD_VALUE to adhere to prior SDK behavior
+- Added @JvmStatic to the MODEL.normalize methods, allowing them to be called like static methods instead of going through the kotlin companion object
+
 # Version 2.0.0
 
 ## Date: 2022-08-16

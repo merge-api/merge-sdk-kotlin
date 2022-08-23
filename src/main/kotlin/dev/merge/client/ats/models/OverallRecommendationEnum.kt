@@ -21,33 +21,40 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: DEFINITELY_NO,NO,YES,STRONG_YES,NO_DECISION,UNKNOWN_DEFAULT_OPEN_API
+ * Values: DEFINITELY_NO,NO,YES,STRONG_YES,NO_DECISION
  */
-
 enum class OverallRecommendationEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "DEFINITELY_NO")
     DEFINITELY_NO("DEFINITELY_NO"),
 
+
     @JsonProperty(value = "NO")
     NO("NO"),
+
 
     @JsonProperty(value = "YES")
     YES("YES"),
 
+
     @JsonProperty(value = "STRONG_YES")
     STRONG_YES("STRONG_YES"),
 
-    @JsonProperty(value = "NO_DECISION")
-    NO_DECISION("NO_DECISION"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "NO_DECISION")
+    NO_DECISION("NO_DECISION");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class OverallRecommendationEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is OverallRecommendationEnum) "$data" else null
 
         /**
-         * Returns a valid [OverallRecommendationEnum] for [data], null otherwise.
+         * Returns a valid [OverallRecommendationEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): OverallRecommendationEnum? = data?.let {
+        fun decode(data: kotlin.Any?): OverallRecommendationEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

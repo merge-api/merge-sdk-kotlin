@@ -71,6 +71,7 @@ data class AttachmentResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AttachmentResponse.Expanded): AttachmentResponse {
             return AttachmentResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

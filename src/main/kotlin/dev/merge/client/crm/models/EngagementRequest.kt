@@ -123,6 +123,7 @@ data class EngagementRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EngagementRequest.Expanded): EngagementRequest {
             return EngagementRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -124,6 +124,7 @@ data class BalanceSheet (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: BalanceSheet.Expanded): BalanceSheet {
             return BalanceSheet(
                 id = ApiClient.jsonConvertSafe(expanded.id),

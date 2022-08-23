@@ -85,6 +85,7 @@ data class ExpenseLine (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ExpenseLine.Expanded): ExpenseLine {
             return ExpenseLine(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

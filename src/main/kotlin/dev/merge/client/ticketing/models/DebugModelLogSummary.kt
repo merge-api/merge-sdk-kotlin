@@ -60,6 +60,7 @@ data class DebugModelLogSummary (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: DebugModelLogSummary.Expanded): DebugModelLogSummary {
             return DebugModelLogSummary(
                 url = ApiClient.jsonConvertRequiredSafe(expanded.url),

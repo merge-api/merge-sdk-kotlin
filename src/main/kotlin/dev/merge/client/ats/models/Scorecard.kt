@@ -116,6 +116,7 @@ data class Scorecard (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Scorecard.Expanded): Scorecard {
             return Scorecard(
                 id = ApiClient.jsonConvertSafe(expanded.id),

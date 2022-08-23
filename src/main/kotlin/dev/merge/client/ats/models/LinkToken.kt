@@ -60,6 +60,7 @@ data class LinkToken (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: LinkToken.Expanded): LinkToken {
             return LinkToken(
                 linkToken = ApiClient.jsonConvertRequiredSafe(expanded.linkToken),

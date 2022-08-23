@@ -168,6 +168,7 @@ data class PurchaseOrder (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: PurchaseOrder.Expanded): PurchaseOrder {
             return PurchaseOrder(
                 id = ApiClient.jsonConvertSafe(expanded.id),

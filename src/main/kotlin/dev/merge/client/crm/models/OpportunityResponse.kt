@@ -71,6 +71,7 @@ data class OpportunityResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: OpportunityResponse.Expanded): OpportunityResponse {
             return OpportunityResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

@@ -71,5 +71,11 @@ public class BasicJavaTest extends TestCase {
         } catch (JsonProcessingException exc) {
             System.out.println(exc.getMessage());
         }
+
+        for(Candidate.Expanded expanded : atsCandidatesExpandedResponse.getResults()) {
+            Candidate normalized = Candidate.normalize(expanded);
+            assertNotNull(normalized);
+            assertNotNull(normalized.getId());
+        }
     }
 }

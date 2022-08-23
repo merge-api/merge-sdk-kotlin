@@ -71,6 +71,7 @@ data class TicketResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TicketResponse.Expanded): TicketResponse {
             return TicketResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

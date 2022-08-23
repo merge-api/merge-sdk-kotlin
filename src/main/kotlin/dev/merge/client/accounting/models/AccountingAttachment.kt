@@ -86,6 +86,7 @@ data class AccountingAttachment (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountingAttachment.Expanded): AccountingAttachment {
             return AccountingAttachment(
                 id = ApiClient.jsonConvertSafe(expanded.id),

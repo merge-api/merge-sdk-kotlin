@@ -102,6 +102,7 @@ data class PurchaseOrderLineItem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: PurchaseOrderLineItem.Expanded): PurchaseOrderLineItem {
             return PurchaseOrderLineItem(
                 description = ApiClient.jsonConvertSafe(expanded.description),

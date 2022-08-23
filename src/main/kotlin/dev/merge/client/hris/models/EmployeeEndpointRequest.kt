@@ -47,6 +47,7 @@ data class EmployeeEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EmployeeEndpointRequest.Expanded): EmployeeEndpointRequest {
             return EmployeeEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

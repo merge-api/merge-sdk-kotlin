@@ -47,6 +47,7 @@ data class CRMAccountEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CRMAccountEndpointRequest.Expanded): CRMAccountEndpointRequest {
             return CRMAccountEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

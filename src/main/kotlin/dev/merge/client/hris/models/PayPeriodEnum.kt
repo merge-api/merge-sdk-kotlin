@@ -21,42 +21,52 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: HOUR,DAY,WEEK,EVERY_TWO_WEEKS,MONTH,QUARTER,EVERY_SIX_MONTHS,YEAR,UNKNOWN_DEFAULT_OPEN_API
+ * Values: HOUR,DAY,WEEK,EVERY_TWO_WEEKS,MONTH,QUARTER,EVERY_SIX_MONTHS,YEAR
  */
-
 enum class PayPeriodEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "HOUR")
     HOUR("HOUR"),
 
+
     @JsonProperty(value = "DAY")
     DAY("DAY"),
+
 
     @JsonProperty(value = "WEEK")
     WEEK("WEEK"),
 
+
     @JsonProperty(value = "EVERY_TWO_WEEKS")
     EVERY_TWO_WEEKS("EVERY_TWO_WEEKS"),
+
 
     @JsonProperty(value = "MONTH")
     MONTH("MONTH"),
 
+
     @JsonProperty(value = "QUARTER")
     QUARTER("QUARTER"),
+
 
     @JsonProperty(value = "EVERY_SIX_MONTHS")
     EVERY_SIX_MONTHS("EVERY_SIX_MONTHS"),
 
-    @JsonProperty(value = "YEAR")
-    YEAR("YEAR"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "YEAR")
+    YEAR("YEAR");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -69,19 +79,20 @@ enum class PayPeriodEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is PayPeriodEnum) "$data" else null
 
         /**
-         * Returns a valid [PayPeriodEnum] for [data], null otherwise.
+         * Returns a valid [PayPeriodEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): PayPeriodEnum? = data?.let {
+        fun decode(data: kotlin.Any?): PayPeriodEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

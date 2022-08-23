@@ -54,6 +54,7 @@ data class UpdateApplicationStageRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: UpdateApplicationStageRequest.Expanded): UpdateApplicationStageRequest {
             return UpdateApplicationStageRequest(
                 jobInterviewStage = ApiClient.jsonConvertSafe(expanded.jobInterviewStage),

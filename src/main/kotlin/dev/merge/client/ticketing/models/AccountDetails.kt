@@ -111,6 +111,7 @@ data class AccountDetails (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountDetails.Expanded): AccountDetails {
             return AccountDetails(
                 id = ApiClient.jsonConvertSafe(expanded.id),

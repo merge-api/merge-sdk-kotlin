@@ -147,6 +147,7 @@ data class Opportunity (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Opportunity.Expanded): Opportunity {
             return Opportunity(
                 id = ApiClient.jsonConvertSafe(expanded.id),

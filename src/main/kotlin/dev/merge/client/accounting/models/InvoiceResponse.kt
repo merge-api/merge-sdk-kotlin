@@ -71,6 +71,7 @@ data class InvoiceResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: InvoiceResponse.Expanded): InvoiceResponse {
             return InvoiceResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

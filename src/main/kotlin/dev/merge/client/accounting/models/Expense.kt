@@ -133,6 +133,7 @@ data class Expense (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Expense.Expanded): Expense {
             return Expense(
                 id = ApiClient.jsonConvertSafe(expanded.id),

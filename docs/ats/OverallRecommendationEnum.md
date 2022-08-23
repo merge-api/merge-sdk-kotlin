@@ -14,7 +14,6 @@
 
     * `NO_DECISION` (value: `"NO_DECISION"`)
 
-    * `UNKNOWN_DEFAULT_OPEN_API` (value: `"unknown_default_open_api"`)
-
+    * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

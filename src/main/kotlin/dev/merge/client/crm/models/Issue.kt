@@ -89,6 +89,7 @@ data class Issue (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Issue.Expanded): Issue {
             return Issue(
                 errorDescription = ApiClient.jsonConvertRequiredSafe(expanded.errorDescription),

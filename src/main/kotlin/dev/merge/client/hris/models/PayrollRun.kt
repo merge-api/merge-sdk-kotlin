@@ -112,6 +112,7 @@ data class PayrollRun (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: PayrollRun.Expanded): PayrollRun {
             return PayrollRun(
                 id = ApiClient.jsonConvertSafe(expanded.id),

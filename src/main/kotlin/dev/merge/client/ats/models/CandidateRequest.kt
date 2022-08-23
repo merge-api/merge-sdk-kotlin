@@ -204,6 +204,7 @@ data class CandidateRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CandidateRequest.Expanded): CandidateRequest {
             return CandidateRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -86,6 +86,7 @@ data class JobInterviewStage (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: JobInterviewStage.Expanded): JobInterviewStage {
             return JobInterviewStage(
                 id = ApiClient.jsonConvertSafe(expanded.id),

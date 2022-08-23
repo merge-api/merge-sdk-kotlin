@@ -21,39 +21,48 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: PERSONAL,COMPANY,PORTFOLIO,BLOG,SOCIAL_MEDIA,OTHER,JOB_POSTING,UNKNOWN_DEFAULT_OPEN_API
+ * Values: PERSONAL,COMPANY,PORTFOLIO,BLOG,SOCIAL_MEDIA,OTHER,JOB_POSTING
  */
-
 enum class UrlTypeEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "PERSONAL")
     PERSONAL("PERSONAL"),
 
+
     @JsonProperty(value = "COMPANY")
     COMPANY("COMPANY"),
+
 
     @JsonProperty(value = "PORTFOLIO")
     PORTFOLIO("PORTFOLIO"),
 
+
     @JsonProperty(value = "BLOG")
     BLOG("BLOG"),
+
 
     @JsonProperty(value = "SOCIAL_MEDIA")
     SOCIAL_MEDIA("SOCIAL_MEDIA"),
 
+
     @JsonProperty(value = "OTHER")
     OTHER("OTHER"),
 
-    @JsonProperty(value = "JOB_POSTING")
-    JOB_POSTING("JOB_POSTING"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "JOB_POSTING")
+    JOB_POSTING("JOB_POSTING");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -66,19 +75,20 @@ enum class UrlTypeEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is UrlTypeEnum) "$data" else null
 
         /**
-         * Returns a valid [UrlTypeEnum] for [data], null otherwise.
+         * Returns a valid [UrlTypeEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): UrlTypeEnum? = data?.let {
+        fun decode(data: kotlin.Any?): UrlTypeEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

@@ -119,6 +119,7 @@ data class RemoteUser (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: RemoteUser.Expanded): RemoteUser {
             return RemoteUser(
                 id = ApiClient.jsonConvertSafe(expanded.id),

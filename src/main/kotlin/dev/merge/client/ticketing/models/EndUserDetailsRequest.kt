@@ -29,9 +29,9 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
- * @param endUserEmailAddress Unique ID for your end user.
+ * @param endUserEmailAddress Your end user's email address.
  * @param endUserOrganizationName Your end user's organization.
- * @param endUserOriginId Your end user's email address.
+ * @param endUserOriginId Unique ID for your end user.
  * @param categories The integration categories to show in Merge Link.
  * @param integration The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://www.merge.dev/docs/basics/integration-metadata/.
  * @param linkExpiryMins An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
@@ -40,7 +40,7 @@ import dev.merge.client.shared.ApiClient
 
 data class EndUserDetailsRequest (
 
-    /* Unique ID for your end user. */
+    /* Your end user's email address. */
     @field:JsonProperty("end_user_email_address")
     val endUserEmailAddress: kotlin.String,
 
@@ -48,7 +48,7 @@ data class EndUserDetailsRequest (
     @field:JsonProperty("end_user_organization_name")
     val endUserOrganizationName: kotlin.String,
 
-    /* Your end user's email address. */
+    /* Unique ID for your end user. */
     @field:JsonProperty("end_user_origin_id")
     val endUserOriginId: kotlin.String,
 
@@ -96,6 +96,7 @@ data class EndUserDetailsRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EndUserDetailsRequest.Expanded): EndUserDetailsRequest {
             return EndUserDetailsRequest(
                 endUserEmailAddress = ApiClient.jsonConvertRequiredSafe(expanded.endUserEmailAddress),

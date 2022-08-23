@@ -118,6 +118,7 @@ data class VendorCredit (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: VendorCredit.Expanded): VendorCredit {
             return VendorCredit(
                 id = ApiClient.jsonConvertSafe(expanded.id),

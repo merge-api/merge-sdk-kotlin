@@ -153,6 +153,7 @@ data class TicketRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TicketRequest.Expanded): TicketRequest {
             return TicketRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

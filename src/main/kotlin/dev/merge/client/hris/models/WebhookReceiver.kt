@@ -60,6 +60,7 @@ data class WebhookReceiver (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: WebhookReceiver.Expanded): WebhookReceiver {
             return WebhookReceiver(
                 event = ApiClient.jsonConvertRequiredSafe(expanded.event),

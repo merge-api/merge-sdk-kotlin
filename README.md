@@ -10,13 +10,13 @@ The Kotlin/JVM SDK for accessing various Merge Unified APIs. We use the followin
 * NO logging, aside from some `println` in tests
 
 We target Java language level 8 and above. The API methods are written using Kotlin coroutines, but can be called with
-`CompletableFutures` see [https://stackoverflow.com/a/52887677](this example), as well as the unit test 
-[src/test/java/dev/merge/client/BasicJavaTest.java](here). There should also be some packages that can make it 
+`CompletableFutures` see [this example](https://stackoverflow.com/a/52887677), as well as the unit test 
+[here](src/test/java/dev/merge/client/BasicJavaTest.java). There should also be some packages that can make it 
 work in Java 7, although we do not officially support it.
 
 ## Build
 
-You can find the latest published maven package here: https://s01.oss.sonatype.org/#nexus-search;quick~dev.merge.client
+You can find the latest published maven package [here](https://s01.oss.sonatype.org/#nexus-search;quick~dev.merge.client)
 
 The dependency in a maven pom will look something like:
 
@@ -24,13 +24,13 @@ The dependency in a maven pom will look something like:
 <dependency>
   <groupId>dev.merge</groupId>
   <artifactId>client</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 
 ## Usage
 
-For all examples, you can refer to the [src/test/kotlin/dev/merge/client/BasicTest.kt](BasicTest class) in this
+For all examples, you can refer to the [BasicTest class](src/test/kotlin/dev/merge/client/BasicTest.kt) in this
 repository.
 
 ### Plain call, Kotlin

@@ -68,6 +68,7 @@ data class ErrorValidationProblem (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ErrorValidationProblem.Expanded): ErrorValidationProblem {
             return ErrorValidationProblem(
                 title = ApiClient.jsonConvertRequiredSafe(expanded.title),

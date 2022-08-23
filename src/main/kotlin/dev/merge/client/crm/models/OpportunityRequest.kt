@@ -139,6 +139,7 @@ data class OpportunityRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: OpportunityRequest.Expanded): OpportunityRequest {
             return OpportunityRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

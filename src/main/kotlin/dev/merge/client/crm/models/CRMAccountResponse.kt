@@ -71,6 +71,7 @@ data class CRMAccountResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CRMAccountResponse.Expanded): CRMAccountResponse {
             return CRMAccountResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

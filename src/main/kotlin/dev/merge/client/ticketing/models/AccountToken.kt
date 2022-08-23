@@ -54,6 +54,7 @@ data class AccountToken (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: AccountToken.Expanded): AccountToken {
             return AccountToken(
                 accountToken = ApiClient.jsonConvertRequiredSafe(expanded.accountToken),

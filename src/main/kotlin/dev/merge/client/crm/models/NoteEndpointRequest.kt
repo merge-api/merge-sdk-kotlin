@@ -47,6 +47,7 @@ data class NoteEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: NoteEndpointRequest.Expanded): NoteEndpointRequest {
             return NoteEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

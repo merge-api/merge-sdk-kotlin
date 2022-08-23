@@ -68,6 +68,7 @@ data class MetaResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: MetaResponse.Expanded): MetaResponse {
             return MetaResponse(
                 requestSchema = ApiClient.jsonConvertRequiredSafe(expanded.requestSchema),

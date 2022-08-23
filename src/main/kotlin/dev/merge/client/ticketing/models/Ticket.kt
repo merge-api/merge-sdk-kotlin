@@ -175,6 +175,7 @@ data class Ticket (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Ticket.Expanded): Ticket {
             return Ticket(
                 id = ApiClient.jsonConvertSafe(expanded.id),

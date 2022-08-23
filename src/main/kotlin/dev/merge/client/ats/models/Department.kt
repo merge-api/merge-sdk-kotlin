@@ -78,6 +78,7 @@ data class Department (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Department.Expanded): Department {
             return Department(
                 id = ApiClient.jsonConvertSafe(expanded.id),

@@ -121,6 +121,7 @@ data class EEOC (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EEOC.Expanded): EEOC {
             return EEOC(
                 id = ApiClient.jsonConvertSafe(expanded.id),

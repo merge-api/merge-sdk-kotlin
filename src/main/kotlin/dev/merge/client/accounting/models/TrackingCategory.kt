@@ -87,6 +87,7 @@ data class TrackingCategory (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TrackingCategory.Expanded): TrackingCategory {
             return TrackingCategory(
                 id = ApiClient.jsonConvertSafe(expanded.id),

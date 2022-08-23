@@ -100,6 +100,7 @@ data class ContactRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ContactRequest.Expanded): ContactRequest {
             return ContactRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

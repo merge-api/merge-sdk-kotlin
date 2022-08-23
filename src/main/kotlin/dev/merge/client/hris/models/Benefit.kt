@@ -109,6 +109,7 @@ data class Benefit (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Benefit.Expanded): Benefit {
             return Benefit(
                 id = ApiClient.jsonConvertSafe(expanded.id),

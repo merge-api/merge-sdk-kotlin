@@ -86,6 +86,7 @@ data class Account (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Account.Expanded): Account {
             return Account(
                 id = ApiClient.jsonConvertSafe(expanded.id),

@@ -167,6 +167,7 @@ data class Job (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Job.Expanded): Job {
             return Job(
                 id = ApiClient.jsonConvertSafe(expanded.id),

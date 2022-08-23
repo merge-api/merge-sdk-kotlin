@@ -21,33 +21,40 @@
 package dev.merge.client.accounting.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: HRIS,ATS,ACCOUNTING,TICKETING,CRM,UNKNOWN_DEFAULT_OPEN_API
+ * Values: HRIS,ATS,ACCOUNTING,TICKETING,CRM
  */
-
 enum class CategoryEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "hris")
     HRIS("hris"),
 
+
     @JsonProperty(value = "ats")
     ATS("ats"),
+
 
     @JsonProperty(value = "accounting")
     ACCOUNTING("accounting"),
 
+
     @JsonProperty(value = "ticketing")
     TICKETING("ticketing"),
 
-    @JsonProperty(value = "crm")
-    CRM("crm"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "crm")
+    CRM("crm");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class CategoryEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is CategoryEnum) "$data" else null
 
         /**
-         * Returns a valid [CategoryEnum] for [data], null otherwise.
+         * Returns a valid [CategoryEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): CategoryEnum? = data?.let {
+        fun decode(data: kotlin.Any?): CategoryEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

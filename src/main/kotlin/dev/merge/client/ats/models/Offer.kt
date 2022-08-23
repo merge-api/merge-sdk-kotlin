@@ -125,6 +125,7 @@ data class Offer (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Offer.Expanded): Offer {
             return Offer(
                 id = ApiClient.jsonConvertSafe(expanded.id),

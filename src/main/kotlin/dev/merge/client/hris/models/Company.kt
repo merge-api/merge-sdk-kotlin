@@ -94,6 +94,7 @@ data class Company (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Company.Expanded): Company {
             return Company(
                 id = ApiClient.jsonConvertSafe(expanded.id),

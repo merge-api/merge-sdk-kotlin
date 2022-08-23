@@ -21,33 +21,40 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: SINGLE,MARRIED_FILING_JOINTLY,MARRIED_FILING_SEPARATELY,HEAD_OF_HOUSEHOLD,QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD,UNKNOWN_DEFAULT_OPEN_API
+ * Values: SINGLE,MARRIED_FILING_JOINTLY,MARRIED_FILING_SEPARATELY,HEAD_OF_HOUSEHOLD,QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
  */
-
 enum class MaritalStatusEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "SINGLE")
     SINGLE("SINGLE"),
 
+
     @JsonProperty(value = "MARRIED_FILING_JOINTLY")
     MARRIED_FILING_JOINTLY("MARRIED_FILING_JOINTLY"),
+
 
     @JsonProperty(value = "MARRIED_FILING_SEPARATELY")
     MARRIED_FILING_SEPARATELY("MARRIED_FILING_SEPARATELY"),
 
+
     @JsonProperty(value = "HEAD_OF_HOUSEHOLD")
     HEAD_OF_HOUSEHOLD("HEAD_OF_HOUSEHOLD"),
 
-    @JsonProperty(value = "QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD")
-    QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD("QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD")
+    QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD("QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class MaritalStatusEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is MaritalStatusEnum) "$data" else null
 
         /**
-         * Returns a valid [MaritalStatusEnum] for [data], null otherwise.
+         * Returns a valid [MaritalStatusEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): MaritalStatusEnum? = data?.let {
+        fun decode(data: kotlin.Any?): MaritalStatusEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

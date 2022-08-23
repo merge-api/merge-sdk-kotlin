@@ -53,6 +53,7 @@ data class LinkedAccountStatus (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: LinkedAccountStatus.Expanded): LinkedAccountStatus {
             return LinkedAccountStatus(
                 linkedAccountStatus = ApiClient.jsonConvertRequiredSafe(expanded.linkedAccountStatus),

@@ -113,6 +113,7 @@ data class NoteRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: NoteRequest.Expanded): NoteRequest {
             return NoteRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

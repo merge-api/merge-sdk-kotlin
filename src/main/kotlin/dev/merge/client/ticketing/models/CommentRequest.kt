@@ -100,6 +100,7 @@ data class CommentRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CommentRequest.Expanded): CommentRequest {
             return CommentRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

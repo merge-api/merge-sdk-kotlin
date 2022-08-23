@@ -269,6 +269,7 @@ data class EmployeeRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EmployeeRequest.Expanded): EmployeeRequest {
             return EmployeeRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -135,6 +135,7 @@ data class ApplicationRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: ApplicationRequest.Expanded): ApplicationRequest {
             return ApplicationRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

@@ -78,6 +78,7 @@ data class Earning (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Earning.Expanded): Earning {
             return Earning(
                 id = ApiClient.jsonConvertSafe(expanded.id),

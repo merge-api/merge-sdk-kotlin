@@ -146,6 +146,7 @@ data class LeadRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: LeadRequest.Expanded): LeadRequest {
             return LeadRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

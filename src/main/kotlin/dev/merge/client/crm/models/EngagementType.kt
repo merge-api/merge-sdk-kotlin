@@ -71,6 +71,7 @@ data class EngagementType (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: EngagementType.Expanded): EngagementType {
             return EngagementType(
                 id = ApiClient.jsonConvertSafe(expanded.id),

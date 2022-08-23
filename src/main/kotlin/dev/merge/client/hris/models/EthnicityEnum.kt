@@ -21,42 +21,52 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: AMERICAN_INDIAN_OR_ALASKA_NATIVE,ASIAN_OR_INDIAN_SUBCONTINENT,BLACK_OR_AFRICAN_AMERICAN,HISPANIC_OR_LATINO,NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER,TWO_OR_MORE_RACES,WHITE,PREFER_NOT_TO_DISCLOSE,UNKNOWN_DEFAULT_OPEN_API
+ * Values: AMERICAN_INDIAN_OR_ALASKA_NATIVE,ASIAN_OR_INDIAN_SUBCONTINENT,BLACK_OR_AFRICAN_AMERICAN,HISPANIC_OR_LATINO,NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER,TWO_OR_MORE_RACES,WHITE,PREFER_NOT_TO_DISCLOSE
  */
-
 enum class EthnicityEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "AMERICAN_INDIAN_OR_ALASKA_NATIVE")
     AMERICAN_INDIAN_OR_ALASKA_NATIVE("AMERICAN_INDIAN_OR_ALASKA_NATIVE"),
 
+
     @JsonProperty(value = "ASIAN_OR_INDIAN_SUBCONTINENT")
     ASIAN_OR_INDIAN_SUBCONTINENT("ASIAN_OR_INDIAN_SUBCONTINENT"),
+
 
     @JsonProperty(value = "BLACK_OR_AFRICAN_AMERICAN")
     BLACK_OR_AFRICAN_AMERICAN("BLACK_OR_AFRICAN_AMERICAN"),
 
+
     @JsonProperty(value = "HISPANIC_OR_LATINO")
     HISPANIC_OR_LATINO("HISPANIC_OR_LATINO"),
+
 
     @JsonProperty(value = "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER")
     NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER("NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER"),
 
+
     @JsonProperty(value = "TWO_OR_MORE_RACES")
     TWO_OR_MORE_RACES("TWO_OR_MORE_RACES"),
+
 
     @JsonProperty(value = "WHITE")
     WHITE("WHITE"),
 
-    @JsonProperty(value = "PREFER_NOT_TO_DISCLOSE")
-    PREFER_NOT_TO_DISCLOSE("PREFER_NOT_TO_DISCLOSE"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "PREFER_NOT_TO_DISCLOSE")
+    PREFER_NOT_TO_DISCLOSE("PREFER_NOT_TO_DISCLOSE");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -69,19 +79,20 @@ enum class EthnicityEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is EthnicityEnum) "$data" else null
 
         /**
-         * Returns a valid [EthnicityEnum] for [data], null otherwise.
+         * Returns a valid [EthnicityEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): EthnicityEnum? = data?.let {
+        fun decode(data: kotlin.Any?): EthnicityEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

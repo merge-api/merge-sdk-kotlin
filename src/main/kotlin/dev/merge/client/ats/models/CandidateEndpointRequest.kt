@@ -54,6 +54,7 @@ data class CandidateEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CandidateEndpointRequest.Expanded): CandidateEndpointRequest {
             return CandidateEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

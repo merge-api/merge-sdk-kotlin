@@ -21,33 +21,40 @@
 package dev.merge.client.hris.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: REQUESTED,APPROVED,DECLINED,CANCELLED,DELETED,UNKNOWN_DEFAULT_OPEN_API
+ * Values: REQUESTED,APPROVED,DECLINED,CANCELLED,DELETED
  */
-
 enum class TimeOffStatusEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "REQUESTED")
     REQUESTED("REQUESTED"),
 
+
     @JsonProperty(value = "APPROVED")
     APPROVED("APPROVED"),
+
 
     @JsonProperty(value = "DECLINED")
     DECLINED("DECLINED"),
 
+
     @JsonProperty(value = "CANCELLED")
     CANCELLED("CANCELLED"),
 
-    @JsonProperty(value = "DELETED")
-    DELETED("DELETED"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "DELETED")
+    DELETED("DELETED");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class TimeOffStatusEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is TimeOffStatusEnum) "$data" else null
 
         /**
-         * Returns a valid [TimeOffStatusEnum] for [data], null otherwise.
+         * Returns a valid [TimeOffStatusEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): TimeOffStatusEnum? = data?.let {
+        fun decode(data: kotlin.Any?): TimeOffStatusEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

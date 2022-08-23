@@ -147,6 +147,7 @@ data class IncomeStatement (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: IncomeStatement.Expanded): IncomeStatement {
             return IncomeStatement(
                 id = ApiClient.jsonConvertSafe(expanded.id),

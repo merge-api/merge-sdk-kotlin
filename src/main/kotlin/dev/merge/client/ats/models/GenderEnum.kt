@@ -21,33 +21,40 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 
  *
- * Values: MALE,FEMALE,NON_MINUS_BINARY,OTHER,DECLINE_TO_SELF_IDENTIFY,UNKNOWN_DEFAULT_OPEN_API
+ * Values: MALE,FEMALE,NON_MINUS_BINARY,OTHER,DECLINE_TO_SELF_IDENTIFY
  */
-
 enum class GenderEnum(val value: kotlin.String) {
+
+    @JsonEnumDefaultValue
+    @JsonProperty(value = "MERGE_NONSTANDARD_VALUE")
+    MERGE_NONSTANDARD_VALUE("MERGE_NONSTANDARD_VALUE"),
+
 
     @JsonProperty(value = "MALE")
     MALE("MALE"),
 
+
     @JsonProperty(value = "FEMALE")
     FEMALE("FEMALE"),
+
 
     @JsonProperty(value = "NON-BINARY")
     NON_MINUS_BINARY("NON-BINARY"),
 
+
     @JsonProperty(value = "OTHER")
     OTHER("OTHER"),
 
-    @JsonProperty(value = "DECLINE_TO_SELF_IDENTIFY")
-    DECLINE_TO_SELF_IDENTIFY("DECLINE_TO_SELF_IDENTIFY"),
 
-    @JsonProperty(value = "unknown_default_open_api")
-    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
+    @JsonProperty(value = "DECLINE_TO_SELF_IDENTIFY")
+    DECLINE_TO_SELF_IDENTIFY("DECLINE_TO_SELF_IDENTIFY");
+
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use
@@ -60,19 +67,20 @@ enum class GenderEnum(val value: kotlin.String) {
 
     companion object {
         /**
-         * Converts the provided [data] to a [String] on success, null otherwise.
+         * Converts the provided [data] to a [String] on success, null otherwise. We do not encode to
+         * MERGE_NONSTANDARD_VALUE since the API never expects to receive this value, so encoding it is not valid.
          */
         fun encode(data: kotlin.Any?): kotlin.String? = if (data is GenderEnum) "$data" else null
 
         /**
-         * Returns a valid [GenderEnum] for [data], null otherwise.
+         * Returns a valid [GenderEnum] for [data], MERGE_NONSTANDARD_VALUE otherwise
          */
-        fun decode(data: kotlin.Any?): GenderEnum? = data?.let {
+        fun decode(data: kotlin.Any?): GenderEnum = data?.let {
           val normalizedData = "$it".lowercase()
-          values().firstOrNull { value ->
+          return values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()
-          }
-        }
+          } ?: MERGE_NONSTANDARD_VALUE
+        } ?: MERGE_NONSTANDARD_VALUE
     }
 }
 

@@ -78,6 +78,7 @@ data class PayGroup (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: PayGroup.Expanded): PayGroup {
             return PayGroup(
                 id = ApiClient.jsonConvertSafe(expanded.id),

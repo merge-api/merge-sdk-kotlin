@@ -71,6 +71,7 @@ data class NoteResponse (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: NoteResponse.Expanded): NoteResponse {
             return NoteResponse(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model),

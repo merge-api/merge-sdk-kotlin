@@ -100,6 +100,7 @@ data class InvoiceLineItemRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: InvoiceLineItemRequest.Expanded): InvoiceLineItemRequest {
             return InvoiceLineItemRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),

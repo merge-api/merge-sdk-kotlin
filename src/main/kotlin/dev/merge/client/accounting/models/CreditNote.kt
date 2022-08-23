@@ -160,6 +160,7 @@ data class CreditNote (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: CreditNote.Expanded): CreditNote {
             return CreditNote(
                 id = ApiClient.jsonConvertSafe(expanded.id),

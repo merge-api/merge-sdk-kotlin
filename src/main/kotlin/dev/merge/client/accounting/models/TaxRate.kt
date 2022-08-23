@@ -94,6 +94,7 @@ data class TaxRate (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TaxRate.Expanded): TaxRate {
             return TaxRate(
                 id = ApiClient.jsonConvertSafe(expanded.id),

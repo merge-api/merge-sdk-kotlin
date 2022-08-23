@@ -119,6 +119,7 @@ data class Activity (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: Activity.Expanded): Activity {
             return Activity(
                 id = ApiClient.jsonConvertSafe(expanded.id),

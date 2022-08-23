@@ -47,6 +47,7 @@ data class TimeOffEndpointRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TimeOffEndpointRequest.Expanded): TimeOffEndpointRequest {
             return TimeOffEndpointRequest(
                 model = ApiClient.jsonConvertRequiredSafe(expanded.model)

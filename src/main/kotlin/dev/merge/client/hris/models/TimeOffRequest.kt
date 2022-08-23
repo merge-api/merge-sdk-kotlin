@@ -120,6 +120,7 @@ data class TimeOffRequest (
 
 
     companion object {
+        @JvmStatic
         fun normalize(expanded: TimeOffRequest.Expanded): TimeOffRequest {
             return TimeOffRequest(
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
