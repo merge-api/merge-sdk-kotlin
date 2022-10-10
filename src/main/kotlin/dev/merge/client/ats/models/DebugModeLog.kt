@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 import dev.merge.client.ats.models.DebugModelLogSummary
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -34,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param logSummary 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class DebugModeLog (
 
     @field:JsonProperty("log_id")
@@ -47,6 +49,7 @@ data class DebugModeLog (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("log_id")
         val logId: JsonNode,

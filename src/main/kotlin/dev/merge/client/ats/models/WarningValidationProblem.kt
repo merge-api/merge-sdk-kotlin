@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 import dev.merge.client.ats.models.ValidationProblemSource
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -35,6 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param source 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class WarningValidationProblem (
 
     @field:JsonProperty("title")
@@ -51,6 +53,7 @@ data class WarningValidationProblem (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("title")
         val title: JsonNode,

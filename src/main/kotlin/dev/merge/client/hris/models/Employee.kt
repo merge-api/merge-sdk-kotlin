@@ -26,6 +26,7 @@ import dev.merge.client.hris.models.GenderEnum
 import dev.merge.client.hris.models.MaritalStatusEnum
 import dev.merge.client.shared.RemoteData
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -67,6 +68,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Employee (
 
     @field:JsonProperty("id")
@@ -190,6 +192,7 @@ data class Employee (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

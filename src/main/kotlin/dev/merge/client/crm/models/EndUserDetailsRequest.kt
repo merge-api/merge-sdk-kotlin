@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.CategoriesEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -38,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param shouldCreateMagicLinkUrl Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class EndUserDetailsRequest (
 
     /* Your end user's email address. */
@@ -70,6 +72,7 @@ data class EndUserDetailsRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("end_user_email_address")
         val endUserEmailAddress: JsonNode,

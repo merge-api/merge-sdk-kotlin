@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.models
 import dev.merge.client.ticketing.models.PriorityEnum
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -48,6 +49,7 @@ import dev.merge.client.shared.ApiClient
  * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class PatchedTicketRequest (
 
     /* The ticket's name. */
@@ -110,6 +112,7 @@ data class PatchedTicketRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("name")
         val name: JsonNode?,

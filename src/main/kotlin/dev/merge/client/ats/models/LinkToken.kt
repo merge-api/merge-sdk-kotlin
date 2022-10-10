@@ -21,6 +21,7 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -33,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param magicLinkUrl 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class LinkToken (
 
     @field:JsonProperty("link_token")
@@ -46,6 +48,7 @@ data class LinkToken (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("link_token")
         val linkToken: JsonNode,

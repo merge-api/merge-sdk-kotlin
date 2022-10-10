@@ -23,6 +23,7 @@ package dev.merge.client.hris.models
 import dev.merge.client.hris.models.GroupTypeEnum
 import dev.merge.client.shared.RemoteData
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -39,6 +40,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Group (
 
     @field:JsonProperty("id")
@@ -69,6 +71,7 @@ data class Group (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

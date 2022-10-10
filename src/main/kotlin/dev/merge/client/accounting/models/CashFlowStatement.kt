@@ -24,6 +24,7 @@ import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -47,6 +48,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class CashFlowStatement (
 
     @field:JsonProperty("id")
@@ -102,6 +104,7 @@ data class CashFlowStatement (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

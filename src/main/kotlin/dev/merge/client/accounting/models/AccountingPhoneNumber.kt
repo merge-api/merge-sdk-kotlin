@@ -21,6 +21,7 @@
 package dev.merge.client.accounting.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -32,6 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param type The phone number's type.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class AccountingPhoneNumber (
 
     /* The phone number. */
@@ -44,6 +46,7 @@ data class AccountingPhoneNumber (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("number")
         val number: JsonNode?,

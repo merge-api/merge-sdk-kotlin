@@ -22,6 +22,7 @@ package dev.merge.client.ticketing.models
 
 import dev.merge.client.ticketing.models.CategoriesEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -37,6 +38,7 @@ import dev.merge.client.shared.ApiClient
  * @param slug 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class AccountIntegration (
 
     /* Company name. */
@@ -64,6 +66,7 @@ data class AccountIntegration (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("name")
         val name: JsonNode,

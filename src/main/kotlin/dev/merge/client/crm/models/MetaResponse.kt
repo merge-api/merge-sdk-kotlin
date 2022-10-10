@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.LinkedAccountStatus
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -35,6 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param status 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class MetaResponse (
 
     @field:JsonProperty("request_schema")
@@ -51,6 +53,7 @@ data class MetaResponse (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("request_schema")
         val requestSchema: JsonNode,

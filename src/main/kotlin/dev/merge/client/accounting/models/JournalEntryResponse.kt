@@ -25,6 +25,7 @@ import dev.merge.client.accounting.models.ErrorValidationProblem
 import dev.merge.client.accounting.models.JournalEntry
 import dev.merge.client.accounting.models.WarningValidationProblem
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -38,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param logs 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalEntryResponse (
 
     @field:JsonProperty("model")
@@ -54,6 +56,7 @@ data class JournalEntryResponse (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("model")
         val model: JsonNode,

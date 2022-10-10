@@ -25,6 +25,7 @@ import dev.merge.client.crm.models.EmailAddress
 import dev.merge.client.crm.models.PhoneNumber
 import dev.merge.client.shared.RemoteData
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -52,6 +53,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Lead (
 
     @field:JsonProperty("id")
@@ -119,6 +121,7 @@ data class Lead (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,
