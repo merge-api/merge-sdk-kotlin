@@ -5,6 +5,7 @@
 - Various changes to models, i.e. adding parentCategory to TrackingCategory model
 - In particular, SyncStatus model's ...SyncStart datetimes are now nullable
 - Some endpoints such as CRM Opportunities API have PATCH endpoints allowing for modification, this is a newer pattern please ask your customer success representative for details.
+- Earlier versions lacked @JsonIgnoreProperties(ignoreUnknown = true) meaning they were not forwards compatible
 
 # Version 2.0.1
 
