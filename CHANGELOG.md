@@ -1,3 +1,11 @@
+# Version 2.0.2
+
+## Date: 2022-10-10
+
+- Various changes to models, i.e. adding parentCategory to TrackingCategory model
+- In particular, SyncStatus model's ...SyncStart datetimes are now nullable
+- Some endpoints such as CRM Opportunities API have PATCH endpoints allowing for modification, this is a newer pattern please ask your customer success representative for details.
+
 # Version 2.0.1
 
 ## Date: 2022-08-22
