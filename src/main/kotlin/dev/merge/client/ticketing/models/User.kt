@@ -35,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param emailAddress The user's email address.
  * @param isActive Whether or not the user is active.
  * @param teams 
+ * @param avatar The user's avatar picture.
  * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
@@ -62,6 +63,10 @@ data class User (
 
     @field:JsonProperty("teams")
     val teams: kotlin.collections.List<java.util.UUID>? = null,
+
+    /* The user's avatar picture. */
+    @field:JsonProperty("avatar")
+    val avatar: kotlin.String? = null,
 
     @field:JsonProperty("remote_data")
     val remoteData: kotlin.collections.List<RemoteData>? = null,
@@ -91,6 +96,9 @@ data class User (
         @field:JsonProperty("teams")
         val teams: kotlin.collections.List<JsonNode>?,
 
+        @field:JsonProperty("avatar")
+        val avatar: JsonNode?,
+
         @field:JsonProperty("remote_data")
         val remoteData: kotlin.collections.List<JsonNode>?,
 
@@ -110,6 +118,7 @@ data class User (
                 emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
                 isActive = ApiClient.jsonConvertSafe(expanded.isActive),
                 teams = ApiClient.jsonConvertSafe(expanded.teams),
+                avatar = ApiClient.jsonConvertSafe(expanded.avatar),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )

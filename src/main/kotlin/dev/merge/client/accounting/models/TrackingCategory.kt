@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CategoryTypeEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.Status7d1Enum
 
@@ -35,6 +36,8 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param name The tracking category's name.
  * @param status The tracking category's status.
+ * @param categoryType The tracking category’s type.
+ * @param parentCategory 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
@@ -58,6 +61,13 @@ data class TrackingCategory (
     @field:JsonProperty("status")
     val status: Status7d1Enum? = null,
 
+    /* The tracking category’s type. */
+    @field:JsonProperty("category_type")
+    val categoryType: CategoryTypeEnum? = null,
+
+    @field:JsonProperty("parent_category")
+    val parentCategory: java.util.UUID? = null,
+
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
@@ -80,6 +90,12 @@ data class TrackingCategory (
         @field:JsonProperty("status")
         val status: JsonNode?,
 
+        @field:JsonProperty("category_type")
+        val categoryType: JsonNode?,
+
+        @field:JsonProperty("parent_category")
+        val parentCategory: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?
 
@@ -95,6 +111,8 @@ data class TrackingCategory (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 status = ApiClient.jsonConvertSafe(expanded.status),
+                categoryType = ApiClient.jsonConvertSafe(expanded.categoryType),
+                parentCategory = ApiClient.jsonConvertSafe(expanded.parentCategory),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )
         }

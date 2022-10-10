@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
@@ -34,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param remoteData 
  * @param name The income statement's name.
+ * @param currency The income statement's currency.
  * @param startPeriod The income statement's start period.
  * @param endPeriod The income statement's end period.
  * @param income 
@@ -61,6 +63,10 @@ data class IncomeStatement (
     /* The income statement's name. */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
+
+    /* The income statement's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
 
     /* The income statement's start period. */
     @field:JsonProperty("start_period")
@@ -113,6 +119,9 @@ data class IncomeStatement (
         @field:JsonProperty("name")
         val name: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
         @field:JsonProperty("start_period")
         val startPeriod: JsonNode?,
 
@@ -154,6 +163,7 @@ data class IncomeStatement (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
                 startPeriod = ApiClient.jsonConvertSafe(expanded.startPeriod),
                 endPeriod = ApiClient.jsonConvertSafe(expanded.endPeriod),
                 income = ApiClient.jsonConvertSafe(expanded.income),

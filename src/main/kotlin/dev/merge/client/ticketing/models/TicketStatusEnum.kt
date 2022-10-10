@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 
  *
- * Values: OPEN,CLOSED
+ * Values: OPEN,CLOSED,IN_PROGRESS,ON_HOLD
  */
 enum class TicketStatusEnum(val value: kotlin.String) {
 
@@ -41,7 +41,15 @@ enum class TicketStatusEnum(val value: kotlin.String) {
 
 
     @JsonProperty(value = "CLOSED")
-    CLOSED("CLOSED");
+    CLOSED("CLOSED"),
+
+
+    @JsonProperty(value = "IN_PROGRESS")
+    IN_PROGRESS("IN_PROGRESS"),
+
+
+    @JsonProperty(value = "ON_HOLD")
+    ON_HOLD("ON_HOLD");
 
 
     /**

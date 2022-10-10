@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.ReportItem
 
@@ -34,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param remoteData 
  * @param name The balance sheet's name.
+ * @param currency The balance sheet's currency.
  * @param date The balance sheet's date. The balance sheet data will reflect the company's financial position this point in time.
  * @param netAssets The balance sheet's net assets.
  * @param assets 
@@ -58,6 +60,10 @@ data class BalanceSheet (
     /* The balance sheet's name. */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
+
+    /* The balance sheet's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
 
     /* The balance sheet's date. The balance sheet data will reflect the company's financial position this point in time. */
     @field:JsonProperty("date")
@@ -99,6 +105,9 @@ data class BalanceSheet (
         @field:JsonProperty("name")
         val name: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
         @field:JsonProperty("date")
         val date: JsonNode?,
 
@@ -131,6 +140,7 @@ data class BalanceSheet (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
                 date = ApiClient.jsonConvertSafe(expanded.date),
                 netAssets = ApiClient.jsonConvertSafe(expanded.netAssets),
                 assets = ApiClient.jsonConvertSafe(expanded.assets),

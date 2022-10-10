@@ -23,6 +23,7 @@ docs/CashFlowStatement.md
 docs/CashFlowStatementsApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
+docs/CategoryTypeEnum.md
 docs/ClassificationEnum.md
 docs/CompanyInfo.md
 docs/CompanyInfoApi.md
@@ -91,6 +92,7 @@ docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/ReportItem.md
 docs/RequestFormatEnum.md
+docs/ResponseTypeEnum.md
 docs/StateEnum.md
 docs/Status7d1Enum.md
 docs/SyncStatus.md
@@ -161,6 +163,7 @@ src/main/kotlin/dev/merge/client/accounting/models/BalanceSheet.kt
 src/main/kotlin/dev/merge/client/accounting/models/CashFlowStatement.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CategoryTypeEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/ClassificationEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CompanyInfo.kt
 src/main/kotlin/dev/merge/client/accounting/models/Contact.kt
@@ -210,6 +213,7 @@ src/main/kotlin/dev/merge/client/accounting/models/RemoteKeyForRegenerationReque
 src/main/kotlin/dev/merge/client/accounting/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/accounting/models/ReportItem.kt
 src/main/kotlin/dev/merge/client/accounting/models/RequestFormatEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/StateEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/Status7d1Enum.kt
 src/main/kotlin/dev/merge/client/accounting/models/SyncStatus.kt

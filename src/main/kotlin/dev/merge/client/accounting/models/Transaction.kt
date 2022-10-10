@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The Transaction Object ### Description The `Transaction` object is used to represent a company's transactions.  ### Usage Example Fetch from the `GET Transaction` endpoint and view a company's transactions.
  *
  * @param id 
  * @param transactionType The type of general transaction.

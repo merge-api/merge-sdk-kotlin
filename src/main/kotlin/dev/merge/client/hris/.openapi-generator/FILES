@@ -82,6 +82,7 @@ docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RequestFormatEnum.md
 docs/RequestTypeEnum.md
+docs/ResponseTypeEnum.md
 docs/RunStateEnum.md
 docs/RunTypeEnum.md
 docs/SyncStatus.md
@@ -193,6 +194,7 @@ src/main/kotlin/dev/merge/client/hris/models/RemoteKeyForRegenerationRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/hris/models/RequestFormatEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/RequestTypeEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/RunStateEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/RunTypeEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/SyncStatus.kt

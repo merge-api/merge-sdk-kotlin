@@ -44,6 +44,9 @@ docs/MethodEnum.md
 docs/ModelOperation.md
 docs/MultipartFormFieldRequest.md
 docs/PassthroughApi.md
+docs/PatchedTicketEndpointRequest.md
+docs/PatchedTicketRequest.md
+docs/PriorityEnum.md
 docs/Project.md
 docs/ProjectsApi.md
 docs/RegenerateKeyApi.md
@@ -51,6 +54,7 @@ docs/RemoteKey.md
 docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RequestFormatEnum.md
+docs/ResponseTypeEnum.md
 docs/SyncStatus.md
 docs/SyncStatusApi.md
 docs/SyncStatusStatusEnum.md
@@ -127,11 +131,15 @@ src/main/kotlin/dev/merge/client/ticketing/models/MetaResponse.kt
 src/main/kotlin/dev/merge/client/ticketing/models/MethodEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/ModelOperation.kt
 src/main/kotlin/dev/merge/client/ticketing/models/MultipartFormFieldRequest.kt
+src/main/kotlin/dev/merge/client/ticketing/models/PatchedTicketEndpointRequest.kt
+src/main/kotlin/dev/merge/client/ticketing/models/PatchedTicketRequest.kt
+src/main/kotlin/dev/merge/client/ticketing/models/PriorityEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/Project.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteKey.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteKeyForRegenerationRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RequestFormatEnum.kt
+src/main/kotlin/dev/merge/client/ticketing/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/SyncStatus.kt
 src/main/kotlin/dev/merge/client/ticketing/models/SyncStatusStatusEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/Tag.kt

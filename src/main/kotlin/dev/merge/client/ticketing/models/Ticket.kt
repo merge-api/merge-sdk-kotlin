@@ -20,6 +20,7 @@
 
 package dev.merge.client.ticketing.models
 
+import dev.merge.client.ticketing.models.PriorityEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
@@ -46,8 +47,11 @@ import dev.merge.client.shared.ApiClient
  * @param tags 
  * @param remoteCreatedAt When the third party's ticket was created.
  * @param remoteUpdatedAt When the third party's ticket was updated.
+ * @param completedAt When the ticket was completed.
  * @param remoteData 
  * @param remoteWasDeleted 
+ * @param ticketUrl The 3rd party url of the Ticket.
+ * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
  */
 
 data class Ticket (
@@ -108,11 +112,23 @@ data class Ticket (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
+    /* When the ticket was completed. */
+    @field:JsonProperty("completed_at")
+    val completedAt: java.time.OffsetDateTime? = null,
+
     @field:JsonProperty("remote_data")
     val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* The 3rd party url of the Ticket. */
+    @field:JsonProperty("ticket_url")
+    val ticketUrl: java.net.URI? = null,
+
+    /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
+    @field:JsonProperty("priority")
+    val priority: PriorityEnum? = null
 
 ) {
 
@@ -165,11 +181,20 @@ data class Ticket (
         @field:JsonProperty("remote_updated_at")
         val remoteUpdatedAt: JsonNode?,
 
+        @field:JsonProperty("completed_at")
+        val completedAt: JsonNode?,
+
         @field:JsonProperty("remote_data")
         val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("ticket_url")
+        val ticketUrl: JsonNode?,
+
+        @field:JsonProperty("priority")
+        val priority: JsonNode?
 
     )
 
@@ -194,8 +219,11 @@ data class Ticket (
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
+                priority = ApiClient.jsonConvertSafe(expanded.priority)
             )
         }
     }

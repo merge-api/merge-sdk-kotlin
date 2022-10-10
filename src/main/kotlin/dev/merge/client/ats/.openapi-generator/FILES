@@ -88,6 +88,7 @@ docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RemoteUser.md
 docs/RequestFormatEnum.md
+docs/ResponseTypeEnum.md
 docs/ScheduledInterview.md
 docs/ScheduledInterviewStatusEnum.md
 docs/Scorecard.md
@@ -204,6 +205,7 @@ src/main/kotlin/dev/merge/client/ats/models/RemoteKeyForRegenerationRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/ats/models/RemoteUser.kt
 src/main/kotlin/dev/merge/client/ats/models/RequestFormatEnum.kt
+src/main/kotlin/dev/merge/client/ats/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/ScheduledInterview.kt
 src/main/kotlin/dev/merge/client/ats/models/ScheduledInterviewStatusEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/Scorecard.kt
