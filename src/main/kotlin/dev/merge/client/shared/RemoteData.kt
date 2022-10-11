@@ -20,6 +20,7 @@
 
 package dev.merge.client.shared
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.JsonNode
  * @param `data` 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class RemoteData (
 
     @field:JsonProperty("path")
