@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 import dev.merge.client.ats.models.ReasonEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -33,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param message 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class IgnoreCommonModel (
 
     @field:JsonProperty("reason")
@@ -43,6 +45,7 @@ data class IgnoreCommonModel (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("reason")
         val reason: JsonNode,

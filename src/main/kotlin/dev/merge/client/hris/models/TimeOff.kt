@@ -25,6 +25,7 @@ import dev.merge.client.hris.models.RequestTypeEnum
 import dev.merge.client.hris.models.TimeOffStatusEnum
 import dev.merge.client.hris.models.UnitsEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -47,6 +48,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class TimeOff (
 
     @field:JsonProperty("id")
@@ -98,6 +100,7 @@ data class TimeOff (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

@@ -21,6 +21,7 @@
 package dev.merge.client.accounting.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -36,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param description The line's description.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalLineRequest (
 
     /* The third-party API ID of the matching object. */
@@ -61,6 +63,7 @@ data class JournalLineRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,

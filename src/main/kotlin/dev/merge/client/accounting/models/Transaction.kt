@@ -24,12 +24,13 @@ import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.shared.RemoteData
 import dev.merge.client.accounting.models.TransactionLineItem
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The Transaction Object ### Description The `Transaction` object is used to represent a company's transactions.  ### Usage Example Fetch from the `GET Transaction` endpoint and view a company's transactions.
  *
  * @param id 
  * @param transactionType The type of general transaction.
@@ -45,6 +46,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Transaction (
 
     @field:JsonProperty("id")
@@ -94,6 +96,7 @@ data class Transaction (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

@@ -24,6 +24,7 @@ import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.accounting.models.JournalLine
 import dev.merge.client.shared.RemoteData
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -36,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param transactionDate The journal entry's transaction date.
  * @param remoteCreatedAt When the third party's journal entry was created.
+ * @param remoteUpdatedAt When the third party's journal entry was updated.
  * @param payments Array of `Payment` object IDs.
  * @param memo The journal entry's private note.
  * @param currency The journal's currency.
@@ -43,6 +45,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalEntry (
 
     @field:JsonProperty("id")
@@ -62,6 +65,10 @@ data class JournalEntry (
     /* When the third party's journal entry was created. */
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
+
+    /* When the third party's journal entry was updated. */
+    @field:JsonProperty("remote_updated_at")
+    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
     /* Array of `Payment` object IDs. */
     @field:JsonProperty("payments")
@@ -83,6 +90,7 @@ data class JournalEntry (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,
@@ -98,6 +106,9 @@ data class JournalEntry (
 
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("remote_updated_at")
+        val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("payments")
         val payments: kotlin.collections.List<JsonNode>?,
@@ -126,6 +137,7 @@ data class JournalEntry (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),

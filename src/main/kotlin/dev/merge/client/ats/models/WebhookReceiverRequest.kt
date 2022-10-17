@@ -21,6 +21,7 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -33,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param key 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class WebhookReceiverRequest (
 
     @field:JsonProperty("event")
@@ -46,6 +48,7 @@ data class WebhookReceiverRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("event")
         val event: JsonNode,

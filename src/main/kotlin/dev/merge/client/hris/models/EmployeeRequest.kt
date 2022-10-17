@@ -25,6 +25,7 @@ import dev.merge.client.hris.models.EthnicityEnum
 import dev.merge.client.hris.models.GenderEnum
 import dev.merge.client.hris.models.MaritalStatusEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -63,6 +64,7 @@ import dev.merge.client.shared.ApiClient
  * @param customFields Custom fields configured for a given model.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class EmployeeRequest (
 
     /* The third-party API ID of the matching object. */
@@ -177,6 +179,7 @@ data class EmployeeRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,

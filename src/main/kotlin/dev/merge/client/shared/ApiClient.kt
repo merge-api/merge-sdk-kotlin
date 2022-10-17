@@ -34,18 +34,18 @@ open class ApiClient(
                     jackson {
                         registerModule(JavaTimeModule())
                         findAndRegisterModules()
+                        enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
                     }
                 }
-                expectSuccess = true
             })
         } ?: HttpClient(Apache, httpClientConfig ?: {
             install(ContentNegotiation) {
                 jackson {
                     registerModule(JavaTimeModule())
                     findAndRegisterModules()
+                    enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
                 }
             }
-            expectSuccess = true
         })
     }
 

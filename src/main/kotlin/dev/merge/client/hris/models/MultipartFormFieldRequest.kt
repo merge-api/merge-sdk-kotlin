@@ -22,6 +22,7 @@ package dev.merge.client.hris.models
 
 import dev.merge.client.hris.models.EncodingEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -36,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param contentType The MIME type of the file, if the field is for a file.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class MultipartFormFieldRequest (
 
     /* The name of the form field */
@@ -60,6 +62,7 @@ data class MultipartFormFieldRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("name")
         val name: JsonNode,

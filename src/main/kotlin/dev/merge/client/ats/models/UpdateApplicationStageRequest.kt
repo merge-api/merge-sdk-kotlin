@@ -21,6 +21,7 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -32,6 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteUserId 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class UpdateApplicationStageRequest (
 
     /* The interview stage to move the application to. */
@@ -43,6 +45,7 @@ data class UpdateApplicationStageRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("job_interview_stage")
         val jobInterviewStage: JsonNode?,

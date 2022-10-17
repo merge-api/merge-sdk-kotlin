@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**ticketsCollaboratorsList**](TicketsApi.md#ticketsCollaboratorsList) | **GET** /tickets/{id}/collaborators | 
 [**ticketsCreate**](TicketsApi.md#ticketsCreate) | **POST** /tickets | 
 [**ticketsList**](TicketsApi.md#ticketsList) | **GET** /tickets | 
+[**ticketsMetaPatchRetrieve**](TicketsApi.md#ticketsMetaPatchRetrieve) | **GET** /tickets/meta/patch/{id} | 
 [**ticketsMetaPostRetrieve**](TicketsApi.md#ticketsMetaPostRetrieve) | **GET** /tickets/meta/post | 
+[**ticketsPartialUpdate**](TicketsApi.md#ticketsPartialUpdate) | **PATCH** /tickets/{id} | 
 [**ticketsRetrieve**](TicketsApi.md#ticketsRetrieve) | **GET** /tickets/{id} | 
 
 
@@ -203,6 +205,58 @@ Configure bearerAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="ticketsMetaPatchRetrieve"></a>
+# **ticketsMetaPatchRetrieve**
+> MetaResponse ticketsMetaPatchRetrieve(id)
+
+
+
+Returns metadata for &#x60;Ticket&#x60; PATCHs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.ticketing.models.*
+
+val apiInstance = TicketsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+try {
+    val result : MetaResponse = apiInstance.ticketsMetaPatchRetrieve(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TicketsApi#ticketsMetaPatchRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TicketsApi#ticketsMetaPatchRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="ticketsMetaPostRetrieve"></a>
 # **ticketsMetaPostRetrieve**
 > MetaResponse ticketsMetaPostRetrieve()
@@ -249,6 +303,62 @@ Configure bearerAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="ticketsPartialUpdate"></a>
+# **ticketsPartialUpdate**
+> TicketResponse ticketsPartialUpdate(id, patchedTicketEndpointRequest, isDebugMode, runAsync)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.ticketing.models.*
+
+val apiInstance = TicketsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val patchedTicketEndpointRequest : PatchedTicketEndpointRequest =  // PatchedTicketEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : TicketResponse = apiInstance.ticketsPartialUpdate(id, patchedTicketEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TicketsApi#ticketsPartialUpdate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TicketsApi#ticketsPartialUpdate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **patchedTicketEndpointRequest** | [**PatchedTicketEndpointRequest**](PatchedTicketEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**TicketResponse**](TicketResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
  - **Accept**: application/json
 
 <a name="ticketsRetrieve"></a>

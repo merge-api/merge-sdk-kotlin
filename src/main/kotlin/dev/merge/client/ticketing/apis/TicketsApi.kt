@@ -23,6 +23,7 @@ package dev.merge.client.ticketing.apis
 import dev.merge.client.ticketing.models.MetaResponse
 import dev.merge.client.ticketing.models.Ticket
 import dev.merge.client.ticketing.models.User
+import dev.merge.client.ticketing.models.PatchedTicketEndpointRequest
 import dev.merge.client.ticketing.models.TicketEndpointRequest
 import dev.merge.client.ticketing.models.TicketResponse
 
@@ -76,6 +77,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val projectId: kotlin.String? = null,
         val remoteFields: kotlin.String? = null,
         val remoteId: kotlin.String? = null
+    )
+
+    data class TicketsMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class TicketsPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedTicketEndpointRequest: PatchedTicketEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
     )
 
     data class TicketsRetrieveRequest (
@@ -285,6 +297,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns metadata for &#x60;Ticket&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsMetaPatchRetrieve(requestModel: TicketsApi.TicketsMetaPatchRetrieveRequest): MetaResponse {
+        return ticketsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsMetaPatchRetrieveAsync(requestModel: TicketsApi.TicketsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        ticketsMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsMetaPatchRetrieveExpanded(requestModel: TicketsApi.TicketsMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return ticketsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsMetaPatchRetrieveExpandedAsync(requestModel: TicketsApi.TicketsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        ticketsMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> ticketsMetaPatchRetrieveImpl(requestModel: TicketsApi.TicketsMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/tickets/meta/patch/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns metadata for &#x60;Ticket&#x60; POSTs.
      * @return MetaResponse
     */
@@ -330,6 +396,64 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * 
+     * @param id  
+     * @param patchedTicketEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return TicketResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsPartialUpdate(requestModel: TicketsApi.TicketsPartialUpdateRequest): TicketResponse {
+        return ticketsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsPartialUpdateAsync(requestModel: TicketsApi.TicketsPartialUpdateRequest): CompletableFuture<TicketResponse> = GlobalScope.future {
+        ticketsPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedTicketEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsPartialUpdateExpanded(requestModel: TicketsApi.TicketsPartialUpdateRequest): TicketResponse.Expanded {
+        return ticketsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsPartialUpdateExpandedAsync(requestModel: TicketsApi.TicketsPartialUpdateRequest): CompletableFuture<TicketResponse.Expanded> = GlobalScope.future {
+        ticketsPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> ticketsPartialUpdateImpl(requestModel: TicketsApi.TicketsPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedTicketEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/tickets/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

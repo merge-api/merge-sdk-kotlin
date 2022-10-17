@@ -16,7 +16,9 @@
 
 package dev.merge.client.shared
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+
 
 /**
  * 
@@ -26,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param results 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class MergePaginatedResponse<T> (
 
     @field:JsonProperty("next")

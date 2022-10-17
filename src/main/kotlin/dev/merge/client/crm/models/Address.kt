@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.AddressTypeEnum
 import dev.merge.client.crm.models.CountryEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -39,6 +40,7 @@ import dev.merge.client.shared.ApiClient
  * @param addressType The address type.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Address (
 
     /* Line 1 of the address's street. */
@@ -71,6 +73,7 @@ data class Address (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("street_1")
         val street1: JsonNode?,

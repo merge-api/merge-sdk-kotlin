@@ -20,7 +20,9 @@
 
 package dev.merge.client.ticketing.models
 
+import dev.merge.client.ticketing.models.ResponseTypeEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -33,9 +35,11 @@ import dev.merge.client.shared.ApiClient
  * @param status 
  * @param response 
  * @param responseHeaders 
+ * @param responseType 
  * @param headers 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class RemoteResponse (
 
     @field:JsonProperty("method")
@@ -48,16 +52,20 @@ data class RemoteResponse (
     val status: kotlin.Int,
 
     @field:JsonProperty("response")
-    val response: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+    val response: kotlin.Any?,
 
     @field:JsonProperty("response_headers")
     val responseHeaders: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("response_type")
+    val responseType: ResponseTypeEnum? = null,
 
     @field:JsonProperty("headers")
     val headers: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("method")
         val method: JsonNode,
@@ -74,6 +82,9 @@ data class RemoteResponse (
         @field:JsonProperty("response_headers")
         val responseHeaders: JsonNode?,
 
+        @field:JsonProperty("response_type")
+        val responseType: JsonNode?,
+
         @field:JsonProperty("headers")
         val headers: JsonNode?
 
@@ -89,6 +100,7 @@ data class RemoteResponse (
                 status = ApiClient.jsonConvertRequiredSafe(expanded.status),
                 response = ApiClient.jsonConvertRequiredSafe(expanded.response),
                 responseHeaders = ApiClient.jsonConvertSafe(expanded.responseHeaders),
+                responseType = ApiClient.jsonConvertSafe(expanded.responseType),
                 headers = ApiClient.jsonConvertSafe(expanded.headers)
             )
         }

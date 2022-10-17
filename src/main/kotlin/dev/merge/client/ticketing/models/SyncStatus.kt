@@ -22,6 +22,7 @@ package dev.merge.client.ticketing.models
 
 import dev.merge.client.ticketing.models.SyncStatusStatusEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -31,12 +32,13 @@ import dev.merge.client.shared.ApiClient
  *
  * @param modelName 
  * @param modelId 
- * @param lastSyncStart 
- * @param nextSyncStart 
  * @param status 
  * @param isInitialSync 
+ * @param lastSyncStart 
+ * @param nextSyncStart 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class SyncStatus (
 
     @field:JsonProperty("model_name")
@@ -45,20 +47,21 @@ data class SyncStatus (
     @field:JsonProperty("model_id")
     val modelId: kotlin.String,
 
-    @field:JsonProperty("last_sync_start")
-    val lastSyncStart: java.time.OffsetDateTime,
-
-    @field:JsonProperty("next_sync_start")
-    val nextSyncStart: java.time.OffsetDateTime,
-
     @field:JsonProperty("status")
     val status: SyncStatusStatusEnum?,
 
     @field:JsonProperty("is_initial_sync")
-    val isInitialSync: kotlin.Boolean
+    val isInitialSync: kotlin.Boolean,
+
+    @field:JsonProperty("last_sync_start")
+    val lastSyncStart: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("next_sync_start")
+    val nextSyncStart: java.time.OffsetDateTime? = null
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("model_name")
         val modelName: JsonNode,
@@ -66,17 +69,17 @@ data class SyncStatus (
         @field:JsonProperty("model_id")
         val modelId: JsonNode,
 
-        @field:JsonProperty("last_sync_start")
-        val lastSyncStart: JsonNode,
-
-        @field:JsonProperty("next_sync_start")
-        val nextSyncStart: JsonNode,
-
         @field:JsonProperty("status")
         val status: JsonNode,
 
         @field:JsonProperty("is_initial_sync")
-        val isInitialSync: JsonNode
+        val isInitialSync: JsonNode,
+
+        @field:JsonProperty("last_sync_start")
+        val lastSyncStart: JsonNode?,
+
+        @field:JsonProperty("next_sync_start")
+        val nextSyncStart: JsonNode?
 
     )
 
@@ -87,10 +90,10 @@ data class SyncStatus (
             return SyncStatus(
                 modelName = ApiClient.jsonConvertRequiredSafe(expanded.modelName),
                 modelId = ApiClient.jsonConvertRequiredSafe(expanded.modelId),
-                lastSyncStart = ApiClient.jsonConvertRequiredSafe(expanded.lastSyncStart),
-                nextSyncStart = ApiClient.jsonConvertRequiredSafe(expanded.nextSyncStart),
                 status = ApiClient.jsonConvertRequiredSafe(expanded.status),
-                isInitialSync = ApiClient.jsonConvertRequiredSafe(expanded.isInitialSync)
+                isInitialSync = ApiClient.jsonConvertRequiredSafe(expanded.isInitialSync),
+                lastSyncStart = ApiClient.jsonConvertSafe(expanded.lastSyncStart),
+                nextSyncStart = ApiClient.jsonConvertSafe(expanded.nextSyncStart)
             )
         }
     }

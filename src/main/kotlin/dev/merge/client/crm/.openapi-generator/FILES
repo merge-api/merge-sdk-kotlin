@@ -73,6 +73,8 @@ docs/OpportunityRequest.md
 docs/OpportunityResponse.md
 docs/OpportunityStatusEnum.md
 docs/PassthroughApi.md
+docs/PatchedOpportunityEndpointRequest.md
+docs/PatchedOpportunityRequest.md
 docs/PhoneNumber.md
 docs/PhoneNumberRequest.md
 docs/RegenerateKeyApi.md
@@ -80,6 +82,7 @@ docs/RemoteKey.md
 docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RequestFormatEnum.md
+docs/ResponseTypeEnum.md
 docs/Stage.md
 docs/StagesApi.md
 docs/SyncStatus.md
@@ -176,12 +179,15 @@ src/main/kotlin/dev/merge/client/crm/models/OpportunityEndpointRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/OpportunityRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/OpportunityResponse.kt
 src/main/kotlin/dev/merge/client/crm/models/OpportunityStatusEnum.kt
+src/main/kotlin/dev/merge/client/crm/models/PatchedOpportunityEndpointRequest.kt
+src/main/kotlin/dev/merge/client/crm/models/PatchedOpportunityRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/PhoneNumber.kt
 src/main/kotlin/dev/merge/client/crm/models/PhoneNumberRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/RemoteKey.kt
 src/main/kotlin/dev/merge/client/crm/models/RemoteKeyForRegenerationRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/crm/models/RequestFormatEnum.kt
+src/main/kotlin/dev/merge/client/crm/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/crm/models/Stage.kt
 src/main/kotlin/dev/merge/client/crm/models/SyncStatus.kt
 src/main/kotlin/dev/merge/client/crm/models/SyncStatusStatusEnum.kt

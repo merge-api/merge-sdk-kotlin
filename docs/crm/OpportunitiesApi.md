@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**opportunitiesCreate**](OpportunitiesApi.md#opportunitiesCreate) | **POST** /opportunities | 
 [**opportunitiesList**](OpportunitiesApi.md#opportunitiesList) | **GET** /opportunities | 
+[**opportunitiesMetaPatchRetrieve**](OpportunitiesApi.md#opportunitiesMetaPatchRetrieve) | **GET** /opportunities/meta/patch/{id} | 
 [**opportunitiesMetaPostRetrieve**](OpportunitiesApi.md#opportunitiesMetaPostRetrieve) | **GET** /opportunities/meta/post | 
+[**opportunitiesPartialUpdate**](OpportunitiesApi.md#opportunitiesPartialUpdate) | **PATCH** /opportunities/{id} | 
 [**opportunitiesRetrieve**](OpportunitiesApi.md#opportunitiesRetrieve) | **GET** /opportunities/{id} | 
 
 
@@ -146,6 +148,58 @@ Configure bearerAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="opportunitiesMetaPatchRetrieve"></a>
+# **opportunitiesMetaPatchRetrieve**
+> MetaResponse opportunitiesMetaPatchRetrieve(id)
+
+
+
+Returns metadata for &#x60;Opportunity&#x60; PATCHs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.crm.models.*
+
+val apiInstance = OpportunitiesApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+try {
+    val result : MetaResponse = apiInstance.opportunitiesMetaPatchRetrieve(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling OpportunitiesApi#opportunitiesMetaPatchRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling OpportunitiesApi#opportunitiesMetaPatchRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="opportunitiesMetaPostRetrieve"></a>
 # **opportunitiesMetaPostRetrieve**
 > MetaResponse opportunitiesMetaPostRetrieve()
@@ -192,6 +246,62 @@ Configure bearerAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="opportunitiesPartialUpdate"></a>
+# **opportunitiesPartialUpdate**
+> OpportunityResponse opportunitiesPartialUpdate(id, patchedOpportunityEndpointRequest, isDebugMode, runAsync)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.crm.models.*
+
+val apiInstance = OpportunitiesApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val patchedOpportunityEndpointRequest : PatchedOpportunityEndpointRequest =  // PatchedOpportunityEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : OpportunityResponse = apiInstance.opportunitiesPartialUpdate(id, patchedOpportunityEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling OpportunitiesApi#opportunitiesPartialUpdate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling OpportunitiesApi#opportunitiesPartialUpdate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **patchedOpportunityEndpointRequest** | [**PatchedOpportunityEndpointRequest**](PatchedOpportunityEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**OpportunityResponse**](OpportunityResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
  - **Accept**: application/json
 
 <a name="opportunitiesRetrieve"></a>

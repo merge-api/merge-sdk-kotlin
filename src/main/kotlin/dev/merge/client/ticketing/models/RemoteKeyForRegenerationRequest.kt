@@ -21,6 +21,7 @@
 package dev.merge.client.ticketing.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -31,6 +32,7 @@ import dev.merge.client.shared.ApiClient
  * @param name 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class RemoteKeyForRegenerationRequest (
 
     @field:JsonProperty("name")
@@ -38,6 +40,7 @@ data class RemoteKeyForRegenerationRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("name")
         val name: JsonNode

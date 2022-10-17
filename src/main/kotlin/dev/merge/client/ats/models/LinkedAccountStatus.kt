@@ -21,6 +21,7 @@
 package dev.merge.client.ats.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -32,6 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param canMakeRequest 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class LinkedAccountStatus (
 
     @field:JsonProperty("linked_account_status")
@@ -42,6 +44,7 @@ data class LinkedAccountStatus (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("linked_account_status")
         val linkedAccountStatus: JsonNode,

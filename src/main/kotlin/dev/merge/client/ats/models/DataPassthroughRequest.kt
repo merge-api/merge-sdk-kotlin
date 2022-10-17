@@ -24,6 +24,7 @@ import dev.merge.client.ats.models.MethodEnum
 import dev.merge.client.ats.models.MultipartFormFieldRequest
 import dev.merge.client.ats.models.RequestFormatEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -41,6 +42,7 @@ import dev.merge.client.shared.ApiClient
  * @param normalizeResponse 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class DataPassthroughRequest (
 
     @field:JsonProperty("method")
@@ -71,6 +73,7 @@ data class DataPassthroughRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("method")
         val method: JsonNode,

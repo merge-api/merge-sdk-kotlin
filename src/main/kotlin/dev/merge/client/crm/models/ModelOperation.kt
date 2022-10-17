@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -34,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param supportedFields 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ModelOperation (
 
     @field:JsonProperty("model_name")
@@ -50,6 +52,7 @@ data class ModelOperation (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("model_name")
         val modelName: JsonNode,

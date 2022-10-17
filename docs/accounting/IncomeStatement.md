@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **name** | **kotlin.String** | The income statement&#39;s name. |  [optional]
+**currency** | [**CurrencyEnum**](CurrencyEnum.md) | The income statement&#39;s currency. |  [optional]
 **startPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The income statement&#39;s start period. |  [optional]
 **endPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The income statement&#39;s end period. |  [optional]
 **income** | [**kotlin.collections.List&lt;ReportItem&gt;**](ReportItem.md) |  |  [optional] [readonly]

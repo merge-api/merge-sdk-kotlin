@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.MetaResponse
 import dev.merge.client.crm.models.Opportunity
 import dev.merge.client.crm.models.OpportunityEndpointRequest
 import dev.merge.client.crm.models.OpportunityResponse
+import dev.merge.client.crm.models.PatchedOpportunityEndpointRequest
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -69,6 +70,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteId: kotlin.String? = null,
         val stageId: kotlin.String? = null,
         val status: kotlin.String? = null
+    )
+
+    data class OpportunitiesMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class OpportunitiesPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedOpportunityEndpointRequest: PatchedOpportunityEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
     )
 
     data class OpportunitiesRetrieveRequest (
@@ -220,6 +232,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns metadata for &#x60;Opportunity&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesMetaPatchRetrieve(requestModel: OpportunitiesApi.OpportunitiesMetaPatchRetrieveRequest): MetaResponse {
+        return opportunitiesMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesMetaPatchRetrieveAsync(requestModel: OpportunitiesApi.OpportunitiesMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        opportunitiesMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesMetaPatchRetrieveExpanded(requestModel: OpportunitiesApi.OpportunitiesMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return opportunitiesMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesMetaPatchRetrieveExpandedAsync(requestModel: OpportunitiesApi.OpportunitiesMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        opportunitiesMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> opportunitiesMetaPatchRetrieveImpl(requestModel: OpportunitiesApi.OpportunitiesMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/opportunities/meta/patch/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns metadata for &#x60;Opportunity&#x60; POSTs.
      * @return MetaResponse
     */
@@ -265,6 +331,64 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * 
+     * @param id  
+     * @param patchedOpportunityEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return OpportunityResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesPartialUpdate(requestModel: OpportunitiesApi.OpportunitiesPartialUpdateRequest): OpportunityResponse {
+        return opportunitiesPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesPartialUpdateAsync(requestModel: OpportunitiesApi.OpportunitiesPartialUpdateRequest): CompletableFuture<OpportunityResponse> = GlobalScope.future {
+        opportunitiesPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedOpportunityEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun opportunitiesPartialUpdateExpanded(requestModel: OpportunitiesApi.OpportunitiesPartialUpdateRequest): OpportunityResponse.Expanded {
+        return opportunitiesPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun opportunitiesPartialUpdateExpandedAsync(requestModel: OpportunitiesApi.OpportunitiesPartialUpdateRequest): CompletableFuture<OpportunityResponse.Expanded> = GlobalScope.future {
+        opportunitiesPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> opportunitiesPartialUpdateImpl(requestModel: OpportunitiesApi.OpportunitiesPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedOpportunityEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/opportunities/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

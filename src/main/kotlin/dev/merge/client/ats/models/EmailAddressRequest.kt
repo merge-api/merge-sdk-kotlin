@@ -22,6 +22,7 @@ package dev.merge.client.ats.models
 
 import dev.merge.client.ats.models.EmailAddressTypeEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -33,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param emailAddressType The type of email address.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class EmailAddressRequest (
 
     /* The email address. */
@@ -45,6 +47,7 @@ data class EmailAddressRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("value")
         val `value`: JsonNode?,

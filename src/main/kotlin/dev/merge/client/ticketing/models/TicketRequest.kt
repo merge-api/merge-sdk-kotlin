@@ -20,8 +20,10 @@
 
 package dev.merge.client.ticketing.models
 
+import dev.merge.client.ticketing.models.PriorityEnum
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -44,8 +46,12 @@ import dev.merge.client.shared.ApiClient
  * @param tags 
  * @param remoteCreatedAt When the third party's ticket was created.
  * @param remoteUpdatedAt When the third party's ticket was updated.
+ * @param completedAt When the ticket was completed.
+ * @param ticketUrl The 3rd party url of the Ticket.
+ * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class TicketRequest (
 
     /* The third-party API ID of the matching object. */
@@ -99,10 +105,23 @@ data class TicketRequest (
 
     /* When the third party's ticket was updated. */
     @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null
+    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
+
+    /* When the ticket was completed. */
+    @field:JsonProperty("completed_at")
+    val completedAt: java.time.OffsetDateTime? = null,
+
+    /* The 3rd party url of the Ticket. */
+    @field:JsonProperty("ticket_url")
+    val ticketUrl: java.net.URI? = null,
+
+    /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
+    @field:JsonProperty("priority")
+    val priority: PriorityEnum? = null
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
@@ -147,7 +166,16 @@ data class TicketRequest (
         val remoteCreatedAt: JsonNode?,
 
         @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?
+        val remoteUpdatedAt: JsonNode?,
+
+        @field:JsonProperty("completed_at")
+        val completedAt: JsonNode?,
+
+        @field:JsonProperty("ticket_url")
+        val ticketUrl: JsonNode?,
+
+        @field:JsonProperty("priority")
+        val priority: JsonNode?
 
     )
 
@@ -170,7 +198,10 @@ data class TicketRequest (
                 attachments = ApiClient.jsonConvertSafe(expanded.attachments),
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt)
+                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
+                ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
+                priority = ApiClient.jsonConvertSafe(expanded.priority)
             )
         }
     }

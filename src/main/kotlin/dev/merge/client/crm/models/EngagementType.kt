@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.ActivityTypeEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -35,6 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param name The engagement type's name.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class EngagementType (
 
     @field:JsonProperty("id")
@@ -54,6 +56,7 @@ data class EngagementType (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,

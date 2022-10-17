@@ -21,12 +21,13 @@
 package dev.merge.client.accounting.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The TransactionLineItem Object ### Description The `TransactionLineItem` object is used to represent a transaction's line items.  ### Usage Example Fetch from the `GET TransactionLineItem` endpoint and view the transaction's line items.
  *
  * @param memo A memo attached to the line item.
  * @param unitPrice The line item's unit price.
@@ -39,6 +40,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class TransactionLineItem (
 
     /* A memo attached to the line item. */
@@ -78,6 +80,7 @@ data class TransactionLineItem (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("memo")
         val memo: JsonNode?,

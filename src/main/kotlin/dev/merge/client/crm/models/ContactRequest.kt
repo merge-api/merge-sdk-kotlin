@@ -20,7 +20,11 @@
 
 package dev.merge.client.crm.models
 
+import dev.merge.client.crm.models.AddressRequest
+import dev.merge.client.crm.models.EmailAddressRequest
+import dev.merge.client.crm.models.PhoneNumberRequest
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -32,12 +36,16 @@ import dev.merge.client.shared.ApiClient
  * @param firstName The contact's first name.
  * @param lastName The contact's last name.
  * @param account 
+ * @param addresses 
+ * @param emailAddresses 
+ * @param phoneNumbers 
  * @param lastActivityAt When the contact's last activity occurred.
  * @param remoteCreatedAt When the third party's contact was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ContactRequest (
 
     /* The third-party API ID of the matching object. */
@@ -55,6 +63,15 @@ data class ContactRequest (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    @field:JsonProperty("addresses")
+    val addresses: kotlin.collections.List<AddressRequest>? = null,
+
+    @field:JsonProperty("email_addresses")
+    val emailAddresses: kotlin.collections.List<EmailAddressRequest>? = null,
+
+    @field:JsonProperty("phone_numbers")
+    val phoneNumbers: kotlin.collections.List<PhoneNumberRequest>? = null,
+
     /* When the contact's last activity occurred. */
     @field:JsonProperty("last_activity_at")
     val lastActivityAt: java.time.OffsetDateTime? = null,
@@ -71,6 +88,7 @@ data class ContactRequest (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
@@ -83,6 +101,15 @@ data class ContactRequest (
 
         @field:JsonProperty("account")
         val account: JsonNode?,
+
+        @field:JsonProperty("addresses")
+        val addresses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("email_addresses")
+        val emailAddresses: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("phone_numbers")
+        val phoneNumbers: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("last_activity_at")
         val lastActivityAt: JsonNode?,
@@ -107,6 +134,9 @@ data class ContactRequest (
                 firstName = ApiClient.jsonConvertSafe(expanded.firstName),
                 lastName = ApiClient.jsonConvertSafe(expanded.lastName),
                 account = ApiClient.jsonConvertSafe(expanded.account),
+                addresses = ApiClient.jsonConvertSafe(expanded.addresses),
+                emailAddresses = ApiClient.jsonConvertSafe(expanded.emailAddresses),
+                phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),

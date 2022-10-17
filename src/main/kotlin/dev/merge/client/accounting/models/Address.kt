@@ -24,6 +24,7 @@ import dev.merge.client.accounting.models.AddressTypeEnum
 import dev.merge.client.accounting.models.CountryEnum
 import dev.merge.client.accounting.models.StateEnum
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
@@ -40,6 +41,7 @@ import dev.merge.client.shared.ApiClient
  * @param zipCode The address's zip code.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Address (
 
     /* The address type. */
@@ -72,6 +74,7 @@ data class Address (
 
 ) {
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("type")
         val type: JsonNode?,
