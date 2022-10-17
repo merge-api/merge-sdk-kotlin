@@ -48,6 +48,26 @@ test {
     useJUnitPlatform()
 }
 
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+task javadocJar(type: Jar) {
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+
+signing {
+    sign configurations.archives
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -64,21 +84,48 @@ dependencies {
     testImplementation "junit:junit:$java_junit_version"
 }
 
-publishing {
-    publications {
-        mergeSdkKotlin(MavenPublication) {
-            from components.java
-        }
-    }
-
+uploadArchives {
     repositories {
-        maven {
-            name = "OSSRH"
-            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: "REDACTED", password: "REDACTED")
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: "REDACTED", password: "REDACTED")
+            }
+
+            pom.project {
+                name 'Merge SDK Kotlin'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'The Kotlin/JVM SDK for accessing various Merge Unified APIs'
+                url 'https://docs.merge.dev'
+
+                scm {
+                    connection 'scm:git:https://github.com/merge-api/merge-sdk-kotlin.git'
+                    developerConnection 'scm:git:https://github.com/merge-api/merge-sdk-kotlin.git'
+                    url 'https://github.com/merge-api/merge-sdk-kotlin'
+                }
+
+                licenses {
+                    license {
+                        name 'Merge SDK License'
+                        url 'https://github.com/merge-api/merge-sdk-kotlin/blob/main/LICENSE.md'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'Merge'
+                        name 'Merge Engineering'
+                        email 'hello@merge.dev'
+                    }
+                }
             }
         }
     }
 }
+
