@@ -86,8 +86,8 @@ dependencies {
     testImplementation "junit:junit:$java_junit_version"
 }
 
-sonatype_username = System.getenv("SONATYPE_USERNAME")
-sonatype_pw = System.getenv("SONATYPE_PASSWORD")
+def sonatype_username = System.getenv("SONATYPE_USERNAME")
+def sonatype_pw = System.getenv("SONATYPE_PASSWORD")
 
 uploadArchives {
     repositories {
