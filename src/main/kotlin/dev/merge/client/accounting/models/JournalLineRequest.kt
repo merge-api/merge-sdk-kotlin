@@ -35,6 +35,8 @@ import dev.merge.client.shared.ApiClient
  * @param trackingCategory 
  * @param contact 
  * @param description The line's description.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -59,7 +61,13 @@ data class JournalLineRequest (
 
     /* The line's description. */
     @field:JsonProperty("description")
-    val description: kotlin.String? = null
+    val description: kotlin.String? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -81,7 +89,13 @@ data class JournalLineRequest (
         val contact: JsonNode?,
 
         @field:JsonProperty("description")
-        val description: JsonNode?
+        val description: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -95,7 +109,9 @@ data class JournalLineRequest (
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
-                description = ApiClient.jsonConvertSafe(expanded.description)
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

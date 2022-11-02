@@ -42,6 +42,8 @@ import dev.merge.client.shared.ApiClient
  * @param requestType The type of time off request.
  * @param startTime The day and time of the start of the time requested off.
  * @param endTime The day and time of the end of the time requested off.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -83,7 +85,13 @@ data class TimeOffRequest (
 
     /* The day and time of the end of the time requested off. */
     @field:JsonProperty("end_time")
-    val endTime: java.time.OffsetDateTime? = null
+    val endTime: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -117,7 +125,13 @@ data class TimeOffRequest (
         val startTime: JsonNode?,
 
         @field:JsonProperty("end_time")
-        val endTime: JsonNode?
+        val endTime: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -135,7 +149,9 @@ data class TimeOffRequest (
                 amount = ApiClient.jsonConvertSafe(expanded.amount),
                 requestType = ApiClient.jsonConvertSafe(expanded.requestType),
                 startTime = ApiClient.jsonConvertSafe(expanded.startTime),
-                endTime = ApiClient.jsonConvertSafe(expanded.endTime)
+                endTime = ApiClient.jsonConvertSafe(expanded.endTime),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

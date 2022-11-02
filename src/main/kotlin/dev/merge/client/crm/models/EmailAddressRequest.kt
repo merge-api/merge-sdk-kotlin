@@ -31,6 +31,8 @@ import dev.merge.client.shared.ApiClient
  *
  * @param emailAddress The email address.
  * @param emailAddressType The email address's type.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,7 +44,13 @@ data class EmailAddressRequest (
 
     /* The email address's type. */
     @field:JsonProperty("email_address_type")
-    val emailAddressType: kotlin.String? = null
+    val emailAddressType: kotlin.String? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -52,7 +60,13 @@ data class EmailAddressRequest (
         val emailAddress: JsonNode?,
 
         @field:JsonProperty("email_address_type")
-        val emailAddressType: JsonNode?
+        val emailAddressType: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -62,7 +76,9 @@ data class EmailAddressRequest (
         fun normalize(expanded: EmailAddressRequest.Expanded): EmailAddressRequest {
             return EmailAddressRequest(
                 emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
-                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType)
+                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

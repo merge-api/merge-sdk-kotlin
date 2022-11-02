@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **contentType** | **kotlin.String** | The attachment&#39;s file format. |  [optional]
 **uploadedBy** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s attachment was created. |  [optional]
+**integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
 

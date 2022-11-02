@@ -36,6 +36,8 @@ import dev.merge.client.shared.ApiClient
  * @param contentType The attachment's file format.
  * @param uploadedBy 
  * @param remoteCreatedAt When the third party's attachment was created.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -65,7 +67,13 @@ data class AttachmentRequest (
 
     /* When the third party's attachment was created. */
     @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null
+    val remoteCreatedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -90,7 +98,13 @@ data class AttachmentRequest (
         val uploadedBy: JsonNode?,
 
         @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -105,7 +119,9 @@ data class AttachmentRequest (
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
                 contentType = ApiClient.jsonConvertSafe(expanded.contentType),
                 uploadedBy = ApiClient.jsonConvertSafe(expanded.uploadedBy),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt)
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

@@ -4,9 +4,67 @@ All URIs are relative to *https://api.merge.dev/api/accounting/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**purchaseOrdersCreate**](PurchaseOrdersApi.md#purchaseOrdersCreate) | **POST** /purchase-orders | 
 [**purchaseOrdersList**](PurchaseOrdersApi.md#purchaseOrdersList) | **GET** /purchase-orders | 
+[**purchaseOrdersMetaPostRetrieve**](PurchaseOrdersApi.md#purchaseOrdersMetaPostRetrieve) | **GET** /purchase-orders/meta/post | 
 [**purchaseOrdersRetrieve**](PurchaseOrdersApi.md#purchaseOrdersRetrieve) | **GET** /purchase-orders/{id} | 
 
+
+<a name="purchaseOrdersCreate"></a>
+# **purchaseOrdersCreate**
+> PurchaseOrderResponse purchaseOrdersCreate(purchaseOrderEndpointRequest, isDebugMode, runAsync)
+
+
+
+Creates a &#x60;PurchaseOrder&#x60; object with the given values.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = PurchaseOrdersApi()
+val purchaseOrderEndpointRequest : PurchaseOrderEndpointRequest =  // PurchaseOrderEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : PurchaseOrderResponse = apiInstance.purchaseOrdersCreate(purchaseOrderEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling PurchaseOrdersApi#purchaseOrdersCreate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling PurchaseOrdersApi#purchaseOrdersCreate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **purchaseOrderEndpointRequest** | [**PurchaseOrderEndpointRequest**](PurchaseOrderEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**PurchaseOrderResponse**](PurchaseOrderResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
 
 <a name="purchaseOrdersList"></a>
 # **purchaseOrdersList**
@@ -65,6 +123,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedPurchaseOrderList**](PaginatedPurchaseOrderList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="purchaseOrdersMetaPostRetrieve"></a>
+# **purchaseOrdersMetaPostRetrieve**
+> MetaResponse purchaseOrdersMetaPostRetrieve()
+
+
+
+Returns metadata for &#x60;PurchaseOrder&#x60; POSTs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = PurchaseOrdersApi()
+try {
+    val result : MetaResponse = apiInstance.purchaseOrdersMetaPostRetrieve()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling PurchaseOrdersApi#purchaseOrdersMetaPostRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling PurchaseOrdersApi#purchaseOrdersMetaPostRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

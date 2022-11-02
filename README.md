@@ -24,7 +24,7 @@ The dependency in a maven pom will look something like:
 <dependency>
   <groupId>dev.merge</groupId>
   <artifactId>client</artifactId>
-  <version>2.0.2</version>
+  <version>2.0.3</version>
 </dependency>
 ```
 

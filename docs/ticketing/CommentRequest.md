@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **ticket** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **isPrivate** | **kotlin.Boolean** | Whether or not the comment is internal. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s comment was created. |  [optional]
+**integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
 

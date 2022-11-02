@@ -37,6 +37,8 @@ import dev.merge.client.shared.ApiClient
  * @param ticket 
  * @param isPrivate Whether or not the comment is internal.
  * @param remoteCreatedAt When the third party's comment was created.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -69,7 +71,13 @@ data class CommentRequest (
 
     /* When the third party's comment was created. */
     @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null
+    val remoteCreatedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -97,7 +105,13 @@ data class CommentRequest (
         val isPrivate: JsonNode?,
 
         @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?
+        val remoteCreatedAt: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -113,7 +127,9 @@ data class CommentRequest (
                 htmlBody = ApiClient.jsonConvertSafe(expanded.htmlBody),
                 ticket = ApiClient.jsonConvertSafe(expanded.ticket),
                 isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt)
+                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

@@ -4,9 +4,67 @@ All URIs are relative to *https://api.merge.dev/api/accounting/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**accountsCreate**](AccountsApi.md#accountsCreate) | **POST** /accounts | 
 [**accountsList**](AccountsApi.md#accountsList) | **GET** /accounts | 
+[**accountsMetaPostRetrieve**](AccountsApi.md#accountsMetaPostRetrieve) | **GET** /accounts/meta/post | 
 [**accountsRetrieve**](AccountsApi.md#accountsRetrieve) | **GET** /accounts/{id} | 
 
+
+<a name="accountsCreate"></a>
+# **accountsCreate**
+> AccountResponse accountsCreate(accountEndpointRequest, isDebugMode, runAsync)
+
+
+
+Creates an &#x60;Account&#x60; object with the given values.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = AccountsApi()
+val accountEndpointRequest : AccountEndpointRequest =  // AccountEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : AccountResponse = apiInstance.accountsCreate(accountEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#accountsCreate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#accountsCreate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountEndpointRequest** | [**AccountEndpointRequest**](AccountEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**AccountResponse**](AccountResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
 
 <a name="accountsList"></a>
 # **accountsList**
@@ -63,6 +121,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedAccountList**](PaginatedAccountList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="accountsMetaPostRetrieve"></a>
+# **accountsMetaPostRetrieve**
+> MetaResponse accountsMetaPostRetrieve()
+
+
+
+Returns metadata for &#x60;Account&#x60; POSTs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = AccountsApi()
+try {
+    val result : MetaResponse = apiInstance.accountsMetaPostRetrieve()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#accountsMetaPostRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#accountsMetaPostRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

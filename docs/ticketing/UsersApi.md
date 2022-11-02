@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="usersList"></a>
 # **usersList**
-> PaginatedUserList usersList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+> PaginatedUserList usersList(createdAfter, createdBefore, cursor, emailAddress, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
 
 
 
@@ -26,6 +26,7 @@ val apiInstance = UsersApi()
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val emailAddress : kotlin.String = emailAddress_example // kotlin.String | If provided, will only return users with emails equal to this value (case insensitive).
 val expand : kotlin.String = teams // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
@@ -34,7 +35,7 @@ val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // jav
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedUserList = apiInstance.usersList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+    val result : PaginatedUserList = apiInstance.usersList(createdAfter, createdBefore, cursor, emailAddress, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UsersApi#usersList")
@@ -52,6 +53,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **emailAddress** | **kotlin.String**| If provided, will only return users with emails equal to this value (case insensitive). | [optional]
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: teams]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]

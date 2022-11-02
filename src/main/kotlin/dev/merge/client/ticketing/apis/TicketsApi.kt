@@ -65,18 +65,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class TicketsListRequest (
         val accountId: kotlin.String? = null,
+        val assigneeIds: kotlin.String? = null,
+        val completedAfter: java.time.OffsetDateTime? = null,
+        val completedBefore: java.time.OffsetDateTime? = null,
+        val contactId: kotlin.String? = null,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val dueAfter: java.time.OffsetDateTime? = null,
+        val dueBefore: java.time.OffsetDateTime? = null,
         val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
+        val parentTicketId: kotlin.String? = null,
+        val priority: kotlin.String? = null,
         val projectId: kotlin.String? = null,
         val remoteFields: kotlin.String? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val status: kotlin.String? = null,
+        val tags: kotlin.String? = null,
+        val ticketType: kotlin.String? = null
     )
 
     data class TicketsMetaPatchRetrieveRequest (
@@ -220,18 +231,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * 
     * Returns a list of &#x60;Ticket&#x60; objects.
      * @param accountId If provided, will only return tickets for this account. (optional)
+     * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional)
+     * @param completedAfter If provided, will only return tickets completed after this datetime. (optional)
+     * @param completedBefore If provided, will only return tickets completed before this datetime. (optional)
+     * @param contactId If provided, will only return tickets for this contact. (optional)
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param dueAfter If provided, will only return tickets due after this datetime. (optional)
+     * @param dueBefore If provided, will only return tickets due before this datetime. (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
+     * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional)
+     * @param priority If provided, will only return tickets of this priority. (optional)
      * @param projectId If provided, will only return tickets for this project. (optional)
      * @param remoteFields Which fields should be returned in non-normalized form. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param status If provided, will only return tickets of this status. (optional)
+     * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional)
+     * @param ticketType If provided, will only return tickets of this type. (optional)
      * @return PaginatedTicketList
     */
     @Suppress("UNCHECKED_CAST")
@@ -245,7 +267,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountId If provided, will only return tickets for this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param accountId If provided, will only return tickets for this account. (optional) * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional) * @param completedAfter If provided, will only return tickets completed after this datetime. (optional) * @param completedBefore If provided, will only return tickets completed before this datetime. (optional) * @param contactId If provided, will only return tickets for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param dueAfter If provided, will only return tickets due after this datetime. (optional) * @param dueBefore If provided, will only return tickets due before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional) * @param priority If provided, will only return tickets of this priority. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param status If provided, will only return tickets of this status. (optional) * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional) * @param ticketType If provided, will only return tickets of this type. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsListExpanded(requestModel: TicketsApi.TicketsListRequest): MergePaginatedResponse<Ticket.Expanded> {
@@ -266,18 +288,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.accountId?.apply { localVariableQuery["account_id"] = listOf(this) }
+            requestModel.assigneeIds?.apply { localVariableQuery["assignee_ids"] = listOf(this) }
+            requestModel.completedAfter?.apply { localVariableQuery["completed_after"] = listOf("$this") }
+            requestModel.completedBefore?.apply { localVariableQuery["completed_before"] = listOf("$this") }
+            requestModel.contactId?.apply { localVariableQuery["contact_id"] = listOf(this) }
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.dueAfter?.apply { localVariableQuery["due_after"] = listOf("$this") }
+            requestModel.dueBefore?.apply { localVariableQuery["due_before"] = listOf("$this") }
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+            requestModel.parentTicketId?.apply { localVariableQuery["parent_ticket_id"] = listOf(this) }
+            requestModel.priority?.apply { localVariableQuery["priority"] = listOf(this) }
             requestModel.projectId?.apply { localVariableQuery["project_id"] = listOf(this) }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.status?.apply { localVariableQuery["status"] = listOf(this) }
+            requestModel.tags?.apply { localVariableQuery["tags"] = listOf(this) }
+            requestModel.ticketType?.apply { localVariableQuery["ticket_type"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -404,7 +437,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
-    * 
+    * Updates a &#x60;Ticket&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param patchedTicketEndpointRequest  
      * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)

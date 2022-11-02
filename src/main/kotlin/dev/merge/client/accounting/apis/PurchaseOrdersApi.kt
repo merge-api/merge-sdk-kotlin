@@ -20,7 +20,10 @@
 
 package dev.merge.client.accounting.apis
 
+import dev.merge.client.accounting.models.MetaResponse
 import dev.merge.client.accounting.models.PurchaseOrder
+import dev.merge.client.accounting.models.PurchaseOrderEndpointRequest
+import dev.merge.client.accounting.models.PurchaseOrderResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class PurchaseOrdersCreateRequest (
+        val purchaseOrderEndpointRequest: PurchaseOrderEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class PurchaseOrdersListRequest (
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
@@ -64,6 +73,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val includeRemoteData: kotlin.Boolean? = null,
         val remoteFields: kotlin.String? = null
     )
+
+    /**
+    * 
+    * Creates a &#x60;PurchaseOrder&#x60; object with the given values.
+     * @param purchaseOrderEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return PurchaseOrderResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun purchaseOrdersCreate(requestModel: PurchaseOrdersApi.PurchaseOrdersCreateRequest): PurchaseOrderResponse {
+        return purchaseOrdersCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun purchaseOrdersCreateAsync(requestModel: PurchaseOrdersApi.PurchaseOrdersCreateRequest): CompletableFuture<PurchaseOrderResponse> = GlobalScope.future {
+        purchaseOrdersCreate(requestModel)
+    }
+
+    /**
+     * @param purchaseOrderEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun purchaseOrdersCreateExpanded(requestModel: PurchaseOrdersApi.PurchaseOrdersCreateRequest): PurchaseOrderResponse.Expanded {
+        return purchaseOrdersCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun purchaseOrdersCreateExpandedAsync(requestModel: PurchaseOrdersApi.PurchaseOrdersCreateRequest): CompletableFuture<PurchaseOrderResponse.Expanded> = GlobalScope.future {
+        purchaseOrdersCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> purchaseOrdersCreateImpl(requestModel: PurchaseOrdersApi.PurchaseOrdersCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.purchaseOrderEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/purchase-orders",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -129,6 +195,59 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/purchase-orders",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;PurchaseOrder&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun purchaseOrdersMetaPostRetrieve(): MetaResponse {
+        return purchaseOrdersMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun purchaseOrdersMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        purchaseOrdersMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun purchaseOrdersMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return purchaseOrdersMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun purchaseOrdersMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        purchaseOrdersMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> purchaseOrdersMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/purchase-orders/meta/post",
         query = localVariableQuery,
         headers = localVariableHeaders
         )

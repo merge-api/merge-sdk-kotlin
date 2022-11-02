@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **item** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **account** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **trackingCategory** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
 

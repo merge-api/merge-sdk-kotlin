@@ -22,7 +22,6 @@ package dev.merge.client.accounting.models
 
 import dev.merge.client.accounting.models.AddressTypeEnum
 import dev.merge.client.accounting.models.CountryEnum
-import dev.merge.client.accounting.models.StateEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -36,7 +35,8 @@ import dev.merge.client.shared.ApiClient
  * @param street1 Line 1 of the address's street.
  * @param street2 Line 2 of the address's street.
  * @param city The address's city.
- * @param state The address's state.
+ * @param state The address's state or region.
+ * @param countrySubdivision The address's state or region.
  * @param country The address's country.
  * @param zipCode The address's zip code.
  */
@@ -60,9 +60,13 @@ data class Address (
     @field:JsonProperty("city")
     val city: kotlin.String? = null,
 
-    /* The address's state. */
+    /* The address's state or region. */
     @field:JsonProperty("state")
-    val state: StateEnum? = null,
+    val state: kotlin.Any? = null,
+
+    /* The address's state or region. */
+    @field:JsonProperty("country_subdivision")
+    val countrySubdivision: kotlin.String? = null,
 
     /* The address's country. */
     @field:JsonProperty("country")
@@ -91,6 +95,9 @@ data class Address (
         @field:JsonProperty("state")
         val state: JsonNode?,
 
+        @field:JsonProperty("country_subdivision")
+        val countrySubdivision: JsonNode?,
+
         @field:JsonProperty("country")
         val country: JsonNode?,
 
@@ -109,6 +116,7 @@ data class Address (
                 street2 = ApiClient.jsonConvertSafe(expanded.street2),
                 city = ApiClient.jsonConvertSafe(expanded.city),
                 state = ApiClient.jsonConvertSafe(expanded.state),
+                countrySubdivision = ApiClient.jsonConvertSafe(expanded.countrySubdivision),
                 country = ApiClient.jsonConvertSafe(expanded.country),
                 zipCode = ApiClient.jsonConvertSafe(expanded.zipCode)
             )

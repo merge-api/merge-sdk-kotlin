@@ -20,7 +20,10 @@
 
 package dev.merge.client.accounting.apis
 
+import dev.merge.client.accounting.models.MetaResponse
 import dev.merge.client.accounting.models.Payment
+import dev.merge.client.accounting.models.PaymentEndpointRequest
+import dev.merge.client.accounting.models.PaymentResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class PaymentsCreateRequest (
+        val paymentEndpointRequest: PaymentEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class PaymentsListRequest (
         val accountId: kotlin.String? = null,
         val contactId: kotlin.String? = null,
@@ -64,6 +73,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
+
+    /**
+    * 
+    * Creates a &#x60;Payment&#x60; object with the given values.
+     * @param paymentEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return PaymentResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun paymentsCreate(requestModel: PaymentsApi.PaymentsCreateRequest): PaymentResponse {
+        return paymentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsCreateAsync(requestModel: PaymentsApi.PaymentsCreateRequest): CompletableFuture<PaymentResponse> = GlobalScope.future {
+        paymentsCreate(requestModel)
+    }
+
+    /**
+     * @param paymentEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun paymentsCreateExpanded(requestModel: PaymentsApi.PaymentsCreateRequest): PaymentResponse.Expanded {
+        return paymentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsCreateExpandedAsync(requestModel: PaymentsApi.PaymentsCreateRequest): CompletableFuture<PaymentResponse.Expanded> = GlobalScope.future {
+        paymentsCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> paymentsCreateImpl(requestModel: PaymentsApi.PaymentsCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.paymentEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/payments",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -131,6 +197,59 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/payments",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Payment&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun paymentsMetaPostRetrieve(): MetaResponse {
+        return paymentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        paymentsMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun paymentsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return paymentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun paymentsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        paymentsMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> paymentsMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/payments/meta/post",
         query = localVariableQuery,
         headers = localVariableHeaders
         )

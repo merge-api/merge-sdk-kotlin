@@ -4,9 +4,67 @@ All URIs are relative to *https://api.merge.dev/api/accounting/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**paymentsCreate**](PaymentsApi.md#paymentsCreate) | **POST** /payments | 
 [**paymentsList**](PaymentsApi.md#paymentsList) | **GET** /payments | 
+[**paymentsMetaPostRetrieve**](PaymentsApi.md#paymentsMetaPostRetrieve) | **GET** /payments/meta/post | 
 [**paymentsRetrieve**](PaymentsApi.md#paymentsRetrieve) | **GET** /payments/{id} | 
 
+
+<a name="paymentsCreate"></a>
+# **paymentsCreate**
+> PaymentResponse paymentsCreate(paymentEndpointRequest, isDebugMode, runAsync)
+
+
+
+Creates a &#x60;Payment&#x60; object with the given values.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = PaymentsApi()
+val paymentEndpointRequest : PaymentEndpointRequest =  // PaymentEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : PaymentResponse = apiInstance.paymentsCreate(paymentEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling PaymentsApi#paymentsCreate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling PaymentsApi#paymentsCreate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **paymentEndpointRequest** | [**PaymentEndpointRequest**](PaymentEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**PaymentResponse**](PaymentResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
 
 <a name="paymentsList"></a>
 # **paymentsList**
@@ -67,6 +125,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedPaymentList**](PaginatedPaymentList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="paymentsMetaPostRetrieve"></a>
+# **paymentsMetaPostRetrieve**
+> MetaResponse paymentsMetaPostRetrieve()
+
+
+
+Returns metadata for &#x60;Payment&#x60; POSTs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = PaymentsApi()
+try {
+    val result : MetaResponse = apiInstance.paymentsMetaPostRetrieve()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling PaymentsApi#paymentsMetaPostRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling PaymentsApi#paymentsMetaPostRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

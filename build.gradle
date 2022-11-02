@@ -21,7 +21,7 @@ plugins {
 }
 
 group 'dev.merge'
-version '2.0.2'
+version '2.0.3'
 
 wrapper {
     gradleVersion = '6.8.3'

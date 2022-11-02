@@ -28,10 +28,12 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Url Object ### Description The `Url` object is used to represent a candidate's website. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
+ * # The Url Object ### Description The `Url` object is used to represent hyperlinks associated with the parent model. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
  *
  * @param `value` The site's url.
  * @param urlType The type of site.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,7 +45,13 @@ data class UrlRequest (
 
     /* The type of site. */
     @field:JsonProperty("url_type")
-    val urlType: UrlTypeEnum? = null
+    val urlType: UrlTypeEnum? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -53,7 +61,13 @@ data class UrlRequest (
         val `value`: JsonNode?,
 
         @field:JsonProperty("url_type")
-        val urlType: JsonNode?
+        val urlType: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -63,7 +77,9 @@ data class UrlRequest (
         fun normalize(expanded: UrlRequest.Expanded): UrlRequest {
             return UrlRequest(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                urlType = ApiClient.jsonConvertSafe(expanded.urlType)
+                urlType = ApiClient.jsonConvertSafe(expanded.urlType),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

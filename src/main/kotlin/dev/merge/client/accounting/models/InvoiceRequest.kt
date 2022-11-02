@@ -47,6 +47,8 @@ import dev.merge.client.shared.ApiClient
  * @param balance The invoice's remaining balance.
  * @param remoteUpdatedAt When the third party's invoice entry was updated.
  * @param payments Array of `Payment` object IDs.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -113,7 +115,13 @@ data class InvoiceRequest (
 
     /* Array of `Payment` object IDs. */
     @field:JsonProperty("payments")
-    val payments: kotlin.collections.List<java.util.UUID>? = null
+    val payments: kotlin.collections.List<java.util.UUID>? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -165,7 +173,13 @@ data class InvoiceRequest (
         val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("payments")
-        val payments: kotlin.collections.List<JsonNode>?
+        val payments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -189,7 +203,9 @@ data class InvoiceRequest (
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 balance = ApiClient.jsonConvertSafe(expanded.balance),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                payments = ApiClient.jsonConvertSafe(expanded.payments)
+                payments = ApiClient.jsonConvertSafe(expanded.payments),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

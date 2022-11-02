@@ -37,6 +37,8 @@ import dev.merge.client.shared.ApiClient
  * @param payments Array of `Payment` object IDs.
  * @param memo The journal entry's private note.
  * @param currency The journal's currency.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,7 +70,13 @@ data class JournalEntryRequest (
 
     /* The journal's currency. */
     @field:JsonProperty("currency")
-    val currency: CurrencyEnum? = null
+    val currency: CurrencyEnum? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -93,7 +101,13 @@ data class JournalEntryRequest (
         val memo: JsonNode?,
 
         @field:JsonProperty("currency")
-        val currency: JsonNode?
+        val currency: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -108,7 +122,9 @@ data class JournalEntryRequest (
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
-                currency = ApiClient.jsonConvertSafe(expanded.currency)
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }
