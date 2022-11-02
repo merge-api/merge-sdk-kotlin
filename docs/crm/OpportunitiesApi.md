@@ -254,6 +254,8 @@ Configure bearerAuth:
 
 
 
+Updates an &#x60;Opportunity&#x60; object with the given &#x60;id&#x60;.
+
 ### Example
 ```kotlin
 // Import classes:

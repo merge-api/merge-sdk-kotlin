@@ -36,9 +36,10 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param name The ticket's name.
  * @param assignees 
+ * @param creator 
  * @param dueDate The ticket's due date.
  * @param status The current status of the ticket.
- * @param description The ticket's description.
+ * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project 
  * @param ticketType The ticket's type.
  * @param account 
@@ -72,6 +73,9 @@ data class Ticket (
     @field:JsonProperty("assignees")
     val assignees: kotlin.collections.List<java.util.UUID>? = null,
 
+    @field:JsonProperty("creator")
+    val creator: java.util.UUID? = null,
+
     /* The ticket's due date. */
     @field:JsonProperty("due_date")
     val dueDate: java.time.OffsetDateTime? = null,
@@ -80,7 +84,7 @@ data class Ticket (
     @field:JsonProperty("status")
     val status: TicketStatusEnum? = null,
 
-    /* The ticket's description. */
+    /* The ticket’s description. HTML version of description is mapped if supported by the third-party platform. */
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
@@ -148,6 +152,9 @@ data class Ticket (
         @field:JsonProperty("assignees")
         val assignees: kotlin.collections.List<JsonNode>?,
 
+        @field:JsonProperty("creator")
+        val creator: JsonNode?,
+
         @field:JsonProperty("due_date")
         val dueDate: JsonNode?,
 
@@ -210,6 +217,7 @@ data class Ticket (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 assignees = ApiClient.jsonConvertSafe(expanded.assignees),
+                creator = ApiClient.jsonConvertSafe(expanded.creator),
                 dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 description = ApiClient.jsonConvertSafe(expanded.description),

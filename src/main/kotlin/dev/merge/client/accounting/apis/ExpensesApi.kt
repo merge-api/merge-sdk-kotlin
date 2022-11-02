@@ -21,6 +21,9 @@
 package dev.merge.client.accounting.apis
 
 import dev.merge.client.accounting.models.Expense
+import dev.merge.client.accounting.models.ExpenseEndpointRequest
+import dev.merge.client.accounting.models.ExpenseResponse
+import dev.merge.client.accounting.models.MetaResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class ExpensesCreateRequest (
+        val expenseEndpointRequest: ExpenseEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class ExpensesListRequest (
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
@@ -62,6 +71,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
     )
+
+    /**
+    * 
+    * Creates an &#x60;Expense&#x60; object with the given values.
+     * @param expenseEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return ExpenseResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun expensesCreate(requestModel: ExpensesApi.ExpensesCreateRequest): ExpenseResponse {
+        return expensesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesCreateAsync(requestModel: ExpensesApi.ExpensesCreateRequest): CompletableFuture<ExpenseResponse> = GlobalScope.future {
+        expensesCreate(requestModel)
+    }
+
+    /**
+     * @param expenseEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun expensesCreateExpanded(requestModel: ExpensesApi.ExpensesCreateRequest): ExpenseResponse.Expanded {
+        return expensesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesCreateExpandedAsync(requestModel: ExpensesApi.ExpensesCreateRequest): CompletableFuture<ExpenseResponse.Expanded> = GlobalScope.future {
+        expensesCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> expensesCreateImpl(requestModel: ExpensesApi.ExpensesCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.expenseEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/expenses",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -125,6 +191,59 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/expenses",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Expense&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun expensesMetaPostRetrieve(): MetaResponse {
+        return expensesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        expensesMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun expensesMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return expensesMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun expensesMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        expensesMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> expensesMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/expenses/meta/post",
         query = localVariableQuery,
         headers = localVariableHeaders
         )

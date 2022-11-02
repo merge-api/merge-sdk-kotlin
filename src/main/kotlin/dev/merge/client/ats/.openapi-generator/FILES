@@ -30,6 +30,8 @@ docs/CandidateResponse.md
 docs/CandidatesApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
+docs/ConditionSchema.md
+docs/ConditionTypeEnum.md
 docs/DataPassthroughRequest.md
 docs/DebugModeLog.md
 docs/DebugModelLogSummary.md
@@ -62,6 +64,11 @@ docs/JobStatusEnum.md
 docs/JobsApi.md
 docs/LinkToken.md
 docs/LinkTokenApi.md
+docs/LinkedAccountCondition.md
+docs/LinkedAccountConditionRequest.md
+docs/LinkedAccountSelectiveSyncConfiguration.md
+docs/LinkedAccountSelectiveSyncConfigurationListRequest.md
+docs/LinkedAccountSelectiveSyncConfigurationRequest.md
 docs/LinkedAccountStatus.md
 docs/LinkedAccountsApi.md
 docs/MetaResponse.md
@@ -73,6 +80,7 @@ docs/OfferStatusEnum.md
 docs/OffersApi.md
 docs/Office.md
 docs/OfficesApi.md
+docs/OperatorSchema.md
 docs/OverallRecommendationEnum.md
 docs/PassthroughApi.md
 docs/PhoneNumber.md
@@ -93,6 +101,7 @@ docs/ScheduledInterview.md
 docs/ScheduledInterviewStatusEnum.md
 docs/Scorecard.md
 docs/ScorecardsApi.md
+docs/SelectiveSyncApi.md
 docs/SyncStatus.md
 docs/SyncStatusApi.md
 docs/SyncStatusStatusEnum.md
@@ -134,6 +143,7 @@ src/main/kotlin/dev/merge/client/ats/apis/PassthroughApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/RegenerateKeyApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/RejectReasonsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/ScorecardsApi.kt
+src/main/kotlin/dev/merge/client/ats/apis/SelectiveSyncApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/SyncStatusApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/TagsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/UsersApi.kt
@@ -163,6 +173,8 @@ src/main/kotlin/dev/merge/client/ats/models/CandidateRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/CandidateResponse.kt
 src/main/kotlin/dev/merge/client/ats/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/CategoryEnum.kt
+src/main/kotlin/dev/merge/client/ats/models/ConditionSchema.kt
+src/main/kotlin/dev/merge/client/ats/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/DataPassthroughRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/DebugModeLog.kt
 src/main/kotlin/dev/merge/client/ats/models/DebugModelLogSummary.kt
@@ -185,6 +197,11 @@ src/main/kotlin/dev/merge/client/ats/models/Job.kt
 src/main/kotlin/dev/merge/client/ats/models/JobInterviewStage.kt
 src/main/kotlin/dev/merge/client/ats/models/JobStatusEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/LinkToken.kt
+src/main/kotlin/dev/merge/client/ats/models/LinkedAccountCondition.kt
+src/main/kotlin/dev/merge/client/ats/models/LinkedAccountConditionRequest.kt
+src/main/kotlin/dev/merge/client/ats/models/LinkedAccountSelectiveSyncConfiguration.kt
+src/main/kotlin/dev/merge/client/ats/models/LinkedAccountSelectiveSyncConfigurationListRequest.kt
+src/main/kotlin/dev/merge/client/ats/models/LinkedAccountSelectiveSyncConfigurationRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/LinkedAccountStatus.kt
 src/main/kotlin/dev/merge/client/ats/models/MetaResponse.kt
 src/main/kotlin/dev/merge/client/ats/models/MethodEnum.kt
@@ -193,6 +210,7 @@ src/main/kotlin/dev/merge/client/ats/models/MultipartFormFieldRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/Offer.kt
 src/main/kotlin/dev/merge/client/ats/models/OfferStatusEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/Office.kt
+src/main/kotlin/dev/merge/client/ats/models/OperatorSchema.kt
 src/main/kotlin/dev/merge/client/ats/models/OverallRecommendationEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/PhoneNumber.kt
 src/main/kotlin/dev/merge/client/ats/models/PhoneNumberRequest.kt

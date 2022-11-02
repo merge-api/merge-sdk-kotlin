@@ -30,9 +30,9 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
- * @param endUserEmailAddress Your end user's email address.
+ * @param endUserEmailAddress Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
  * @param endUserOrganizationName Your end user's organization.
- * @param endUserOriginId Unique ID for your end user.
+ * @param endUserOriginId This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
  * @param categories The integration categories to show in Merge Link.
  * @param integration The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://www.merge.dev/docs/basics/integration-metadata/.
  * @param linkExpiryMins An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
@@ -42,7 +42,7 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class EndUserDetailsRequest (
 
-    /* Your end user's email address. */
+    /* Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent. */
     @field:JsonProperty("end_user_email_address")
     val endUserEmailAddress: kotlin.String,
 
@@ -50,7 +50,7 @@ data class EndUserDetailsRequest (
     @field:JsonProperty("end_user_organization_name")
     val endUserOrganizationName: kotlin.String,
 
-    /* Unique ID for your end user. */
+    /* This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers. */
     @field:JsonProperty("end_user_origin_id")
     val endUserOriginId: kotlin.String,
 

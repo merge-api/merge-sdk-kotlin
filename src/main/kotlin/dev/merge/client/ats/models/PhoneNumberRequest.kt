@@ -32,6 +32,8 @@ import dev.merge.client.shared.ApiClient
  *
  * @param `value` The phone number.
  * @param phoneNumberType The type of phone number.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,7 +45,13 @@ data class PhoneNumberRequest (
 
     /* The type of phone number. */
     @field:JsonProperty("phone_number_type")
-    val phoneNumberType: PhoneNumberTypeEnum? = null
+    val phoneNumberType: PhoneNumberTypeEnum? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -53,7 +61,13 @@ data class PhoneNumberRequest (
         val `value`: JsonNode?,
 
         @field:JsonProperty("phone_number_type")
-        val phoneNumberType: JsonNode?
+        val phoneNumberType: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -63,7 +77,9 @@ data class PhoneNumberRequest (
         fun normalize(expanded: PhoneNumberRequest.Expanded): PhoneNumberRequest {
             return PhoneNumberRequest(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType)
+                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

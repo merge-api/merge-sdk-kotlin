@@ -339,7 +339,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
-    * 
+    * Updates an &#x60;Opportunity&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param patchedOpportunityEndpointRequest  
      * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)

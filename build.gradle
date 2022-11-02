@@ -21,7 +21,7 @@ plugins {
 }
 
 group 'dev.merge'
-version '2.0.2'
+version '2.0.3'
 
 wrapper {
     gradleVersion = '6.8.3'
@@ -52,10 +52,12 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 task javadocJar(type: Jar) {
+    classifier = 'javadoc'
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
+    classifier = 'sources'
     from sourceSets.main.allSource
 }
 
@@ -84,17 +86,20 @@ dependencies {
     testImplementation "junit:junit:$java_junit_version"
 }
 
+def sonatype_username = System.getenv("SONATYPE_USERNAME")
+def sonatype_pw = System.getenv("SONATYPE_PASSWORD")
+
 uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: "REDACTED", password: "REDACTED")
+                authentication(userName: sonatype_username, password: sonatype_pw)
             }
 
             snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: "REDACTED", password: "REDACTED")
+                authentication(userName: sonatype_username, password: sonatype_pw)
             }
 
             pom.project {

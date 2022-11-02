@@ -21,6 +21,9 @@
 package dev.merge.client.accounting.apis
 
 import dev.merge.client.accounting.models.Contact
+import dev.merge.client.accounting.models.ContactEndpointRequest
+import dev.merge.client.accounting.models.ContactResponse
+import dev.merge.client.accounting.models.MetaResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class ContactsCreateRequest (
+        val contactEndpointRequest: ContactEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class ContactsListRequest (
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
@@ -64,6 +73,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val includeRemoteData: kotlin.Boolean? = null,
         val remoteFields: kotlin.String? = null
     )
+
+    /**
+    * 
+    * Creates a &#x60;Contact&#x60; object with the given values.
+     * @param contactEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return ContactResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsCreate(requestModel: ContactsApi.ContactsCreateRequest): ContactResponse {
+        return contactsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsCreateAsync(requestModel: ContactsApi.ContactsCreateRequest): CompletableFuture<ContactResponse> = GlobalScope.future {
+        contactsCreate(requestModel)
+    }
+
+    /**
+     * @param contactEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsCreateExpanded(requestModel: ContactsApi.ContactsCreateRequest): ContactResponse.Expanded {
+        return contactsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsCreateExpandedAsync(requestModel: ContactsApi.ContactsCreateRequest): CompletableFuture<ContactResponse.Expanded> = GlobalScope.future {
+        contactsCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> contactsCreateImpl(requestModel: ContactsApi.ContactsCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.contactEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/contacts",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -129,6 +195,59 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/contacts",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Contact&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsMetaPostRetrieve(): MetaResponse {
+        return contactsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        contactsMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return contactsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        contactsMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> contactsMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/contacts/meta/post",
         query = localVariableQuery,
         headers = localVariableHeaders
         )

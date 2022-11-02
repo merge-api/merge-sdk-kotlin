@@ -38,6 +38,8 @@ import dev.merge.client.shared.ApiClient
  * @param postalCode The address's postal code.
  * @param country The address's country.
  * @param addressType The address type.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -69,7 +71,13 @@ data class AddressRequest (
 
     /* The address type. */
     @field:JsonProperty("address_type")
-    val addressType: AddressTypeEnum? = null
+    val addressType: AddressTypeEnum? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -94,7 +102,13 @@ data class AddressRequest (
         val country: JsonNode?,
 
         @field:JsonProperty("address_type")
-        val addressType: JsonNode?
+        val addressType: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -109,7 +123,9 @@ data class AddressRequest (
                 state = ApiClient.jsonConvertSafe(expanded.state),
                 postalCode = ApiClient.jsonConvertSafe(expanded.postalCode),
                 country = ApiClient.jsonConvertSafe(expanded.country),
-                addressType = ApiClient.jsonConvertSafe(expanded.addressType)
+                addressType = ApiClient.jsonConvertSafe(expanded.addressType),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

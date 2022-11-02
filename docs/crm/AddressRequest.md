@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **postalCode** | **kotlin.String** | The address&#39;s postal code. |  [optional]
 **country** | [**CountryEnum**](CountryEnum.md) | The address&#39;s country. |  [optional]
 **addressType** | [**AddressTypeEnum**](AddressTypeEnum.md) | The address type. |  [optional]
+**integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
 

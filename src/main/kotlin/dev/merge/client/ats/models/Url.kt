@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Url Object ### Description The `Url` object is used to represent a candidate's website. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
+ * # The Url Object ### Description The `Url` object is used to represent hyperlinks associated with the parent model. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
  *
  * @param `value` The site's url.
  * @param urlType The type of site.

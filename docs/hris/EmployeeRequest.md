@@ -33,6 +33,8 @@ Name | Type | Description | Notes
 **terminationDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The employee&#39;s termination date. |  [optional]
 **avatar** | [**java.net.URI**](java.net.URI.md) | The URL of the employee&#39;s avatar image. |  [optional]
 **customFields** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) | Custom fields configured for a given model. |  [optional]
+**integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
 

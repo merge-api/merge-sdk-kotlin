@@ -37,6 +37,8 @@ import dev.merge.client.shared.ApiClient
  * @param item 
  * @param account 
  * @param trackingCategory 
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -69,7 +71,13 @@ data class InvoiceLineItemRequest (
     val account: java.util.UUID? = null,
 
     @field:JsonProperty("tracking_category")
-    val trackingCategory: java.util.UUID? = null
+    val trackingCategory: java.util.UUID? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -97,7 +105,13 @@ data class InvoiceLineItemRequest (
         val account: JsonNode?,
 
         @field:JsonProperty("tracking_category")
-        val trackingCategory: JsonNode?
+        val trackingCategory: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -113,7 +127,9 @@ data class InvoiceLineItemRequest (
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 account = ApiClient.jsonConvertSafe(expanded.account),
-                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory)
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

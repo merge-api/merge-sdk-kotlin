@@ -21,6 +21,8 @@ docs/CRMContactEndpointRequest.md
 docs/CRMContactResponse.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
+docs/ConditionSchema.md
+docs/ConditionTypeEnum.md
 docs/Contact.md
 docs/ContactRequest.md
 docs/ContactsApi.md
@@ -55,6 +57,11 @@ docs/LeadResponse.md
 docs/LeadsApi.md
 docs/LinkToken.md
 docs/LinkTokenApi.md
+docs/LinkedAccountCondition.md
+docs/LinkedAccountConditionRequest.md
+docs/LinkedAccountSelectiveSyncConfiguration.md
+docs/LinkedAccountSelectiveSyncConfigurationListRequest.md
+docs/LinkedAccountSelectiveSyncConfigurationRequest.md
 docs/LinkedAccountStatus.md
 docs/LinkedAccountsApi.md
 docs/MetaResponse.md
@@ -66,6 +73,7 @@ docs/NoteEndpointRequest.md
 docs/NoteRequest.md
 docs/NoteResponse.md
 docs/NotesApi.md
+docs/OperatorSchema.md
 docs/OpportunitiesApi.md
 docs/Opportunity.md
 docs/OpportunityEndpointRequest.md
@@ -83,6 +91,7 @@ docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RequestFormatEnum.md
 docs/ResponseTypeEnum.md
+docs/SelectiveSyncApi.md
 docs/Stage.md
 docs/StagesApi.md
 docs/SyncStatus.md
@@ -116,6 +125,7 @@ src/main/kotlin/dev/merge/client/crm/apis/NotesApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/OpportunitiesApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/PassthroughApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/RegenerateKeyApi.kt
+src/main/kotlin/dev/merge/client/crm/apis/SelectiveSyncApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/StagesApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/SyncStatusApi.kt
 src/main/kotlin/dev/merge/client/crm/apis/TasksApi.kt
@@ -140,6 +150,8 @@ src/main/kotlin/dev/merge/client/crm/models/CRMContactEndpointRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/CRMContactResponse.kt
 src/main/kotlin/dev/merge/client/crm/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/crm/models/CategoryEnum.kt
+src/main/kotlin/dev/merge/client/crm/models/ConditionSchema.kt
+src/main/kotlin/dev/merge/client/crm/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/crm/models/Contact.kt
 src/main/kotlin/dev/merge/client/crm/models/ContactRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/CountryEnum.kt
@@ -165,6 +177,11 @@ src/main/kotlin/dev/merge/client/crm/models/LeadEndpointRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/LeadRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/LeadResponse.kt
 src/main/kotlin/dev/merge/client/crm/models/LinkToken.kt
+src/main/kotlin/dev/merge/client/crm/models/LinkedAccountCondition.kt
+src/main/kotlin/dev/merge/client/crm/models/LinkedAccountConditionRequest.kt
+src/main/kotlin/dev/merge/client/crm/models/LinkedAccountSelectiveSyncConfiguration.kt
+src/main/kotlin/dev/merge/client/crm/models/LinkedAccountSelectiveSyncConfigurationListRequest.kt
+src/main/kotlin/dev/merge/client/crm/models/LinkedAccountSelectiveSyncConfigurationRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/LinkedAccountStatus.kt
 src/main/kotlin/dev/merge/client/crm/models/MetaResponse.kt
 src/main/kotlin/dev/merge/client/crm/models/MethodEnum.kt
@@ -174,6 +191,7 @@ src/main/kotlin/dev/merge/client/crm/models/Note.kt
 src/main/kotlin/dev/merge/client/crm/models/NoteEndpointRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/NoteRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/NoteResponse.kt
+src/main/kotlin/dev/merge/client/crm/models/OperatorSchema.kt
 src/main/kotlin/dev/merge/client/crm/models/Opportunity.kt
 src/main/kotlin/dev/merge/client/crm/models/OpportunityEndpointRequest.kt
 src/main/kotlin/dev/merge/client/crm/models/OpportunityRequest.kt

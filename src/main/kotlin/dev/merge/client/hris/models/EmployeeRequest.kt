@@ -62,6 +62,8 @@ import dev.merge.client.shared.ApiClient
  * @param terminationDate The employee's termination date.
  * @param avatar The URL of the employee's avatar image.
  * @param customFields Custom fields configured for a given model.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -175,7 +177,13 @@ data class EmployeeRequest (
 
     /* Custom fields configured for a given model. */
     @field:JsonProperty("custom_fields")
-    val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -266,7 +274,13 @@ data class EmployeeRequest (
         val avatar: JsonNode?,
 
         @field:JsonProperty("custom_fields")
-        val customFields: JsonNode?
+        val customFields: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -303,7 +317,9 @@ data class EmployeeRequest (
                 employmentStatus = ApiClient.jsonConvertSafe(expanded.employmentStatus),
                 terminationDate = ApiClient.jsonConvertSafe(expanded.terminationDate),
                 avatar = ApiClient.jsonConvertSafe(expanded.avatar),
-                customFields = ApiClient.jsonConvertSafe(expanded.customFields)
+                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

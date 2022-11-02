@@ -4,9 +4,67 @@ All URIs are relative to *https://api.merge.dev/api/accounting/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**expensesCreate**](ExpensesApi.md#expensesCreate) | **POST** /expenses | 
 [**expensesList**](ExpensesApi.md#expensesList) | **GET** /expenses | 
+[**expensesMetaPostRetrieve**](ExpensesApi.md#expensesMetaPostRetrieve) | **GET** /expenses/meta/post | 
 [**expensesRetrieve**](ExpensesApi.md#expensesRetrieve) | **GET** /expenses/{id} | 
 
+
+<a name="expensesCreate"></a>
+# **expensesCreate**
+> ExpenseResponse expensesCreate(expenseEndpointRequest, isDebugMode, runAsync)
+
+
+
+Creates an &#x60;Expense&#x60; object with the given values.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = ExpensesApi()
+val expenseEndpointRequest : ExpenseEndpointRequest =  // ExpenseEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : ExpenseResponse = apiInstance.expensesCreate(expenseEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ExpensesApi#expensesCreate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ExpensesApi#expensesCreate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **expenseEndpointRequest** | [**ExpenseEndpointRequest**](ExpenseEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**ExpenseResponse**](ExpenseResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
 
 <a name="expensesList"></a>
 # **expensesList**
@@ -63,6 +121,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedExpenseList**](PaginatedExpenseList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="expensesMetaPostRetrieve"></a>
+# **expensesMetaPostRetrieve**
+> MetaResponse expensesMetaPostRetrieve()
+
+
+
+Returns metadata for &#x60;Expense&#x60; POSTs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = ExpensesApi()
+try {
+    val result : MetaResponse = apiInstance.expensesMetaPostRetrieve()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ExpensesApi#expensesMetaPostRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ExpensesApi#expensesMetaPostRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

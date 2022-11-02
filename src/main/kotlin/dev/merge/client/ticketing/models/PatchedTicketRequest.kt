@@ -33,9 +33,10 @@ import dev.merge.client.shared.ApiClient
  *
  * @param name The ticket's name.
  * @param assignees 
+ * @param creator 
  * @param dueDate The ticket's due date.
  * @param status The current status of the ticket.
- * @param description The ticket's description.
+ * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project 
  * @param ticketType The ticket's type.
  * @param account 
@@ -47,6 +48,8 @@ import dev.merge.client.shared.ApiClient
  * @param completedAt When the ticket was completed.
  * @param ticketUrl The 3rd party url of the Ticket.
  * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+ * @param integrationParams 
+ * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -59,6 +62,9 @@ data class PatchedTicketRequest (
     @field:JsonProperty("assignees")
     val assignees: kotlin.collections.List<java.util.UUID>? = null,
 
+    @field:JsonProperty("creator")
+    val creator: java.util.UUID? = null,
+
     /* The ticket's due date. */
     @field:JsonProperty("due_date")
     val dueDate: java.time.OffsetDateTime? = null,
@@ -67,7 +73,7 @@ data class PatchedTicketRequest (
     @field:JsonProperty("status")
     val status: TicketStatusEnum? = null,
 
-    /* The ticket's description. */
+    /* The ticket’s description. HTML version of description is mapped if supported by the third-party platform. */
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
@@ -108,7 +114,13 @@ data class PatchedTicketRequest (
 
     /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
     @field:JsonProperty("priority")
-    val priority: PriorityEnum? = null
+    val priority: PriorityEnum? = null,
+
+    @field:JsonProperty("integration_params")
+    val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("linked_account_params")
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -119,6 +131,9 @@ data class PatchedTicketRequest (
 
         @field:JsonProperty("assignees")
         val assignees: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("creator")
+        val creator: JsonNode?,
 
         @field:JsonProperty("due_date")
         val dueDate: JsonNode?,
@@ -160,7 +175,13 @@ data class PatchedTicketRequest (
         val ticketUrl: JsonNode?,
 
         @field:JsonProperty("priority")
-        val priority: JsonNode?
+        val priority: JsonNode?,
+
+        @field:JsonProperty("integration_params")
+        val integrationParams: JsonNode?,
+
+        @field:JsonProperty("linked_account_params")
+        val linkedAccountParams: JsonNode?
 
     )
 
@@ -171,6 +192,7 @@ data class PatchedTicketRequest (
             return PatchedTicketRequest(
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 assignees = ApiClient.jsonConvertSafe(expanded.assignees),
+                creator = ApiClient.jsonConvertSafe(expanded.creator),
                 dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 description = ApiClient.jsonConvertSafe(expanded.description),
@@ -184,7 +206,9 @@ data class PatchedTicketRequest (
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
-                priority = ApiClient.jsonConvertSafe(expanded.priority)
+                priority = ApiClient.jsonConvertSafe(expanded.priority),
+                integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )
         }
     }

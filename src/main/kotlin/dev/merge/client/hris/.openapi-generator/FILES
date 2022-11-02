@@ -17,6 +17,8 @@ docs/CategoriesEnum.md
 docs/CategoryEnum.md
 docs/CompaniesApi.md
 docs/Company.md
+docs/ConditionSchema.md
+docs/ConditionTypeEnum.md
 docs/CountryEnum.md
 docs/DataPassthroughRequest.md
 docs/DebugModeLog.md
@@ -56,6 +58,11 @@ docs/IssueStatusEnum.md
 docs/IssuesApi.md
 docs/LinkToken.md
 docs/LinkTokenApi.md
+docs/LinkedAccountCondition.md
+docs/LinkedAccountConditionRequest.md
+docs/LinkedAccountSelectiveSyncConfiguration.md
+docs/LinkedAccountSelectiveSyncConfigurationListRequest.md
+docs/LinkedAccountSelectiveSyncConfigurationRequest.md
 docs/LinkedAccountStatus.md
 docs/LinkedAccountsApi.md
 docs/Location.md
@@ -66,6 +73,7 @@ docs/MetaResponse.md
 docs/MethodEnum.md
 docs/ModelOperation.md
 docs/MultipartFormFieldRequest.md
+docs/OperatorSchema.md
 docs/PassthroughApi.md
 docs/PayCurrencyEnum.md
 docs/PayFrequencyEnum.md
@@ -85,6 +93,7 @@ docs/RequestTypeEnum.md
 docs/ResponseTypeEnum.md
 docs/RunStateEnum.md
 docs/RunTypeEnum.md
+docs/SelectiveSyncApi.md
 docs/SyncStatus.md
 docs/SyncStatusApi.md
 docs/SyncStatusStatusEnum.md
@@ -127,6 +136,7 @@ src/main/kotlin/dev/merge/client/hris/apis/PassthroughApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/PayGroupsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/PayrollRunsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/RegenerateKeyApi.kt
+src/main/kotlin/dev/merge/client/hris/apis/SelectiveSyncApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/SyncStatusApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/TeamsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/TimeOffApi.kt
@@ -145,6 +155,8 @@ src/main/kotlin/dev/merge/client/hris/models/Benefit.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoryEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/Company.kt
+src/main/kotlin/dev/merge/client/hris/models/ConditionSchema.kt
+src/main/kotlin/dev/merge/client/hris/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/CountryEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/DataPassthroughRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/DebugModeLog.kt
@@ -174,6 +186,11 @@ src/main/kotlin/dev/merge/client/hris/models/IgnoreCommonModelRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/Issue.kt
 src/main/kotlin/dev/merge/client/hris/models/IssueStatusEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/LinkToken.kt
+src/main/kotlin/dev/merge/client/hris/models/LinkedAccountCondition.kt
+src/main/kotlin/dev/merge/client/hris/models/LinkedAccountConditionRequest.kt
+src/main/kotlin/dev/merge/client/hris/models/LinkedAccountSelectiveSyncConfiguration.kt
+src/main/kotlin/dev/merge/client/hris/models/LinkedAccountSelectiveSyncConfigurationListRequest.kt
+src/main/kotlin/dev/merge/client/hris/models/LinkedAccountSelectiveSyncConfigurationRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/LinkedAccountStatus.kt
 src/main/kotlin/dev/merge/client/hris/models/Location.kt
 src/main/kotlin/dev/merge/client/hris/models/LocationTypeEnum.kt
@@ -182,6 +199,7 @@ src/main/kotlin/dev/merge/client/hris/models/MetaResponse.kt
 src/main/kotlin/dev/merge/client/hris/models/MethodEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/ModelOperation.kt
 src/main/kotlin/dev/merge/client/hris/models/MultipartFormFieldRequest.kt
+src/main/kotlin/dev/merge/client/hris/models/OperatorSchema.kt
 src/main/kotlin/dev/merge/client/hris/models/PayCurrencyEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/PayFrequencyEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/PayGroup.kt
