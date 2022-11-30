@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param name The balance sheet's name.
  * @param currency The balance sheet's currency.
+ * @param company The company the balance sheet belongs to.
  * @param date The balance sheet's date. The balance sheet data will reflect the company's financial position this point in time.
  * @param netAssets The balance sheet's net assets.
  * @param assets 
@@ -66,6 +67,10 @@ data class BalanceSheet (
     /* The balance sheet's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The company the balance sheet belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The balance sheet's date. The balance sheet data will reflect the company's financial position this point in time. */
     @field:JsonProperty("date")
@@ -111,6 +116,9 @@ data class BalanceSheet (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("date")
         val date: JsonNode?,
 
@@ -144,6 +152,7 @@ data class BalanceSheet (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 date = ApiClient.jsonConvertSafe(expanded.date),
                 netAssets = ApiClient.jsonConvertSafe(expanded.netAssets),
                 assets = ApiClient.jsonConvertSafe(expanded.assets),

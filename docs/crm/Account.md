@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**owner** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**owner** | [**java.util.UUID**](java.util.UUID.md) | The account&#39;s owner. |  [optional]
 **name** | **kotlin.String** | The account&#39;s name. |  [optional]
 **description** | **kotlin.String** | The account&#39;s description. |  [optional]
 **industry** | **kotlin.String** | The account&#39;s industry. |  [optional]

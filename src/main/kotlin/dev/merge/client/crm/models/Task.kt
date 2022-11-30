@@ -35,8 +35,8 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param subject The task's subject.
  * @param content The task's content.
- * @param owner 
- * @param account 
+ * @param owner The task's owner.
+ * @param account The task's account.
  * @param completedDate When the task is completed.
  * @param dueDate When the task is due.
  * @param status The task's status.
@@ -62,9 +62,11 @@ data class Task (
     @field:JsonProperty("content")
     val content: kotlin.String? = null,
 
+    /* The task's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 
+    /* The task's account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 

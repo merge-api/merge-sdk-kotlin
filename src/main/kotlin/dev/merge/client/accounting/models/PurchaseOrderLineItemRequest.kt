@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -37,6 +38,9 @@ import dev.merge.client.shared.ApiClient
  * @param trackingCategory The purchase order line item's associated tracking category.
  * @param taxAmount The purchase order line item's tax amount.
  * @param totalLineAmount The purchase order line item's total amount.
+ * @param currency The purchase order line item's currency.
+ * @param exchangeRate The purchase order line item's exchange rate.
+ * @param company The company the purchase order line item belongs to.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -75,6 +79,18 @@ data class PurchaseOrderLineItemRequest (
     @field:JsonProperty("total_line_amount")
     val totalLineAmount: java.math.BigDecimal? = null,
 
+    /* The purchase order line item's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
+
+    /* The purchase order line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the purchase order line item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -109,6 +125,15 @@ data class PurchaseOrderLineItemRequest (
         @field:JsonProperty("total_line_amount")
         val totalLineAmount: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -130,6 +155,9 @@ data class PurchaseOrderLineItemRequest (
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 taxAmount = ApiClient.jsonConvertSafe(expanded.taxAmount),
                 totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

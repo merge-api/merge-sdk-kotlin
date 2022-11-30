@@ -93,7 +93,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/phone-numbers/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        "/phone-numbers/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

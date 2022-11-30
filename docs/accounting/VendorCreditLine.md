@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **trackingCategory** | [**java.util.UUID**](java.util.UUID.md) | The line&#39;s associated tracking category. |  [optional]
 **description** | **kotlin.String** | The line&#39;s description. |  [optional]
 **account** | [**java.util.UUID**](java.util.UUID.md) | The line&#39;s account. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the line belongs to. |  [optional]
 
 
 

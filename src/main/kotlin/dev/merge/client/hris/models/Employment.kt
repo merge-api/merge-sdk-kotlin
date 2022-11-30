@@ -37,13 +37,13 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
+ * @param employee The employee holding this position.
  * @param jobTitle The position's title.
  * @param payRate The position's pay rate in dollars.
  * @param payPeriod The time period this pay rate encompasses.
  * @param payFrequency The position's pay frequency.
  * @param payCurrency The position's currency code.
- * @param payGroup 
+ * @param payGroup The employment's pay group
  * @param flsaStatus The position's FLSA status.
  * @param effectiveDate The position's effective date.
  * @param employmentType The position's type of employment.
@@ -61,6 +61,7 @@ data class Employment (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee holding this position. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
@@ -84,6 +85,7 @@ data class Employment (
     @field:JsonProperty("pay_currency")
     val payCurrency: PayCurrencyEnum? = null,
 
+    /* The employment's pay group */
     @field:JsonProperty("pay_group")
     val payGroup: java.util.UUID? = null,
 

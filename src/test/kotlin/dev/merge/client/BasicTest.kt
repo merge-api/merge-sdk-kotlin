@@ -15,6 +15,7 @@ import dev.merge.client.ticketing.apis.TicketsApi
 import io.ktor.client.plugins.*
 import io.ktor.http.*
 import kotlinx.coroutines.async
+import java.util.*
 import kotlin.test.*
 
 internal class BasicTest {
@@ -75,6 +76,15 @@ internal class BasicTest {
         assertNotNull(accountingAccountsResponse)
         assertNotNull(accountingAccountsResponse.results)
         println(mapper.writeValueAsString(accountingAccountsResponse))
+
+        val singleAccountResult = async { accountsApi.accountsRetrieve(
+            AccountsApi.AccountsRetrieveRequest(
+            accountingAccountsResponse.results!![0].id ?: UUID.randomUUID()
+        )) }.await()
+
+        assertNotNull(singleAccountResult)
+        assertNotNull(singleAccountResult.id)
+        println(mapper.writeValueAsString(singleAccountResult))
 
         // get candidates with expand=applications, check we have an expanded application sub object
         val atsCandidatesExpandedResponse = atsCandidatesExpandedPromise.await()

@@ -90,7 +90,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/account-token/{public_token}".replace("{" + "public_token" + "}", "$requestModel.publicToken"),
+        "/account-token/{public_token}".replace("{" + "public_token" + "}", "${ requestModel.publicToken }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

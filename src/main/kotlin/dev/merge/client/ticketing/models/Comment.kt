@@ -32,11 +32,11 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param user 
- * @param contact 
+ * @param user The author of the Comment, if the author is a User.
+ * @param contact The author of the Comment, if the author is a Contact.
  * @param body The comment's text body.
  * @param htmlBody The comment's text body formatted as html.
- * @param ticket 
+ * @param ticket The ticket associated with the comment. 
  * @param isPrivate Whether or not the comment is internal.
  * @param remoteCreatedAt When the third party's comment was created.
  * @param remoteData 
@@ -53,9 +53,11 @@ data class Comment (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The author of the Comment, if the author is a User. */
     @field:JsonProperty("user")
     val user: java.util.UUID? = null,
 
+    /* The author of the Comment, if the author is a Contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
@@ -67,6 +69,7 @@ data class Comment (
     @field:JsonProperty("html_body")
     val htmlBody: kotlin.String? = null,
 
+    /* The ticket associated with the comment.  */
     @field:JsonProperty("ticket")
     val ticket: java.util.UUID? = null,
 

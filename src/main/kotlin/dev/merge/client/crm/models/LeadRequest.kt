@@ -30,7 +30,7 @@ import dev.merge.client.shared.ApiClient
  * # The Lead Object ### Description The `Lead` object is used to represent a lead in the remote system. ### Usage Example TODO
  *
  * @param remoteId The third-party API ID of the matching object.
- * @param owner 
+ * @param owner The lead's owner.
  * @param leadSource The lead's source.
  * @param title The lead's title.
  * @param company The lead's company.
@@ -39,8 +39,8 @@ import dev.merge.client.shared.ApiClient
  * @param remoteUpdatedAt When the third party's lead was updated.
  * @param remoteCreatedAt When the third party's lead was created.
  * @param convertedDate When the lead was converted.
- * @param convertedContact 
- * @param convertedAccount 
+ * @param convertedContact The contact of the converted lead.
+ * @param convertedAccount The account of the converted lead.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -52,6 +52,7 @@ data class LeadRequest (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The lead's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 
@@ -87,9 +88,11 @@ data class LeadRequest (
     @field:JsonProperty("converted_date")
     val convertedDate: java.time.OffsetDateTime? = null,
 
+    /* The contact of the converted lead. */
     @field:JsonProperty("converted_contact")
     val convertedContact: java.util.UUID? = null,
 
+    /* The account of the converted lead. */
     @field:JsonProperty("converted_account")
     val convertedAccount: java.util.UUID? = null,
 

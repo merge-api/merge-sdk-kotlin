@@ -35,7 +35,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param remoteId The third-party API ID of the matching object.
  * @param employeeNumber The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers.
- * @param company 
+ * @param company The ID of the employee's company.
  * @param firstName The employee's first name.
  * @param lastName The employee's last name.
  * @param displayFullName The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
@@ -45,11 +45,11 @@ import dev.merge.client.shared.ApiClient
  * @param personalEmail The employee's personal email.
  * @param mobilePhoneNumber The employee's mobile phone number.
  * @param employments Array of `Employment` IDs for this Employee.
- * @param homeLocation 
- * @param workLocation 
- * @param manager 
- * @param team 
- * @param payGroup 
+ * @param homeLocation The employee's home address.
+ * @param workLocation The employee's work address.
+ * @param manager The employee ID of the employee's manager.
+ * @param team The employee's team.
+ * @param payGroup The employee's pay group
  * @param ssn The employee's social security number.
  * @param gender The employee's gender.
  * @param ethnicity The employee's ethnicity.
@@ -77,6 +77,7 @@ data class EmployeeRequest (
     @field:JsonProperty("employee_number")
     val employeeNumber: kotlin.String? = null,
 
+    /* The ID of the employee's company. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
 
@@ -115,18 +116,23 @@ data class EmployeeRequest (
     @field:JsonProperty("employments")
     val employments: kotlin.collections.List<java.util.UUID>? = null,
 
+    /* The employee's home address. */
     @field:JsonProperty("home_location")
     val homeLocation: java.util.UUID? = null,
 
+    /* The employee's work address. */
     @field:JsonProperty("work_location")
     val workLocation: java.util.UUID? = null,
 
+    /* The employee ID of the employee's manager. */
     @field:JsonProperty("manager")
     val manager: java.util.UUID? = null,
 
+    /* The employee's team. */
     @field:JsonProperty("team")
     val team: java.util.UUID? = null,
 
+    /* The employee's pay group */
     @field:JsonProperty("pay_group")
     val payGroup: java.util.UUID? = null,
 

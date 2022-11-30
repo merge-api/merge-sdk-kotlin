@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * # The Deduction Object ### Description The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
  *
  * @param id 
- * @param employeePayrollRun 
+ * @param employeePayrollRun The deduction's employee payroll run.
  * @param name The deduction's name.
  * @param employeeDeduction The amount the employee is deducting.
  * @param companyDeduction The amount the company is deducting.
@@ -45,6 +45,7 @@ data class Deduction (
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
+    /* The deduction's employee payroll run. */
     @field:JsonProperty("employee_payroll_run")
     val employeePayrollRun: java.util.UUID? = null,
 

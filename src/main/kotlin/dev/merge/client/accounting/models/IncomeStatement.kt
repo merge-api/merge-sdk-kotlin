@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param name The income statement's name.
  * @param currency The income statement's currency.
+ * @param company The company the income statement belongs to.
  * @param startPeriod The income statement's start period.
  * @param endPeriod The income statement's end period.
  * @param income 
@@ -69,6 +70,10 @@ data class IncomeStatement (
     /* The income statement's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The company the income statement belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The income statement's start period. */
     @field:JsonProperty("start_period")
@@ -125,6 +130,9 @@ data class IncomeStatement (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("start_period")
         val startPeriod: JsonNode?,
 
@@ -167,6 +175,7 @@ data class IncomeStatement (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 startPeriod = ApiClient.jsonConvertSafe(expanded.startPeriod),
                 endPeriod = ApiClient.jsonConvertSafe(expanded.endPeriod),
                 income = ApiClient.jsonConvertSafe(expanded.income),

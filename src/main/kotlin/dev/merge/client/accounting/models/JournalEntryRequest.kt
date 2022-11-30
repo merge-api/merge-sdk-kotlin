@@ -37,6 +37,8 @@ import dev.merge.client.shared.ApiClient
  * @param payments Array of `Payment` object IDs.
  * @param memo The journal entry's private note.
  * @param currency The journal's currency.
+ * @param exchangeRate The journal entry's exchange rate.
+ * @param company The company the journal entry belongs to.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -72,6 +74,14 @@ data class JournalEntryRequest (
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
 
+    /* The journal entry's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the journal entry belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -103,6 +113,12 @@ data class JournalEntryRequest (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -123,6 +139,8 @@ data class JournalEntryRequest (
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

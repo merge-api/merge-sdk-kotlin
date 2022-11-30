@@ -32,7 +32,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
+ * @param employee The employee on the plan.
  * @param providerName The name of the benefit provider.
  * @param benefitPlanType The type of benefit plan
  * @param employeeContribution The employee's contribution.
@@ -51,6 +51,7 @@ data class Benefit (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee on the plan. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 

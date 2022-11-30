@@ -42,6 +42,8 @@ import dev.merge.client.shared.ApiClient
  * @param contact The transaction's contact.
  * @param totalAmount The transaction's total amount.
  * @param currency The transaction's currency.
+ * @param exchangeRate The transaction's exchange rate.
+ * @param company The company the transaction belongs to.
  * @param lineItems 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
@@ -87,6 +89,14 @@ data class Transaction (
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
 
+    /* The transaction's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the transaction belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     @field:JsonProperty("line_items")
     val lineItems: kotlin.collections.List<TransactionLineItem>? = null,
 
@@ -128,6 +138,12 @@ data class Transaction (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("line_items")
         val lineItems: kotlin.collections.List<JsonNode>?,
 
@@ -151,6 +167,8 @@ data class Transaction (
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )

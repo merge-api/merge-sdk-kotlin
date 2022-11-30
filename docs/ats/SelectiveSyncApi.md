@@ -125,7 +125,7 @@ Get metadata for the conditions available to a linked account.
 
 val apiInstance = SelectiveSyncApi()
 val commonModel : kotlin.String = commonModel_example // kotlin.String | 
-val cursor : kotlin.Int = 56 // kotlin.Int | The pagination cursor value.
+val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 try {
     val result : PaginatedConditionSchemaList = apiInstance.selectiveSyncMetaList(commonModel, cursor, pageSize)
@@ -144,7 +144,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **commonModel** | **kotlin.String**|  | [optional]
- **cursor** | **kotlin.Int**| The pagination cursor value. | [optional]
+ **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
 
 ### Return type

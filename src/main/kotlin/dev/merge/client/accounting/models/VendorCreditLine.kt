@@ -34,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param trackingCategory The line's associated tracking category.
  * @param description The line's description.
  * @param account The line's account.
+ * @param company The company the line belongs to.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -57,7 +58,11 @@ data class VendorCreditLine (
 
     /* The line's account. */
     @field:JsonProperty("account")
-    val account: java.util.UUID? = null
+    val account: java.util.UUID? = null,
+
+    /* The company the line belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null
 
 ) {
 
@@ -76,7 +81,10 @@ data class VendorCreditLine (
         val description: JsonNode?,
 
         @field:JsonProperty("account")
-        val account: JsonNode?
+        val account: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?
 
     )
 
@@ -89,7 +97,8 @@ data class VendorCreditLine (
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 description = ApiClient.jsonConvertSafe(expanded.description),
-                account = ApiClient.jsonConvertSafe(expanded.account)
+                account = ApiClient.jsonConvertSafe(expanded.account),
+                company = ApiClient.jsonConvertSafe(expanded.company)
             )
         }
     }

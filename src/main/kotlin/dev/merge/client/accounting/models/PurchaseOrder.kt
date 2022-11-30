@@ -45,6 +45,7 @@ import dev.merge.client.shared.ApiClient
  * @param memo A memo attached to the purchase order.
  * @param totalAmount The purchase order's total amount.
  * @param currency The purchase order's currency.
+ * @param exchangeRate The purchase order's exchange rate.
  * @param lineItems 
  * @param remoteCreatedAt When the third party's purchase order note was created.
  * @param remoteUpdatedAt When the third party's purchase order note was updated.
@@ -99,6 +100,10 @@ data class PurchaseOrder (
     /* The purchase order's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The purchase order's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
 
     @field:JsonProperty("line_items")
     val lineItems: kotlin.collections.List<PurchaseOrderLineItem>? = null,
@@ -155,6 +160,9 @@ data class PurchaseOrder (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
         @field:JsonProperty("line_items")
         val lineItems: kotlin.collections.List<JsonNode>?,
 
@@ -186,6 +194,7 @@ data class PurchaseOrder (
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),

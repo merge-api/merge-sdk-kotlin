@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **payments** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | Array of &#x60;Payment&#x60; object IDs. |  [optional]
 **memo** | **kotlin.String** | The journal entry&#39;s private note. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The journal&#39;s currency. |  [optional]
+**exchangeRate** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The journal entry&#39;s exchange rate. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the journal entry belongs to. |  [optional]
 **lines** | [**kotlin.collections.List&lt;JournalLine&gt;**](JournalLine.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
 

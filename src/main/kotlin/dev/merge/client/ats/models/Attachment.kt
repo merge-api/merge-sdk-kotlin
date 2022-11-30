@@ -59,6 +59,7 @@ data class Attachment (
     @field:JsonProperty("file_url")
     val fileUrl: java.net.URI? = null,
 
+    /*  */
     @field:JsonProperty("candidate")
     val candidate: java.util.UUID? = null,
 

@@ -38,8 +38,9 @@ import dev.merge.client.shared.ApiClient
  * @param status The item's status.
  * @param unitPrice The item's unit price.
  * @param purchasePrice The item's purchase price.
- * @param purchaseAccount 
- * @param salesAccount 
+ * @param purchaseAccount The item's purchase account.
+ * @param salesAccount The item's sales account.
+ * @param company The company the item belongs to.
  * @param remoteUpdatedAt When the third party's item note was updated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
@@ -73,11 +74,17 @@ data class Item (
     @field:JsonProperty("purchase_price")
     val purchasePrice: kotlin.Float? = null,
 
+    /* The item's purchase account. */
     @field:JsonProperty("purchase_account")
     val purchaseAccount: java.util.UUID? = null,
 
+    /* The item's sales account. */
     @field:JsonProperty("sales_account")
     val salesAccount: java.util.UUID? = null,
+
+    /* The company the item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* When the third party's item note was updated. */
     @field:JsonProperty("remote_updated_at")
@@ -118,6 +125,9 @@ data class Item (
         @field:JsonProperty("sales_account")
         val salesAccount: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_updated_at")
         val remoteUpdatedAt: JsonNode?,
 
@@ -140,6 +150,7 @@ data class Item (
                 purchasePrice = ApiClient.jsonConvertSafe(expanded.purchasePrice),
                 purchaseAccount = ApiClient.jsonConvertSafe(expanded.purchaseAccount),
                 salesAccount = ApiClient.jsonConvertSafe(expanded.salesAccount),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )

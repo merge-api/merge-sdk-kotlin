@@ -33,6 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param name The report item's name.
  * @param `value` The report item's value.
  * @param subItems 
+ * @param company The company the report item belongs to.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -51,7 +52,11 @@ data class ReportItem (
     val `value`: kotlin.Float? = null,
 
     @field:JsonProperty("sub_items")
-    val subItems: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val subItems: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    /* The company the report item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null
 
 ) {
 
@@ -67,7 +72,10 @@ data class ReportItem (
         val `value`: JsonNode?,
 
         @field:JsonProperty("sub_items")
-        val subItems: JsonNode?
+        val subItems: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?
 
     )
 
@@ -79,7 +87,8 @@ data class ReportItem (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                subItems = ApiClient.jsonConvertSafe(expanded.subItems)
+                subItems = ApiClient.jsonConvertSafe(expanded.subItems),
+                company = ApiClient.jsonConvertSafe(expanded.company)
             )
         }
     }

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**employee** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
-**approver** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**employee** | [**java.util.UUID**](java.util.UUID.md) | The employee requesting time off. |  [optional]
+**approver** | [**java.util.UUID**](java.util.UUID.md) | The employee approving the time off request. |  [optional]
 **status** | [**TimeOffStatusEnum**](TimeOffStatusEnum.md) | The status of this time off request. |  [optional]
 **employeeNote** | **kotlin.String** | The employee note for this time off request. |  [optional]
 **units** | [**UnitsEnum**](UnitsEnum.md) | The unit of time requested. |  [optional]

@@ -33,9 +33,9 @@ import dev.merge.client.shared.ApiClient
  * @param name The opportunity's name.
  * @param description The opportunity's description.
  * @param amount The opportunity's amount.
- * @param owner 
- * @param account 
- * @param stage 
+ * @param owner The opportunity's owner.
+ * @param account The account of the opportunity.
+ * @param stage The stage of the opportunity.
  * @param status The opportunity's status.
  * @param lastActivityAt When the opportunity's last activity occurred.
  * @param closeDate When the opportunity was closed.
@@ -59,12 +59,15 @@ data class PatchedOpportunityRequest (
     @field:JsonProperty("amount")
     val amount: kotlin.Int? = null,
 
+    /* The opportunity's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 
+    /* The account of the opportunity. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The stage of the opportunity. */
     @field:JsonProperty("stage")
     val stage: java.util.UUID? = null,
 

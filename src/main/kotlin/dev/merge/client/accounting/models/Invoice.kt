@@ -37,13 +37,15 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param remoteData 
  * @param type The invoice's type.
- * @param contact 
+ * @param contact The invoice's contact.
  * @param number The invoice's number.
  * @param issueDate The invoice's issue date.
  * @param dueDate The invoice's due date.
  * @param paidOnDate The invoice's paid date.
  * @param memo The invoice's private note.
+ * @param company The company the invoice belongs to.
  * @param currency The invoice's currency.
+ * @param exchangeRate The invoice's exchange rate.
  * @param totalDiscount The invoice's total discount.
  * @param subTotal The invoice's sub-total.
  * @param totalTaxAmount The invoice's total tax amount.
@@ -72,6 +74,7 @@ data class Invoice (
     @field:JsonProperty("type")
     val type: InvoiceTypeEnum? = null,
 
+    /* The invoice's contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
@@ -95,9 +98,17 @@ data class Invoice (
     @field:JsonProperty("memo")
     val memo: kotlin.String? = null,
 
+    /* The company the invoice belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* The invoice's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The invoice's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
 
     /* The invoice's total discount. */
     @field:JsonProperty("total_discount")
@@ -167,8 +178,14 @@ data class Invoice (
         @field:JsonProperty("memo")
         val memo: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("currency")
         val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
 
         @field:JsonProperty("total_discount")
         val totalDiscount: JsonNode?,
@@ -214,7 +231,9 @@ data class Invoice (
                 dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
                 paidOnDate = ApiClient.jsonConvertSafe(expanded.paidOnDate),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 totalDiscount = ApiClient.jsonConvertSafe(expanded.totalDiscount),
                 subTotal = ApiClient.jsonConvertSafe(expanded.subTotal),
                 totalTaxAmount = ApiClient.jsonConvertSafe(expanded.totalTaxAmount),

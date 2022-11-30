@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 
  *
- * Values: WEEKLY,BIWEEKLY,MONTHLY,QUARTERLY,SEMIANNUALLY,ANNUALLY,THIRTEEN_MINUS_MONTHLY,PRO_RATA
+ * Values: WEEKLY,BIWEEKLY,MONTHLY,QUARTERLY,SEMIANNUALLY,ANNUALLY,THIRTEEN_MINUS_MONTHLY,PRO_RATA,SEMIMONTHLY
  */
 enum class PayFrequencyEnum(val value: kotlin.String) {
 
@@ -65,7 +65,11 @@ enum class PayFrequencyEnum(val value: kotlin.String) {
 
 
     @JsonProperty(value = "PRO_RATA")
-    PRO_RATA("PRO_RATA");
+    PRO_RATA("PRO_RATA"),
+
+
+    @JsonProperty(value = "SEMIMONTHLY")
+    SEMIMONTHLY("SEMIMONTHLY");
 
 
     /**

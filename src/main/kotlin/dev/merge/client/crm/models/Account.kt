@@ -34,7 +34,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param owner 
+ * @param owner The account's owner.
  * @param name The account's name.
  * @param description The account's description.
  * @param industry The account's industry.
@@ -59,6 +59,7 @@ data class Account (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The account's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 

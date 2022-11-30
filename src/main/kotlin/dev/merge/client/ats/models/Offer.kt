@@ -33,8 +33,8 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param application 
- * @param creator 
+ * @param application The application who is receiving the offer.
+ * @param creator The user who created the offer.
  * @param remoteCreatedAt When the third party's offer was created.
  * @param closedAt When the offer was closed.
  * @param sentAt When the offer was sent.
@@ -54,9 +54,11 @@ data class Offer (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The application who is receiving the offer. */
     @field:JsonProperty("application")
     val application: java.util.UUID? = null,
 
+    /* The user who created the offer. */
     @field:JsonProperty("creator")
     val creator: java.util.UUID? = null,
 

@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="paymentsList"></a>
 # **paymentsList**
-> PaginatedPaymentList paymentsList(accountId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+> PaginatedPaymentList paymentsList(accountId, companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
 
 
 
@@ -82,6 +82,7 @@ Returns a list of &#x60;Payment&#x60; objects.
 
 val apiInstance = PaymentsApi()
 val accountId : kotlin.String = accountId_example // kotlin.String | If provided, will only return payments for this account.
+val companyId : kotlin.String = companyId_example // kotlin.String | If provided, will only return payments for this company.
 val contactId : kotlin.String = contactId_example // kotlin.String | If provided, will only return payments for this contact.
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
@@ -94,7 +95,7 @@ val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // jav
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedPaymentList = apiInstance.paymentsList(accountId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+    val result : PaginatedPaymentList = apiInstance.paymentsList(accountId, companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PaymentsApi#paymentsList")
@@ -110,6 +111,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **kotlin.String**| If provided, will only return payments for this account. | [optional]
+ **companyId** | **kotlin.String**| If provided, will only return payments for this company. | [optional]
  **contactId** | **kotlin.String**| If provided, will only return payments for this contact. | [optional]
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]

@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,8 +32,11 @@ import dev.merge.client.shared.ApiClient
  *
  * @param remoteId The third-party API ID of the matching object.
  * @param transactionDate The payment's transaction date.
- * @param contact 
- * @param account 
+ * @param contact The payment's contact.
+ * @param account The payment's account.
+ * @param currency The payment's currency.
+ * @param exchangeRate The payment's exchange rate.
+ * @param company The company the payment belongs to.
  * @param totalAmount The payment's total amount.
  * @param remoteUpdatedAt When the third party's payment entry was updated.
  * @param integrationParams 
@@ -50,11 +54,25 @@ data class PaymentRequest (
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
 
+    /* The payment's contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
+    /* The payment's account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
+
+    /* The payment's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
+
+    /* The payment's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the payment belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The payment's total amount. */
     @field:JsonProperty("total_amount")
@@ -86,6 +104,15 @@ data class PaymentRequest (
         @field:JsonProperty("account")
         val account: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("total_amount")
         val totalAmount: JsonNode?,
 
@@ -109,6 +136,9 @@ data class PaymentRequest (
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 account = ApiClient.jsonConvertSafe(expanded.account),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),

@@ -12,6 +12,9 @@ Name | Type | Description | Notes
 **trackingCategory** | [**java.util.UUID**](java.util.UUID.md) | The purchase order line item&#39;s associated tracking category. |  [optional]
 **taxAmount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The purchase order line item&#39;s tax amount. |  [optional]
 **totalLineAmount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The purchase order line item&#39;s total amount. |  [optional]
+**currency** | [**CurrencyEnum**](CurrencyEnum.md) | The purchase order line item&#39;s currency. |  [optional]
+**exchangeRate** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The purchase order line item&#39;s exchange rate. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the purchase order line item belongs to. |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 

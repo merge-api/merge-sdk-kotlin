@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**employee** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**employee** | [**java.util.UUID**](java.util.UUID.md) | The employee with this bank account. |  [optional]
 **accountNumber** | **kotlin.String** | The account number. |  [optional]
 **routingNumber** | **kotlin.String** | The routing number. |  [optional]
 **bankName** | **kotlin.String** | The bank name. |  [optional]

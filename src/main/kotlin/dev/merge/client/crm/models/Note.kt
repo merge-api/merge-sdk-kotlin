@@ -32,11 +32,11 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param owner 
+ * @param owner The note's owner.
  * @param content The note's content.
- * @param contact 
- * @param account 
- * @param opportunity 
+ * @param contact The note's contact.
+ * @param account The note's account.
+ * @param opportunity The note's opportunity.
  * @param remoteUpdatedAt When the third party's lead was updated.
  * @param remoteCreatedAt When the third party's lead was created.
  * @param remoteData 
@@ -53,6 +53,7 @@ data class Note (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The note's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 
@@ -60,12 +61,15 @@ data class Note (
     @field:JsonProperty("content")
     val content: kotlin.String? = null,
 
+    /* The note's contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
+    /* The note's account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The note's opportunity. */
     @field:JsonProperty("opportunity")
     val opportunity: java.util.UUID? = null,
 

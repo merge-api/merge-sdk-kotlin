@@ -33,7 +33,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
+ * @param employee The employee the balance belongs to.
  * @param balance The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day.
  * @param used The amount of PTO used in terms of hours.
  * @param policyType The policy type of this time off balance.
@@ -51,6 +51,7 @@ data class TimeOffBalance (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee the balance belongs to. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 

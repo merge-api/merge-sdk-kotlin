@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **name** | **kotlin.String** | The balance sheet&#39;s name. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The balance sheet&#39;s currency. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the balance sheet belongs to. |  [optional]
 **date** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The balance sheet&#39;s date. The balance sheet data will reflect the company&#39;s financial position this point in time. |  [optional]
 **netAssets** | **kotlin.Float** | The balance sheet&#39;s net assets. |  [optional]
 **assets** | [**kotlin.collections.List&lt;ReportItem&gt;**](ReportItem.md) |  |  [optional] [readonly]

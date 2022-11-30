@@ -33,7 +33,8 @@ import dev.merge.client.shared.ApiClient
  * @param item The line's item.
  * @param netAmount The line's net amount.
  * @param trackingCategory 
- * @param account 
+ * @param company The company the line belongs to.
+ * @param account The expense's payment account.
  * @param description The line item's description.
  */
 
@@ -55,6 +56,11 @@ data class ExpenseLine (
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
+    /* The company the line belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
+    /* The expense's payment account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
@@ -78,6 +84,9 @@ data class ExpenseLine (
         @field:JsonProperty("tracking_category")
         val trackingCategory: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("account")
         val account: JsonNode?,
 
@@ -95,6 +104,7 @@ data class ExpenseLine (
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 description = ApiClient.jsonConvertSafe(expanded.description)
             )

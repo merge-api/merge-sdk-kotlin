@@ -13,7 +13,8 @@ Name | Type | Description | Notes
 **currentBalance** | **kotlin.Float** | The account&#39;s current balance. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The account&#39;s currency. |  [optional]
 **accountNumber** | **kotlin.String** | The account&#39;s number. |  [optional]
-**parentAccount** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**parentAccount** | [**java.util.UUID**](java.util.UUID.md) | ID of the parent account. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the account belongs to. |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 

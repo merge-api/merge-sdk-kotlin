@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **contact** | [**java.util.UUID**](java.util.UUID.md) | The transaction&#39;s contact. |  [optional]
 **totalAmount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The transaction&#39;s total amount. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The transaction&#39;s currency. |  [optional]
+**exchangeRate** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The transaction&#39;s exchange rate. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the transaction belongs to. |  [optional]
 **lineItems** | [**kotlin.collections.List&lt;TransactionLineItem&gt;**](TransactionLineItem.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 

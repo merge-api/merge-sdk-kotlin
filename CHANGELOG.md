@@ -1,3 +1,11 @@
+# Version 2.0.4
+
+## Date: 2022-11-30
+
+- Prior version 2.0.3 had bad string templating for urls that fetched individual objects by id, making those endpoints nonfunctional (now fixed)
+- Additional query params and model properties that are backwards compatible and optional
+- In particular, accounting category has a "Company" property that is now on most commonly used models since that is a very frequent use case
+
 # Version 2.0.3
 
 ## Date: 2022-11-02

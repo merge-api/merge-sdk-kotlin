@@ -52,7 +52,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     data class SelectiveSyncMetaListRequest (
         val commonModel: kotlin.String? = null,
-        val cursor: kotlin.Int? = null,
+        val cursor: kotlin.String? = null,
         val pageSize: kotlin.Int? = null
     )
 
@@ -202,7 +202,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.commonModel?.apply { localVariableQuery["common_model"] = listOf(this) }
-            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf("$this") }
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()

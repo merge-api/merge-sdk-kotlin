@@ -33,7 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param name The team's name.
- * @param parentTeam 
+ * @param parentTeam The team's parent team.
  * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
@@ -52,6 +52,7 @@ data class Team (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
+    /* The team's parent team. */
     @field:JsonProperty("parent_team")
     val parentTeam: java.util.UUID? = null,
 

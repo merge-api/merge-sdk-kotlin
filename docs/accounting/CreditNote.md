@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **status** | [**CreditNoteStatusEnum**](CreditNoteStatusEnum.md) | The credit note&#39;s status. |  [optional]
 **number** | **kotlin.String** | The credit note&#39;s number. |  [optional]
 **contact** | [**java.util.UUID**](java.util.UUID.md) | The credit note&#39;s contact. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the credit note belongs to. |  [optional]
 **totalAmount** | **kotlin.Float** | The credit note&#39;s total amount. |  [optional]
 **remainingCredit** | **kotlin.Float** | The credit note&#39;s remaining credit. |  [optional]
 **lineItems** | [**kotlin.collections.List&lt;CreditNoteLineItem&gt;**](CreditNoteLineItem.md) |  |  [optional] [readonly]

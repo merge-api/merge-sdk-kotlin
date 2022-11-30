@@ -136,7 +136,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.POST,
-        "/applications/{id}/change-stage".replace("{" + "id" + "}", "$requestModel.id"),
+        "/applications/{id}/change-stage".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -391,7 +391,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/applications/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        "/applications/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
