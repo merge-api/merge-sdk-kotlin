@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**candidate** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**candidate** | [**java.util.UUID**](java.util.UUID.md) | The candidate being represented. |  [optional]
 **submittedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the information was submitted. |  [optional]
 **race** | [**RaceEnum**](RaceEnum.md) | The candidate&#39;s race. |  [optional]
 **gender** | [**GenderEnum**](GenderEnum.md) | The candidate&#39;s gender. |  [optional]

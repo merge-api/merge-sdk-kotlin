@@ -12,6 +12,8 @@
 
     * `EVERY_TWO_WEEKS` (value: `"EVERY_TWO_WEEKS"`)
 
+    * `SEMIMONTHLY` (value: `"SEMIMONTHLY"`)
+
     * `MONTH` (value: `"MONTH"`)
 
     * `QUARTER` (value: `"QUARTER"`)

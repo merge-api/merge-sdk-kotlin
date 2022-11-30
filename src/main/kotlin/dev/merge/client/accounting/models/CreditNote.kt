@@ -40,6 +40,7 @@ import dev.merge.client.shared.ApiClient
  * @param status The credit note's status.
  * @param number The credit note's number.
  * @param contact The credit note's contact.
+ * @param company The company the credit note belongs to.
  * @param totalAmount The credit note's total amount.
  * @param remainingCredit The credit note's remaining credit.
  * @param lineItems 
@@ -78,6 +79,10 @@ data class CreditNote (
     /* The credit note's contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
+
+    /* The company the credit note belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The credit note's total amount. */
     @field:JsonProperty("total_amount")
@@ -135,6 +140,9 @@ data class CreditNote (
         @field:JsonProperty("contact")
         val contact: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("total_amount")
         val totalAmount: JsonNode?,
 
@@ -173,6 +181,7 @@ data class CreditNote (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 number = ApiClient.jsonConvertSafe(expanded.number),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 remainingCredit = ApiClient.jsonConvertSafe(expanded.remainingCredit),
                 lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),

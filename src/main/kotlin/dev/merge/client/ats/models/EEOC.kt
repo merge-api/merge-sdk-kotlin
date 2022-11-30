@@ -36,7 +36,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param candidate 
+ * @param candidate The candidate being represented.
  * @param submittedAt When the information was submitted.
  * @param race The candidate's race.
  * @param gender The candidate's gender.
@@ -56,6 +56,7 @@ data class EEOC (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The candidate being represented. */
     @field:JsonProperty("candidate")
     val candidate: java.util.UUID? = null,
 

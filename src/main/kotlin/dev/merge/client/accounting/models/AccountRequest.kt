@@ -41,7 +41,8 @@ import dev.merge.client.shared.ApiClient
  * @param currentBalance The account's current balance.
  * @param currency The account's currency.
  * @param accountNumber The account's number.
- * @param parentAccount 
+ * @param parentAccount ID of the parent account.
+ * @param company The company the account belongs to.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -85,8 +86,13 @@ data class AccountRequest (
     @field:JsonProperty("account_number")
     val accountNumber: kotlin.String? = null,
 
+    /* ID of the parent account. */
     @field:JsonProperty("parent_account")
     val parentAccount: java.util.UUID? = null,
+
+    /* The company the account belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -128,6 +134,9 @@ data class AccountRequest (
         @field:JsonProperty("parent_account")
         val parentAccount: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -151,6 +160,7 @@ data class AccountRequest (
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 accountNumber = ApiClient.jsonConvertSafe(expanded.accountNumber),
                 parentAccount = ApiClient.jsonConvertSafe(expanded.parentAccount),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

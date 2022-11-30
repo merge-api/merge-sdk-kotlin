@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -35,9 +36,12 @@ import dev.merge.client.shared.ApiClient
  * @param unitPrice The line item's unit price.
  * @param quantity The line item's quantity.
  * @param totalAmount The line item's total amount.
+ * @param currency The line item's currency.
+ * @param exchangeRate The line item's exchange rate.
  * @param item 
  * @param account 
  * @param trackingCategory 
+ * @param company The company the line item belongs to.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -66,6 +70,14 @@ data class InvoiceLineItem (
     @field:JsonProperty("total_amount")
     val totalAmount: kotlin.Float? = null,
 
+    /* The line item's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
+
+    /* The line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
     @field:JsonProperty("item")
     val item: java.util.UUID? = null,
 
@@ -73,7 +85,11 @@ data class InvoiceLineItem (
     val account: java.util.UUID? = null,
 
     @field:JsonProperty("tracking_category")
-    val trackingCategory: java.util.UUID? = null
+    val trackingCategory: java.util.UUID? = null,
+
+    /* The company the line item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null
 
 ) {
 
@@ -97,6 +113,12 @@ data class InvoiceLineItem (
         @field:JsonProperty("total_amount")
         val totalAmount: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
         @field:JsonProperty("item")
         val item: JsonNode?,
 
@@ -104,7 +126,10 @@ data class InvoiceLineItem (
         val account: JsonNode?,
 
         @field:JsonProperty("tracking_category")
-        val trackingCategory: JsonNode?
+        val trackingCategory: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?
 
     )
 
@@ -119,9 +144,12 @@ data class InvoiceLineItem (
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
                 quantity = ApiClient.jsonConvertSafe(expanded.quantity),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 account = ApiClient.jsonConvertSafe(expanded.account),
-                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory)
+                trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                company = ApiClient.jsonConvertSafe(expanded.company)
             )
         }
     }

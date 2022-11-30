@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**application** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
-**creator** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**application** | [**java.util.UUID**](java.util.UUID.md) | The application who is receiving the offer. |  [optional]
+**creator** | [**java.util.UUID**](java.util.UUID.md) | The user who created the offer. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s offer was created. |  [optional]
 **closedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the offer was closed. |  [optional]
 **sentAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the offer was sent. |  [optional]

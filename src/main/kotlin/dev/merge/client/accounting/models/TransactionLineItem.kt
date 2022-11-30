@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -37,6 +38,9 @@ import dev.merge.client.shared.ApiClient
  * @param trackingCategory The line's associated tracking category.
  * @param totalLineAmount The line item's total.
  * @param taxRate The line item's tax rate.
+ * @param currency The line item's currency.
+ * @param exchangeRate The line item's exchange rate.
+ * @param company The company the line belongs to.
  * @param remoteId The third-party API ID of the matching object.
  */
 
@@ -74,6 +78,18 @@ data class TransactionLineItem (
     @field:JsonProperty("tax_rate")
     val taxRate: java.util.UUID? = null,
 
+    /* The line item's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
+
+    /* The line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the line belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null
@@ -106,6 +122,15 @@ data class TransactionLineItem (
         @field:JsonProperty("tax_rate")
         val taxRate: JsonNode?,
 
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?
 
@@ -124,6 +149,9 @@ data class TransactionLineItem (
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
                 taxRate = ApiClient.jsonConvertSafe(expanded.taxRate),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
             )
         }

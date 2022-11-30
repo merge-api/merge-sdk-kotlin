@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="expensesList"></a>
 # **expensesList**
-> PaginatedExpenseList expensesList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+> PaginatedExpenseList expensesList(companyId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
 
 
 
@@ -81,6 +81,7 @@ Returns a list of &#x60;Expense&#x60; objects.
 //import dev.merge.client.accounting.models.*
 
 val apiInstance = ExpensesApi()
+val companyId : kotlin.String = companyId_example // kotlin.String | If provided, will only return expenses for this company.
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
@@ -92,7 +93,7 @@ val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // jav
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedExpenseList = apiInstance.expensesList(createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
+    val result : PaginatedExpenseList = apiInstance.expensesList(companyId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ExpensesApi#expensesList")
@@ -107,6 +108,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **companyId** | **kotlin.String**| If provided, will only return expenses for this company. | [optional]
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]

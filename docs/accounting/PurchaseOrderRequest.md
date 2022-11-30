@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **memo** | **kotlin.String** | A memo attached to the purchase order. |  [optional]
 **totalAmount** | **kotlin.Float** | The purchase order&#39;s total amount. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The purchase order&#39;s currency. |  [optional]
+**exchangeRate** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The purchase order&#39;s exchange rate. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s purchase order note was created. |  [optional]
 **remoteUpdatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s purchase order note was updated. |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]

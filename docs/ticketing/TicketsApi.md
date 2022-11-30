@@ -131,7 +131,7 @@ Configure bearerAuth:
 
 <a name="ticketsList"></a>
 # **ticketsList**
-> PaginatedTicketList ticketsList(accountId, assigneeIds, completedAfter, completedBefore, contactId, createdAfter, createdBefore, cursor, dueAfter, dueBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTicketId, priority, projectId, remoteFields, remoteId, status, tags, ticketType)
+> PaginatedTicketList ticketsList(accountId, assigneeIds, completedAfter, completedBefore, contactId, createdAfter, createdBefore, cursor, dueAfter, dueBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTicketId, priority, projectId, remoteCreatedAfter, remoteCreatedBefore, remoteFields, remoteId, remoteUpdatedAfter, remoteUpdatedBefore, status, tags, ticketType)
 
 
 
@@ -163,13 +163,17 @@ val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per p
 val parentTicketId : kotlin.String = parentTicketId_example // kotlin.String | If provided, will only return sub tickets of the parent_ticket_id.
 val priority : kotlin.String = priority_example // kotlin.String | If provided, will only return tickets of this priority.
 val projectId : kotlin.String = projectId_example // kotlin.String | If provided, will only return tickets for this project.
+val remoteCreatedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets created in the third party platform after this datetime.
+val remoteCreatedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets created in the third party platform before this datetime.
 val remoteFields : kotlin.String = status // kotlin.String | Which fields should be returned in non-normalized form.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
+val remoteUpdatedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets updated in the third party platform after this datetime.
+val remoteUpdatedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets updated in the third party platform before this datetime.
 val status : kotlin.String = status_example // kotlin.String | If provided, will only return tickets of this status.
 val tags : kotlin.String = tags_example // kotlin.String | If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 val ticketType : kotlin.String = ticketType_example // kotlin.String | If provided, will only return tickets of this type.
 try {
-    val result : PaginatedTicketList = apiInstance.ticketsList(accountId, assigneeIds, completedAfter, completedBefore, contactId, createdAfter, createdBefore, cursor, dueAfter, dueBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTicketId, priority, projectId, remoteFields, remoteId, status, tags, ticketType)
+    val result : PaginatedTicketList = apiInstance.ticketsList(accountId, assigneeIds, completedAfter, completedBefore, contactId, createdAfter, createdBefore, cursor, dueAfter, dueBefore, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, parentTicketId, priority, projectId, remoteCreatedAfter, remoteCreatedBefore, remoteFields, remoteId, remoteUpdatedAfter, remoteUpdatedBefore, status, tags, ticketType)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling TicketsApi#ticketsList")
@@ -203,8 +207,12 @@ Name | Type | Description  | Notes
  **parentTicketId** | **kotlin.String**| If provided, will only return sub tickets of the parent_ticket_id. | [optional]
  **priority** | **kotlin.String**| If provided, will only return tickets of this priority. | [optional] [enum: HIGH, LOW, NORMAL, URGENT]
  **projectId** | **kotlin.String**| If provided, will only return tickets for this project. | [optional]
+ **remoteCreatedAfter** | **java.time.OffsetDateTime**| If provided, will only return tickets created in the third party platform after this datetime. | [optional]
+ **remoteCreatedBefore** | **java.time.OffsetDateTime**| If provided, will only return tickets created in the third party platform before this datetime. | [optional]
  **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: status]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
+ **remoteUpdatedAfter** | **java.time.OffsetDateTime**| If provided, will only return tickets updated in the third party platform after this datetime. | [optional]
+ **remoteUpdatedBefore** | **java.time.OffsetDateTime**| If provided, will only return tickets updated in the third party platform before this datetime. | [optional]
  **status** | **kotlin.String**| If provided, will only return tickets of this status. | [optional] [enum: CLOSED, IN_PROGRESS, ON_HOLD, OPEN]
  **tags** | **kotlin.String**| If provided, will only return tickets matching the tags; multiple tags can be separated by commas. | [optional]
  **ticketType** | **kotlin.String**| If provided, will only return tickets of this type. | [optional]

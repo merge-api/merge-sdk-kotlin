@@ -34,7 +34,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param user 
+ * @param user The user the performed the action.
  * @param remoteCreatedAt When the third party's activity was created.
  * @param activityType The activity's type.
  * @param subject The activity's subject.
@@ -54,6 +54,7 @@ data class Activity (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The user the performed the action. */
     @field:JsonProperty("user")
     val user: java.util.UUID? = null,
 

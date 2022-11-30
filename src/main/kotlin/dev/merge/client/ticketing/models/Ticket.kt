@@ -36,15 +36,15 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param name The ticket's name.
  * @param assignees 
- * @param creator 
+ * @param creator The user who created this ticket.
  * @param dueDate The ticket's due date.
  * @param status The current status of the ticket.
  * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
- * @param project 
+ * @param project The project the ticket belongs to.
  * @param ticketType The ticket's type.
- * @param account 
- * @param contact 
- * @param parentTicket 
+ * @param account The account associated with the ticket.
+ * @param contact The contact associated with the ticket.
+ * @param parentTicket The ticket's parent ticket.
  * @param attachments 
  * @param tags 
  * @param remoteCreatedAt When the third party's ticket was created.
@@ -73,6 +73,7 @@ data class Ticket (
     @field:JsonProperty("assignees")
     val assignees: kotlin.collections.List<java.util.UUID>? = null,
 
+    /* The user who created this ticket. */
     @field:JsonProperty("creator")
     val creator: java.util.UUID? = null,
 
@@ -88,6 +89,7 @@ data class Ticket (
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
+    /* The project the ticket belongs to. */
     @field:JsonProperty("project")
     val project: java.util.UUID? = null,
 
@@ -95,12 +97,15 @@ data class Ticket (
     @field:JsonProperty("ticket_type")
     val ticketType: kotlin.String? = null,
 
+    /* The account associated with the ticket. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The contact associated with the ticket. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
+    /* The ticket's parent ticket. */
     @field:JsonProperty("parent_ticket")
     val parentTicket: java.util.UUID? = null,
 

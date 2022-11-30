@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="invoicesList"></a>
 # **invoicesList**
-> PaginatedInvoiceList invoicesList(contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
+> PaginatedInvoiceList invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
 
 
 
@@ -81,6 +81,7 @@ Returns a list of &#x60;Invoice&#x60; objects.
 //import dev.merge.client.accounting.models.*
 
 val apiInstance = InvoicesApi()
+val companyId : kotlin.String = companyId_example // kotlin.String | If provided, will only return invoices for this company.
 val contactId : kotlin.String = contactId_example // kotlin.String | If provided, will only return invoices for this contact.
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
@@ -95,7 +96,7 @@ val remoteFields : kotlin.String = type // kotlin.String | Which fields should b
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 val type : kotlin.String = type_example // kotlin.String | If provided, will only return Invoices with this type
 try {
-    val result : PaginatedInvoiceList = apiInstance.invoicesList(contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
+    val result : PaginatedInvoiceList = apiInstance.invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling InvoicesApi#invoicesList")
@@ -110,6 +111,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **companyId** | **kotlin.String**| If provided, will only return invoices for this company. | [optional]
  **contactId** | **kotlin.String**| If provided, will only return invoices for this contact. | [optional]
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]

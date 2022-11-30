@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **name** | **kotlin.String** | The income statement&#39;s name. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The income statement&#39;s currency. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the income statement belongs to. |  [optional]
 **startPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The income statement&#39;s start period. |  [optional]
 **endPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The income statement&#39;s end period. |  [optional]
 **income** | [**kotlin.collections.List&lt;ReportItem&gt;**](ReportItem.md) |  |  [optional] [readonly]

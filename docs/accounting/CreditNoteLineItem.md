@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **totalLineAmount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The credit note line item&#39;s total. |  [optional]
 **trackingCategory** | [**java.util.UUID**](java.util.UUID.md) | The purchase order line item&#39;s associated tracking category. |  [optional]
 **account** | [**java.util.UUID**](java.util.UUID.md) | The credit note line item&#39;s account. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the credit note line item belongs to. |  [optional]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 
 

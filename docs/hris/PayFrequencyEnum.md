@@ -20,6 +20,8 @@
 
     * `PRO_RATA` (value: `"PRO_RATA"`)
 
+    * `SEMIMONTHLY` (value: `"SEMIMONTHLY"`)
+
     * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

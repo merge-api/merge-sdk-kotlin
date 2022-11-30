@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **firstName** | **kotlin.String** | The contact&#39;s first name. |  [optional]
 **lastName** | **kotlin.String** | The contact&#39;s last name. |  [optional]
-**account** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**account** | [**java.util.UUID**](java.util.UUID.md) | The contact&#39;s account. |  [optional]
 **addresses** | [**kotlin.collections.List&lt;Address&gt;**](Address.md) |  |  [optional]
 **emailAddresses** | [**kotlin.collections.List&lt;EmailAddress&gt;**](EmailAddress.md) |  |  [optional]
 **phoneNumbers** | [**kotlin.collections.List&lt;PhoneNumber&gt;**](PhoneNumber.md) |  |  [optional]

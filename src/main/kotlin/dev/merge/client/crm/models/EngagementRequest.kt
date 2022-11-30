@@ -31,14 +31,14 @@ import dev.merge.client.shared.ApiClient
  * # The Engagement Object ### Description The `Engagement` object is used to represent an engagement in the remote system. ### Usage Example TODO
  *
  * @param remoteId The third-party API ID of the matching object.
- * @param owner 
+ * @param owner The engagement's owner.
  * @param content The engagement's content.
  * @param subject The engagement's subject.
  * @param direction The engagement's direction.
- * @param engagementType 
+ * @param engagementType The engagement type of the engagement.
  * @param startTime The time at which the engagement started.
  * @param endTime The time at which the engagement ended.
- * @param account 
+ * @param account The account of the engagement.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -50,6 +50,7 @@ data class EngagementRequest (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The engagement's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 
@@ -65,6 +66,7 @@ data class EngagementRequest (
     @field:JsonProperty("direction")
     val direction: DirectionEnum? = null,
 
+    /* The engagement type of the engagement. */
     @field:JsonProperty("engagement_type")
     val engagementType: java.util.UUID? = null,
 
@@ -76,6 +78,7 @@ data class EngagementRequest (
     @field:JsonProperty("end_time")
     val endTime: java.time.OffsetDateTime? = null,
 
+    /* The account of the engagement. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 

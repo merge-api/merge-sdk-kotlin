@@ -36,6 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param description The tax rate's description.
  * @param totalTaxRate The tax rate's total tax rate.
  * @param effectiveTaxRate The tax rate's effective tax rate.
+ * @param company The company the tax rate belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
@@ -64,6 +65,10 @@ data class TaxRate (
     @field:JsonProperty("effective_tax_rate")
     val effectiveTaxRate: kotlin.Float? = null,
 
+    /* The company the tax rate belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
@@ -90,6 +95,9 @@ data class TaxRate (
         @field:JsonProperty("effective_tax_rate")
         val effectiveTaxRate: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?
 
@@ -106,6 +114,7 @@ data class TaxRate (
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 totalTaxRate = ApiClient.jsonConvertSafe(expanded.totalTaxRate),
                 effectiveTaxRate = ApiClient.jsonConvertSafe(expanded.effectiveTaxRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )
         }

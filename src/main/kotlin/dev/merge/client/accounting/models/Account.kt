@@ -44,7 +44,8 @@ import dev.merge.client.shared.ApiClient
  * @param currentBalance The account's current balance.
  * @param currency The account's currency.
  * @param accountNumber The account's number.
- * @param parentAccount 
+ * @param parentAccount ID of the parent account.
+ * @param company The company the account belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
@@ -93,8 +94,13 @@ data class Account (
     @field:JsonProperty("account_number")
     val accountNumber: kotlin.String? = null,
 
+    /* ID of the parent account. */
     @field:JsonProperty("parent_account")
     val parentAccount: java.util.UUID? = null,
+
+    /* The company the account belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
@@ -140,6 +146,9 @@ data class Account (
         @field:JsonProperty("parent_account")
         val parentAccount: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?
 
@@ -162,6 +171,7 @@ data class Account (
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 accountNumber = ApiClient.jsonConvertSafe(expanded.accountNumber),
                 parentAccount = ApiClient.jsonConvertSafe(expanded.parentAccount),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )
         }

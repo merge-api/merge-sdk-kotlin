@@ -33,9 +33,9 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param application 
- * @param jobInterviewStage 
- * @param organizer 
+ * @param application The application being interviewed.
+ * @param jobInterviewStage The stage of the interview.
+ * @param organizer The user organizing the interview.
  * @param interviewers Array of `RemoteUser` IDs.
  * @param location The interview's location.
  * @param startAt When the interview was started.
@@ -57,12 +57,15 @@ data class ScheduledInterview (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The application being interviewed. */
     @field:JsonProperty("application")
     val application: java.util.UUID? = null,
 
+    /* The stage of the interview. */
     @field:JsonProperty("job_interview_stage")
     val jobInterviewStage: java.util.UUID? = null,
 
+    /* The user organizing the interview. */
     @field:JsonProperty("organizer")
     val organizer: java.util.UUID? = null,
 

@@ -31,10 +31,10 @@ import dev.merge.client.shared.ApiClient
  *
  * @param remoteId The third-party API ID of the matching object.
  * @param fileName The attachment's name.
- * @param ticket 
+ * @param ticket The ticket associated with the attachment.
  * @param fileUrl The attachment's url.
  * @param contentType The attachment's file format.
- * @param uploadedBy 
+ * @param uploadedBy The user who uploaded the attachment.
  * @param remoteCreatedAt When the third party's attachment was created.
  * @param integrationParams 
  * @param linkedAccountParams 
@@ -51,6 +51,7 @@ data class AttachmentRequest (
     @field:JsonProperty("file_name")
     val fileName: kotlin.String? = null,
 
+    /* The ticket associated with the attachment. */
     @field:JsonProperty("ticket")
     val ticket: java.util.UUID? = null,
 
@@ -62,6 +63,7 @@ data class AttachmentRequest (
     @field:JsonProperty("content_type")
     val contentType: kotlin.String? = null,
 
+    /* The user who uploaded the attachment. */
     @field:JsonProperty("uploaded_by")
     val uploadedBy: java.util.UUID? = null,
 

@@ -32,14 +32,14 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param candidate 
- * @param job 
+ * @param candidate The candidate applying.
+ * @param job The job being applied for.
  * @param appliedAt When the application was submitted.
  * @param rejectedAt When the application was rejected.
  * @param source The application's source.
- * @param creditedTo 
- * @param currentStage 
- * @param rejectReason 
+ * @param creditedTo The user credited for this application.
+ * @param currentStage The application's current stage.
+ * @param rejectReason The application's reason for rejection.
  * @param remoteData 
  * @param customFields Custom fields configured for a given model.
  * @param remoteWasDeleted 
@@ -55,9 +55,11 @@ data class Application (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The candidate applying. */
     @field:JsonProperty("candidate")
     val candidate: java.util.UUID? = null,
 
+    /* The job being applied for. */
     @field:JsonProperty("job")
     val job: java.util.UUID? = null,
 
@@ -73,12 +75,15 @@ data class Application (
     @field:JsonProperty("source")
     val source: kotlin.String? = null,
 
+    /* The user credited for this application. */
     @field:JsonProperty("credited_to")
     val creditedTo: java.util.UUID? = null,
 
+    /* The application's current stage. */
     @field:JsonProperty("current_stage")
     val currentStage: java.util.UUID? = null,
 
+    /* The application's reason for rejection. */
     @field:JsonProperty("reject_reason")
     val rejectReason: java.util.UUID? = null,
 

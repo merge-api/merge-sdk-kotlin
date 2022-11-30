@@ -30,7 +30,7 @@ import dev.merge.client.shared.ApiClient
  * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
  *
  * @param remoteId The third-party API ID of the matching object.
- * @param owner 
+ * @param owner The account's owner.
  * @param name The account's name.
  * @param description The account's description.
  * @param industry The account's industry.
@@ -50,6 +50,7 @@ data class AccountRequest (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The account's owner. */
     @field:JsonProperty("owner")
     val owner: java.util.UUID? = null,
 

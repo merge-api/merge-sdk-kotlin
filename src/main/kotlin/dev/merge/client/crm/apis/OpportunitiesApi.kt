@@ -272,7 +272,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/opportunities/meta/patch/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        "/opportunities/meta/patch/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -383,7 +383,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.PATCH,
-        "/opportunities/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        "/opportunities/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -443,7 +443,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/opportunities/{id}".replace("{" + "id" + "}", "$requestModel.id"),
+        "/opportunities/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

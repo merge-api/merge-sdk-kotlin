@@ -33,10 +33,12 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param transactionDate When the transaction occurred.
  * @param remoteCreatedAt When the expense was created.
- * @param account 
- * @param contact 
+ * @param account The expense's payment account.
+ * @param contact The expense's contact.
  * @param totalAmount The expense's total amount.
  * @param currency The expense's currency.
+ * @param exchangeRate The expense's exchange rate.
+ * @param company The company the expense belongs to.
  * @param memo The expense's private note.
  * @param integrationParams 
  * @param linkedAccountParams 
@@ -57,9 +59,11 @@ data class ExpenseRequest (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
+    /* The expense's payment account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The expense's contact. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
@@ -70,6 +74,14 @@ data class ExpenseRequest (
     /* The expense's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The expense's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the expense belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The expense's private note. */
     @field:JsonProperty("memo")
@@ -106,6 +118,12 @@ data class ExpenseRequest (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("memo")
         val memo: JsonNode?,
 
@@ -129,6 +147,8 @@ data class ExpenseRequest (
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)

@@ -35,8 +35,8 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
- * @param approver 
+ * @param employee The employee requesting time off.
+ * @param approver The employee approving the time off request.
  * @param status The status of this time off request.
  * @param employeeNote The employee note for this time off request.
  * @param units The unit of time requested.
@@ -58,9 +58,11 @@ data class TimeOff (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee requesting time off. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
+    /* The employee approving the time off request. */
     @field:JsonProperty("approver")
     val approver: java.util.UUID? = null,
 

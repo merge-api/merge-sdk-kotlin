@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**employee** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
-**payrollRun** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**employee** | [**java.util.UUID**](java.util.UUID.md) | The employee whose payroll is being run. |  [optional]
+**payrollRun** | [**java.util.UUID**](java.util.UUID.md) | The payroll being run. |  [optional]
 **grossPay** | **kotlin.Float** | The gross pay from the run. |  [optional]
 **netPay** | **kotlin.Float** | The net pay from the run. |  [optional]
 **startDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The day and time the payroll run started. |  [optional]

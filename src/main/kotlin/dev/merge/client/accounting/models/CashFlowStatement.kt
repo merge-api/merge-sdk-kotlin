@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param name The cash flow statement's name.
  * @param currency The cash flow statement's currency.
+ * @param company The company the cash flow statement belongs to.
  * @param startPeriod The cash flow statement's start period.
  * @param endPeriod The cash flow statement's end period.
  * @param cashAtBeginningOfPeriod Cash and cash equivalents at the beginning of the cash flow statement's period.
@@ -68,6 +69,10 @@ data class CashFlowStatement (
     /* The cash flow statement's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The company the cash flow statement belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* The cash flow statement's start period. */
     @field:JsonProperty("start_period")
@@ -121,6 +126,9 @@ data class CashFlowStatement (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("start_period")
         val startPeriod: JsonNode?,
 
@@ -160,6 +168,7 @@ data class CashFlowStatement (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 startPeriod = ApiClient.jsonConvertSafe(expanded.startPeriod),
                 endPeriod = ApiClient.jsonConvertSafe(expanded.endPeriod),
                 cashAtBeginningOfPeriod = ApiClient.jsonConvertSafe(expanded.cashAtBeginningOfPeriod),

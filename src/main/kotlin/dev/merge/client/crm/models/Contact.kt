@@ -37,7 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param firstName The contact's first name.
  * @param lastName The contact's last name.
- * @param account 
+ * @param account The contact's account.
  * @param addresses 
  * @param emailAddresses 
  * @param phoneNumbers 
@@ -65,6 +65,7 @@ data class Contact (
     @field:JsonProperty("last_name")
     val lastName: kotlin.String? = null,
 
+    /* The contact's account. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 

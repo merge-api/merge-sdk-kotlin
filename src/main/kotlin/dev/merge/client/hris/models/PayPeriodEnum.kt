@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 
  *
- * Values: HOUR,DAY,WEEK,EVERY_TWO_WEEKS,MONTH,QUARTER,EVERY_SIX_MONTHS,YEAR
+ * Values: HOUR,DAY,WEEK,EVERY_TWO_WEEKS,SEMIMONTHLY,MONTH,QUARTER,EVERY_SIX_MONTHS,YEAR
  */
 enum class PayPeriodEnum(val value: kotlin.String) {
 
@@ -50,6 +50,10 @@ enum class PayPeriodEnum(val value: kotlin.String) {
 
     @JsonProperty(value = "EVERY_TWO_WEEKS")
     EVERY_TWO_WEEKS("EVERY_TWO_WEEKS"),
+
+
+    @JsonProperty(value = "SEMIMONTHLY")
+    SEMIMONTHLY("SEMIMONTHLY"),
 
 
     @JsonProperty(value = "MONTH")

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **name** | **kotlin.String** | The cash flow statement&#39;s name. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The cash flow statement&#39;s currency. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the cash flow statement belongs to. |  [optional]
 **startPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The cash flow statement&#39;s start period. |  [optional]
 **endPeriod** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The cash flow statement&#39;s end period. |  [optional]
 **cashAtBeginningOfPeriod** | **kotlin.Float** | Cash and cash equivalents at the beginning of the cash flow statement&#39;s period. |  [optional]

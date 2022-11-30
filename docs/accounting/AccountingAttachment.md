@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **fileName** | **kotlin.String** | The attachment&#39;s name. |  [optional]
 **fileUrl** | [**java.net.URI**](java.net.URI.md) | The attachment&#39;s url. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the accounting attachment belongs to. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**user** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**user** | [**java.util.UUID**](java.util.UUID.md) | The user the performed the action. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s activity was created. |  [optional]
 **activityType** | [**ActivityTypeEnum**](ActivityTypeEnum.md) | The activity&#39;s type. |  [optional]
 **subject** | **kotlin.String** | The activity&#39;s subject. |  [optional]

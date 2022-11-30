@@ -33,9 +33,9 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param application 
- * @param interview 
- * @param interviewer 
+ * @param application The application being scored.
+ * @param interview The interview being scored.
+ * @param interviewer The interviewer doing the scoring.
  * @param remoteCreatedAt When the third party's scorecard was created.
  * @param submittedAt When the scorecard was submitted.
  * @param overallRecommendation The inteviewer's recommendation.
@@ -53,12 +53,15 @@ data class Scorecard (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The application being scored. */
     @field:JsonProperty("application")
     val application: java.util.UUID? = null,
 
+    /* The interview being scored. */
     @field:JsonProperty("interview")
     val interview: java.util.UUID? = null,
 
+    /* The interviewer doing the scoring. */
     @field:JsonProperty("interviewer")
     val interviewer: java.util.UUID? = null,
 

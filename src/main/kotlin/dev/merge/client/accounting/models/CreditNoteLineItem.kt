@@ -39,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param totalLineAmount The credit note line item's total.
  * @param trackingCategory The purchase order line item's associated tracking category.
  * @param account The credit note line item's account.
+ * @param company The company the credit note line item belongs to.
  * @param remoteId The third-party API ID of the matching object.
  */
 
@@ -84,6 +85,10 @@ data class CreditNoteLineItem (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The company the credit note line item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null
@@ -122,6 +127,9 @@ data class CreditNoteLineItem (
         @field:JsonProperty("account")
         val account: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?
 
@@ -142,6 +150,7 @@ data class CreditNoteLineItem (
                 totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 account = ApiClient.jsonConvertSafe(expanded.account),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
             )
         }

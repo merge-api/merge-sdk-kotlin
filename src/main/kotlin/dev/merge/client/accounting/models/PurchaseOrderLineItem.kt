@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.CurrencyEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -37,6 +38,9 @@ import dev.merge.client.shared.ApiClient
  * @param trackingCategory The purchase order line item's associated tracking category.
  * @param taxAmount The purchase order line item's tax amount.
  * @param totalLineAmount The purchase order line item's total amount.
+ * @param currency The purchase order line item's currency.
+ * @param exchangeRate The purchase order line item's exchange rate.
+ * @param company The company the purchase order line item belongs to.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -71,7 +75,19 @@ data class PurchaseOrderLineItem (
 
     /* The purchase order line item's total amount. */
     @field:JsonProperty("total_line_amount")
-    val totalLineAmount: java.math.BigDecimal? = null
+    val totalLineAmount: java.math.BigDecimal? = null,
+
+    /* The purchase order line item's currency. */
+    @field:JsonProperty("currency")
+    val currency: CurrencyEnum? = null,
+
+    /* The purchase order line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the purchase order line item belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null
 
 ) {
 
@@ -99,7 +115,16 @@ data class PurchaseOrderLineItem (
         val taxAmount: JsonNode?,
 
         @field:JsonProperty("total_line_amount")
-        val totalLineAmount: JsonNode?
+        val totalLineAmount: JsonNode?,
+
+        @field:JsonProperty("currency")
+        val currency: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?
 
     )
 
@@ -115,7 +140,10 @@ data class PurchaseOrderLineItem (
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 taxAmount = ApiClient.jsonConvertSafe(expanded.taxAmount),
-                totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount)
+                totalLineAmount = ApiClient.jsonConvertSafe(expanded.totalLineAmount),
+                currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company)
             )
         }
     }

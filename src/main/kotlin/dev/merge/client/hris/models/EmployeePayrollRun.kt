@@ -35,8 +35,8 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
- * @param payrollRun 
+ * @param employee The employee whose payroll is being run.
+ * @param payrollRun The payroll being run.
  * @param grossPay The gross pay from the run.
  * @param netPay The net pay from the run.
  * @param startDate The day and time the payroll run started.
@@ -59,9 +59,11 @@ data class EmployeePayrollRun (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee whose payroll is being run. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
+    /* The payroll being run. */
     @field:JsonProperty("payroll_run")
     val payrollRun: java.util.UUID? = null,
 

@@ -33,7 +33,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param employee 
+ * @param employee The employee with this bank account.
  * @param accountNumber The account number.
  * @param routingNumber The routing number.
  * @param bankName The bank name.
@@ -53,6 +53,7 @@ data class BankInfo (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
+    /* The employee with this bank account. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 

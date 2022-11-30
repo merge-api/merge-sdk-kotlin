@@ -15,7 +15,8 @@ Name | Type | Description | Notes
 **currentBalance** | **kotlin.Float** | The account&#39;s current balance. |  [optional]
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The account&#39;s currency. |  [optional]
 **accountNumber** | **kotlin.String** | The account&#39;s number. |  [optional]
-**parentAccount** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**parentAccount** | [**java.util.UUID**](java.util.UUID.md) | ID of the parent account. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the account belongs to. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 
 

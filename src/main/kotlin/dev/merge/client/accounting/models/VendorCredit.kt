@@ -37,9 +37,11 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param number The vendor credit's number.
  * @param transactionDate The vendor credit's transaction date.
- * @param vendor 
+ * @param vendor The vendor credit's vendor.
  * @param totalAmount The vendor credit's total amount.
  * @param currency The vendor credit's currency.
+ * @param exchangeRate The vendor credit's exchange rate.
+ * @param company The company the vendor credit belongs to.
  * @param lines 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
@@ -65,6 +67,7 @@ data class VendorCredit (
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
 
+    /* The vendor credit's vendor. */
     @field:JsonProperty("vendor")
     val vendor: java.util.UUID? = null,
 
@@ -75,6 +78,14 @@ data class VendorCredit (
     /* The vendor credit's currency. */
     @field:JsonProperty("currency")
     val currency: CurrencyEnum? = null,
+
+    /* The vendor credit's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* The company the vendor credit belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     @field:JsonProperty("lines")
     val lines: kotlin.collections.List<VendorCreditLine>? = null,
@@ -111,6 +122,12 @@ data class VendorCredit (
         @field:JsonProperty("currency")
         val currency: JsonNode?,
 
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("lines")
         val lines: kotlin.collections.List<JsonNode>?,
 
@@ -132,6 +149,8 @@ data class VendorCredit (
                 vendor = ApiClient.jsonConvertSafe(expanded.vendor),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 lines = ApiClient.jsonConvertSafe(expanded.lines),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )

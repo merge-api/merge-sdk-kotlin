@@ -43,6 +43,7 @@ import dev.merge.client.shared.ApiClient
  * @param status The contact's status
  * @param currency The currency the contact's transactions are in.
  * @param remoteUpdatedAt When the third party's contact was updated.
+ * @param company The company the contact belongs to.
  * @param addresses `Address` object IDs for the given `Contacts` object.
  * @param phoneNumbers `AccountingPhoneNumber` object for the given `Contacts` object.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
@@ -93,6 +94,10 @@ data class Contact (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
+    /* The company the contact belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* `Address` object IDs for the given `Contacts` object. */
     @field:JsonProperty("addresses")
     val addresses: kotlin.collections.List<java.util.UUID>? = null,
@@ -142,6 +147,9 @@ data class Contact (
         @field:JsonProperty("remote_updated_at")
         val remoteUpdatedAt: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("addresses")
         val addresses: kotlin.collections.List<JsonNode>?,
 
@@ -169,6 +177,7 @@ data class Contact (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 addresses = ApiClient.jsonConvertSafe(expanded.addresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)

@@ -35,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param fileName The attachment's name.
  * @param fileUrl The attachment's url.
+ * @param company The company the accounting attachment belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
@@ -59,6 +60,10 @@ data class AccountingAttachment (
     @field:JsonProperty("file_url")
     val fileUrl: java.net.URI? = null,
 
+    /* The company the accounting attachment belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
+
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null
@@ -82,6 +87,9 @@ data class AccountingAttachment (
         @field:JsonProperty("file_url")
         val fileUrl: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?
 
@@ -97,6 +105,7 @@ data class AccountingAttachment (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 fileName = ApiClient.jsonConvertSafe(expanded.fileName),
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )
         }

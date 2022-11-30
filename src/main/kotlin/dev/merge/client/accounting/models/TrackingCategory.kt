@@ -38,7 +38,8 @@ import dev.merge.client.shared.ApiClient
  * @param name The tracking category's name.
  * @param status The tracking category's status.
  * @param categoryType The tracking category’s type.
- * @param parentCategory 
+ * @param parentCategory ID of the parent tracking category.
+ * @param company The company the tracking category belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  */
 
@@ -67,8 +68,13 @@ data class TrackingCategory (
     @field:JsonProperty("category_type")
     val categoryType: CategoryTypeEnum? = null,
 
+    /* ID of the parent tracking category. */
     @field:JsonProperty("parent_category")
     val parentCategory: java.util.UUID? = null,
+
+    /* The company the tracking category belongs to. */
+    @field:JsonProperty("company")
+    val company: java.util.UUID? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
@@ -99,6 +105,9 @@ data class TrackingCategory (
         @field:JsonProperty("parent_category")
         val parentCategory: JsonNode?,
 
+        @field:JsonProperty("company")
+        val company: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?
 
@@ -116,6 +125,7 @@ data class TrackingCategory (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 categoryType = ApiClient.jsonConvertSafe(expanded.categoryType),
                 parentCategory = ApiClient.jsonConvertSafe(expanded.parentCategory),
+                company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
             )
         }

@@ -11,8 +11,9 @@ Name | Type | Description | Notes
 **status** | [**Status7d1Enum**](Status7d1Enum.md) | The item&#39;s status. |  [optional]
 **unitPrice** | **kotlin.Float** | The item&#39;s unit price. |  [optional]
 **purchasePrice** | **kotlin.Float** | The item&#39;s purchase price. |  [optional]
-**purchaseAccount** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
-**salesAccount** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
+**purchaseAccount** | [**java.util.UUID**](java.util.UUID.md) | The item&#39;s purchase account. |  [optional]
+**salesAccount** | [**java.util.UUID**](java.util.UUID.md) | The item&#39;s sales account. |  [optional]
+**company** | [**java.util.UUID**](java.util.UUID.md) | The company the item belongs to. |  [optional]
 **remoteUpdatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s item note was updated. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 
