@@ -133,7 +133,7 @@ open class ApiClient(
     }
 
     protected suspend fun <T: Any?> jsonRequest(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
-        requestConfig.headers[HttpHeaders.ContentType] = requestConfig.headers[HttpHeaders.ContentType] ?: "application/json"
+        requestConfig.headers.putIfAbsent(HttpHeaders.ContentType, ContentType.Application.Json.toString())
         return if (body != null) request(requestConfig, body, authNames)
         else request(requestConfig, authNames = authNames)
     }
