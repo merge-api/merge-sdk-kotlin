@@ -123,7 +123,7 @@ Configure bearerAuth:
 
 <a name="candidatesList"></a>
 # **candidatesList**
-> PaginatedCandidateList candidatesList(createdAfter, createdBefore, cursor, expand, firstName, includeDeletedData, includeRemoteData, lastName, modifiedAfter, modifiedBefore, pageSize, remoteId)
+> PaginatedCandidateList candidatesList(createdAfter, createdBefore, cursor, emailAddresses, expand, firstName, includeDeletedData, includeRemoteData, lastName, modifiedAfter, modifiedBefore, pageSize, remoteId, tags)
 
 
 
@@ -139,6 +139,7 @@ val apiInstance = CandidatesApi()
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val emailAddresses : kotlin.String = emailAddresses_example // kotlin.String | If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas.
 val expand : kotlin.String = applications,attachments // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val firstName : kotlin.String = firstName_example // kotlin.String | If provided, will only return candidates with this first name.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
@@ -148,8 +149,9 @@ val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
+val tags : kotlin.String = tags_example // kotlin.String | If provided, will only return candidates with these tags; multiple tags can be separated by commas.
 try {
-    val result : PaginatedCandidateList = apiInstance.candidatesList(createdAfter, createdBefore, cursor, expand, firstName, includeDeletedData, includeRemoteData, lastName, modifiedAfter, modifiedBefore, pageSize, remoteId)
+    val result : PaginatedCandidateList = apiInstance.candidatesList(createdAfter, createdBefore, cursor, emailAddresses, expand, firstName, includeDeletedData, includeRemoteData, lastName, modifiedAfter, modifiedBefore, pageSize, remoteId, tags)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CandidatesApi#candidatesList")
@@ -167,6 +169,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **emailAddresses** | **kotlin.String**| If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas. | [optional]
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: applications, applications,attachments, attachments]
  **firstName** | **kotlin.String**| If provided, will only return candidates with this first name. | [optional]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
@@ -176,6 +179,7 @@ Name | Type | Description  | Notes
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
+ **tags** | **kotlin.String**| If provided, will only return candidates with these tags; multiple tags can be separated by commas. | [optional]
 
 ### Return type
 

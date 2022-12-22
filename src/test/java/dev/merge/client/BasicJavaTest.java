@@ -39,9 +39,20 @@ public class BasicJavaTest extends TestCase {
         );
 
         CandidatesApi.CandidatesListRequest expandRequest = new CandidatesApi.CandidatesListRequest(
-                null, null, null,
+                null,
+                null,
+                null,
+                null,
                 "applications",
-                null, null, null, null, null, null, null, null
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
         );
         CompletableFuture<MergePaginatedResponse<Candidate.Expanded>> atsCandidatesExpandedPromise =
                 candidatesApi.candidatesListExpandedAsync(

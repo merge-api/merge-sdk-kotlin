@@ -52,8 +52,8 @@ import dev.merge.client.shared.ApiClient
  * @param applications Array of `Application` object IDs.
  * @param attachments Array of `Attachment` object IDs.
  * @param remoteData 
- * @param customFields Custom fields configured for a given model.
  * @param remoteWasDeleted 
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -130,12 +130,11 @@ data class Candidate (
     @field:JsonProperty("remote_data")
     val remoteData: kotlin.collections.List<RemoteData>? = null,
 
-    /* Custom fields configured for a given model. */
-    @field:JsonProperty("custom_fields")
-    val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
-
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -198,11 +197,11 @@ data class Candidate (
         @field:JsonProperty("remote_data")
         val remoteData: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("custom_fields")
-        val customFields: JsonNode?,
-
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -230,8 +229,8 @@ data class Candidate (
                 applications = ApiClient.jsonConvertSafe(expanded.applications),
                 attachments = ApiClient.jsonConvertSafe(expanded.attachments),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

@@ -41,6 +41,7 @@ import dev.merge.client.shared.ApiClient
  * @param status The current status of the ticket.
  * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project The project the ticket belongs to.
+ * @param collections 
  * @param ticketType The ticket's type.
  * @param account The account associated with the ticket.
  * @param contact The contact associated with the ticket.
@@ -54,6 +55,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted 
  * @param ticketUrl The 3rd party url of the Ticket.
  * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -92,6 +94,9 @@ data class Ticket (
     /* The project the ticket belongs to. */
     @field:JsonProperty("project")
     val project: java.util.UUID? = null,
+
+    @field:JsonProperty("collections")
+    val collections: kotlin.collections.List<java.util.UUID>? = null,
 
     /* The ticket's type. */
     @field:JsonProperty("ticket_type")
@@ -139,7 +144,10 @@ data class Ticket (
 
     /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
     @field:JsonProperty("priority")
-    val priority: PriorityEnum? = null
+    val priority: PriorityEnum? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -171,6 +179,9 @@ data class Ticket (
 
         @field:JsonProperty("project")
         val project: JsonNode?,
+
+        @field:JsonProperty("collections")
+        val collections: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("ticket_type")
         val ticketType: JsonNode?,
@@ -209,7 +220,10 @@ data class Ticket (
         val ticketUrl: JsonNode?,
 
         @field:JsonProperty("priority")
-        val priority: JsonNode?
+        val priority: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -227,6 +241,7 @@ data class Ticket (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 project = ApiClient.jsonConvertSafe(expanded.project),
+                collections = ApiClient.jsonConvertSafe(expanded.collections),
                 ticketType = ApiClient.jsonConvertSafe(expanded.ticketType),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
@@ -239,7 +254,8 @@ data class Ticket (
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
-                priority = ApiClient.jsonConvertSafe(expanded.priority)
+                priority = ApiClient.jsonConvertSafe(expanded.priority),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

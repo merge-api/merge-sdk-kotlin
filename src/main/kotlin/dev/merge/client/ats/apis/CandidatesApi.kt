@@ -64,6 +64,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
+        val emailAddresses: kotlin.String? = null,
         val expand: kotlin.String? = null,
         val firstName: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
@@ -72,7 +73,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val tags: kotlin.String? = null
     )
 
     data class CandidatesRetrieveRequest (
@@ -198,6 +200,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
+     * @param emailAddresses If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas. (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param firstName If provided, will only return candidates with this first name. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
@@ -207,6 +210,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param tags If provided, will only return candidates with these tags; multiple tags can be separated by commas. (optional)
      * @return PaginatedCandidateList
     */
     @Suppress("UNCHECKED_CAST")
@@ -220,7 +224,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param emailAddresses If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param tags If provided, will only return candidates with these tags; multiple tags can be separated by commas. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesListExpanded(requestModel: CandidatesApi.CandidatesListRequest): MergePaginatedResponse<Candidate.Expanded> {
@@ -243,6 +247,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.createdAfter?.apply { localVariableQuery["created_after"] = listOf("$this") }
             requestModel.createdBefore?.apply { localVariableQuery["created_before"] = listOf("$this") }
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.emailAddresses?.apply { localVariableQuery["email_addresses"] = listOf(this) }
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.firstName?.apply { localVariableQuery["first_name"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
@@ -252,6 +257,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.tags?.apply { localVariableQuery["tags"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

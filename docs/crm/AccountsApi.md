@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accountsCreate**](AccountsApi.md#accountsCreate) | **POST** /accounts | 
 [**accountsList**](AccountsApi.md#accountsList) | **GET** /accounts | 
+[**accountsMetaPatchRetrieve**](AccountsApi.md#accountsMetaPatchRetrieve) | **GET** /accounts/meta/patch/{id} | 
 [**accountsMetaPostRetrieve**](AccountsApi.md#accountsMetaPostRetrieve) | **GET** /accounts/meta/post | 
+[**accountsPartialUpdate**](AccountsApi.md#accountsPartialUpdate) | **PATCH** /accounts/{id} | 
 [**accountsRetrieve**](AccountsApi.md#accountsRetrieve) | **GET** /accounts/{id} | 
 
 
@@ -138,6 +140,58 @@ Configure bearerAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="accountsMetaPatchRetrieve"></a>
+# **accountsMetaPatchRetrieve**
+> MetaResponse accountsMetaPatchRetrieve(id)
+
+
+
+Returns metadata for &#x60;CRMAccount&#x60; PATCHs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.crm.models.*
+
+val apiInstance = AccountsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+try {
+    val result : MetaResponse = apiInstance.accountsMetaPatchRetrieve(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#accountsMetaPatchRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#accountsMetaPatchRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="accountsMetaPostRetrieve"></a>
 # **accountsMetaPostRetrieve**
 > MetaResponse accountsMetaPostRetrieve()
@@ -184,6 +238,64 @@ Configure bearerAuth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="accountsPartialUpdate"></a>
+# **accountsPartialUpdate**
+> CRMAccountResponse accountsPartialUpdate(id, patchedCRMAccountEndpointRequest, isDebugMode, runAsync)
+
+
+
+Updates an &#x60;Account&#x60; object with the given &#x60;id&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.crm.models.*
+
+val apiInstance = AccountsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val patchedCRMAccountEndpointRequest : PatchedCRMAccountEndpointRequest =  // PatchedCRMAccountEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : CRMAccountResponse = apiInstance.accountsPartialUpdate(id, patchedCRMAccountEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#accountsPartialUpdate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#accountsPartialUpdate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **patchedCRMAccountEndpointRequest** | [**PatchedCRMAccountEndpointRequest**](PatchedCRMAccountEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**CRMAccountResponse**](CRMAccountResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
  - **Accept**: application/json
 
 <a name="accountsRetrieve"></a>

@@ -42,6 +42,7 @@ import dev.merge.client.shared.ApiClient
  * @param account 
  * @param trackingCategory 
  * @param company The company the line item belongs to.
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -89,7 +90,10 @@ data class InvoiceLineItem (
 
     /* The company the line item belongs to. */
     @field:JsonProperty("company")
-    val company: java.util.UUID? = null
+    val company: java.util.UUID? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -129,7 +133,10 @@ data class InvoiceLineItem (
         val trackingCategory: JsonNode?,
 
         @field:JsonProperty("company")
-        val company: JsonNode?
+        val company: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -149,7 +156,8 @@ data class InvoiceLineItem (
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
-                company = ApiClient.jsonConvertSafe(expanded.company)
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

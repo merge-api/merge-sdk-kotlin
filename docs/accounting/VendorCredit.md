@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the vendor credit belongs to. |  [optional]
 **lines** | [**kotlin.collections.List&lt;VendorCreditLine&gt;**](VendorCreditLine.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

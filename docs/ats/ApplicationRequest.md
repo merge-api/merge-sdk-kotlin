@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **creditedTo** | [**java.util.UUID**](java.util.UUID.md) | The user credited for this application. |  [optional]
 **currentStage** | [**java.util.UUID**](java.util.UUID.md) | The application&#39;s current stage. |  [optional]
 **rejectReason** | [**java.util.UUID**](java.util.UUID.md) | The application&#39;s reason for rejection. |  [optional]
-**customFields** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) | Custom fields configured for a given model. |  [optional]
 **remoteTemplateId** | **kotlin.String** |  |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]

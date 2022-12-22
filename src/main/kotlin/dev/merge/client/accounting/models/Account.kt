@@ -47,6 +47,7 @@ import dev.merge.client.shared.ApiClient
  * @param parentAccount ID of the parent account.
  * @param company The company the account belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -104,7 +105,10 @@ data class Account (
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -150,7 +154,10 @@ data class Account (
         val company: JsonNode?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -172,7 +179,8 @@ data class Account (
                 accountNumber = ApiClient.jsonConvertSafe(expanded.accountNumber),
                 parentAccount = ApiClient.jsonConvertSafe(expanded.parentAccount),
                 company = ApiClient.jsonConvertSafe(expanded.company),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

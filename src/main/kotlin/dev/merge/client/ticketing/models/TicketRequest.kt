@@ -39,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param status The current status of the ticket.
  * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project The project the ticket belongs to.
+ * @param collections 
  * @param ticketType The ticket's type.
  * @param account The account associated with the ticket.
  * @param contact The contact associated with the ticket.
@@ -87,6 +88,9 @@ data class TicketRequest (
     /* The project the ticket belongs to. */
     @field:JsonProperty("project")
     val project: java.util.UUID? = null,
+
+    @field:JsonProperty("collections")
+    val collections: kotlin.collections.List<java.util.UUID>? = null,
 
     /* The ticket's type. */
     @field:JsonProperty("ticket_type")
@@ -164,6 +168,9 @@ data class TicketRequest (
         @field:JsonProperty("project")
         val project: JsonNode?,
 
+        @field:JsonProperty("collections")
+        val collections: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("ticket_type")
         val ticketType: JsonNode?,
 
@@ -218,6 +225,7 @@ data class TicketRequest (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 project = ApiClient.jsonConvertSafe(expanded.project),
+                collections = ApiClient.jsonConvertSafe(expanded.collections),
                 ticketType = ApiClient.jsonConvertSafe(expanded.ticketType),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),

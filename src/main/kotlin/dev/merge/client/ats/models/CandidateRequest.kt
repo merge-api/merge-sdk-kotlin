@@ -49,7 +49,6 @@ import dev.merge.client.shared.ApiClient
  * @param tags Array of `Tag` names as strings.
  * @param applications Array of `Application` object IDs.
  * @param attachments Array of `Attachment` object IDs.
- * @param customFields Custom fields configured for a given model.
  * @param remoteTemplateId 
  * @param integrationParams 
  * @param linkedAccountParams 
@@ -123,10 +122,6 @@ data class CandidateRequest (
     @field:JsonProperty("attachments")
     val attachments: kotlin.collections.List<java.util.UUID>? = null,
 
-    /* Custom fields configured for a given model. */
-    @field:JsonProperty("custom_fields")
-    val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
-
     @field:JsonProperty("remote_template_id")
     val remoteTemplateId: kotlin.String? = null,
 
@@ -191,9 +186,6 @@ data class CandidateRequest (
         @field:JsonProperty("attachments")
         val attachments: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("custom_fields")
-        val customFields: JsonNode?,
-
         @field:JsonProperty("remote_template_id")
         val remoteTemplateId: JsonNode?,
 
@@ -227,7 +219,6 @@ data class CandidateRequest (
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
                 applications = ApiClient.jsonConvertSafe(expanded.applications),
                 attachments = ApiClient.jsonConvertSafe(expanded.attachments),
-                customFields = ApiClient.jsonConvertSafe(expanded.customFields),
                 remoteTemplateId = ApiClient.jsonConvertSafe(expanded.remoteTemplateId),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)

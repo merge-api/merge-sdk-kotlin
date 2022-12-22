@@ -20,7 +20,6 @@
 
 package dev.merge.client.hris.models
 
-import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,12 +30,12 @@ import dev.merge.client.shared.ApiClient
  * # The Deduction Object ### Description The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
  *
  * @param id 
- * @param employeePayrollRun The deduction's employee payroll run.
+ * @param employeePayrollRun 
  * @param name The deduction's name.
  * @param employeeDeduction The amount the employee is deducting.
  * @param companyDeduction The amount the company is deducting.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -45,7 +44,6 @@ data class Deduction (
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
-    /* The deduction's employee payroll run. */
     @field:JsonProperty("employee_payroll_run")
     val employeePayrollRun: java.util.UUID? = null,
 
@@ -61,12 +59,12 @@ data class Deduction (
     @field:JsonProperty("company_deduction")
     val companyDeduction: kotlin.Float? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -87,11 +85,11 @@ data class Deduction (
         @field:JsonProperty("company_deduction")
         val companyDeduction: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -105,8 +103,8 @@ data class Deduction (
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 employeeDeduction = ApiClient.jsonConvertSafe(expanded.employeeDeduction),
                 companyDeduction = ApiClient.jsonConvertSafe(expanded.companyDeduction),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **addresses** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | &#x60;Address&#x60; object IDs for the given &#x60;Contacts&#x60; object. |  [optional]
 **phoneNumbers** | [**kotlin.collections.List&lt;AccountingPhoneNumber&gt;**](AccountingPhoneNumber.md) | &#x60;AccountingPhoneNumber&#x60; object for the given &#x60;Contacts&#x60; object. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 
