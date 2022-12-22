@@ -133,8 +133,7 @@ open class ApiClient(
     }
 
     protected suspend fun <T: Any?> jsonRequest(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
-        val contentType = (requestConfig.headers[HttpHeaders.ContentType]?.let { ContentType.parse(it) }
-                ?: ContentType.Application.Json)
+        requestConfig.headers[HttpHeaders.ContentType] = requestConfig.headers[HttpHeaders.ContentType] ?: "application/json"
         return if (body != null) request(requestConfig, body, authNames)
         else request(requestConfig, authNames = authNames)
     }
@@ -158,7 +157,7 @@ open class ApiClient(
             headers.filter { header -> !UNSAFE_HEADERS.contains(header.key) }.forEach { header -> this.header(header.key, header.value) }
             if (requestConfig.method in listOf(RequestMethod.PUT, RequestMethod.POST, RequestMethod.PATCH))
                 this.setBody(body)
-
+            contentType(requestConfig.headers[HttpHeaders.ContentType]?.let { ContentType.parse(it) } ?: ContentType.Application.Json)
         }
     }
 
