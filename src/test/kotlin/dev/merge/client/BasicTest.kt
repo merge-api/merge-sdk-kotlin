@@ -186,6 +186,7 @@ internal class BasicTest {
     }
 
     @Test
+    @Ignore
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     fun testCreateLinkToken() = runTest {
         val mapper = ObjectMapper()
