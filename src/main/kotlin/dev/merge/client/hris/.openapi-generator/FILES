@@ -15,6 +15,15 @@ docs/Benefit.md
 docs/BenefitsApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
+docs/CommonModelScopes.md
+docs/CommonModelScopesApi.md
+docs/CommonModelScopesDisabledModels.md
+docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
+docs/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.md
+docs/CommonModelScopesPutInnerDeserializerRequest.md
+docs/CommonModelScopesScope.md
+docs/CommonModelScopesScopeTypeEnum.md
+docs/CommonModelScopesUpdateSerializer.md
 docs/CompaniesApi.md
 docs/Company.md
 docs/ConditionSchema.md
@@ -24,7 +33,6 @@ docs/DataPassthroughRequest.md
 docs/DebugModeLog.md
 docs/DebugModelLogSummary.md
 docs/Deduction.md
-docs/DeductionsApi.md
 docs/DeleteAccountApi.md
 docs/Earning.md
 docs/EarningTypeEnum.md
@@ -94,6 +102,7 @@ docs/ResponseTypeEnum.md
 docs/RunStateEnum.md
 docs/RunTypeEnum.md
 docs/SelectiveSyncApi.md
+docs/SelectiveSyncConfigurationsUsageEnum.md
 docs/SyncStatus.md
 docs/SyncStatusApi.md
 docs/SyncStatusStatusEnum.md
@@ -119,8 +128,8 @@ src/main/kotlin/dev/merge/client/hris/apis/AccountTokenApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/BankInfoApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/BenefitsApi.kt
+src/main/kotlin/dev/merge/client/hris/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/CompaniesApi.kt
-src/main/kotlin/dev/merge/client/hris/apis/DeductionsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/DeleteAccountApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/EmployeePayrollRunsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/EmployeesApi.kt
@@ -154,6 +163,14 @@ src/main/kotlin/dev/merge/client/hris/models/BankInfo.kt
 src/main/kotlin/dev/merge/client/hris/models/Benefit.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoryEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopes.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesDisabledModels.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesPutInnerDeserializerRequest.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesScope.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesScopeTypeEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/hris/models/Company.kt
 src/main/kotlin/dev/merge/client/hris/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/hris/models/ConditionTypeEnum.kt
@@ -215,6 +232,7 @@ src/main/kotlin/dev/merge/client/hris/models/RequestTypeEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/ResponseTypeEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/RunStateEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/RunTypeEnum.kt
+src/main/kotlin/dev/merge/client/hris/models/SelectiveSyncConfigurationsUsageEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/SyncStatus.kt
 src/main/kotlin/dev/merge/client/hris/models/SyncStatusStatusEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/Tax.kt

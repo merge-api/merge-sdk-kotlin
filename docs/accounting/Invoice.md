@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **payments** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | Array of &#x60;Payment&#x60; object IDs. |  [optional]
 **lineItems** | [**kotlin.collections.List&lt;InvoiceLineItem&gt;**](InvoiceLineItem.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

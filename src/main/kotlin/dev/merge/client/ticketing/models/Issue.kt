@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param firstIncidentTime 
  * @param lastIncidentTime 
  * @param isMuted 
+ * @param errorDetails 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -61,7 +62,10 @@ data class Issue (
     val lastIncidentTime: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("is_muted")
-    val isMuted: kotlin.Boolean? = null
+    val isMuted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("error_details")
+    val errorDetails: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -86,7 +90,10 @@ data class Issue (
         val lastIncidentTime: JsonNode?,
 
         @field:JsonProperty("is_muted")
-        val isMuted: JsonNode?
+        val isMuted: JsonNode?,
+
+        @field:JsonProperty("error_details")
+        val errorDetails: JsonNode?
 
     )
 
@@ -101,7 +108,8 @@ data class Issue (
                 endUser = ApiClient.jsonConvertSafe(expanded.endUser),
                 firstIncidentTime = ApiClient.jsonConvertSafe(expanded.firstIncidentTime),
                 lastIncidentTime = ApiClient.jsonConvertSafe(expanded.lastIncidentTime),
-                isMuted = ApiClient.jsonConvertSafe(expanded.isMuted)
+                isMuted = ApiClient.jsonConvertSafe(expanded.isMuted),
+                errorDetails = ApiClient.jsonConvertSafe(expanded.errorDetails)
             )
         }
     }

@@ -20,6 +20,7 @@
 
 package dev.merge.client.accounting.models
 
+import dev.merge.client.accounting.models.SelectiveSyncConfigurationsUsageEnum
 import dev.merge.client.accounting.models.SyncStatusStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -36,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param isInitialSync 
  * @param lastSyncStart 
  * @param nextSyncStart 
+ * @param selectiveSyncConfigurationsUsage 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -57,7 +59,10 @@ data class SyncStatus (
     val lastSyncStart: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("next_sync_start")
-    val nextSyncStart: java.time.OffsetDateTime? = null
+    val nextSyncStart: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("selective_sync_configurations_usage")
+    val selectiveSyncConfigurationsUsage: SelectiveSyncConfigurationsUsageEnum? = null
 
 ) {
 
@@ -79,7 +84,10 @@ data class SyncStatus (
         val lastSyncStart: JsonNode?,
 
         @field:JsonProperty("next_sync_start")
-        val nextSyncStart: JsonNode?
+        val nextSyncStart: JsonNode?,
+
+        @field:JsonProperty("selective_sync_configurations_usage")
+        val selectiveSyncConfigurationsUsage: JsonNode?
 
     )
 
@@ -93,7 +101,8 @@ data class SyncStatus (
                 status = ApiClient.jsonConvertRequiredSafe(expanded.status),
                 isInitialSync = ApiClient.jsonConvertRequiredSafe(expanded.isInitialSync),
                 lastSyncStart = ApiClient.jsonConvertSafe(expanded.lastSyncStart),
-                nextSyncStart = ApiClient.jsonConvertSafe(expanded.nextSyncStart)
+                nextSyncStart = ApiClient.jsonConvertSafe(expanded.nextSyncStart),
+                selectiveSyncConfigurationsUsage = ApiClient.jsonConvertSafe(expanded.selectiveSyncConfigurationsUsage)
             )
         }
     }

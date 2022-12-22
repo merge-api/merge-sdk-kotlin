@@ -41,7 +41,7 @@ data class LinkToken (
     val linkToken: kotlin.String,
 
     @field:JsonProperty("integration_name")
-    val integrationName: kotlin.String,
+    val integrationName: kotlin.String? = null,
 
     @field:JsonProperty("magic_link_url")
     val magicLinkUrl: kotlin.String? = null
@@ -54,7 +54,7 @@ data class LinkToken (
         val linkToken: JsonNode,
 
         @field:JsonProperty("integration_name")
-        val integrationName: JsonNode,
+        val integrationName: JsonNode?,
 
         @field:JsonProperty("magic_link_url")
         val magicLinkUrl: JsonNode?
@@ -67,7 +67,7 @@ data class LinkToken (
         fun normalize(expanded: LinkToken.Expanded): LinkToken {
             return LinkToken(
                 linkToken = ApiClient.jsonConvertRequiredSafe(expanded.linkToken),
-                integrationName = ApiClient.jsonConvertRequiredSafe(expanded.integrationName),
+                integrationName = ApiClient.jsonConvertSafe(expanded.integrationName),
                 magicLinkUrl = ApiClient.jsonConvertSafe(expanded.magicLinkUrl)
             )
         }

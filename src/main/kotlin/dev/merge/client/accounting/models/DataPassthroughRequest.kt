@@ -39,7 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param multipartFormData Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
  * @param headers The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
  * @param requestFormat 
- * @param normalizeResponse 
+ * @param normalizeResponse Optional. If true, the response will always be an object of the form `{\"type\": T, \"value\": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,6 +68,7 @@ data class DataPassthroughRequest (
     @field:JsonProperty("request_format")
     val requestFormat: RequestFormatEnum? = null,
 
+    /* Optional. If true, the response will always be an object of the form `{\"type\": T, \"value\": ...}` where `T` will be one of `string, boolean, number, null, array, object`. */
     @field:JsonProperty("normalize_response")
     val normalizeResponse: kotlin.Boolean? = null
 

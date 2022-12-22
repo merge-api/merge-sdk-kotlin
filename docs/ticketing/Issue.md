@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **firstIncidentTime** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
 **lastIncidentTime** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
 **isMuted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**errorDetails** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

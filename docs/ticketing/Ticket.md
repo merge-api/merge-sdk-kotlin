@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **status** | [**TicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket. |  [optional]
 **description** | **kotlin.String** | The ticket’s description. HTML version of description is mapped if supported by the third-party platform. |  [optional]
 **project** | [**java.util.UUID**](java.util.UUID.md) | The project the ticket belongs to. |  [optional]
+**collections** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) |  |  [optional]
 **ticketType** | **kotlin.String** | The ticket&#39;s type. |  [optional]
 **account** | [**java.util.UUID**](java.util.UUID.md) | The account associated with the ticket. |  [optional]
 **contact** | [**java.util.UUID**](java.util.UUID.md) | The contact associated with the ticket. |  [optional]
@@ -26,6 +27,7 @@ Name | Type | Description | Notes
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
 **ticketUrl** | [**java.net.URI**](java.net.URI.md) | The 3rd party url of the Ticket. |  [optional]
 **priority** | [**PriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. |  [optional]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

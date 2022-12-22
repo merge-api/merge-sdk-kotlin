@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the journal entry belongs to. |  [optional]
 **lines** | [**kotlin.collections.List&lt;JournalLine&gt;**](JournalLine.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

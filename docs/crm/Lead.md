@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **convertedAccount** | [**java.util.UUID**](java.util.UUID.md) | The account of the converted lead. |  [optional]
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

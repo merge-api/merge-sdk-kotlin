@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **isInitialSync** | **kotlin.Boolean** |  | 
 **lastSyncStart** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
 **nextSyncStart** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**selectiveSyncConfigurationsUsage** | [**SelectiveSyncConfigurationsUsageEnum**](SelectiveSyncConfigurationsUsageEnum.md) |  |  [optional]
 
 
 

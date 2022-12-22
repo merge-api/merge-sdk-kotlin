@@ -41,6 +41,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteCreatedAt When the third party's lead was created.
  * @param remoteData 
  * @param remoteWasDeleted 
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -85,7 +86,10 @@ data class Note (
     val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -122,7 +126,10 @@ data class Note (
         val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -141,7 +148,8 @@ data class Note (
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

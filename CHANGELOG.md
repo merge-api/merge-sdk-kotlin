@@ -1,3 +1,14 @@
+# Version 2.0.5
+
+## Date: 2022-12-22
+
+- Happy holidays everyone
+- Prior versions had a broken POST helper method, this is now resolved and tested
+- Prior versions required a property in create LinkToken response that was often null, that is now correctly optional
+- Additional query params and model properties that are backwards compatible and optional
+- CommonModel Scopes API (Beta)
+- CRM CustomObjects API (Beta, partial release)
+
 # Version 2.0.4
 
 ## Date: 2022-11-30

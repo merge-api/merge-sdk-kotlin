@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **account** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **trackingCategory** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the line item belongs to. |  [optional]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 

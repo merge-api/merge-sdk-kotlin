@@ -10,6 +10,9 @@ import dev.merge.client.ats.models.SyncStatus
 import dev.merge.client.ats.models.SyncStatusStatusEnum
 import dev.merge.client.crm.apis.ContactsApi
 import dev.merge.client.hris.apis.EmployeesApi
+import dev.merge.client.hris.apis.LinkTokenApi
+import dev.merge.client.hris.models.CategoriesEnum
+import dev.merge.client.hris.models.EndUserDetailsRequest
 import dev.merge.client.shared.ApiClient
 import dev.merge.client.ticketing.apis.TicketsApi
 import io.ktor.client.plugins.*
@@ -180,5 +183,33 @@ internal class BasicTest {
         val deserializedSyncStatus = ApiClient.JSON_DEFAULT.readValue(rawSyncStatus, SyncStatus::class.java)
 
         assertEquals(SyncStatusStatusEnum.MERGE_NONSTANDARD_VALUE, deserializedSyncStatus.status)
+    }
+
+    @Test
+    @Ignore
+    @kotlinx.coroutines.ExperimentalCoroutinesApi
+    fun testCreateLinkToken() = runTest {
+        val mapper = ObjectMapper()
+        mapper.findAndRegisterModules()
+        mapper.enable(SerializationFeature.INDENT_OUTPUT)
+
+        val apiKey = "REDACTED"
+
+        val linkTokenApi = LinkTokenApi()
+        linkTokenApi.setApiKey(apiKey)
+
+        val endUserDetailsRequest = EndUserDetailsRequest(
+            endUserEmailAddress = "hello@merge.dev",
+            endUserOrganizationName = "MergeSDKTest-Kotlin",
+            endUserOriginId = "MergeSDKTest-Kotlin-" + (System.currentTimeMillis() / 1000),
+            categories = listOf(CategoriesEnum.HRIS),
+            integration = "hibob"
+        )
+
+        val linkTokenCreateRequest = LinkTokenApi.LinkTokenCreateRequest(endUserDetailsRequest)
+
+        val response = linkTokenApi.linkTokenCreate(linkTokenCreateRequest)
+
+        assertNotNull(response)
     }
 }

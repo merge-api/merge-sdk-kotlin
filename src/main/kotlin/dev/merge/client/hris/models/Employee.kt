@@ -66,6 +66,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteData 
  * @param customFields Custom fields configured for a given model.
  * @param remoteWasDeleted 
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -194,7 +195,10 @@ data class Employee (
     val customFields: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -294,7 +298,10 @@ data class Employee (
         val customFields: JsonNode?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -334,7 +341,8 @@ data class Employee (
                 avatar = ApiClient.jsonConvertSafe(expanded.avatar),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 customFields = ApiClient.jsonConvertSafe(expanded.customFields),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

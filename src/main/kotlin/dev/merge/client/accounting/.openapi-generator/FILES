@@ -29,6 +29,15 @@ docs/CategoriesEnum.md
 docs/CategoryEnum.md
 docs/CategoryTypeEnum.md
 docs/ClassificationEnum.md
+docs/CommonModelScopes.md
+docs/CommonModelScopesApi.md
+docs/CommonModelScopesDisabledModels.md
+docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
+docs/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.md
+docs/CommonModelScopesPutInnerDeserializerRequest.md
+docs/CommonModelScopesScope.md
+docs/CommonModelScopesScopeTypeEnum.md
+docs/CommonModelScopesUpdateSerializer.md
 docs/CompanyInfo.md
 docs/CompanyInfoApi.md
 docs/ConditionSchema.md
@@ -120,6 +129,7 @@ docs/ReportItem.md
 docs/RequestFormatEnum.md
 docs/ResponseTypeEnum.md
 docs/SelectiveSyncApi.md
+docs/SelectiveSyncConfigurationsUsageEnum.md
 docs/Status7d1Enum.md
 docs/SyncStatus.md
 docs/SyncStatusApi.md
@@ -147,6 +157,7 @@ src/main/kotlin/dev/merge/client/accounting/apis/AttachmentsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/BalanceSheetsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CashFlowStatementsApi.kt
+src/main/kotlin/dev/merge/client/accounting/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CompanyInfoApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/ContactsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CreditNotesApi.kt
@@ -196,6 +207,14 @@ src/main/kotlin/dev/merge/client/accounting/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryTypeEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/ClassificationEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopes.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModels.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPutInnerDeserializerRequest.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesScope.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesScopeTypeEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/accounting/models/CompanyInfo.kt
 src/main/kotlin/dev/merge/client/accounting/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/accounting/models/ConditionTypeEnum.kt
@@ -267,6 +286,7 @@ src/main/kotlin/dev/merge/client/accounting/models/RemoteResponse.kt
 src/main/kotlin/dev/merge/client/accounting/models/ReportItem.kt
 src/main/kotlin/dev/merge/client/accounting/models/RequestFormatEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/ResponseTypeEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/SelectiveSyncConfigurationsUsageEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/Status7d1Enum.kt
 src/main/kotlin/dev/merge/client/accounting/models/SyncStatus.kt
 src/main/kotlin/dev/merge/client/accounting/models/SyncStatusStatusEnum.kt

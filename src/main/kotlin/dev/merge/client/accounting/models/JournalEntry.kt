@@ -45,6 +45,7 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the journal entry belongs to.
  * @param lines 
  * @param remoteWasDeleted 
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -96,7 +97,10 @@ data class JournalEntry (
     val lines: kotlin.collections.List<JournalLine>? = null,
 
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -139,7 +143,10 @@ data class JournalEntry (
         val lines: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -160,7 +167,8 @@ data class JournalEntry (
                 exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 lines = ApiClient.jsonConvertSafe(expanded.lines),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

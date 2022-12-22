@@ -39,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param attachmentType The attachment's type.
  * @param remoteData 
  * @param remoteWasDeleted 
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -71,7 +72,10 @@ data class Attachment (
     val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -99,7 +103,10 @@ data class Attachment (
         val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -115,7 +122,8 @@ data class Attachment (
                 candidate = ApiClient.jsonConvertSafe(expanded.candidate),
                 attachmentType = ApiClient.jsonConvertSafe(expanded.attachmentType),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

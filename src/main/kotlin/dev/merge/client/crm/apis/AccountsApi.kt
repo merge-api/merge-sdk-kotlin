@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.Account
 import dev.merge.client.crm.models.CRMAccountEndpointRequest
 import dev.merge.client.crm.models.CRMAccountResponse
 import dev.merge.client.crm.models.MetaResponse
+import dev.merge.client.crm.models.PatchedCRMAccountEndpointRequest
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -65,6 +66,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val ownerId: kotlin.String? = null,
         val pageSize: kotlin.Int? = null,
         val remoteId: kotlin.String? = null
+    )
+
+    data class AccountsMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class AccountsPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedCRMAccountEndpointRequest: PatchedCRMAccountEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
     )
 
     data class AccountsRetrieveRequest (
@@ -207,6 +219,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns metadata for &#x60;CRMAccount&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsMetaPatchRetrieve(requestModel: AccountsApi.AccountsMetaPatchRetrieveRequest): MetaResponse {
+        return accountsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun accountsMetaPatchRetrieveAsync(requestModel: AccountsApi.AccountsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        accountsMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsMetaPatchRetrieveExpanded(requestModel: AccountsApi.AccountsMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return accountsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun accountsMetaPatchRetrieveExpandedAsync(requestModel: AccountsApi.AccountsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        accountsMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountsMetaPatchRetrieveImpl(requestModel: AccountsApi.AccountsMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/accounts/meta/patch/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns metadata for &#x60;CRMAccount&#x60; POSTs.
      * @return MetaResponse
     */
@@ -252,6 +318,64 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Updates an &#x60;Account&#x60; object with the given &#x60;id&#x60;.
+     * @param id  
+     * @param patchedCRMAccountEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return CRMAccountResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsPartialUpdate(requestModel: AccountsApi.AccountsPartialUpdateRequest): CRMAccountResponse {
+        return accountsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun accountsPartialUpdateAsync(requestModel: AccountsApi.AccountsPartialUpdateRequest): CompletableFuture<CRMAccountResponse> = GlobalScope.future {
+        accountsPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedCRMAccountEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun accountsPartialUpdateExpanded(requestModel: AccountsApi.AccountsPartialUpdateRequest): CRMAccountResponse.Expanded {
+        return accountsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun accountsPartialUpdateExpandedAsync(requestModel: AccountsApi.AccountsPartialUpdateRequest): CompletableFuture<CRMAccountResponse.Expanded> = GlobalScope.future {
+        accountsPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> accountsPartialUpdateImpl(requestModel: AccountsApi.AccountsPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedCRMAccountEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/accounts/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

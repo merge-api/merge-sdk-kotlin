@@ -43,6 +43,7 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the item belongs to.
  * @param remoteUpdatedAt When the third party's item note was updated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -92,7 +93,10 @@ data class Item (
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -132,7 +136,10 @@ data class Item (
         val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?
 
     )
 
@@ -152,7 +159,8 @@ data class Item (
                 salesAccount = ApiClient.jsonConvertSafe(expanded.salesAccount),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }
     }

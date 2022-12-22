@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **effectiveTaxRate** | **kotlin.Float** | The tax rate&#39;s effective tax rate. |  [optional]
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the tax rate belongs to. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 
 
 
