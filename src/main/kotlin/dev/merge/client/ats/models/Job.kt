@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Job Object ### Description The `Job` object is used to represent a Job offering at a company. ### Usage Example Fetch from the `LIST Jobs` endpoint to show all job postings.
+ * # The Job Object ### Description The `Job` object can be used to track any jobs that are currently or will be open/closed for applications. ### Usage Example Fetch from the `LIST Jobs` endpoint to show all job postings.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -46,9 +46,9 @@ import dev.merge.client.shared.ApiClient
  * @param offices IDs of `Office` objects for this `Job`.
  * @param hiringManagers IDs of `RemoteUser` objects that serve as hiring managers for this `Job`.
  * @param recruiters IDs of `RemoteUser` objects that serve as recruiters for this `Job`.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -108,15 +108,15 @@ data class Job (
     @field:JsonProperty("recruiters")
     val recruiters: kotlin.collections.List<java.util.UUID>? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -164,14 +164,14 @@ data class Job (
         @field:JsonProperty("recruiters")
         val recruiters: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -194,9 +194,9 @@ data class Job (
                 offices = ApiClient.jsonConvertSafe(expanded.offices),
                 hiringManagers = ApiClient.jsonConvertSafe(expanded.hiringManagers),
                 recruiters = ApiClient.jsonConvertSafe(expanded.recruiters),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

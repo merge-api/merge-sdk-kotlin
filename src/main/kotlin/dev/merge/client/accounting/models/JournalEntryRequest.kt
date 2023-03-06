@@ -21,6 +21,8 @@
 package dev.merge.client.accounting.models
 
 import dev.merge.client.accounting.models.CurrencyEnum
+import dev.merge.client.accounting.models.JournalLineRequest
+import dev.merge.client.accounting.models.PostingStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,17 +30,16 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The JournalEntry Object ### Description The `JournalEntry` object is used to represent a company's journey entries.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
+ * # The JournalEntry Object ### Description The `JournalEntry` object is used to get a record of all manually created entries made in a company’s general ledger. The journal line items for each journal entry should sum to zero.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param transactionDate The journal entry's transaction date.
- * @param remoteCreatedAt When the third party's journal entry was created.
- * @param remoteUpdatedAt When the third party's journal entry was updated.
  * @param payments Array of `Payment` object IDs.
  * @param memo The journal entry's private note.
  * @param currency The journal's currency.
  * @param exchangeRate The journal entry's exchange rate.
  * @param company The company the journal entry belongs to.
+ * @param lines 
+ * @param postingStatus The journal's posting status.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -46,21 +47,9 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalEntryRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* The journal entry's transaction date. */
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
-
-    /* When the third party's journal entry was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's journal entry was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
     /* Array of `Payment` object IDs. */
     @field:JsonProperty("payments")
@@ -82,6 +71,13 @@ data class JournalEntryRequest (
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
 
+    @field:JsonProperty("lines")
+    val lines: kotlin.collections.List<JournalLineRequest>? = null,
+
+    /* The journal's posting status. */
+    @field:JsonProperty("posting_status")
+    val postingStatus: PostingStatusEnum? = null,
+
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -92,17 +88,8 @@ data class JournalEntryRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("payments")
         val payments: kotlin.collections.List<JsonNode>?,
@@ -119,6 +106,12 @@ data class JournalEntryRequest (
         @field:JsonProperty("company")
         val company: JsonNode?,
 
+        @field:JsonProperty("lines")
+        val lines: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("posting_status")
+        val postingStatus: JsonNode?,
+
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -132,15 +125,14 @@ data class JournalEntryRequest (
         @JvmStatic
         fun normalize(expanded: JournalEntryRequest.Expanded): JournalEntryRequest {
             return JournalEntryRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 company = ApiClient.jsonConvertSafe(expanded.company),
+                lines = ApiClient.jsonConvertSafe(expanded.lines),
+                postingStatus = ApiClient.jsonConvertSafe(expanded.postingStatus),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

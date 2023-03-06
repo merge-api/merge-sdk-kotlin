@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -30,16 +31,25 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The Stage Object ### Description The `Stage` object is used to represent the stage of an opportunity. ### Usage Example TODO
  *
+ * @param name The stage's name.
+ * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param name The stage's name.
- * @param remoteData 
- * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Stage (
+
+    /* The stage's name. */
+    @field:JsonProperty("name")
+    val name: kotlin.String? = null,
+
+    /* Indicates whether or not this object has been deleted by third party webhooks. */
+    @field:JsonProperty("remote_was_deleted")
+    val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
@@ -48,41 +58,39 @@ data class Stage (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The stage's name. */
-    @field:JsonProperty("name")
-    val name: kotlin.String? = null,
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("remote_data")
     val remoteData: kotlin.collections.List<RemoteData>? = null,
 
-    /* Indicates whether or not this object has been deleted by third party webhooks. */
-    @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null,
-
-    @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
-        @field:JsonProperty("name")
-        val name: JsonNode?,
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
 
         @field:JsonProperty("remote_data")
         val remoteData: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?,
-
-        @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -91,12 +99,13 @@ data class Stage (
         @JvmStatic
         fun normalize(expanded: Stage.Expanded): Stage {
             return Stage(
+                name = ApiClient.jsonConvertSafe(expanded.name),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                name = ApiClient.jsonConvertSafe(expanded.name),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

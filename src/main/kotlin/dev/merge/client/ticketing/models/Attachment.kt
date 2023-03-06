@@ -32,15 +32,15 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param fileName The attachment's name.
+ * @param fileName The attachment's name. It is required to include the file extension in the attachment's name.
  * @param ticket The ticket associated with the attachment.
- * @param fileUrl The attachment's url.
+ * @param fileUrl The attachment's url. It is required to include the file extension in the file's URL.
  * @param contentType The attachment's file format.
  * @param uploadedBy The user who uploaded the attachment.
  * @param remoteCreatedAt When the third party's attachment was created.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,7 +53,7 @@ data class Attachment (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The attachment's name. */
+    /* The attachment's name. It is required to include the file extension in the attachment's name. */
     @field:JsonProperty("file_name")
     val fileName: kotlin.String? = null,
 
@@ -61,7 +61,7 @@ data class Attachment (
     @field:JsonProperty("ticket")
     val ticket: java.util.UUID? = null,
 
-    /* The attachment's url. */
+    /* The attachment's url. It is required to include the file extension in the file's URL. */
     @field:JsonProperty("file_url")
     val fileUrl: kotlin.String? = null,
 
@@ -77,14 +77,14 @@ data class Attachment (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -114,14 +114,14 @@ data class Attachment (
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -138,9 +138,9 @@ data class Attachment (
                 contentType = ApiClient.jsonConvertSafe(expanded.contentType),
                 uploadedBy = ApiClient.jsonConvertSafe(expanded.uploadedBy),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

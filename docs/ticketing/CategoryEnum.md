@@ -14,6 +14,10 @@
 
     * `CRM` (value: `"crm"`)
 
+    * `MKTG` (value: `"mktg"`)
+
+    * `FILESTORAGE` (value: `"filestorage"`)
+
     * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

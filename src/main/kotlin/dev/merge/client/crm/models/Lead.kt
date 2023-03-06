@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.Address
 import dev.merge.client.crm.models.EmailAddress
 import dev.merge.client.crm.models.PhoneNumber
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,10 +32,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Lead Object ### Description The `Lead` object is used to represent a lead in the remote system. ### Usage Example TODO
+ * # The Lead Object ### Description The `Lead` object is used to represent an individual who is a potential customer. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The lead's owner.
  * @param leadSource The lead's source.
  * @param title The lead's title.
@@ -49,20 +48,16 @@ import dev.merge.client.shared.ApiClient
  * @param convertedDate When the lead was converted.
  * @param convertedContact The contact of the converted lead.
  * @param convertedAccount The account of the converted lead.
- * @param remoteData 
  * @param remoteWasDeleted 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Lead (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The lead's owner. */
     @field:JsonProperty("owner")
@@ -117,25 +112,29 @@ data class Lead (
     @field:JsonProperty("converted_account")
     val convertedAccount: java.util.UUID? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -178,14 +177,23 @@ data class Lead (
         @field:JsonProperty("converted_account")
         val convertedAccount: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -194,8 +202,6 @@ data class Lead (
         @JvmStatic
         fun normalize(expanded: Lead.Expanded): Lead {
             return Lead(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 leadSource = ApiClient.jsonConvertSafe(expanded.leadSource),
                 title = ApiClient.jsonConvertSafe(expanded.title),
@@ -210,9 +216,12 @@ data class Lead (
                 convertedDate = ApiClient.jsonConvertSafe(expanded.convertedDate),
                 convertedContact = ApiClient.jsonConvertSafe(expanded.convertedContact),
                 convertedAccount = ApiClient.jsonConvertSafe(expanded.convertedAccount),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

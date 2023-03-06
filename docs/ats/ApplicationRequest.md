@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **candidate** | [**java.util.UUID**](java.util.UUID.md) | The candidate applying. |  [optional]
 **job** | [**java.util.UUID**](java.util.UUID.md) | The job being applied for. |  [optional]
 **appliedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the application was submitted. |  [optional]

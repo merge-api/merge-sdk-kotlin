@@ -30,47 +30,37 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Transaction Object ### Description The `Transaction` object is used to represent a company's transactions.  ### Usage Example Fetch from the `GET Transaction` endpoint and view a company's transactions.
+ * # The Transaction Object ### Description The `Transaction` includes different types of transactions. The Transactions object does not cover expenses, credit notes, vendor credit, invoices, purchase orders, and journal entries. See the “transaction_type” field for more information.  ### Usage Example Fetch from the `GET Transaction` endpoint and view a company's transactions.
  *
- * @param id 
- * @param transactionType The type of general transaction.
- * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
- * @param number The transaction number.
- * @param transactionDate The transaction date.
+ * @param transactionType The type of transaction, which can by any transaction object not already included in Merge’s common model.
+ * @param number The transaction's number used for identifying purposes.
+ * @param transactionDate The date upon which the transaction occurred.
  * @param account The transaction's account.
- * @param contact The transaction's contact.
- * @param totalAmount The transaction's total amount.
+ * @param contact The contact to whom the transaction relates to.
+ * @param totalAmount The total amount being paid after taxes.
  * @param currency The transaction's currency.
  * @param exchangeRate The transaction's exchange rate.
  * @param company The company the transaction belongs to.
  * @param lineItems 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Transaction (
 
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The type of general transaction. */
+    /* The type of transaction, which can by any transaction object not already included in Merge’s common model. */
     @field:JsonProperty("transaction_type")
     val transactionType: kotlin.String? = null,
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
-    /* The transaction number. */
+    /* The transaction's number used for identifying purposes. */
     @field:JsonProperty("number")
     val number: kotlin.String? = null,
 
-    /* The transaction date. */
+    /* The date upon which the transaction occurred. */
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
 
@@ -78,11 +68,11 @@ data class Transaction (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
-    /* The transaction's contact. */
+    /* The contact to whom the transaction relates to. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
-    /* The transaction's total amount. */
+    /* The total amount being paid after taxes. */
     @field:JsonProperty("total_amount")
     val totalAmount: java.math.BigDecimal? = null,
 
@@ -105,24 +95,25 @@ data class Transaction (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
         @field:JsonProperty("transaction_type")
         val transactionType: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("number")
         val number: JsonNode?,
@@ -154,8 +145,17 @@ data class Transaction (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -164,10 +164,7 @@ data class Transaction (
         @JvmStatic
         fun normalize(expanded: Transaction.Expanded): Transaction {
             return Transaction(
-                id = ApiClient.jsonConvertSafe(expanded.id),
                 transactionType = ApiClient.jsonConvertSafe(expanded.transactionType),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 number = ApiClient.jsonConvertSafe(expanded.number),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 account = ApiClient.jsonConvertSafe(expanded.account),
@@ -178,7 +175,10 @@ data class Transaction (
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

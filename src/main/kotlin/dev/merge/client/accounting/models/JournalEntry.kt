@@ -22,6 +22,7 @@ package dev.merge.client.accounting.models
 
 import dev.merge.client.accounting.models.CurrencyEnum
 import dev.merge.client.accounting.models.JournalLine
+import dev.merge.client.accounting.models.PostingStatusEnum
 import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -30,11 +31,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The JournalEntry Object ### Description The `JournalEntry` object is used to represent a company's journey entries.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
+ * # The JournalEntry Object ### Description The `JournalEntry` object is used to get a record of all manually created entries made in a company’s general ledger. The journal line items for each journal entry should sum to zero.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param transactionDate The journal entry's transaction date.
  * @param remoteCreatedAt When the third party's journal entry was created.
  * @param remoteUpdatedAt When the third party's journal entry was updated.
@@ -45,21 +43,15 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the journal entry belongs to.
  * @param lines 
  * @param remoteWasDeleted 
+ * @param postingStatus The journal's posting status.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalEntry (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The journal entry's transaction date. */
     @field:JsonProperty("transaction_date")
@@ -99,22 +91,27 @@ data class JournalEntry (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    /* The journal's posting status. */
+    @field:JsonProperty("posting_status")
+    val postingStatus: PostingStatusEnum? = null,
+
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
 
@@ -145,8 +142,20 @@ data class JournalEntry (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("posting_status")
+        val postingStatus: JsonNode?,
+
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -155,9 +164,6 @@ data class JournalEntry (
         @JvmStatic
         fun normalize(expanded: JournalEntry.Expanded): JournalEntry {
             return JournalEntry(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
@@ -168,7 +174,11 @@ data class JournalEntry (
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 lines = ApiClient.jsonConvertSafe(expanded.lines),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                postingStatus = ApiClient.jsonConvertSafe(expanded.postingStatus),
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

@@ -31,12 +31,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Invoice Object ### Description The `Invoice` object is used to represent a company's invoices.  ### Usage Example Fetch from the `LIST Invoices` endpoint and view a company's invoices.
+ * # The Invoice Object     ### Description     The `Invoice` object represents an itemized record of goods and/or services sold to a customer. If type = accounts_payable `Invoice` is a bill, if type = accounts_receivable it's an invoice.      ### Usage Example     Fetch from the `LIST Invoices` endpoint and view a company's invoices.
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
- * @param type The invoice's type.
+ * @param type Whether the invoice is an accounts receivable or accounts payable. Accounts payable invoices are commonly referred to as Bills.
  * @param contact The invoice's contact.
  * @param number The invoice's number.
  * @param issueDate The invoice's issue date.
@@ -46,32 +43,25 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the invoice belongs to.
  * @param currency The invoice's currency.
  * @param exchangeRate The invoice's exchange rate.
- * @param totalDiscount The invoice's total discount.
- * @param subTotal The invoice's sub-total.
- * @param totalTaxAmount The invoice's total tax amount.
+ * @param totalDiscount The total discounts applied to the total cost.
+ * @param subTotal The total amount being paid before taxes.
+ * @param totalTaxAmount The total amount being paid in taxes.
  * @param totalAmount The invoice's total amount.
  * @param balance The invoice's remaining balance.
  * @param remoteUpdatedAt When the third party's invoice entry was updated.
  * @param payments Array of `Payment` object IDs.
  * @param lineItems 
  * @param remoteWasDeleted 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Invoice (
 
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
-    /* The invoice's type. */
+    /* Whether the invoice is an accounts receivable or accounts payable. Accounts payable invoices are commonly referred to as Bills. */
     @field:JsonProperty("type")
     val type: InvoiceTypeEnum? = null,
 
@@ -111,15 +101,15 @@ data class Invoice (
     @field:JsonProperty("exchange_rate")
     val exchangeRate: java.math.BigDecimal? = null,
 
-    /* The invoice's total discount. */
+    /* The total discounts applied to the total cost. */
     @field:JsonProperty("total_discount")
     val totalDiscount: kotlin.Float? = null,
 
-    /* The invoice's sub-total. */
+    /* The total amount being paid before taxes. */
     @field:JsonProperty("sub_total")
     val subTotal: kotlin.Float? = null,
 
-    /* The invoice's total tax amount. */
+    /* The total amount being paid in taxes. */
     @field:JsonProperty("total_tax_amount")
     val totalTaxAmount: kotlin.Float? = null,
 
@@ -145,22 +135,23 @@ data class Invoice (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("type")
         val type: JsonNode?,
 
@@ -218,8 +209,17 @@ data class Invoice (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -228,9 +228,6 @@ data class Invoice (
         @JvmStatic
         fun normalize(expanded: Invoice.Expanded): Invoice {
             return Invoice(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 type = ApiClient.jsonConvertSafe(expanded.type),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 number = ApiClient.jsonConvertSafe(expanded.number),
@@ -250,7 +247,10 @@ data class Invoice (
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

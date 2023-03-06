@@ -31,18 +31,17 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The CreditNote Object ### Description The `CreditNote` object is used to represent a refund or credit of payment.  ### Usage Example Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
+ * # The CreditNote Object ### Description The `CreditNote` object are an accounts payable transaction used when to represent a gift or refund to a customer. A credit note will contain information on the amount of credit owed, the customer, and the account.  ### Usage Example Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param transactionDate The credit note's transaction date.
  * @param status The credit note's status.
  * @param number The credit note's number.
  * @param contact The credit note's contact.
  * @param company The company the credit note belongs to.
  * @param totalAmount The credit note's total amount.
- * @param remainingCredit The credit note's remaining credit.
+ * @param remainingCredit The amount of value remaining in the credit note that the customer can use.
  * @param lineItems 
  * @param currency The credit note's currency.
  * @param remoteCreatedAt When the third party's credit note was created.
@@ -50,6 +49,7 @@ import dev.merge.client.shared.ApiClient
  * @param payments Array of `Payment` object IDs
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -61,9 +61,6 @@ data class CreditNote (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The credit note's transaction date. */
     @field:JsonProperty("transaction_date")
@@ -89,7 +86,7 @@ data class CreditNote (
     @field:JsonProperty("total_amount")
     val totalAmount: kotlin.Float? = null,
 
-    /* The credit note's remaining credit. */
+    /* The amount of value remaining in the credit note that the customer can use. */
     @field:JsonProperty("remaining_credit")
     val remainingCredit: kotlin.Float? = null,
 
@@ -117,7 +114,10 @@ data class CreditNote (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -128,9 +128,6 @@ data class CreditNote (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
@@ -172,7 +169,10 @@ data class CreditNote (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -183,7 +183,6 @@ data class CreditNote (
             return CreditNote(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 number = ApiClient.jsonConvertSafe(expanded.number),
@@ -197,7 +196,8 @@ data class CreditNote (
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

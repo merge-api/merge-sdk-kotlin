@@ -33,6 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param requestSchema 
  * @param hasConditionalParams 
  * @param hasRequiredLinkedAccountParams 
+ * @param remoteFieldClasses 
  * @param status 
  */
 
@@ -47,6 +48,9 @@ data class MetaResponse (
 
     @field:JsonProperty("has_required_linked_account_params")
     val hasRequiredLinkedAccountParams: kotlin.Boolean,
+
+    @field:JsonProperty("remote_field_classes")
+    val remoteFieldClasses: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("status")
     val status: LinkedAccountStatus? = null
@@ -64,6 +68,9 @@ data class MetaResponse (
         @field:JsonProperty("has_required_linked_account_params")
         val hasRequiredLinkedAccountParams: JsonNode,
 
+        @field:JsonProperty("remote_field_classes")
+        val remoteFieldClasses: JsonNode?,
+
         @field:JsonProperty("status")
         val status: JsonNode?
 
@@ -77,6 +84,7 @@ data class MetaResponse (
                 requestSchema = ApiClient.jsonConvertRequiredSafe(expanded.requestSchema),
                 hasConditionalParams = ApiClient.jsonConvertRequiredSafe(expanded.hasConditionalParams),
                 hasRequiredLinkedAccountParams = ApiClient.jsonConvertRequiredSafe(expanded.hasRequiredLinkedAccountParams),
+                remoteFieldClasses = ApiClient.jsonConvertSafe(expanded.remoteFieldClasses),
                 status = ApiClient.jsonConvertSafe(expanded.status)
             )
         }

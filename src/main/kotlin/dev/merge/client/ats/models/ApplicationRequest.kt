@@ -27,9 +27,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Application Object ### Description The `Application` object is used to represent an Application for a job position. This is separate from the Candidate object, although some systems may only allow a Candidate to have one Application.  Please note: Application objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
+ * # The Application Object ### Description The Application Object is used to represent a candidate's journey through a particular Job's recruiting process. If a Candidate applies for multiple Jobs, there will be a separate Application for each Job if the third-party integration allows it.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param candidate The candidate applying.
  * @param job The job being applied for.
  * @param appliedAt When the application was submitted.
@@ -45,10 +44,6 @@ import dev.merge.client.shared.ApiClient
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ApplicationRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The candidate applying. */
     @field:JsonProperty("candidate")
@@ -95,9 +90,6 @@ data class ApplicationRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("candidate")
         val candidate: JsonNode?,
 
@@ -138,7 +130,6 @@ data class ApplicationRequest (
         @JvmStatic
         fun normalize(expanded: ApplicationRequest.Expanded): ApplicationRequest {
             return ApplicationRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 candidate = ApiClient.jsonConvertSafe(expanded.candidate),
                 job = ApiClient.jsonConvertSafe(expanded.job),
                 appliedAt = ApiClient.jsonConvertSafe(expanded.appliedAt),

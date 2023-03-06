@@ -63,9 +63,10 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     )
 
     data class ProjectsUsersListRequest (
-        val id: java.util.UUID,
+        val parentId: java.util.UUID,
         val cursor: kotlin.String? = null,
         val expand: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val pageSize: kotlin.Int? = null
     )
@@ -199,10 +200,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
-    * Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
-     * @param id  
+    * Returns a list of &#x60;User&#x60; objects.
+     * @param parentId  
      * @param cursor The pagination cursor value. (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @return PaginatedUserList
@@ -218,7 +220,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
+     * @param parentId   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun projectsUsersListExpanded(requestModel: ProjectsApi.ProjectsUsersListRequest): MergePaginatedResponse<User.Expanded> {
@@ -240,6 +242,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
 
@@ -247,7 +250,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/projects/{id}/users".replace("{" + "id" + "}", "${ requestModel.id }"),
+        "/projects/{parent_id}/users".replace("{" + "parent_id" + "}", "${ requestModel.parentId }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

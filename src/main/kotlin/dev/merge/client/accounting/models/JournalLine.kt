@@ -29,45 +29,46 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The JournalLine Object ### Description The `JournalLine` object is used to represent a journal entry's line items.  ### Usage Example Fetch from the `GET JournalEntry` endpoint and view the journal entry's line items.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param account 
- * @param netAmount The line's net amount.
+ * @param netAmount The value of the line item including taxes and other fees.
  * @param trackingCategory 
+ * @param trackingCategories 
  * @param contact 
  * @param description The line's description.
+ * @param remoteId The third-party API ID of the matching object.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class JournalLine (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
-    /* The line's net amount. */
+    /* The value of the line item including taxes and other fees. */
     @field:JsonProperty("net_amount")
     val netAmount: kotlin.Float? = null,
 
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>? = null,
+
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
     /* The line's description. */
     @field:JsonProperty("description")
-    val description: kotlin.String? = null
+    val description: kotlin.String? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("account")
         val account: JsonNode?,
 
@@ -77,11 +78,17 @@ data class JournalLine (
         @field:JsonProperty("tracking_category")
         val trackingCategory: JsonNode?,
 
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("contact")
         val contact: JsonNode?,
 
         @field:JsonProperty("description")
-        val description: JsonNode?
+        val description: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?
 
     )
 
@@ -90,12 +97,13 @@ data class JournalLine (
         @JvmStatic
         fun normalize(expanded: JournalLine.Expanded): JournalLine {
             return JournalLine(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                trackingCategories = ApiClient.jsonConvertSafe(expanded.trackingCategories),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
-                description = ApiClient.jsonConvertSafe(expanded.description)
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
             )
         }
     }

@@ -28,9 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Attachment Object ### Description The `Attachment` object is used to represent a attachment for a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
+ * # The Attachment Object ### Description The `Attachment` object is used to represent a file attached to a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param fileName The attachment's name.
  * @param fileUrl The attachment's url.
  * @param candidate 
@@ -41,10 +40,6 @@ import dev.merge.client.shared.ApiClient
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AttachmentRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The attachment's name. */
     @field:JsonProperty("file_name")
@@ -72,9 +67,6 @@ data class AttachmentRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("file_name")
         val fileName: JsonNode?,
 
@@ -100,7 +92,6 @@ data class AttachmentRequest (
         @JvmStatic
         fun normalize(expanded: AttachmentRequest.Expanded): AttachmentRequest {
             return AttachmentRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 fileName = ApiClient.jsonConvertSafe(expanded.fileName),
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
                 candidate = ApiClient.jsonConvertSafe(expanded.candidate),

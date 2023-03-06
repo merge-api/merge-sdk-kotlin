@@ -29,13 +29,11 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
- * @param fileName The attachment's name.
+ * @param fileName The attachment's name. It is required to include the file extension in the attachment's name.
  * @param ticket The ticket associated with the attachment.
- * @param fileUrl The attachment's url.
+ * @param fileUrl The attachment's url. It is required to include the file extension in the file's URL.
  * @param contentType The attachment's file format.
  * @param uploadedBy The user who uploaded the attachment.
- * @param remoteCreatedAt When the third party's attachment was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -43,11 +41,7 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AttachmentRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    /* The attachment's name. */
+    /* The attachment's name. It is required to include the file extension in the attachment's name. */
     @field:JsonProperty("file_name")
     val fileName: kotlin.String? = null,
 
@@ -55,7 +49,7 @@ data class AttachmentRequest (
     @field:JsonProperty("ticket")
     val ticket: java.util.UUID? = null,
 
-    /* The attachment's url. */
+    /* The attachment's url. It is required to include the file extension in the file's URL. */
     @field:JsonProperty("file_url")
     val fileUrl: kotlin.String? = null,
 
@@ -67,10 +61,6 @@ data class AttachmentRequest (
     @field:JsonProperty("uploaded_by")
     val uploadedBy: java.util.UUID? = null,
 
-    /* When the third party's attachment was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -81,9 +71,6 @@ data class AttachmentRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("file_name")
         val fileName: JsonNode?,
 
@@ -99,9 +86,6 @@ data class AttachmentRequest (
         @field:JsonProperty("uploaded_by")
         val uploadedBy: JsonNode?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -115,13 +99,11 @@ data class AttachmentRequest (
         @JvmStatic
         fun normalize(expanded: AttachmentRequest.Expanded): AttachmentRequest {
             return AttachmentRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 fileName = ApiClient.jsonConvertSafe(expanded.fileName),
                 ticket = ApiClient.jsonConvertSafe(expanded.ticket),
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
                 contentType = ApiClient.jsonConvertSafe(expanded.contentType),
                 uploadedBy = ApiClient.jsonConvertSafe(expanded.uploadedBy),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

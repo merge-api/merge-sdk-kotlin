@@ -29,21 +29,21 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Item Object ### Description The `Item` object is used to represent an item that a company buys, sells, or resells, such as products and services.  ### Usage Example Fetch from the `LIST Items` endpoint and view a company's items.
+ * # The Item Object ### Description The `Item` object refers to the goods involved in a transaction.  ### Usage Example Fetch from the `LIST Items` endpoint and view a company's items.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param name The item's name.
  * @param status The item's status.
  * @param unitPrice The item's unit price.
- * @param purchasePrice The item's purchase price.
- * @param purchaseAccount The item's purchase account.
- * @param salesAccount The item's sales account.
+ * @param purchasePrice The price at which the item is purchased from a vendor.
+ * @param purchaseAccount References the default account used to record a purchase of the item.
+ * @param salesAccount References the default account used to record a sale.
  * @param company The company the item belongs to.
  * @param remoteUpdatedAt When the third party's item note was updated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -55,9 +55,6 @@ data class Item (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The item's name. */
     @field:JsonProperty("name")
@@ -71,15 +68,15 @@ data class Item (
     @field:JsonProperty("unit_price")
     val unitPrice: kotlin.Float? = null,
 
-    /* The item's purchase price. */
+    /* The price at which the item is purchased from a vendor. */
     @field:JsonProperty("purchase_price")
     val purchasePrice: kotlin.Float? = null,
 
-    /* The item's purchase account. */
+    /* References the default account used to record a purchase of the item. */
     @field:JsonProperty("purchase_account")
     val purchaseAccount: java.util.UUID? = null,
 
-    /* The item's sales account. */
+    /* References the default account used to record a sale. */
     @field:JsonProperty("sales_account")
     val salesAccount: java.util.UUID? = null,
 
@@ -96,7 +93,10 @@ data class Item (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -107,9 +107,6 @@ data class Item (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("name")
         val name: JsonNode?,
@@ -139,7 +136,10 @@ data class Item (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -150,7 +150,6 @@ data class Item (
             return Item(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
@@ -160,7 +159,8 @@ data class Item (
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

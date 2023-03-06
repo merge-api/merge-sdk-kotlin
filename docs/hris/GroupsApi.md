@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="groupsList"></a>
 # **groupsList**
-> PaginatedGroupList groupsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId)
+> PaginatedGroupList groupsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, types)
 
 
 
@@ -31,10 +31,12 @@ val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to inc
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
-val remoteFields : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = type // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
+val showEnumOrigins : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
+val types : kotlin.String = types_example // kotlin.String | If provided, will only return groups of these types. Multiple values can be separated by commas.
 try {
-    val result : PaginatedGroupList = apiInstance.groupsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId)
+    val result : PaginatedGroupList = apiInstance.groupsList(createdAfter, createdBefore, cursor, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, types)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GroupsApi#groupsList")
@@ -57,8 +59,10 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: type]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
+ **types** | **kotlin.String**| If provided, will only return groups of these types. Multiple values can be separated by commas. | [optional]
 
 ### Return type
 
@@ -80,7 +84,7 @@ Configure bearerAuth:
 
 <a name="groupsRetrieve"></a>
 # **groupsRetrieve**
-> Group groupsRetrieve(id, includeRemoteData, remoteFields)
+> Group groupsRetrieve(id, includeRemoteData, remoteFields, showEnumOrigins)
 
 
 
@@ -95,9 +99,10 @@ Returns a &#x60;Group&#x60; object with the given &#x60;id&#x60;.
 val apiInstance = GroupsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val remoteFields : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = type // kotlin.String | Deprecated. Use show_enum_origins.
+val showEnumOrigins : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : Group = apiInstance.groupsRetrieve(id, includeRemoteData, remoteFields)
+    val result : Group = apiInstance.groupsRetrieve(id, includeRemoteData, remoteFields, showEnumOrigins)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling GroupsApi#groupsRetrieve")
@@ -114,7 +119,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: type]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
 
 ### Return type
 

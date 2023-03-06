@@ -20,6 +20,7 @@
 
 package dev.merge.client.crm.apis
 
+import dev.merge.client.crm.models.RemoteFieldClass
 import dev.merge.client.crm.models.Stage
 
 import io.ktor.client.HttpClientConfig
@@ -50,15 +51,25 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val cursor: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
         val remoteId: kotlin.String? = null
     )
 
+    data class StagesRemoteFieldClassesListRequest (
+        val cursor: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
+        val pageSize: kotlin.Int? = null
+    )
+
     data class StagesRetrieveRequest (
         val id: java.util.UUID,
-        val includeRemoteData: kotlin.Boolean? = null
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null
     )
 
     /**
@@ -69,6 +80,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param cursor The pagination cursor value. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
@@ -86,7 +98,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun stagesListExpanded(requestModel: StagesApi.StagesListRequest): MergePaginatedResponse<Stage.Expanded> {
@@ -111,6 +123,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
@@ -134,9 +147,73 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns a list of &#x60;RemoteFieldClass&#x60; objects.
+     * @param cursor The pagination cursor value. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
+     * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
+     * @param pageSize Number of results to return per page. (optional)
+     * @return PaginatedRemoteFieldClassList
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun stagesRemoteFieldClassesList(requestModel: StagesApi.StagesRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass> {
+        return stagesRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun stagesRemoteFieldClassesListAsync(requestModel: StagesApi.StagesRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass>> = GlobalScope.future {
+        stagesRemoteFieldClassesList(requestModel)
+    }
+
+    /**
+     * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun stagesRemoteFieldClassesListExpanded(requestModel: StagesApi.StagesRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass.Expanded> {
+        return stagesRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun stagesRemoteFieldClassesListExpandedAsync(requestModel: StagesApi.StagesRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass.Expanded>> = GlobalScope.future {
+        stagesRemoteFieldClassesListExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> stagesRemoteFieldClassesListImpl(requestModel: StagesApi.StagesRemoteFieldClassesListRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/stages/remote-field-classes",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a &#x60;Stage&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @return Stage
     */
     @Suppress("UNCHECKED_CAST")
@@ -150,7 +227,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun stagesRetrieveExpanded(requestModel: StagesApi.StagesRetrieveRequest): Stage.Expanded {
@@ -171,6 +248,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

@@ -30,7 +30,8 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The PurchaseOrderLineItem Object ### Description The `PurchaseOrderLineItem` object is used to represent a purchase order's line item.  ### Usage Example Fetch from the `GET PurchaseOrder` endpoint and view a company's purchase orders.
  *
- * @param description The line item's description.
+ * @param trackingCategories The purchase order line item's associated tracking categories.
+ * @param description A description of the good being purchased.
  * @param unitPrice The line item's unit price.
  * @param quantity The line item's quantity.
  * @param item 
@@ -46,7 +47,11 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PurchaseOrderLineItem (
 
-    /* The line item's description. */
+    /* The purchase order line item's associated tracking categories. */
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>,
+
+    /* A description of the good being purchased. */
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
@@ -93,6 +98,9 @@ data class PurchaseOrderLineItem (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>,
+
         @field:JsonProperty("description")
         val description: JsonNode?,
 
@@ -133,6 +141,7 @@ data class PurchaseOrderLineItem (
         @JvmStatic
         fun normalize(expanded: PurchaseOrderLineItem.Expanded): PurchaseOrderLineItem {
             return PurchaseOrderLineItem(
+                trackingCategories = ApiClient.jsonConvertRequiredSafe(expanded.trackingCategories),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
                 quantity = ApiClient.jsonConvertSafe(expanded.quantity),

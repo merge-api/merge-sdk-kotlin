@@ -31,23 +31,23 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent a payroll run for a specific employee.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
+ * # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent an employee's pay statement for a specific payroll run.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param employee The employee whose payroll is being run.
  * @param payrollRun The payroll being run.
- * @param grossPay The gross pay from the run.
- * @param netPay The net pay from the run.
+ * @param grossPay The total earnings throughout a given period for an employee before any deductions are made.
+ * @param netPay The take-home pay throughout a given period for an employee after deductions are made.
  * @param startDate The day and time the payroll run started.
  * @param endDate The day and time the payroll run ended.
  * @param checkDate The day and time the payroll run was checked.
  * @param earnings 
  * @param deductions 
  * @param taxes 
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,11 +68,11 @@ data class EmployeePayrollRun (
     @field:JsonProperty("payroll_run")
     val payrollRun: java.util.UUID? = null,
 
-    /* The gross pay from the run. */
+    /* The total earnings throughout a given period for an employee before any deductions are made. */
     @field:JsonProperty("gross_pay")
     val grossPay: kotlin.Float? = null,
 
-    /* The net pay from the run. */
+    /* The take-home pay throughout a given period for an employee after deductions are made. */
     @field:JsonProperty("net_pay")
     val netPay: kotlin.Float? = null,
 
@@ -97,15 +97,15 @@ data class EmployeePayrollRun (
     @field:JsonProperty("taxes")
     val taxes: kotlin.collections.List<Tax>? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -147,14 +147,14 @@ data class EmployeePayrollRun (
         @field:JsonProperty("taxes")
         val taxes: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -175,9 +175,9 @@ data class EmployeePayrollRun (
                 earnings = ApiClient.jsonConvertSafe(expanded.earnings),
                 deductions = ApiClient.jsonConvertSafe(expanded.deductions),
                 taxes = ApiClient.jsonConvertSafe(expanded.taxes),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

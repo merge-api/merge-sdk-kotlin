@@ -4,7 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **kotlin.String** | The line item&#39;s description. |  [optional]
+**trackingCategories** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | The purchase order line item&#39;s associated tracking categories. | 
+**description** | **kotlin.String** | A description of the good being purchased. |  [optional]
 **unitPrice** | **kotlin.Float** | The line item&#39;s unit price. |  [optional]
 **quantity** | **kotlin.Float** | The line item&#39;s quantity. |  [optional]
 **item** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]

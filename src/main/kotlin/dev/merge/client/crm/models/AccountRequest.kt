@@ -27,28 +27,21 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
+ * # The Account Object ### Description The `Account` object is used to represent a company in a CRM system. ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The account's owner.
  * @param name The account's name.
  * @param description The account's description.
  * @param industry The account's industry.
  * @param website The account's website.
  * @param numberOfEmployees The account's number of employees.
- * @param lastActivityAt When the account's last activity  occurred.
- * @param remoteUpdatedAt When the third party's account was updated.
- * @param remoteCreatedAt When the third party's account was created.
+ * @param lastActivityAt The last date (either most recent or furthest in the future) of when an activity occurs in an account.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AccountRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The account's owner. */
     @field:JsonProperty("owner")
@@ -74,17 +67,9 @@ data class AccountRequest (
     @field:JsonProperty("number_of_employees")
     val numberOfEmployees: kotlin.Int? = null,
 
-    /* When the account's last activity  occurred. */
+    /* The last date (either most recent or furthest in the future) of when an activity occurs in an account. */
     @field:JsonProperty("last_activity_at")
     val lastActivityAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's account was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's account was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -96,9 +81,6 @@ data class AccountRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -120,12 +102,6 @@ data class AccountRequest (
         @field:JsonProperty("last_activity_at")
         val lastActivityAt: JsonNode?,
 
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -139,7 +115,6 @@ data class AccountRequest (
         @JvmStatic
         fun normalize(expanded: AccountRequest.Expanded): AccountRequest {
             return AccountRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
@@ -147,8 +122,6 @@ data class AccountRequest (
                 website = ApiClient.jsonConvertSafe(expanded.website),
                 numberOfEmployees = ApiClient.jsonConvertSafe(expanded.numberOfEmployees),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

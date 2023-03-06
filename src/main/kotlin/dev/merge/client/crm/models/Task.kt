@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 import dev.merge.client.crm.models.TaskStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -29,10 +30,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Task Object ### Description The `Task` object is used to represent a task in the remote system. ### Usage Example TODO
+ * # The Task Object ### Description The `Task` object is used to represent a task, such as a to-do item. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param subject The task's subject.
  * @param content The task's content.
  * @param owner The task's owner.
@@ -40,20 +39,16 @@ import dev.merge.client.shared.ApiClient
  * @param completedDate When the task is completed.
  * @param dueDate When the task is due.
  * @param status The task's status.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Task (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The task's subject. */
     @field:JsonProperty("subject")
@@ -83,26 +78,30 @@ data class Task (
     @field:JsonProperty("status")
     val status: TaskStatusEnum? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("subject")
         val subject: JsonNode?,
 
@@ -124,14 +123,23 @@ data class Task (
         @field:JsonProperty("status")
         val status: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -140,8 +148,6 @@ data class Task (
         @JvmStatic
         fun normalize(expanded: Task.Expanded): Task {
             return Task(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 subject = ApiClient.jsonConvertSafe(expanded.subject),
                 content = ApiClient.jsonConvertSafe(expanded.content),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
@@ -149,9 +155,12 @@ data class Task (
                 completedDate = ApiClient.jsonConvertSafe(expanded.completedDate),
                 dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

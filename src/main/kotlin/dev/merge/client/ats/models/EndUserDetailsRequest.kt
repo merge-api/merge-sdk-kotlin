@@ -21,6 +21,7 @@
 package dev.merge.client.ats.models
 
 import dev.merge.client.ats.models.CategoriesEnum
+import dev.merge.client.ats.models.CommonModelScopesBodyRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -37,6 +38,7 @@ import dev.merge.client.shared.ApiClient
  * @param integration The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://www.merge.dev/docs/basics/integration-metadata/.
  * @param linkExpiryMins An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
  * @param shouldCreateMagicLinkUrl Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/.
+ * @param commonModels An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,7 +70,11 @@ data class EndUserDetailsRequest (
 
     /* Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/. */
     @field:JsonProperty("should_create_magic_link_url")
-    val shouldCreateMagicLinkUrl: kotlin.Boolean? = false
+    val shouldCreateMagicLinkUrl: kotlin.Boolean? = false,
+
+    /* An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account. */
+    @field:JsonProperty("common_models")
+    val commonModels: kotlin.collections.List<CommonModelScopesBodyRequest>? = null
 
 ) {
 
@@ -93,7 +99,10 @@ data class EndUserDetailsRequest (
         val linkExpiryMins: JsonNode?,
 
         @field:JsonProperty("should_create_magic_link_url")
-        val shouldCreateMagicLinkUrl: JsonNode?
+        val shouldCreateMagicLinkUrl: JsonNode?,
+
+        @field:JsonProperty("common_models")
+        val commonModels: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -108,7 +117,8 @@ data class EndUserDetailsRequest (
                 categories = ApiClient.jsonConvertRequiredSafe(expanded.categories),
                 integration = ApiClient.jsonConvertSafe(expanded.integration),
                 linkExpiryMins = ApiClient.jsonConvertSafe(expanded.linkExpiryMins),
-                shouldCreateMagicLinkUrl = ApiClient.jsonConvertSafe(expanded.shouldCreateMagicLinkUrl)
+                shouldCreateMagicLinkUrl = ApiClient.jsonConvertSafe(expanded.shouldCreateMagicLinkUrl),
+                commonModels = ApiClient.jsonConvertSafe(expanded.commonModels)
             )
         }
     }

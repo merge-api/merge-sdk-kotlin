@@ -31,7 +31,6 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The Ticket Object ### Description The `Ticket` object is used to represent a ticket or a task within a system.  ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param name The ticket's name.
  * @param assignees 
  * @param creator The user who created this ticket.
@@ -46,21 +45,15 @@ import dev.merge.client.shared.ApiClient
  * @param parentTicket The ticket's parent ticket.
  * @param attachments 
  * @param tags 
- * @param remoteCreatedAt When the third party's ticket was created.
- * @param remoteUpdatedAt When the third party's ticket was updated.
  * @param completedAt When the ticket was completed.
  * @param ticketUrl The 3rd party url of the Ticket.
- * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+ * @param priority The priority or urgency of the Ticket.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class TicketRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The ticket's name. */
     @field:JsonProperty("name")
@@ -114,14 +107,6 @@ data class TicketRequest (
     @field:JsonProperty("tags")
     val tags: kotlin.collections.List<kotlin.String>? = null,
 
-    /* When the third party's ticket was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's ticket was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
     /* When the ticket was completed. */
     @field:JsonProperty("completed_at")
     val completedAt: java.time.OffsetDateTime? = null,
@@ -130,7 +115,7 @@ data class TicketRequest (
     @field:JsonProperty("ticket_url")
     val ticketUrl: java.net.URI? = null,
 
-    /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
+    /* The priority or urgency of the Ticket. */
     @field:JsonProperty("priority")
     val priority: PriorityEnum? = null,
 
@@ -144,9 +129,6 @@ data class TicketRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("name")
         val name: JsonNode?,
 
@@ -189,12 +171,6 @@ data class TicketRequest (
         @field:JsonProperty("tags")
         val tags: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
         @field:JsonProperty("completed_at")
         val completedAt: JsonNode?,
 
@@ -217,7 +193,6 @@ data class TicketRequest (
         @JvmStatic
         fun normalize(expanded: TicketRequest.Expanded): TicketRequest {
             return TicketRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 assignees = ApiClient.jsonConvertSafe(expanded.assignees),
                 creator = ApiClient.jsonConvertSafe(expanded.creator),
@@ -232,8 +207,6 @@ data class TicketRequest (
                 parentTicket = ApiClient.jsonConvertSafe(expanded.parentTicket),
                 attachments = ApiClient.jsonConvertSafe(expanded.attachments),
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
                 priority = ApiClient.jsonConvertSafe(expanded.priority),

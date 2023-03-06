@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
 **remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
-**employeeNumber** | **kotlin.String** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers. |  [optional]
+**employeeNumber** | **kotlin.String** | The employee&#39;s number that appears in the third-party integration&#39;s UI. |  [optional]
 **company** | [**java.util.UUID**](java.util.UUID.md) | The ID of the employee&#39;s company. |  [optional]
 **firstName** | **kotlin.String** | The employee&#39;s first name. |  [optional]
 **lastName** | **kotlin.String** | The employee&#39;s last name. |  [optional]
@@ -25,18 +25,18 @@ Name | Type | Description | Notes
 **ssn** | **kotlin.String** | The employee&#39;s social security number. |  [optional]
 **gender** | [**GenderEnum**](GenderEnum.md) | The employee&#39;s gender. |  [optional]
 **ethnicity** | [**EthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. |  [optional]
-**maritalStatus** | [**MaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s marital status. |  [optional]
+**maritalStatus** | [**MaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s filing status as related to marital status. |  [optional]
 **dateOfBirth** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The employee&#39;s date of birth. |  [optional]
 **hireDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you&#39;re looking for the employee&#39;s start date, refer to the start_date field. |  [optional]
-**startDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date. |  [optional]
+**startDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The date that the employee started working. If an employee was rehired, the most recent start date will be returned. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s employee was created. |  [optional]
 **employmentStatus** | [**EmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. |  [optional]
 **terminationDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | The employee&#39;s termination date. |  [optional]
 **avatar** | [**java.net.URI**](java.net.URI.md) | The URL of the employee&#39;s avatar image. |  [optional]
-**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **customFields** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) | Custom fields configured for a given model. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
 
 

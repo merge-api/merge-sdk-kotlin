@@ -28,9 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object is used to represent an invoice's line items.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
+ * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object represents an itemized record of goods and/or services sold to a customer. If type = accounts_payable, invoice is a bill, if type = accounts_receivable it's an invoice.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param description The line item's description.
  * @param unitPrice The line item's unit price.
  * @param quantity The line item's quantity.
@@ -40,17 +39,15 @@ import dev.merge.client.shared.ApiClient
  * @param item 
  * @param account 
  * @param trackingCategory 
+ * @param trackingCategories 
  * @param company The company the line item belongs to.
+ * @param remoteId The third-party API ID of the matching object.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InvoiceLineItemRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The line item's description. */
     @field:JsonProperty("description")
@@ -85,9 +82,16 @@ data class InvoiceLineItemRequest (
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>? = null,
+
     /* The company the line item belongs to. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -99,9 +103,6 @@ data class InvoiceLineItemRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("description")
         val description: JsonNode?,
 
@@ -129,8 +130,14 @@ data class InvoiceLineItemRequest (
         @field:JsonProperty("tracking_category")
         val trackingCategory: JsonNode?,
 
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("company")
         val company: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
@@ -145,7 +152,6 @@ data class InvoiceLineItemRequest (
         @JvmStatic
         fun normalize(expanded: InvoiceLineItemRequest.Expanded): InvoiceLineItemRequest {
             return InvoiceLineItemRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
                 quantity = ApiClient.jsonConvertSafe(expanded.quantity),
@@ -155,7 +161,9 @@ data class InvoiceLineItemRequest (
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                trackingCategories = ApiClient.jsonConvertSafe(expanded.trackingCategories),
                 company = ApiClient.jsonConvertSafe(expanded.company),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

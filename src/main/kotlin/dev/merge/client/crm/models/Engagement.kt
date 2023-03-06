@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.DirectionEnum
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -29,10 +30,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Engagement Object ### Description The `Engagement` object is used to represent an engagement in the remote system. ### Usage Example TODO
+ * # The Engagement Object ### Description The `Engagement` object is used to represent an interaction noted in a CRM system. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The engagement's owner.
  * @param content The engagement's content.
  * @param subject The engagement's subject.
@@ -41,20 +40,17 @@ import dev.merge.client.shared.ApiClient
  * @param startTime The time at which the engagement started.
  * @param endTime The time at which the engagement ended.
  * @param account The account of the engagement.
- * @param remoteData 
+ * @param contacts 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Engagement (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The engagement's owner. */
     @field:JsonProperty("owner")
@@ -88,26 +84,33 @@ data class Engagement (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
+    @field:JsonProperty("contacts")
+    val contacts: kotlin.collections.List<java.util.UUID>? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -132,14 +135,26 @@ data class Engagement (
         @field:JsonProperty("account")
         val account: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
+        @field:JsonProperty("contacts")
+        val contacts: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -148,8 +163,6 @@ data class Engagement (
         @JvmStatic
         fun normalize(expanded: Engagement.Expanded): Engagement {
             return Engagement(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 content = ApiClient.jsonConvertSafe(expanded.content),
                 subject = ApiClient.jsonConvertSafe(expanded.subject),
@@ -158,9 +171,13 @@ data class Engagement (
                 startTime = ApiClient.jsonConvertSafe(expanded.startTime),
                 endTime = ApiClient.jsonConvertSafe(expanded.endTime),
                 account = ApiClient.jsonConvertSafe(expanded.account),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                contacts = ApiClient.jsonConvertSafe(expanded.contacts),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

@@ -20,8 +20,7 @@
 
 package dev.merge.client.crm.models
 
-import dev.merge.client.crm.models.ItemFormatEnum
-import dev.merge.client.crm.models.ItemTypeEnum
+import dev.merge.client.crm.models.ItemSchema
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,17 +30,23 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
+ * @param id 
  * @param displayName 
  * @param remoteKeyName 
+ * @param description 
+ * @param isCustom 
  * @param isRequired 
- * @param isNestedList 
- * @param itemType 
- * @param itemFormat 
- * @param itemChoices 
+ * @param fieldType 
+ * @param fieldFormat 
+ * @param fieldChoices 
+ * @param itemSchema 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class RemoteFieldClass (
+
+    @field:JsonProperty("id")
+    val id: kotlin.String? = null,
 
     @field:JsonProperty("display_name")
     val displayName: kotlin.String? = null,
@@ -49,45 +54,60 @@ data class RemoteFieldClass (
     @field:JsonProperty("remote_key_name")
     val remoteKeyName: kotlin.String? = null,
 
+    @field:JsonProperty("description")
+    val description: kotlin.String? = null,
+
+    @field:JsonProperty("is_custom")
+    val isCustom: kotlin.Boolean? = null,
+
     @field:JsonProperty("is_required")
     val isRequired: kotlin.Boolean? = null,
 
-    @field:JsonProperty("is_nested_list")
-    val isNestedList: kotlin.Boolean? = null,
+    @field:JsonProperty("field_type")
+    val fieldType: kotlin.Boolean? = null,
 
-    @field:JsonProperty("item_type")
-    val itemType: ItemTypeEnum? = null,
+    @field:JsonProperty("field_format")
+    val fieldFormat: kotlin.Boolean? = null,
 
-    @field:JsonProperty("item_format")
-    val itemFormat: ItemFormatEnum? = null,
+    @field:JsonProperty("field_choices")
+    val fieldChoices: kotlin.collections.List<kotlin.String>? = null,
 
-    @field:JsonProperty("item_choices")
-    val itemChoices: kotlin.collections.List<kotlin.String>? = null
+    @field:JsonProperty("item_schema")
+    val itemSchema: ItemSchema? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
         @field:JsonProperty("display_name")
         val displayName: JsonNode?,
 
         @field:JsonProperty("remote_key_name")
         val remoteKeyName: JsonNode?,
 
+        @field:JsonProperty("description")
+        val description: JsonNode?,
+
+        @field:JsonProperty("is_custom")
+        val isCustom: JsonNode?,
+
         @field:JsonProperty("is_required")
         val isRequired: JsonNode?,
 
-        @field:JsonProperty("is_nested_list")
-        val isNestedList: JsonNode?,
+        @field:JsonProperty("field_type")
+        val fieldType: JsonNode?,
 
-        @field:JsonProperty("item_type")
-        val itemType: JsonNode?,
+        @field:JsonProperty("field_format")
+        val fieldFormat: JsonNode?,
 
-        @field:JsonProperty("item_format")
-        val itemFormat: JsonNode?,
+        @field:JsonProperty("field_choices")
+        val fieldChoices: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("item_choices")
-        val itemChoices: kotlin.collections.List<JsonNode>?
+        @field:JsonProperty("item_schema")
+        val itemSchema: JsonNode?
 
     )
 
@@ -96,13 +116,16 @@ data class RemoteFieldClass (
         @JvmStatic
         fun normalize(expanded: RemoteFieldClass.Expanded): RemoteFieldClass {
             return RemoteFieldClass(
+                id = ApiClient.jsonConvertSafe(expanded.id),
                 displayName = ApiClient.jsonConvertSafe(expanded.displayName),
                 remoteKeyName = ApiClient.jsonConvertSafe(expanded.remoteKeyName),
+                description = ApiClient.jsonConvertSafe(expanded.description),
+                isCustom = ApiClient.jsonConvertSafe(expanded.isCustom),
                 isRequired = ApiClient.jsonConvertSafe(expanded.isRequired),
-                isNestedList = ApiClient.jsonConvertSafe(expanded.isNestedList),
-                itemType = ApiClient.jsonConvertSafe(expanded.itemType),
-                itemFormat = ApiClient.jsonConvertSafe(expanded.itemFormat),
-                itemChoices = ApiClient.jsonConvertSafe(expanded.itemChoices)
+                fieldType = ApiClient.jsonConvertSafe(expanded.fieldType),
+                fieldFormat = ApiClient.jsonConvertSafe(expanded.fieldFormat),
+                fieldChoices = ApiClient.jsonConvertSafe(expanded.fieldChoices),
+                itemSchema = ApiClient.jsonConvertSafe(expanded.itemSchema)
             )
         }
     }

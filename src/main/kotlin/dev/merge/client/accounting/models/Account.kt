@@ -31,15 +31,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Account Object ### Description The `Account` object is what businesses use to track transactions. Accountants often call accounts \"ledgers\".  ### Usage Example Fetch from the `LIST Accounts` endpoint and view a company's accounts.
+ * # The Account Object ### Description The `Account` object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts).  ### Usage Example Fetch from the `LIST Accounts` endpoint and view a company's accounts.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param name The account's name.
  * @param description The account's description.
- * @param classification The account's classification.
- * @param type The account's type.
+ * @param classification The account's broadest grouping.
+ * @param type The account's type is a narrower and more specific grouping within the account's classification.
  * @param status The account's status.
  * @param currentBalance The account's current balance.
  * @param currency The account's currency.
@@ -48,6 +47,7 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the account belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -60,9 +60,6 @@ data class Account (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* The account's name. */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
@@ -71,11 +68,11 @@ data class Account (
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
-    /* The account's classification. */
+    /* The account's broadest grouping. */
     @field:JsonProperty("classification")
     val classification: ClassificationEnum? = null,
 
-    /* The account's type. */
+    /* The account's type is a narrower and more specific grouping within the account's classification. */
     @field:JsonProperty("type")
     val type: kotlin.String? = null,
 
@@ -108,7 +105,10 @@ data class Account (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -119,9 +119,6 @@ data class Account (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("name")
         val name: JsonNode?,
@@ -157,7 +154,10 @@ data class Account (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -168,7 +168,6 @@ data class Account (
             return Account(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 classification = ApiClient.jsonConvertSafe(expanded.classification),
@@ -180,7 +179,8 @@ data class Account (
                 parentAccount = ApiClient.jsonConvertSafe(expanded.parentAccount),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

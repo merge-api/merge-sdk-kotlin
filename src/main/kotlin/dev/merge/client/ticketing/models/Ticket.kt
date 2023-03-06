@@ -22,6 +22,7 @@ package dev.merge.client.ticketing.models
 
 import dev.merge.client.ticketing.models.PriorityEnum
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.ticketing.models.RemoteField
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -51,11 +52,12 @@ import dev.merge.client.shared.ApiClient
  * @param remoteCreatedAt When the third party's ticket was created.
  * @param remoteUpdatedAt When the third party's ticket was updated.
  * @param completedAt When the ticket was completed.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param ticketUrl The 3rd party url of the Ticket.
- * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+ * @param priority The priority or urgency of the Ticket.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -132,9 +134,6 @@ data class Ticket (
     @field:JsonProperty("completed_at")
     val completedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
@@ -142,12 +141,18 @@ data class Ticket (
     @field:JsonProperty("ticket_url")
     val ticketUrl: java.net.URI? = null,
 
-    /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
+    /* The priority or urgency of the Ticket. */
     @field:JsonProperty("priority")
     val priority: PriorityEnum? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
@@ -210,9 +215,6 @@ data class Ticket (
         @field:JsonProperty("completed_at")
         val completedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
@@ -223,7 +225,13 @@ data class Ticket (
         val priority: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -251,11 +259,12 @@ data class Ticket (
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
                 priority = ApiClient.jsonConvertSafe(expanded.priority),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

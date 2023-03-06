@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Collection Object ### Description The `Collection` object is used to represent collections of tickets. Collections may include other collections as sub collections.
+ * # The Collection Object ### Description The `Collection` object is used to represent collections of tickets. Collections may include other collections as sub collections.  ### Usage Example TODO
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -37,9 +37,9 @@ import dev.merge.client.shared.ApiClient
  * @param description The collection's description.
  * @param collectionType The collection's type.
  * @param parentCollection The parent collection for this collection.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,15 +68,15 @@ data class Collection (
     @field:JsonProperty("parent_collection")
     val parentCollection: java.util.UUID? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -100,14 +100,14 @@ data class Collection (
         @field:JsonProperty("parent_collection")
         val parentCollection: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -122,9 +122,9 @@ data class Collection (
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 collectionType = ApiClient.jsonConvertSafe(expanded.collectionType),
                 parentCollection = ApiClient.jsonConvertSafe(expanded.parentCollection),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

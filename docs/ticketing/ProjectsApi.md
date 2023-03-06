@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**projectsList**](ProjectsApi.md#projectsList) | **GET** /projects | 
 [**projectsRetrieve**](ProjectsApi.md#projectsRetrieve) | **GET** /projects/{id} | 
-[**projectsUsersList**](ProjectsApi.md#projectsUsersList) | **GET** /projects/{id}/users | 
+[**projectsUsersList**](ProjectsApi.md#projectsUsersList) | **GET** /projects/{parent_id}/users | 
 
 
 <a name="projectsList"></a>
@@ -133,11 +133,11 @@ Configure bearerAuth:
 
 <a name="projectsUsersList"></a>
 # **projectsUsersList**
-> PaginatedUserList projectsUsersList(id, cursor, expand, includeRemoteData, pageSize)
+> PaginatedUserList projectsUsersList(parentId, cursor, expand, includeDeletedData, includeRemoteData, pageSize)
 
 
 
-Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
+Returns a list of &#x60;User&#x60; objects.
 
 ### Example
 ```kotlin
@@ -146,13 +146,14 @@ Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
 //import dev.merge.client.ticketing.models.*
 
 val apiInstance = ProjectsApi()
-val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val parentId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
 val expand : kotlin.String = teams // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 try {
-    val result : PaginatedUserList = apiInstance.projectsUsersList(id, cursor, expand, includeRemoteData, pageSize)
+    val result : PaginatedUserList = apiInstance.projectsUsersList(parentId, cursor, expand, includeDeletedData, includeRemoteData, pageSize)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ProjectsApi#projectsUsersList")
@@ -167,9 +168,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **java.util.UUID**|  |
+ **parentId** | **java.util.UUID**|  |
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: teams]
+ **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
 

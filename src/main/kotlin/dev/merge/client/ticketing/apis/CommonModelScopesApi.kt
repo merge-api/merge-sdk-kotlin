@@ -45,21 +45,73 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
-    data class CommonModelScopesRetrieveRequest (
-        val integrationSlug: kotlin.String? = null,
+    data class CommonModelScopesCreateRequest (
+        val commonModelScopesUpdateSerializer: CommonModelScopesUpdateSerializer,
         val linkedAccountId: kotlin.String? = null
     )
 
-    data class CommonModelScopesUpdateRequest (
-        val commonModelScopesUpdateSerializer: CommonModelScopesUpdateSerializer,
-        val integrationSlug: kotlin.String? = null,
+    data class CommonModelScopesRetrieveRequest (
         val linkedAccountId: kotlin.String? = null
     )
 
     /**
     * 
-    * Fetch the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per integration or account.
-     * @param integrationSlug Slug of the integration to fetch (optional)
+    * Update the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per account.
+     * @param commonModelScopesUpdateSerializer  
+     * @param linkedAccountId ID of specific linked account to fetch (optional)
+     * @return CommonModelScopes
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun commonModelScopesCreate(requestModel: CommonModelScopesApi.CommonModelScopesCreateRequest): CommonModelScopes {
+        return commonModelScopesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commonModelScopesCreateAsync(requestModel: CommonModelScopesApi.CommonModelScopesCreateRequest): CompletableFuture<CommonModelScopes> = GlobalScope.future {
+        commonModelScopesCreate(requestModel)
+    }
+
+    /**
+     * @param commonModelScopesUpdateSerializer   * @param linkedAccountId ID of specific linked account to fetch (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun commonModelScopesCreateExpanded(requestModel: CommonModelScopesApi.CommonModelScopesCreateRequest): CommonModelScopes.Expanded {
+        return commonModelScopesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun commonModelScopesCreateExpandedAsync(requestModel: CommonModelScopesApi.CommonModelScopesCreateRequest): CompletableFuture<CommonModelScopes.Expanded> = GlobalScope.future {
+        commonModelScopesCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> commonModelScopesCreateImpl(requestModel: CommonModelScopesApi.CommonModelScopesCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("bearerAuth")
+
+        val localVariableBody = requestModel.commonModelScopesUpdateSerializer
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.linkedAccountId?.apply { localVariableQuery["linked_account_id"] = listOf(this) }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/common-model-scopes",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Fetch the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per account.
      * @param linkedAccountId ID of specific linked account to fetch (optional)
      * @return CommonModelScopes
     */
@@ -74,7 +126,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param integrationSlug Slug of the integration to fetch (optional) * @param linkedAccountId ID of specific linked account to fetch (optional)
+     * @param linkedAccountId ID of specific linked account to fetch (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun commonModelScopesRetrieveExpanded(requestModel: CommonModelScopesApi.CommonModelScopesRetrieveRequest): CommonModelScopes.Expanded {
@@ -94,7 +146,6 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-            requestModel.integrationSlug?.apply { localVariableQuery["integration_slug"] = listOf(this) }
             requestModel.linkedAccountId?.apply { localVariableQuery["linked_account_id"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
@@ -107,63 +158,6 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
-        localVariableConfig,
-        localVariableBody,
-        localVariableAuthNames
-        ).body()
-    }
-
-    /**
-    * 
-    * Update the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per integration or account.
-     * @param commonModelScopesUpdateSerializer  
-     * @param integrationSlug Slug of the integration to fetch (optional)
-     * @param linkedAccountId ID of specific linked account to fetch (optional)
-     * @return CommonModelScopes
-    */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun commonModelScopesUpdate(requestModel: CommonModelScopesApi.CommonModelScopesUpdateRequest): CommonModelScopes {
-        return commonModelScopesUpdateImpl(requestModel)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    open fun commonModelScopesUpdateAsync(requestModel: CommonModelScopesApi.CommonModelScopesUpdateRequest): CompletableFuture<CommonModelScopes> = GlobalScope.future {
-        commonModelScopesUpdate(requestModel)
-    }
-
-    /**
-     * @param commonModelScopesUpdateSerializer   * @param integrationSlug Slug of the integration to fetch (optional) * @param linkedAccountId ID of specific linked account to fetch (optional)
-    */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun commonModelScopesUpdateExpanded(requestModel: CommonModelScopesApi.CommonModelScopesUpdateRequest): CommonModelScopes.Expanded {
-        return commonModelScopesUpdateImpl(requestModel)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    open fun commonModelScopesUpdateExpandedAsync(requestModel: CommonModelScopesApi.CommonModelScopesUpdateRequest): CompletableFuture<CommonModelScopes.Expanded> = GlobalScope.future {
-        commonModelScopesUpdateExpanded(requestModel)
-    }
-
-    private suspend inline fun <reified T> commonModelScopesUpdateImpl(requestModel: CommonModelScopesApi.CommonModelScopesUpdateRequest): T {
-
-        val localVariableAuthNames = listOf<String>("bearerAuth")
-
-        val localVariableBody = requestModel.commonModelScopesUpdateSerializer
-
-        val localVariableQuery = mutableMapOf<String, List<String>>()
-            requestModel.integrationSlug?.apply { localVariableQuery["integration_slug"] = listOf(this) }
-            requestModel.linkedAccountId?.apply { localVariableQuery["linked_account_id"] = listOf(this) }
-
-        val localVariableHeaders = mutableMapOf<String, String>()
-
-        val localVariableConfig = RequestConfig<kotlin.Any?>(
-        RequestMethod.PUT,
-        "/common-model-scopes",
-        query = localVariableQuery,
-        headers = localVariableHeaders
-        )
-
-        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

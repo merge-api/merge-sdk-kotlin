@@ -82,6 +82,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val personalEmail: kotlin.String? = null,
         val remoteFields: kotlin.String? = null,
         val remoteId: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null,
         val teamId: kotlin.String? = null,
         val workEmail: kotlin.String? = null,
         val workLocationId: kotlin.String? = null
@@ -92,7 +93,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val includeSensitiveFields: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     /**
@@ -228,8 +230,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param pageSize Number of results to return per page. (optional)
      * @param payGroupId If provided, will only return employees for this pay group (optional)
      * @param personalEmail If provided, will only return Employees with this personal email (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @param teamId If provided, will only return employees for this team. (optional)
      * @param workEmail If provided, will only return Employees with this work email (optional)
      * @param workLocationId If provided, will only return employees for this location. (optional)
@@ -246,7 +249,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param groups If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
+     * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param groups If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesListExpanded(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee.Expanded> {
@@ -287,6 +290,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.personalEmail?.apply { localVariableQuery["personal_email"] = listOf(this) }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
             requestModel.teamId?.apply { localVariableQuery["team_id"] = listOf(this) }
             requestModel.workEmail?.apply { localVariableQuery["work_email"] = listOf(this) }
             requestModel.workLocationId?.apply { localVariableQuery["work_location_id"] = listOf(this) }
@@ -367,7 +371,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return Employee
     */
     @Suppress("UNCHECKED_CAST")
@@ -381,7 +386,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesRetrieveExpanded(requestModel: EmployeesApi.EmployeesRetrieveRequest): Employee.Expanded {
@@ -405,6 +410,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.includeSensitiveFields?.apply { localVariableQuery["include_sensitive_fields"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

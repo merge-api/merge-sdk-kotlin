@@ -29,8 +29,9 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The VendorCreditLine Object ### Description The `VendorCreditLine` object is used to represent a vendor credit's line items.  ### Usage Example Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
  *
+ * @param trackingCategories The line's associated tracking categories.
  * @param remoteId The third-party API ID of the matching object.
- * @param netAmount The line's net amount.
+ * @param netAmount The full value of the credit.
  * @param trackingCategory The line's associated tracking category.
  * @param description The line's description.
  * @param account The line's account.
@@ -40,11 +41,15 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class VendorCreditLine (
 
+    /* The line's associated tracking categories. */
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>,
+
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The line's net amount. */
+    /* The full value of the credit. */
     @field:JsonProperty("net_amount")
     val netAmount: kotlin.Float? = null,
 
@@ -68,6 +73,9 @@ data class VendorCreditLine (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>,
+
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
@@ -93,6 +101,7 @@ data class VendorCreditLine (
         @JvmStatic
         fun normalize(expanded: VendorCreditLine.Expanded): VendorCreditLine {
             return VendorCreditLine(
+                trackingCategories = ApiClient.jsonConvertRequiredSafe(expanded.trackingCategories),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),

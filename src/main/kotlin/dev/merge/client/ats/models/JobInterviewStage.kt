@@ -28,15 +28,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The JobInterviewStage Object ### Description The `JobInterviewStage` object is used to represent the stage that a job application is in. ### Usage Example Fetch from the `LIST JobInterviewStages` endpoint and view the job interview stages used by a company.
+ * # The JobInterviewStage Object ### Description The `JobInterviewStage` object is used to represent a particular recruiting stage for an `Application`. A given `Application` typically has the `JobInterviewStage` object represented in the current_stage field. ### Usage Example Fetch from the `LIST JobInterviewStages` endpoint and view the job interview stages used by a company.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param name The stage's name.
+ * @param name Standard stage names are offered by ATS systems but can be modified by users.
  * @param job This field is populated only if the stage is specific to a particular job. If the stage is generic, this field will not be populated.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -49,7 +49,7 @@ data class JobInterviewStage (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The stage's name. */
+    /* Standard stage names are offered by ATS systems but can be modified by users. */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
@@ -57,15 +57,15 @@ data class JobInterviewStage (
     @field:JsonProperty("job")
     val job: java.util.UUID? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -83,14 +83,14 @@ data class JobInterviewStage (
         @field:JsonProperty("job")
         val job: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -103,9 +103,9 @@ data class JobInterviewStage (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 job = ApiClient.jsonConvertSafe(expanded.job),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

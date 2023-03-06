@@ -20,7 +20,7 @@
 
 package dev.merge.client.crm.models
 
-import dev.merge.client.crm.models.CommonModelScopesPutInnerDeserializerRequest
+import dev.merge.client.crm.models.CommonModelScopesPostInnerDeserializerRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -38,7 +38,7 @@ data class CommonModelScopesUpdateSerializer (
 
     /* The common model scopes to update. */
     @field:JsonProperty("common_models")
-    val commonModels: kotlin.collections.List<CommonModelScopesPutInnerDeserializerRequest>
+    val commonModels: kotlin.collections.List<CommonModelScopesPostInnerDeserializerRequest>
 
 ) {
 

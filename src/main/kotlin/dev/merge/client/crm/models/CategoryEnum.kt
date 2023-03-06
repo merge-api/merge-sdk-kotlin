@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 
  *
- * Values: HRIS,ATS,ACCOUNTING,TICKETING,CRM
+ * Values: HRIS,ATS,ACCOUNTING,TICKETING,CRM,MKTG,FILESTORAGE
  */
 enum class CategoryEnum(val value: kotlin.String) {
 
@@ -53,7 +53,15 @@ enum class CategoryEnum(val value: kotlin.String) {
 
 
     @JsonProperty(value = "crm")
-    CRM("crm");
+    CRM("crm"),
+
+
+    @JsonProperty(value = "mktg")
+    MKTG("mktg"),
+
+
+    @JsonProperty(value = "filestorage")
+    FILESTORAGE("filestorage");
 
 
     /**

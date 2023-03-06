@@ -30,7 +30,8 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The TransactionLineItem Object ### Description The `TransactionLineItem` object is used to represent a transaction's line items.  ### Usage Example Fetch from the `GET TransactionLineItem` endpoint and view the transaction's line items.
  *
- * @param memo A memo attached to the line item.
+ * @param trackingCategories The line's associated tracking categories.
+ * @param memo An internal note used by the business to clarify purpose of the transaction.
  * @param unitPrice The line item's unit price.
  * @param quantity The line item's quantity.
  * @param item 
@@ -41,13 +42,16 @@ import dev.merge.client.shared.ApiClient
  * @param currency The line item's currency.
  * @param exchangeRate The line item's exchange rate.
  * @param company The company the line belongs to.
- * @param remoteId The third-party API ID of the matching object.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class TransactionLineItem (
 
-    /* A memo attached to the line item. */
+    /* The line's associated tracking categories. */
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>,
+
+    /* An internal note used by the business to clarify purpose of the transaction. */
     @field:JsonProperty("memo")
     val memo: kotlin.String? = null,
 
@@ -88,16 +92,15 @@ data class TransactionLineItem (
 
     /* The company the line belongs to. */
     @field:JsonProperty("company")
-    val company: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val company: java.util.UUID? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>,
+
         @field:JsonProperty("memo")
         val memo: JsonNode?,
 
@@ -129,10 +132,7 @@ data class TransactionLineItem (
         val exchangeRate: JsonNode?,
 
         @field:JsonProperty("company")
-        val company: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val company: JsonNode?
 
     )
 
@@ -141,6 +141,7 @@ data class TransactionLineItem (
         @JvmStatic
         fun normalize(expanded: TransactionLineItem.Expanded): TransactionLineItem {
             return TransactionLineItem(
+                trackingCategories = ApiClient.jsonConvertRequiredSafe(expanded.trackingCategories),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
                 quantity = ApiClient.jsonConvertSafe(expanded.quantity),
@@ -151,8 +152,7 @@ data class TransactionLineItem (
                 taxRate = ApiClient.jsonConvertSafe(expanded.taxRate),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
-                company = ApiClient.jsonConvertSafe(expanded.company),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                company = ApiClient.jsonConvertSafe(expanded.company)
             )
         }
     }

@@ -20,7 +20,7 @@
 
 package dev.merge.client.crm.models
 
-import dev.merge.client.crm.models.RemoteFieldClass
+import dev.merge.client.crm.models.RemoteFieldClassForCustomObjectClass
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,21 +28,19 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The CustomObjectClass Object ### Description The Custom Object Class object is used to represent a Custom Object Schema in the remote system. ### Usage Example TODO
  *
- * @param id 
  * @param name 
  * @param description 
  * @param labels 
  * @param fields 
+ * @param associationTypes 
+ * @param id 
  * @param remoteId The third-party API ID of the matching object.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CustomObjectClass (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
 
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
@@ -54,7 +52,13 @@ data class CustomObjectClass (
     val labels: kotlin.collections.Map<kotlin.String, kotlin.String>? = null,
 
     @field:JsonProperty("fields")
-    val fields: kotlin.collections.List<RemoteFieldClass>? = null,
+    val fields: kotlin.collections.List<RemoteFieldClassForCustomObjectClass>? = null,
+
+    @field:JsonProperty("association_types")
+    val associationTypes: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>? = null,
+
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
@@ -64,9 +68,6 @@ data class CustomObjectClass (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
         @field:JsonProperty("name")
         val name: JsonNode?,
 
@@ -79,6 +80,12 @@ data class CustomObjectClass (
         @field:JsonProperty("fields")
         val fields: kotlin.collections.List<JsonNode>?,
 
+        @field:JsonProperty("association_types")
+        val associationTypes: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?
 
@@ -89,11 +96,12 @@ data class CustomObjectClass (
         @JvmStatic
         fun normalize(expanded: CustomObjectClass.Expanded): CustomObjectClass {
             return CustomObjectClass(
-                id = ApiClient.jsonConvertSafe(expanded.id),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 labels = ApiClient.jsonConvertSafe(expanded.labels),
                 fields = ApiClient.jsonConvertSafe(expanded.fields),
+                associationTypes = ApiClient.jsonConvertSafe(expanded.associationTypes),
+                id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
             )
         }
