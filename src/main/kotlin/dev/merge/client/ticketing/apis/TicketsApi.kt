@@ -422,29 +422,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieve(): MetaResponse {
-        return ticketsMetaPostRetrieveImpl()
+    open suspend fun ticketsMetaPostRetrieve(queryParams: Map<String, String>): MetaResponse {
+        return ticketsMetaPostRetrieveImpl(queryParams)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
-        ticketsMetaPostRetrieve()
+    open fun ticketsMetaPostRetrieveAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse> = GlobalScope.future {
+        ticketsMetaPostRetrieve(queryParams)
     }
 
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
-        return ticketsMetaPostRetrieveImpl()
+    open suspend fun ticketsMetaPostRetrieveExpanded(queryParams: Map<String, String>): MetaResponse.Expanded {
+        return ticketsMetaPostRetrieveImpl(queryParams)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
-        ticketsMetaPostRetrieveExpanded()
+    open fun ticketsMetaPostRetrieveExpandedAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        ticketsMetaPostRetrieveExpanded(queryParams)
     }
 
-    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(): T {
+    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(queryParams: Map<String, String>): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -452,6 +452,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+        for (kv in queryParams.entries) {
+            localVariableQuery[kv.key] = listOf(kv.value)
+        }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
