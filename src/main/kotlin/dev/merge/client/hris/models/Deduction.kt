@@ -27,13 +27,13 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Deduction Object ### Description The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
+ * # The Deduction Object ### Description The `Deduction` object is used to represent an array of the wages withheld from total earnings for the purpose of paying taxes.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
  *
  * @param id 
  * @param employeePayrollRun 
  * @param name The deduction's name.
- * @param employeeDeduction The amount the employee is deducting.
- * @param companyDeduction The amount the company is deducting.
+ * @param employeeDeduction The amount of money that is withheld from an employee's gross pay by the employee.
+ * @param companyDeduction The amount of money that is withheld on behalf of an employee by the company.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
  */
@@ -51,11 +51,11 @@ data class Deduction (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The amount the employee is deducting. */
+    /* The amount of money that is withheld from an employee's gross pay by the employee. */
     @field:JsonProperty("employee_deduction")
     val employeeDeduction: kotlin.Float? = null,
 
-    /* The amount the company is deducting. */
+    /* The amount of money that is withheld on behalf of an employee by the company. */
     @field:JsonProperty("company_deduction")
     val companyDeduction: kotlin.Float? = null,
 

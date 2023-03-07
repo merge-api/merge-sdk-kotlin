@@ -21,6 +21,7 @@
 package dev.merge.client.accounting.models
 
 import dev.merge.client.accounting.models.CurrencyEnum
+import dev.merge.client.accounting.models.InvoiceLineItemRequest
 import dev.merge.client.accounting.models.InvoiceTypeEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -29,10 +30,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Invoice Object ### Description The `Invoice` object is used to represent a company's invoices.  ### Usage Example Fetch from the `LIST Invoices` endpoint and view a company's invoices.
+ * # The Invoice Object     ### Description     The `Invoice` object represents an itemized record of goods and/or services sold to a customer. If type = accounts_payable `Invoice` is a bill, if type = accounts_receivable it's an invoice.      ### Usage Example     Fetch from the `LIST Invoices` endpoint and view a company's invoices.
  *
- * @param remoteId The third-party API ID of the matching object.
- * @param type The invoice's type.
+ * @param type Whether the invoice is an accounts receivable or accounts payable. Accounts payable invoices are commonly referred to as Bills.
  * @param contact The invoice's contact.
  * @param number The invoice's number.
  * @param issueDate The invoice's issue date.
@@ -42,13 +42,13 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the invoice belongs to.
  * @param currency The invoice's currency.
  * @param exchangeRate The invoice's exchange rate.
- * @param totalDiscount The invoice's total discount.
- * @param subTotal The invoice's sub-total.
- * @param totalTaxAmount The invoice's total tax amount.
+ * @param totalDiscount The total discounts applied to the total cost.
+ * @param subTotal The total amount being paid before taxes.
+ * @param totalTaxAmount The total amount being paid in taxes.
  * @param totalAmount The invoice's total amount.
  * @param balance The invoice's remaining balance.
- * @param remoteUpdatedAt When the third party's invoice entry was updated.
  * @param payments Array of `Payment` object IDs.
+ * @param lineItems 
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -56,11 +56,7 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InvoiceRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    /* The invoice's type. */
+    /* Whether the invoice is an accounts receivable or accounts payable. Accounts payable invoices are commonly referred to as Bills. */
     @field:JsonProperty("type")
     val type: InvoiceTypeEnum? = null,
 
@@ -100,15 +96,15 @@ data class InvoiceRequest (
     @field:JsonProperty("exchange_rate")
     val exchangeRate: java.math.BigDecimal? = null,
 
-    /* The invoice's total discount. */
+    /* The total discounts applied to the total cost. */
     @field:JsonProperty("total_discount")
     val totalDiscount: kotlin.Float? = null,
 
-    /* The invoice's sub-total. */
+    /* The total amount being paid before taxes. */
     @field:JsonProperty("sub_total")
     val subTotal: kotlin.Float? = null,
 
-    /* The invoice's total tax amount. */
+    /* The total amount being paid in taxes. */
     @field:JsonProperty("total_tax_amount")
     val totalTaxAmount: kotlin.Float? = null,
 
@@ -120,13 +116,12 @@ data class InvoiceRequest (
     @field:JsonProperty("balance")
     val balance: kotlin.Float? = null,
 
-    /* When the third party's invoice entry was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
     /* Array of `Payment` object IDs. */
     @field:JsonProperty("payments")
     val payments: kotlin.collections.List<java.util.UUID>? = null,
+
+    @field:JsonProperty("line_items")
+    val lineItems: kotlin.collections.List<InvoiceLineItemRequest>? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -138,9 +133,6 @@ data class InvoiceRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("type")
         val type: JsonNode?,
 
@@ -186,11 +178,11 @@ data class InvoiceRequest (
         @field:JsonProperty("balance")
         val balance: JsonNode?,
 
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
         @field:JsonProperty("payments")
         val payments: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("line_items")
+        val lineItems: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
@@ -205,7 +197,6 @@ data class InvoiceRequest (
         @JvmStatic
         fun normalize(expanded: InvoiceRequest.Expanded): InvoiceRequest {
             return InvoiceRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 type = ApiClient.jsonConvertSafe(expanded.type),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 number = ApiClient.jsonConvertSafe(expanded.number),
@@ -221,8 +212,8 @@ data class InvoiceRequest (
                 totalTaxAmount = ApiClient.jsonConvertSafe(expanded.totalTaxAmount),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 balance = ApiClient.jsonConvertSafe(expanded.balance),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 payments = ApiClient.jsonConvertSafe(expanded.payments),
+                lineItems = ApiClient.jsonConvertSafe(expanded.lineItems),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

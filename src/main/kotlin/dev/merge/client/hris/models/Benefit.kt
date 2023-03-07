@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Benefit Object ### Description The `Benefit` object is used to represent a Benefit for an employee.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
+ * # The Benefit Object ### Description The `Benefit` object is used to represent a benefit that an employee has enrolled in.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -37,9 +37,9 @@ import dev.merge.client.shared.ApiClient
  * @param benefitPlanType The type of benefit plan
  * @param employeeContribution The employee's contribution.
  * @param companyContribution The company's contribution.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -72,15 +72,15 @@ data class Benefit (
     @field:JsonProperty("company_contribution")
     val companyContribution: kotlin.Float? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -107,14 +107,14 @@ data class Benefit (
         @field:JsonProperty("company_contribution")
         val companyContribution: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -130,9 +130,9 @@ data class Benefit (
                 benefitPlanType = ApiClient.jsonConvertSafe(expanded.benefitPlanType),
                 employeeContribution = ApiClient.jsonConvertSafe(expanded.employeeContribution),
                 companyContribution = ApiClient.jsonConvertSafe(expanded.companyContribution),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

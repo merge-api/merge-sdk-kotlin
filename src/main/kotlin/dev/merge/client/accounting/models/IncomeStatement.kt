@@ -30,11 +30,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The IncomeStatement Object ### Description The `IncomeStatement` object is used to represent a company's income statements.  ### Usage Example Fetch from the `GET IncomeStatement` endpoint and view a company's income statement for a given period.
+ * # The IncomeStatement Object ### Description The `IncomeStatement` object is used to represent a company’s income, the cost of sales, operating expenses, and other non-operating expenses. The object also includes other important values like gross profit, gross operating profit, and net income. This represents a period of time (month, quarter, or year).  ### Usage Example Fetch from the `GET IncomeStatement` endpoint and view a company's income statement for a given period.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param name The income statement's name.
  * @param currency The income statement's currency.
  * @param company The company the income statement belongs to.
@@ -42,13 +41,14 @@ import dev.merge.client.shared.ApiClient
  * @param endPeriod The income statement's end period.
  * @param income 
  * @param costOfSales 
- * @param grossProfit The income statement's gross profit.
+ * @param grossProfit The revenue minus the cost of sale.
  * @param operatingExpenses 
- * @param netOperatingIncome The income statement's net operating profit.
+ * @param netOperatingIncome The revenue minus the operating expenses.
  * @param nonOperatingExpenses 
- * @param netIncome The income statement's net income.
+ * @param netIncome The gross profit minus the total expenses.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -60,9 +60,6 @@ data class IncomeStatement (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The income statement's name. */
     @field:JsonProperty("name")
@@ -90,21 +87,21 @@ data class IncomeStatement (
     @field:JsonProperty("cost_of_sales")
     val costOfSales: kotlin.collections.List<ReportItem>? = null,
 
-    /* The income statement's gross profit. */
+    /* The revenue minus the cost of sale. */
     @field:JsonProperty("gross_profit")
     val grossProfit: kotlin.Float? = null,
 
     @field:JsonProperty("operating_expenses")
     val operatingExpenses: kotlin.collections.List<ReportItem>? = null,
 
-    /* The income statement's net operating profit. */
+    /* The revenue minus the operating expenses. */
     @field:JsonProperty("net_operating_income")
     val netOperatingIncome: kotlin.Float? = null,
 
     @field:JsonProperty("non_operating_expenses")
     val nonOperatingExpenses: kotlin.collections.List<ReportItem>? = null,
 
-    /* The income statement's net income. */
+    /* The gross profit minus the total expenses. */
     @field:JsonProperty("net_income")
     val netIncome: kotlin.Float? = null,
 
@@ -113,7 +110,10 @@ data class IncomeStatement (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -124,9 +124,6 @@ data class IncomeStatement (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("name")
         val name: JsonNode?,
@@ -168,7 +165,10 @@ data class IncomeStatement (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -179,7 +179,6 @@ data class IncomeStatement (
             return IncomeStatement(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
                 company = ApiClient.jsonConvertSafe(expanded.company),
@@ -193,7 +192,8 @@ data class IncomeStatement (
                 nonOperatingExpenses = ApiClient.jsonConvertSafe(expanded.nonOperatingExpenses),
                 netIncome = ApiClient.jsonConvertSafe(expanded.netIncome),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

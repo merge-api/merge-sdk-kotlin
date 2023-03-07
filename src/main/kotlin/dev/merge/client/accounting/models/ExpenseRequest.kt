@@ -21,6 +21,7 @@
 package dev.merge.client.accounting.models
 
 import dev.merge.client.accounting.models.CurrencyEnum
+import dev.merge.client.accounting.models.ExpenseLineRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,11 +29,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Expense Object ### Description The `Expense` object is used to represent a company's expenses  ### Usage Example Fetch from the `GET Expense` endpoint and view a company's expense.
+ * # The Expense Object ### Description The `Expense` object is used to represent a purchase made from a business which can be made with a check, credit card, or cash. Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.  ### Usage Example Fetch from the `GET Expense` endpoint and view a company's expense.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param transactionDate When the transaction occurred.
- * @param remoteCreatedAt When the expense was created.
  * @param account The expense's payment account.
  * @param contact The expense's contact.
  * @param totalAmount The expense's total amount.
@@ -40,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param exchangeRate The expense's exchange rate.
  * @param company The company the expense belongs to.
  * @param memo The expense's private note.
+ * @param lines 
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -47,17 +47,9 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ExpenseRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* When the transaction occurred. */
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
-
-    /* When the expense was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
     /* The expense's payment account. */
     @field:JsonProperty("account")
@@ -87,6 +79,9 @@ data class ExpenseRequest (
     @field:JsonProperty("memo")
     val memo: kotlin.String? = null,
 
+    @field:JsonProperty("lines")
+    val lines: kotlin.collections.List<ExpenseLineRequest>? = null,
+
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -97,14 +92,8 @@ data class ExpenseRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
 
         @field:JsonProperty("account")
         val account: JsonNode?,
@@ -127,6 +116,9 @@ data class ExpenseRequest (
         @field:JsonProperty("memo")
         val memo: JsonNode?,
 
+        @field:JsonProperty("lines")
+        val lines: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -140,9 +132,7 @@ data class ExpenseRequest (
         @JvmStatic
         fun normalize(expanded: ExpenseRequest.Expanded): ExpenseRequest {
             return ExpenseRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
@@ -150,6 +140,7 @@ data class ExpenseRequest (
                 exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
+                lines = ApiClient.jsonConvertSafe(expanded.lines),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

@@ -27,17 +27,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Lead Object ### Description The `Lead` object is used to represent a lead in the remote system. ### Usage Example TODO
+ * # The Lead Object ### Description The `Lead` object is used to represent an individual who is a potential customer. ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The lead's owner.
  * @param leadSource The lead's source.
  * @param title The lead's title.
  * @param company The lead's company.
  * @param firstName The lead's first name.
  * @param lastName The lead's last name.
- * @param remoteUpdatedAt When the third party's lead was updated.
- * @param remoteCreatedAt When the third party's lead was created.
  * @param convertedDate When the lead was converted.
  * @param convertedContact The contact of the converted lead.
  * @param convertedAccount The account of the converted lead.
@@ -47,10 +44,6 @@ import dev.merge.client.shared.ApiClient
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class LeadRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The lead's owner. */
     @field:JsonProperty("owner")
@@ -76,14 +69,6 @@ data class LeadRequest (
     @field:JsonProperty("last_name")
     val lastName: kotlin.String? = null,
 
-    /* When the third party's lead was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's lead was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     /* When the lead was converted. */
     @field:JsonProperty("converted_date")
     val convertedDate: java.time.OffsetDateTime? = null,
@@ -106,9 +91,6 @@ data class LeadRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -126,12 +108,6 @@ data class LeadRequest (
 
         @field:JsonProperty("last_name")
         val lastName: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
 
         @field:JsonProperty("converted_date")
         val convertedDate: JsonNode?,
@@ -155,15 +131,12 @@ data class LeadRequest (
         @JvmStatic
         fun normalize(expanded: LeadRequest.Expanded): LeadRequest {
             return LeadRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 leadSource = ApiClient.jsonConvertSafe(expanded.leadSource),
                 title = ApiClient.jsonConvertSafe(expanded.title),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 firstName = ApiClient.jsonConvertSafe(expanded.firstName),
                 lastName = ApiClient.jsonConvertSafe(expanded.lastName),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 convertedDate = ApiClient.jsonConvertSafe(expanded.convertedDate),
                 convertedContact = ApiClient.jsonConvertSafe(expanded.convertedContact),
                 convertedAccount = ApiClient.jsonConvertSafe(expanded.convertedAccount),

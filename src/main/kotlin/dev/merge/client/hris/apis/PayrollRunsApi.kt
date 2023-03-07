@@ -58,6 +58,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteFields: kotlin.String? = null,
         val remoteId: kotlin.String? = null,
         val runType: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null,
         val startedAfter: java.time.OffsetDateTime? = null,
         val startedBefore: java.time.OffsetDateTime? = null
     )
@@ -65,7 +66,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     data class PayrollRunsRetrieveRequest (
         val id: java.util.UUID,
         val includeRemoteData: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     /**
@@ -81,9 +83,10 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @param runType If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @param startedAfter If provided, will only return payroll runs started after this datetime. (optional)
      * @param startedBefore If provided, will only return payroll runs started before this datetime. (optional)
      * @return PaginatedPayrollRunList
@@ -99,7 +102,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param endedAfter If provided, will only return payroll runs ended after this datetime. (optional) * @param endedBefore If provided, will only return payroll runs ended before this datetime. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param runType If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) (optional) * @param startedAfter If provided, will only return payroll runs started after this datetime. (optional) * @param startedBefore If provided, will only return payroll runs started before this datetime. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param endedAfter If provided, will only return payroll runs ended after this datetime. (optional) * @param endedBefore If provided, will only return payroll runs ended before this datetime. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param runType If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param startedAfter If provided, will only return payroll runs started after this datetime. (optional) * @param startedBefore If provided, will only return payroll runs started before this datetime. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payrollRunsListExpanded(requestModel: PayrollRunsApi.PayrollRunsListRequest): MergePaginatedResponse<PayrollRun.Expanded> {
@@ -132,6 +135,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
             requestModel.runType?.apply { localVariableQuery["run_type"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
             requestModel.startedAfter?.apply { localVariableQuery["started_after"] = listOf("$this") }
             requestModel.startedBefore?.apply { localVariableQuery["started_before"] = listOf("$this") }
 
@@ -156,7 +160,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * Returns a &#x60;PayrollRun&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return PayrollRun
     */
     @Suppress("UNCHECKED_CAST")
@@ -170,7 +175,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun payrollRunsRetrieveExpanded(requestModel: PayrollRunsApi.PayrollRunsRetrieveRequest): PayrollRun.Expanded {
@@ -192,6 +197,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

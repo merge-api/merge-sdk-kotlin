@@ -4,8 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
-**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **owner** | [**java.util.UUID**](java.util.UUID.md) | The lead&#39;s owner. |  [optional]
 **leadSource** | **kotlin.String** | The lead&#39;s source. |  [optional]
 **title** | **kotlin.String** | The lead&#39;s title. |  [optional]
@@ -20,9 +18,12 @@ Name | Type | Description | Notes
 **convertedDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the lead was converted. |  [optional]
 **convertedContact** | [**java.util.UUID**](java.util.UUID.md) | The contact of the converted lead. |  [optional]
 **convertedAccount** | [**java.util.UUID**](java.util.UUID.md) | The account of the converted lead. |  [optional]
-**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
+**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
+**remoteFields** | [**kotlin.collections.List&lt;RemoteField&gt;**](RemoteField.md) |  |  [optional] [readonly]
 
 
 

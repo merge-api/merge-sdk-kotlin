@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="invoicesList"></a>
 # **invoicesList**
-> PaginatedInvoiceList invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
+> PaginatedInvoiceList invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, type)
 
 
 
@@ -92,11 +92,12 @@ val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to inc
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
-val remoteFields : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = type // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
+val showEnumOrigins : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
 val type : kotlin.String = type_example // kotlin.String | If provided, will only return Invoices with this type
 try {
-    val result : PaginatedInvoiceList = apiInstance.invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, type)
+    val result : PaginatedInvoiceList = apiInstance.invoicesList(companyId, contactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, type)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling InvoicesApi#invoicesList")
@@ -122,8 +123,9 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: type]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
  **type** | **kotlin.String**| If provided, will only return Invoices with this type | [optional] [enum: ACCOUNTS_PAYABLE, ACCOUNTS_RECEIVABLE]
 
 ### Return type
@@ -194,7 +196,7 @@ Configure bearerAuth:
 
 <a name="invoicesRetrieve"></a>
 # **invoicesRetrieve**
-> Invoice invoicesRetrieve(id, expand, includeRemoteData, remoteFields)
+> Invoice invoicesRetrieve(id, expand, includeRemoteData, remoteFields, showEnumOrigins)
 
 
 
@@ -210,9 +212,10 @@ val apiInstance = InvoicesApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val expand : kotlin.String = payments,line_items,contact,company // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val remoteFields : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = type // kotlin.String | Deprecated. Use show_enum_origins.
+val showEnumOrigins : kotlin.String = type // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : Invoice = apiInstance.invoicesRetrieve(id, expand, includeRemoteData, remoteFields)
+    val result : Invoice = apiInstance.invoicesRetrieve(id, expand, includeRemoteData, remoteFields, showEnumOrigins)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling InvoicesApi#invoicesRetrieve")
@@ -230,7 +233,8 @@ Name | Type | Description  | Notes
  **id** | **java.util.UUID**|  |
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: company, contact, contact,company, line_items, line_items,company, line_items,contact, line_items,contact,company, payments, payments,company, payments,contact, payments,contact,company, payments,line_items, payments,line_items,company, payments,line_items,contact, payments,line_items,contact,company]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: type]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: type]
 
 ### Return type
 

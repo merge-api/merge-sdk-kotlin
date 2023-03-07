@@ -30,29 +30,19 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The TaxRate Object ### Description The `TaxRate` object is used to represent a tax rate.  ### Usage Example Fetch from the `LIST TaxRates` endpoint and view tax rates relevant to a company.
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param description The tax rate's description.
  * @param totalTaxRate The tax rate's total tax rate.
  * @param effectiveTaxRate The tax rate's effective tax rate.
  * @param company The company the tax rate belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class TaxRate (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The tax rate's description. */
     @field:JsonProperty("description")
@@ -74,22 +64,23 @@ data class TaxRate (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("description")
         val description: JsonNode?,
 
@@ -105,8 +96,17 @@ data class TaxRate (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -115,15 +115,15 @@ data class TaxRate (
         @JvmStatic
         fun normalize(expanded: TaxRate.Expanded): TaxRate {
             return TaxRate(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 totalTaxRate = ApiClient.jsonConvertSafe(expanded.totalTaxRate),
                 effectiveTaxRate = ApiClient.jsonConvertSafe(expanded.effectiveTaxRate),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

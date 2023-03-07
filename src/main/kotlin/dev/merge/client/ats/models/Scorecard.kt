@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Scorecard Object ### Description The `Scorecard` object is used to represent a Scorecard for an interview. ### Usage Example Fetch from the `LIST Scorecards` endpoint and filter by `application` to show all scorecard for an applicant.
+ * # The Scorecard Object ### Description The `Scorecard` object is used to represent an interviewer's candidate recommendation based on a particular interview. ### Usage Example Fetch from the `LIST Scorecards` endpoint and filter by `application` to show all scorecard for an applicant.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -39,9 +39,9 @@ import dev.merge.client.shared.ApiClient
  * @param remoteCreatedAt When the third party's scorecard was created.
  * @param submittedAt When the scorecard was submitted.
  * @param overallRecommendation The inteviewer's recommendation.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,15 +78,15 @@ data class Scorecard (
     @field:JsonProperty("overall_recommendation")
     val overallRecommendation: OverallRecommendationEnum? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -116,14 +116,14 @@ data class Scorecard (
         @field:JsonProperty("overall_recommendation")
         val overallRecommendation: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -140,9 +140,9 @@ data class Scorecard (
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 submittedAt = ApiClient.jsonConvertSafe(expanded.submittedAt),
                 overallRecommendation = ApiClient.jsonConvertSafe(expanded.overallRecommendation),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

@@ -4,14 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **firstName** | **kotlin.String** | The candidate&#39;s first name. |  [optional]
 **lastName** | **kotlin.String** | The candidate&#39;s last name. |  [optional]
 **company** | **kotlin.String** | The candidate&#39;s current company. |  [optional]
 **title** | **kotlin.String** | The candidate&#39;s current title. |  [optional]
-**remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s candidate was created. |  [optional]
-**remoteUpdatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s candidate was updated. |  [optional]
-**lastInteractionAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the most recent candidate interaction occurred. |  [optional]
+**lastInteractionAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the most recent interaction with the candidate occurred. |  [optional]
 **isPrivate** | **kotlin.Boolean** | Whether or not the candidate is private. |  [optional]
 **canEmail** | **kotlin.Boolean** | Whether or not the candidate can be emailed. |  [optional]
 **locations** | **kotlin.collections.List&lt;kotlin.String&gt;** | The candidate&#39;s locations. |  [optional]

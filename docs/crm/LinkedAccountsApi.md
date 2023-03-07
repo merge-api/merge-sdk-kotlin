@@ -51,7 +51,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | **kotlin.String**|  | [optional] [enum: accounting, ats, crm, hris, ticketing]
+ **category** | **kotlin.String**|  | [optional] [enum: accounting, ats, crm, filestorage, hris, mktg, ticketing]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
  **endUserEmailAddress** | **kotlin.String**| If provided, will only return linked accounts associated with the given email address. | [optional]
  **endUserOrganizationName** | **kotlin.String**| If provided, will only return linked accounts associated with the given organization name. | [optional]

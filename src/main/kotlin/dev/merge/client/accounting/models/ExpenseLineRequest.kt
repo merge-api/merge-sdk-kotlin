@@ -29,23 +29,21 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The ExpenseLine Object ### Description The `ExpenseLine` object is used to represent an expense's line items.  ### Usage Example Fetch from the `GET Expense` endpoint and view the expense's line items.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param item The line's item.
  * @param netAmount The line's net amount.
  * @param trackingCategory 
+ * @param trackingCategories 
  * @param company The company the line belongs to.
  * @param account The expense's payment account.
- * @param description The line item's description.
+ * @param contact The expense's contact.
+ * @param description The description of the item that was purchased by the company.
+ * @param remoteId The third-party API ID of the matching object.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ExpenseLineRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The line's item. */
     @field:JsonProperty("item")
@@ -58,6 +56,9 @@ data class ExpenseLineRequest (
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>? = null,
+
     /* The company the line belongs to. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
@@ -66,9 +67,17 @@ data class ExpenseLineRequest (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
-    /* The line item's description. */
+    /* The expense's contact. */
+    @field:JsonProperty("contact")
+    val contact: java.util.UUID? = null,
+
+    /* The description of the item that was purchased by the company. */
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -80,9 +89,6 @@ data class ExpenseLineRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("item")
         val item: JsonNode?,
 
@@ -92,14 +98,23 @@ data class ExpenseLineRequest (
         @field:JsonProperty("tracking_category")
         val trackingCategory: JsonNode?,
 
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("company")
         val company: JsonNode?,
 
         @field:JsonProperty("account")
         val account: JsonNode?,
 
+        @field:JsonProperty("contact")
+        val contact: JsonNode?,
+
         @field:JsonProperty("description")
         val description: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
@@ -114,13 +129,15 @@ data class ExpenseLineRequest (
         @JvmStatic
         fun normalize(expanded: ExpenseLineRequest.Expanded): ExpenseLineRequest {
             return ExpenseLineRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                trackingCategories = ApiClient.jsonConvertSafe(expanded.trackingCategories),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 account = ApiClient.jsonConvertSafe(expanded.account),
+                contact = ApiClient.jsonConvertSafe(expanded.contact),
                 description = ApiClient.jsonConvertSafe(expanded.description),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

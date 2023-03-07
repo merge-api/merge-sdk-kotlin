@@ -32,12 +32,12 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param fileName The attachment's name.
  * @param fileUrl The attachment's url.
  * @param company The company the accounting attachment belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -49,9 +49,6 @@ data class AccountingAttachment (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The attachment's name. */
     @field:JsonProperty("file_name")
@@ -70,7 +67,10 @@ data class AccountingAttachment (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -81,9 +81,6 @@ data class AccountingAttachment (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("file_name")
         val fileName: JsonNode?,
@@ -98,7 +95,10 @@ data class AccountingAttachment (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -109,12 +109,12 @@ data class AccountingAttachment (
             return AccountingAttachment(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 fileName = ApiClient.jsonConvertSafe(expanded.fileName),
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

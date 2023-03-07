@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Application Object ### Description The `Application` object is used to represent an Application for a job position. This is separate from the Candidate object, although some systems may only allow a Candidate to have one Application.  Please note: Application objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
+ * # The Application Object ### Description The Application Object is used to represent a candidate's journey through a particular Job's recruiting process. If a Candidate applies for multiple Jobs, there will be a separate Application for each Job if the third-party integration allows it.  ### Usage Example Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -40,9 +40,9 @@ import dev.merge.client.shared.ApiClient
  * @param creditedTo The user credited for this application.
  * @param currentStage The application's current stage.
  * @param rejectReason The application's reason for rejection.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -87,14 +87,14 @@ data class Application (
     @field:JsonProperty("reject_reason")
     val rejectReason: java.util.UUID? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -130,14 +130,14 @@ data class Application (
         @field:JsonProperty("reject_reason")
         val rejectReason: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -156,9 +156,9 @@ data class Application (
                 creditedTo = ApiClient.jsonConvertSafe(expanded.creditedTo),
                 currentStage = ApiClient.jsonConvertSafe(expanded.currentStage),
                 rejectReason = ApiClient.jsonConvertSafe(expanded.rejectReason),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

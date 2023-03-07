@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="payrollRunsList"></a>
 # **payrollRunsList**
-> PaginatedPayrollRunList payrollRunsList(createdAfter, createdBefore, cursor, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, runType, startedAfter, startedBefore)
+> PaginatedPayrollRunList payrollRunsList(createdAfter, createdBefore, cursor, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, runType, showEnumOrigins, startedAfter, startedBefore)
 
 
 
@@ -33,13 +33,14 @@ val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to inc
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
-val remoteFields : kotlin.String = run_state,run_type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = run_state,run_type // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 val runType : kotlin.String = runType_example // kotlin.String | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
+val showEnumOrigins : kotlin.String = run_state,run_type // kotlin.String | Which fields should be returned in non-normalized form.
 val startedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return payroll runs started after this datetime.
 val startedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return payroll runs started before this datetime.
 try {
-    val result : PaginatedPayrollRunList = apiInstance.payrollRunsList(createdAfter, createdBefore, cursor, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, runType, startedAfter, startedBefore)
+    val result : PaginatedPayrollRunList = apiInstance.payrollRunsList(createdAfter, createdBefore, cursor, endedAfter, endedBefore, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, runType, showEnumOrigins, startedAfter, startedBefore)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PayrollRunsApi#payrollRunsList")
@@ -64,9 +65,10 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: run_state, run_state,run_type, run_type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: run_state, run_state,run_type, run_type]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
  **runType** | **kotlin.String**| If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) | [optional] [enum: CORRECTION, OFF_CYCLE, REGULAR, SIGN_ON_BONUS, TERMINATION]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: run_state, run_state,run_type, run_type]
  **startedAfter** | **java.time.OffsetDateTime**| If provided, will only return payroll runs started after this datetime. | [optional]
  **startedBefore** | **java.time.OffsetDateTime**| If provided, will only return payroll runs started before this datetime. | [optional]
 
@@ -90,7 +92,7 @@ Configure bearerAuth:
 
 <a name="payrollRunsRetrieve"></a>
 # **payrollRunsRetrieve**
-> PayrollRun payrollRunsRetrieve(id, includeRemoteData, remoteFields)
+> PayrollRun payrollRunsRetrieve(id, includeRemoteData, remoteFields, showEnumOrigins)
 
 
 
@@ -105,9 +107,10 @@ Returns a &#x60;PayrollRun&#x60; object with the given &#x60;id&#x60;.
 val apiInstance = PayrollRunsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val remoteFields : kotlin.String = run_state,run_type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = run_state,run_type // kotlin.String | Deprecated. Use show_enum_origins.
+val showEnumOrigins : kotlin.String = run_state,run_type // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : PayrollRun = apiInstance.payrollRunsRetrieve(id, includeRemoteData, remoteFields)
+    val result : PayrollRun = apiInstance.payrollRunsRetrieve(id, includeRemoteData, remoteFields, showEnumOrigins)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PayrollRunsApi#payrollRunsRetrieve")
@@ -124,7 +127,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **java.util.UUID**|  |
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: run_state, run_state,run_type, run_type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: run_state, run_state,run_type, run_type]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: run_state, run_state,run_type, run_type]
 
 ### Return type
 

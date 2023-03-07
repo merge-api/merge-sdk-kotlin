@@ -29,9 +29,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Contact Object ### Description The `Contact` object is used to represent a Contact. This can be either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
+ * # The Contact Object ### Description The `Contact` object refers to either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param name The contact's name.
  * @param isSupplier Whether the contact is a supplier.
  * @param isCustomer Whether the contact is a customer.
@@ -39,7 +38,6 @@ import dev.merge.client.shared.ApiClient
  * @param taxNumber The contact's tax number.
  * @param status The contact's status
  * @param currency The currency the contact's transactions are in.
- * @param remoteUpdatedAt When the third party's contact was updated.
  * @param company The company the contact belongs to.
  * @param addresses `Address` object IDs for the given `Contacts` object.
  * @param phoneNumbers `AccountingPhoneNumber` object for the given `Contacts` object.
@@ -49,10 +47,6 @@ import dev.merge.client.shared.ApiClient
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ContactRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The contact's name. */
     @field:JsonProperty("name")
@@ -82,10 +76,6 @@ data class ContactRequest (
     @field:JsonProperty("currency")
     val currency: kotlin.String? = null,
 
-    /* When the third party's contact was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
     /* The company the contact belongs to. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
@@ -108,9 +98,6 @@ data class ContactRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("name")
         val name: JsonNode?,
 
@@ -131,9 +118,6 @@ data class ContactRequest (
 
         @field:JsonProperty("currency")
         val currency: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("company")
         val company: JsonNode?,
@@ -157,7 +141,6 @@ data class ContactRequest (
         @JvmStatic
         fun normalize(expanded: ContactRequest.Expanded): ContactRequest {
             return ContactRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 isSupplier = ApiClient.jsonConvertSafe(expanded.isSupplier),
                 isCustomer = ApiClient.jsonConvertSafe(expanded.isCustomer),
@@ -165,7 +148,6 @@ data class ContactRequest (
                 taxNumber = ApiClient.jsonConvertSafe(expanded.taxNumber),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 currency = ApiClient.jsonConvertSafe(expanded.currency),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 addresses = ApiClient.jsonConvertSafe(expanded.addresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),

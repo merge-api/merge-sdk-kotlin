@@ -29,24 +29,18 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The Comment Object ### Description The `Comment` object is used to represent a comment on a ticket.  ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param user The author of the Comment, if the author is a User.
  * @param contact The author of the Comment, if the author is a Contact.
  * @param body The comment's text body.
  * @param htmlBody The comment's text body formatted as html.
  * @param ticket The ticket associated with the comment. 
  * @param isPrivate Whether or not the comment is internal.
- * @param remoteCreatedAt When the third party's comment was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommentRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The author of the Comment, if the author is a User. */
     @field:JsonProperty("user")
@@ -72,10 +66,6 @@ data class CommentRequest (
     @field:JsonProperty("is_private")
     val isPrivate: kotlin.Boolean? = null,
 
-    /* When the third party's comment was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -86,9 +76,6 @@ data class CommentRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("user")
         val user: JsonNode?,
 
@@ -107,9 +94,6 @@ data class CommentRequest (
         @field:JsonProperty("is_private")
         val isPrivate: JsonNode?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -123,14 +107,12 @@ data class CommentRequest (
         @JvmStatic
         fun normalize(expanded: CommentRequest.Expanded): CommentRequest {
             return CommentRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 user = ApiClient.jsonConvertSafe(expanded.user),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 body = ApiClient.jsonConvertSafe(expanded.body),
                 htmlBody = ApiClient.jsonConvertSafe(expanded.htmlBody),
                 ticket = ApiClient.jsonConvertSafe(expanded.ticket),
                 isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

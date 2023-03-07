@@ -1,3 +1,11 @@
+# Version 2.0.6
+
+## Date: 2023-03-07
+
+- fixed a bug where the error_details property of the Issue model was mis-typed
+- Marketing Automation category (mktg) added
+- Various property, query param and documentation updates
+
 # Version 2.0.5
 
 ## Date: 2022-12-22

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Opportunity Object ### Description The `Opportunity` object is used to represent an opportunity in the remote system. ### Usage Example TODO
+ * # The Opportunity Object ### Description The `Opportunity` object is used to represent a deal opportunity in a CRM system. ### Usage Example TODO
  *
  * @param name The opportunity's name.
  * @param description The opportunity's description.
@@ -39,7 +39,6 @@ import dev.merge.client.shared.ApiClient
  * @param status The opportunity's status.
  * @param lastActivityAt When the opportunity's last activity occurred.
  * @param closeDate When the opportunity was closed.
- * @param remoteCreatedAt When the third party's opportunity was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -83,10 +82,6 @@ data class PatchedOpportunityRequest (
     @field:JsonProperty("close_date")
     val closeDate: java.time.OffsetDateTime? = null,
 
-    /* When the third party's opportunity was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -124,9 +119,6 @@ data class PatchedOpportunityRequest (
         @field:JsonProperty("close_date")
         val closeDate: JsonNode?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -149,7 +141,6 @@ data class PatchedOpportunityRequest (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 closeDate = ApiClient.jsonConvertSafe(expanded.closeDate),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

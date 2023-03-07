@@ -57,14 +57,16 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
         val remoteFields: kotlin.String? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     data class OffersRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     /**
@@ -81,8 +83,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return PaginatedOfferList
     */
     @Suppress("UNCHECKED_CAST")
@@ -96,7 +99,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param applicationId If provided, will only return offers for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param creatorId If provided, will only return offers created by this user. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param applicationId If provided, will only return offers for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param creatorId If provided, will only return offers created by this user. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun offersListExpanded(requestModel: OffersApi.OffersListRequest): MergePaginatedResponse<Offer.Expanded> {
@@ -129,6 +132,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -152,7 +156,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return Offer
     */
     @Suppress("UNCHECKED_CAST")
@@ -166,7 +171,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun offersRetrieveExpanded(requestModel: OffersApi.OffersRetrieveRequest): Offer.Expanded {
@@ -189,6 +194,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

@@ -31,22 +31,22 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
+ * # The TimeOff Object ### Description The `TimeOff` object is used to represent all employees' Time Off entries.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param employee The employee requesting time off.
- * @param approver The employee approving the time off request.
+ * @param approver The Merge ID of the employee with the ability to approve the time off request.
  * @param status The status of this time off request.
  * @param employeeNote The employee note for this time off request.
- * @param units The unit of time requested.
- * @param amount The number of time off units requested.
+ * @param units The measurement that the third-party integration uses to count time requested.
+ * @param amount The time off quantity measured by the prescribed “units”.
  * @param requestType The type of time off request.
  * @param startTime The day and time of the start of the time requested off.
  * @param endTime The day and time of the end of the time requested off.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -63,7 +63,7 @@ data class TimeOff (
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
-    /* The employee approving the time off request. */
+    /* The Merge ID of the employee with the ability to approve the time off request. */
     @field:JsonProperty("approver")
     val approver: java.util.UUID? = null,
 
@@ -75,11 +75,11 @@ data class TimeOff (
     @field:JsonProperty("employee_note")
     val employeeNote: kotlin.String? = null,
 
-    /* The unit of time requested. */
+    /* The measurement that the third-party integration uses to count time requested. */
     @field:JsonProperty("units")
     val units: UnitsEnum? = null,
 
-    /* The number of time off units requested. */
+    /* The time off quantity measured by the prescribed “units”. */
     @field:JsonProperty("amount")
     val amount: kotlin.Float? = null,
 
@@ -95,14 +95,14 @@ data class TimeOff (
     @field:JsonProperty("end_time")
     val endTime: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -141,14 +141,14 @@ data class TimeOff (
         @field:JsonProperty("end_time")
         val endTime: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -168,9 +168,9 @@ data class TimeOff (
                 requestType = ApiClient.jsonConvertSafe(expanded.requestType),
                 startTime = ApiClient.jsonConvertSafe(expanded.startTime),
                 endTime = ApiClient.jsonConvertSafe(expanded.endTime),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

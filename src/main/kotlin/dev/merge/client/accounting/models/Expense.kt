@@ -30,11 +30,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Expense Object ### Description The `Expense` object is used to represent a company's expenses  ### Usage Example Fetch from the `GET Expense` endpoint and view a company's expense.
+ * # The Expense Object ### Description The `Expense` object is used to represent a purchase made from a business which can be made with a check, credit card, or cash. Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.  ### Usage Example Fetch from the `GET Expense` endpoint and view a company's expense.
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param transactionDate When the transaction occurred.
  * @param remoteCreatedAt When the expense was created.
  * @param account The expense's payment account.
@@ -46,21 +43,14 @@ import dev.merge.client.shared.ApiClient
  * @param memo The expense's private note.
  * @param lines 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Expense (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* When the transaction occurred. */
     @field:JsonProperty("transaction_date")
@@ -105,22 +95,23 @@ data class Expense (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
 
@@ -154,8 +145,17 @@ data class Expense (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -164,9 +164,6 @@ data class Expense (
         @JvmStatic
         fun normalize(expanded: Expense.Expanded): Expense {
             return Expense(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 account = ApiClient.jsonConvertSafe(expanded.account),
@@ -178,7 +175,10 @@ data class Expense (
                 memo = ApiClient.jsonConvertSafe(expanded.memo),
                 lines = ApiClient.jsonConvertSafe(expanded.lines),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

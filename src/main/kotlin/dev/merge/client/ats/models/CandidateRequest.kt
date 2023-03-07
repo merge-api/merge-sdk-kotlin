@@ -30,16 +30,13 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Candidate Object ### Description The `Candidate` object is used to represent a Candidate for various positions. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
+ * # The Candidate Object ### Description The `Candidate` object is used to represent profile information about a given Candidate. Because it is specific to a Candidate, this information stays constant across applications. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param firstName The candidate's first name.
  * @param lastName The candidate's last name.
  * @param company The candidate's current company.
  * @param title The candidate's current title.
- * @param remoteCreatedAt When the third party's candidate was created.
- * @param remoteUpdatedAt When the third party's candidate was updated.
- * @param lastInteractionAt When the most recent candidate interaction occurred.
+ * @param lastInteractionAt When the most recent interaction with the candidate occurred.
  * @param isPrivate Whether or not the candidate is private.
  * @param canEmail Whether or not the candidate can be emailed.
  * @param locations The candidate's locations.
@@ -57,10 +54,6 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CandidateRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* The candidate's first name. */
     @field:JsonProperty("first_name")
     val firstName: kotlin.String? = null,
@@ -77,15 +70,7 @@ data class CandidateRequest (
     @field:JsonProperty("title")
     val title: kotlin.String? = null,
 
-    /* When the third party's candidate was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's candidate was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the most recent candidate interaction occurred. */
+    /* When the most recent interaction with the candidate occurred. */
     @field:JsonProperty("last_interaction_at")
     val lastInteractionAt: java.time.OffsetDateTime? = null,
 
@@ -135,9 +120,6 @@ data class CandidateRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("first_name")
         val firstName: JsonNode?,
 
@@ -149,12 +131,6 @@ data class CandidateRequest (
 
         @field:JsonProperty("title")
         val title: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
 
         @field:JsonProperty("last_interaction_at")
         val lastInteractionAt: JsonNode?,
@@ -202,13 +178,10 @@ data class CandidateRequest (
         @JvmStatic
         fun normalize(expanded: CandidateRequest.Expanded): CandidateRequest {
             return CandidateRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 firstName = ApiClient.jsonConvertSafe(expanded.firstName),
                 lastName = ApiClient.jsonConvertSafe(expanded.lastName),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 title = ApiClient.jsonConvertSafe(expanded.title),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 lastInteractionAt = ApiClient.jsonConvertSafe(expanded.lastInteractionAt),
                 isPrivate = ApiClient.jsonConvertSafe(expanded.isPrivate),
                 canEmail = ApiClient.jsonConvertSafe(expanded.canEmail),

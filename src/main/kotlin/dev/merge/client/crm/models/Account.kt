@@ -23,6 +23,7 @@ package dev.merge.client.crm.models
 import dev.merge.client.crm.models.Address
 import dev.merge.client.crm.models.PhoneNumber
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -30,10 +31,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
+ * # The Account Object ### Description The `Account` object is used to represent a company in a CRM system. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The account's owner.
  * @param name The account's name.
  * @param description The account's description.
@@ -42,23 +41,19 @@ import dev.merge.client.shared.ApiClient
  * @param numberOfEmployees The account's number of employees.
  * @param addresses 
  * @param phoneNumbers 
- * @param lastActivityAt When the account's last activity  occurred.
- * @param remoteUpdatedAt When the third party's account was updated.
+ * @param lastActivityAt The last date (either most recent or furthest in the future) of when an activity occurs in an account.
+ * @param remoteUpdatedAt When the CRM system account data was last modified by a user with a login.
  * @param remoteCreatedAt When the third party's account was created.
- * @param remoteData 
  * @param remoteWasDeleted 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Account (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The account's owner. */
     @field:JsonProperty("owner")
@@ -90,11 +85,11 @@ data class Account (
     @field:JsonProperty("phone_numbers")
     val phoneNumbers: kotlin.collections.List<PhoneNumber>? = null,
 
-    /* When the account's last activity  occurred. */
+    /* The last date (either most recent or furthest in the future) of when an activity occurs in an account. */
     @field:JsonProperty("last_activity_at")
     val lastActivityAt: java.time.OffsetDateTime? = null,
 
-    /* When the third party's account was updated. */
+    /* When the CRM system account data was last modified by a user with a login. */
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
@@ -102,25 +97,29 @@ data class Account (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -154,14 +153,23 @@ data class Account (
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -170,8 +178,6 @@ data class Account (
         @JvmStatic
         fun normalize(expanded: Account.Expanded): Account {
             return Account(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
@@ -183,9 +189,12 @@ data class Account (
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

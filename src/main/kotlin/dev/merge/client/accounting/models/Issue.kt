@@ -65,7 +65,7 @@ data class Issue (
     val isMuted: kotlin.Boolean? = null,
 
     @field:JsonProperty("error_details")
-    val errorDetails: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val errorDetails: kotlin.collections.List<kotlin.String>? = null
 
 ) {
 
@@ -93,7 +93,7 @@ data class Issue (
         val isMuted: JsonNode?,
 
         @field:JsonProperty("error_details")
-        val errorDetails: JsonNode?
+        val errorDetails: kotlin.collections.List<JsonNode>?
 
     )
 

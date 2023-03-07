@@ -4,7 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**memo** | **kotlin.String** | A memo attached to the line item. |  [optional]
+**trackingCategories** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | The line&#39;s associated tracking categories. | 
+**memo** | **kotlin.String** | An internal note used by the business to clarify purpose of the transaction. |  [optional]
 **unitPrice** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The line item&#39;s unit price. |  [optional]
 **quantity** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The line item&#39;s quantity. |  [optional]
 **item** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
@@ -15,7 +16,6 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](CurrencyEnum.md) | The line item&#39;s currency. |  [optional]
 **exchangeRate** | [**java.math.BigDecimal**](java.math.BigDecimal.md) | The line item&#39;s exchange rate. |  [optional]
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the line belongs to. |  [optional]
-**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 
 
 

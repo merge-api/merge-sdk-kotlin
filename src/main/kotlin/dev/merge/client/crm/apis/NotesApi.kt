@@ -24,6 +24,7 @@ import dev.merge.client.crm.models.MetaResponse
 import dev.merge.client.crm.models.Note
 import dev.merge.client.crm.models.NoteEndpointRequest
 import dev.merge.client.crm.models.NoteResponse
+import dev.merge.client.crm.models.RemoteFieldClass
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -62,6 +63,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val opportunityId: kotlin.String? = null,
@@ -70,10 +72,19 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteId: kotlin.String? = null
     )
 
+    data class NotesRemoteFieldClassesListRequest (
+        val cursor: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
+        val pageSize: kotlin.Int? = null
+    )
+
     data class NotesRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
-        val includeRemoteData: kotlin.Boolean? = null
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null
     )
 
     /**
@@ -144,6 +155,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param opportunityId If provided, will only return notes with this opportunity. (optional)
@@ -163,7 +175,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountId If provided, will only return notes with this account. (optional) * @param contactId If provided, will only return notes with this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param opportunityId If provided, will only return notes with this opportunity. (optional) * @param ownerId If provided, will only return notes with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param accountId If provided, will only return notes with this account. (optional) * @param contactId If provided, will only return notes with this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param opportunityId If provided, will only return notes with this opportunity. (optional) * @param ownerId If provided, will only return notes with this owner. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesListExpanded(requestModel: NotesApi.NotesListRequest): MergePaginatedResponse<Note.Expanded> {
@@ -191,6 +203,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.opportunityId?.apply { localVariableQuery["opportunity_id"] = listOf(this) }
@@ -269,10 +282,74 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns a list of &#x60;RemoteFieldClass&#x60; objects.
+     * @param cursor The pagination cursor value. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
+     * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
+     * @param pageSize Number of results to return per page. (optional)
+     * @return PaginatedRemoteFieldClassList
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesRemoteFieldClassesList(requestModel: NotesApi.NotesRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass> {
+        return notesRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesRemoteFieldClassesListAsync(requestModel: NotesApi.NotesRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass>> = GlobalScope.future {
+        notesRemoteFieldClassesList(requestModel)
+    }
+
+    /**
+     * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun notesRemoteFieldClassesListExpanded(requestModel: NotesApi.NotesRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass.Expanded> {
+        return notesRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun notesRemoteFieldClassesListExpandedAsync(requestModel: NotesApi.NotesRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass.Expanded>> = GlobalScope.future {
+        notesRemoteFieldClassesListExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> notesRemoteFieldClassesListImpl(requestModel: NotesApi.NotesRemoteFieldClassesListRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/notes/remote-field-classes",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a &#x60;Note&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @return Note
     */
     @Suppress("UNCHECKED_CAST")
@@ -286,7 +363,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun notesRetrieveExpanded(requestModel: NotesApi.NotesRetrieveRequest): Note.Expanded {
@@ -308,6 +385,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

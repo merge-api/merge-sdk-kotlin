@@ -4,9 +4,67 @@ All URIs are relative to *https://api.merge.dev/api/accounting/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**attachmentsCreate**](AttachmentsApi.md#attachmentsCreate) | **POST** /attachments | 
 [**attachmentsList**](AttachmentsApi.md#attachmentsList) | **GET** /attachments | 
+[**attachmentsMetaPostRetrieve**](AttachmentsApi.md#attachmentsMetaPostRetrieve) | **GET** /attachments/meta/post | 
 [**attachmentsRetrieve**](AttachmentsApi.md#attachmentsRetrieve) | **GET** /attachments/{id} | 
 
+
+<a name="attachmentsCreate"></a>
+# **attachmentsCreate**
+> AccountingAttachmentResponse attachmentsCreate(accountingAttachmentEndpointRequest, isDebugMode, runAsync)
+
+
+
+Creates an &#x60;AccountingAttachment&#x60; object with the given values.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = AttachmentsApi()
+val accountingAttachmentEndpointRequest : AccountingAttachmentEndpointRequest =  // AccountingAttachmentEndpointRequest | 
+val isDebugMode : kotlin.Boolean = true // kotlin.Boolean | Whether to include debug fields (such as log file links) in the response.
+val runAsync : kotlin.Boolean = true // kotlin.Boolean | Whether or not third-party updates should be run asynchronously.
+try {
+    val result : AccountingAttachmentResponse = apiInstance.attachmentsCreate(accountingAttachmentEndpointRequest, isDebugMode, runAsync)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AttachmentsApi#attachmentsCreate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AttachmentsApi#attachmentsCreate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountingAttachmentEndpointRequest** | [**AccountingAttachmentEndpointRequest**](AccountingAttachmentEndpointRequest.md)|  |
+ **isDebugMode** | **kotlin.Boolean**| Whether to include debug fields (such as log file links) in the response. | [optional]
+ **runAsync** | **kotlin.Boolean**| Whether or not third-party updates should be run asynchronously. | [optional]
+
+### Return type
+
+[**AccountingAttachmentResponse**](AccountingAttachmentResponse.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
 
 <a name="attachmentsList"></a>
 # **attachmentsList**
@@ -63,6 +121,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedAccountingAttachmentList**](PaginatedAccountingAttachmentList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="attachmentsMetaPostRetrieve"></a>
+# **attachmentsMetaPostRetrieve**
+> MetaResponse attachmentsMetaPostRetrieve()
+
+
+
+Returns metadata for &#x60;AccountingAttachment&#x60; POSTs.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.accounting.models.*
+
+val apiInstance = AttachmentsApi()
+try {
+    val result : MetaResponse = apiInstance.attachmentsMetaPostRetrieve()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AttachmentsApi#attachmentsMetaPostRetrieve")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AttachmentsApi#attachmentsMetaPostRetrieve")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

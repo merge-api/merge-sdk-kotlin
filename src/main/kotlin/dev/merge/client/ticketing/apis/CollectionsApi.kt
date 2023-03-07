@@ -21,6 +21,7 @@
 package dev.merge.client.ticketing.apis
 
 import dev.merge.client.ticketing.models.Collection
+import dev.merge.client.ticketing.models.User
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -57,14 +58,25 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val pageSize: kotlin.Int? = null,
         val parentCollectionId: kotlin.String? = null,
         val remoteFields: kotlin.String? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     data class CollectionsRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
+    )
+
+    data class CollectionsUsersListRequest (
+        val parentId: java.util.UUID,
+        val cursor: kotlin.String? = null,
+        val expand: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
+        val includeRemoteData: kotlin.Boolean? = null,
+        val pageSize: kotlin.Int? = null
     )
 
     /**
@@ -81,8 +93,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param parentCollectionId If provided, will only return collections whose parent collection matches the given id. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return PaginatedCollectionList
     */
     @Suppress("UNCHECKED_CAST")
@@ -96,7 +109,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param collectionType If provided, will only return collections of the given type. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentCollectionId If provided, will only return collections whose parent collection matches the given id. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param collectionType If provided, will only return collections of the given type. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentCollectionId If provided, will only return collections whose parent collection matches the given id. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun collectionsListExpanded(requestModel: CollectionsApi.CollectionsListRequest): MergePaginatedResponse<Collection.Expanded> {
@@ -129,6 +142,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.parentCollectionId?.apply { localVariableQuery["parent_collection_id"] = listOf(this) }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -152,7 +166,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return Collection
     */
     @Suppress("UNCHECKED_CAST")
@@ -166,7 +181,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun collectionsRetrieveExpanded(requestModel: CollectionsApi.CollectionsRetrieveRequest): Collection.Expanded {
@@ -189,12 +204,77 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/collections/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns a list of &#x60;User&#x60; objects.
+     * @param parentId  
+     * @param cursor The pagination cursor value. (optional)
+     * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
+     * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param pageSize Number of results to return per page. (optional)
+     * @return PaginatedUserList
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun collectionsUsersList(requestModel: CollectionsApi.CollectionsUsersListRequest): MergePaginatedResponse<User> {
+        return collectionsUsersListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun collectionsUsersListAsync(requestModel: CollectionsApi.CollectionsUsersListRequest): CompletableFuture<MergePaginatedResponse<User>> = GlobalScope.future {
+        collectionsUsersList(requestModel)
+    }
+
+    /**
+     * @param parentId   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun collectionsUsersListExpanded(requestModel: CollectionsApi.CollectionsUsersListRequest): MergePaginatedResponse<User.Expanded> {
+        return collectionsUsersListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun collectionsUsersListExpandedAsync(requestModel: CollectionsApi.CollectionsUsersListRequest): CompletableFuture<MergePaginatedResponse<User.Expanded>> = GlobalScope.future {
+        collectionsUsersListExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> collectionsUsersListImpl(requestModel: CollectionsApi.CollectionsUsersListRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/collections/{parent_id}/users".replace("{" + "parent_id" + "}", "${ requestModel.parentId }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

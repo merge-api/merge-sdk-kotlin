@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.ActivityTypeEnum
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,16 +29,25 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Engagement Type Object ### Description The `Engagement Type` object is used to represent the type of an engagement in the remote system. ### Usage Example TODO
+ * # The Engagement Type Object ### Description The `Engagement Type` object is used to represent an interaction activity. A given `Engagement` typically has an `Engagement Type` object represented in the engagement_type field. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param activityType The engagement type's activity type.
  * @param name The engagement type's name.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class EngagementType (
+
+    /* The engagement type's activity type. */
+    @field:JsonProperty("activity_type")
+    val activityType: ActivityTypeEnum? = null,
+
+    /* The engagement type's name. */
+    @field:JsonProperty("name")
+    val name: kotlin.String? = null,
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
@@ -46,29 +56,27 @@ data class EngagementType (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The engagement type's activity type. */
-    @field:JsonProperty("activity_type")
-    val activityType: ActivityTypeEnum? = null,
-
-    /* The engagement type's name. */
-    @field:JsonProperty("name")
-    val name: kotlin.String? = null
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("activity_type")
+        val activityType: JsonNode?,
+
+        @field:JsonProperty("name")
+        val name: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
-        @field:JsonProperty("activity_type")
-        val activityType: JsonNode?,
-
-        @field:JsonProperty("name")
-        val name: JsonNode?
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -77,10 +85,11 @@ data class EngagementType (
         @JvmStatic
         fun normalize(expanded: EngagementType.Expanded): EngagementType {
             return EngagementType(
+                activityType = ApiClient.jsonConvertSafe(expanded.activityType),
+                name = ApiClient.jsonConvertSafe(expanded.name),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                activityType = ApiClient.jsonConvertSafe(expanded.activityType),
-                name = ApiClient.jsonConvertSafe(expanded.name)
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

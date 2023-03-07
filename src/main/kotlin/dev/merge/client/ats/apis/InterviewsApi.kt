@@ -20,7 +20,10 @@
 
 package dev.merge.client.ats.apis
 
+import dev.merge.client.ats.models.MetaResponse
 import dev.merge.client.ats.models.ScheduledInterview
+import dev.merge.client.ats.models.ScheduledInterviewEndpointRequest
+import dev.merge.client.ats.models.ScheduledInterviewResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class InterviewsCreateRequest (
+        val scheduledInterviewEndpointRequest: ScheduledInterviewEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class InterviewsListRequest (
         val applicationId: kotlin.String? = null,
         val createdAfter: java.time.OffsetDateTime? = null,
@@ -58,15 +67,74 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val organizerId: kotlin.String? = null,
         val pageSize: kotlin.Int? = null,
         val remoteFields: kotlin.String? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     data class InterviewsRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
+
+    /**
+    * 
+    * Creates a &#x60;ScheduledInterview&#x60; object with the given values.
+     * @param scheduledInterviewEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return ScheduledInterviewResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun interviewsCreate(requestModel: InterviewsApi.InterviewsCreateRequest): ScheduledInterviewResponse {
+        return interviewsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsCreateAsync(requestModel: InterviewsApi.InterviewsCreateRequest): CompletableFuture<ScheduledInterviewResponse> = GlobalScope.future {
+        interviewsCreate(requestModel)
+    }
+
+    /**
+     * @param scheduledInterviewEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun interviewsCreateExpanded(requestModel: InterviewsApi.InterviewsCreateRequest): ScheduledInterviewResponse.Expanded {
+        return interviewsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsCreateExpandedAsync(requestModel: InterviewsApi.InterviewsCreateRequest): CompletableFuture<ScheduledInterviewResponse.Expanded> = GlobalScope.future {
+        interviewsCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> interviewsCreateImpl(requestModel: InterviewsApi.InterviewsCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.scheduledInterviewEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/interviews",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -83,8 +151,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param organizerId If provided, will only return interviews organized by this user. (optional)
      * @param pageSize Number of results to return per page. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return PaginatedScheduledInterviewList
     */
     @Suppress("UNCHECKED_CAST")
@@ -98,7 +167,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param applicationId If provided, will only return interviews for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param jobInterviewStageId If provided, will only return interviews at this stage. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param organizerId If provided, will only return interviews organized by this user. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param applicationId If provided, will only return interviews for this application. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param jobInterviewStageId If provided, will only return interviews at this stage. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param organizerId If provided, will only return interviews organized by this user. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun interviewsListExpanded(requestModel: InterviewsApi.InterviewsListRequest): MergePaginatedResponse<ScheduledInterview.Expanded> {
@@ -132,6 +201,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -151,11 +221,65 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns metadata for &#x60;ScheduledInterview&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun interviewsMetaPostRetrieve(): MetaResponse {
+        return interviewsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        interviewsMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun interviewsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return interviewsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun interviewsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        interviewsMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> interviewsMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/interviews/meta/post",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a &#x60;ScheduledInterview&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return ScheduledInterview
     */
     @Suppress("UNCHECKED_CAST")
@@ -169,7 +293,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun interviewsRetrieveExpanded(requestModel: InterviewsApi.InterviewsRetrieveRequest): ScheduledInterview.Expanded {
@@ -192,6 +316,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

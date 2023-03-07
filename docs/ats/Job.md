@@ -18,9 +18,9 @@ Name | Type | Description | Notes
 **offices** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | IDs of &#x60;Office&#x60; objects for this &#x60;Job&#x60;. |  [optional]
 **hiringManagers** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | IDs of &#x60;RemoteUser&#x60; objects that serve as hiring managers for this &#x60;Job&#x60;. |  [optional]
 **recruiters** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | IDs of &#x60;RemoteUser&#x60; objects that serve as recruiters for this &#x60;Job&#x60;. |  [optional]
-**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
 
 

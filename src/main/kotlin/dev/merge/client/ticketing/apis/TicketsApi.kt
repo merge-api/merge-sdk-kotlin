@@ -21,6 +21,7 @@
 package dev.merge.client.ticketing.apis
 
 import dev.merge.client.ticketing.models.MetaResponse
+import dev.merge.client.ticketing.models.RemoteFieldClass
 import dev.merge.client.ticketing.models.Ticket
 import dev.merge.client.ticketing.models.User
 import dev.merge.client.ticketing.models.PatchedTicketEndpointRequest
@@ -50,9 +51,10 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
     data class TicketsCollaboratorsListRequest (
-        val id: java.util.UUID,
+        val parentId: java.util.UUID,
         val cursor: kotlin.String? = null,
         val expand: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
         val pageSize: kotlin.Int? = null
     )
@@ -78,6 +80,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
@@ -90,6 +93,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteId: kotlin.String? = null,
         val remoteUpdatedAfter: java.time.OffsetDateTime? = null,
         val remoteUpdatedBefore: java.time.OffsetDateTime? = null,
+        val showEnumOrigins: kotlin.String? = null,
         val status: kotlin.String? = null,
         val tags: kotlin.String? = null,
         val ticketType: kotlin.String? = null
@@ -106,19 +110,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val runAsync: kotlin.Boolean? = null
     )
 
+    data class TicketsRemoteFieldClassesListRequest (
+        val cursor: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
+        val includeRemoteData: kotlin.Boolean? = null,
+        val pageSize: kotlin.Int? = null
+    )
+
     data class TicketsRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null,
-        val remoteFields: kotlin.String? = null
+        val includeRemoteFields: kotlin.Boolean? = null,
+        val remoteFields: kotlin.String? = null,
+        val showEnumOrigins: kotlin.String? = null
     )
 
     /**
     * 
-    * Returns a &#x60;User&#x60; object with the given &#x60;id&#x60;.
-     * @param id  
+    * Returns a list of &#x60;User&#x60; objects.
+     * @param parentId  
      * @param cursor The pagination cursor value. (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @return PaginatedUserList
@@ -134,7 +148,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
+     * @param parentId   * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsCollaboratorsListExpanded(requestModel: TicketsApi.TicketsCollaboratorsListRequest): MergePaginatedResponse<User.Expanded> {
@@ -156,6 +170,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
 
@@ -163,7 +178,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/tickets/{id}/collaborators".replace("{" + "id" + "}", "${ requestModel.id }"),
+        "/tickets/{parent_id}/collaborators".replace("{" + "parent_id" + "}", "${ requestModel.parentId }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -249,6 +264,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
@@ -257,10 +273,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param projectId If provided, will only return tickets for this project. (optional)
      * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional)
      * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional)
      * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @param status If provided, will only return tickets of this status. (optional)
      * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional)
      * @param ticketType If provided, will only return tickets of this type. (optional)
@@ -277,7 +294,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountId If provided, will only return tickets for this account. (optional) * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional) * @param collectionIds If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. (optional) * @param completedAfter If provided, will only return tickets completed after this datetime. (optional) * @param completedBefore If provided, will only return tickets completed before this datetime. (optional) * @param contactId If provided, will only return tickets for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param dueAfter If provided, will only return tickets due after this datetime. (optional) * @param dueBefore If provided, will only return tickets due before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional) * @param priority If provided, will only return tickets of this priority. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional) * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional) * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional) * @param status If provided, will only return tickets of this status. (optional) * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional) * @param ticketType If provided, will only return tickets of this type. (optional)
+     * @param accountId If provided, will only return tickets for this account. (optional) * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional) * @param collectionIds If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. (optional) * @param completedAfter If provided, will only return tickets completed after this datetime. (optional) * @param completedBefore If provided, will only return tickets completed before this datetime. (optional) * @param contactId If provided, will only return tickets for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param dueAfter If provided, will only return tickets due after this datetime. (optional) * @param dueBefore If provided, will only return tickets due before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional) * @param priority If provided, will only return tickets of this priority. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional) * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional) * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param status If provided, will only return tickets of this status. (optional) * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional) * @param ticketType If provided, will only return tickets of this type. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsListExpanded(requestModel: TicketsApi.TicketsListRequest): MergePaginatedResponse<Ticket.Expanded> {
@@ -311,6 +328,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
@@ -323,6 +341,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
             requestModel.remoteUpdatedAfter?.apply { localVariableQuery["remote_updated_after"] = listOf("$this") }
             requestModel.remoteUpdatedBefore?.apply { localVariableQuery["remote_updated_before"] = listOf("$this") }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
             requestModel.status?.apply { localVariableQuery["status"] = listOf(this) }
             requestModel.tags?.apply { localVariableQuery["tags"] = listOf(this) }
             requestModel.ticketType?.apply { localVariableQuery["ticket_type"] = listOf(this) }
@@ -403,29 +422,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieve(): MetaResponse {
-        return ticketsMetaPostRetrieveImpl()
+    open suspend fun ticketsMetaPostRetrieve(queryParams: Map<String, String>): MetaResponse {
+        return ticketsMetaPostRetrieveImpl(queryParams)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
-        ticketsMetaPostRetrieve()
+    open fun ticketsMetaPostRetrieveAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse> = GlobalScope.future {
+        ticketsMetaPostRetrieve(queryParams)
     }
 
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
-        return ticketsMetaPostRetrieveImpl()
+    open suspend fun ticketsMetaPostRetrieveExpanded(queryParams: Map<String, String>): MetaResponse.Expanded {
+        return ticketsMetaPostRetrieveImpl(queryParams)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
-        ticketsMetaPostRetrieveExpanded()
+    open fun ticketsMetaPostRetrieveExpandedAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        ticketsMetaPostRetrieveExpanded(queryParams)
     }
 
-    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(): T {
+    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(queryParams: Map<String, String>): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -433,6 +452,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
+        for (kv in queryParams.entries) {
+            localVariableQuery[kv.key] = listOf(kv.value)
+        }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -510,11 +532,74 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Returns a list of &#x60;RemoteFieldClass&#x60; objects.
+     * @param cursor The pagination cursor value. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
+     * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param pageSize Number of results to return per page. (optional)
+     * @return PaginatedRemoteFieldClassList
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsRemoteFieldClassesList(requestModel: TicketsApi.TicketsRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass> {
+        return ticketsRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsRemoteFieldClassesListAsync(requestModel: TicketsApi.TicketsRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass>> = GlobalScope.future {
+        ticketsRemoteFieldClassesList(requestModel)
+    }
+
+    /**
+     * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun ticketsRemoteFieldClassesListExpanded(requestModel: TicketsApi.TicketsRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass.Expanded> {
+        return ticketsRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun ticketsRemoteFieldClassesListExpandedAsync(requestModel: TicketsApi.TicketsRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass.Expanded>> = GlobalScope.future {
+        ticketsRemoteFieldClassesListExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> ticketsRemoteFieldClassesListImpl(requestModel: TicketsApi.TicketsRemoteFieldClassesListRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/tickets/remote-field-classes",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a &#x60;Ticket&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
+     * @param remoteFields Deprecated. Use show_enum_origins. (optional)
+     * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
      * @return Ticket
     */
     @Suppress("UNCHECKED_CAST")
@@ -528,7 +613,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param remoteFields Which fields should be returned in non-normalized form. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsRetrieveExpanded(requestModel: TicketsApi.TicketsRetrieveRequest): Ticket.Expanded {
@@ -550,7 +635,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
+            requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

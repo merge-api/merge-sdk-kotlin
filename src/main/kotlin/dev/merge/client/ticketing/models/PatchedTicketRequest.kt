@@ -44,11 +44,9 @@ import dev.merge.client.shared.ApiClient
  * @param contact The contact associated with the ticket.
  * @param parentTicket The ticket's parent ticket.
  * @param tags 
- * @param remoteCreatedAt When the third party's ticket was created.
- * @param remoteUpdatedAt When the third party's ticket was updated.
  * @param completedAt When the ticket was completed.
  * @param ticketUrl The 3rd party url of the Ticket.
- * @param priority The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+ * @param priority The priority or urgency of the Ticket.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -105,14 +103,6 @@ data class PatchedTicketRequest (
     @field:JsonProperty("tags")
     val tags: kotlin.collections.List<kotlin.String>? = null,
 
-    /* When the third party's ticket was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's ticket was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
     /* When the ticket was completed. */
     @field:JsonProperty("completed_at")
     val completedAt: java.time.OffsetDateTime? = null,
@@ -121,7 +111,7 @@ data class PatchedTicketRequest (
     @field:JsonProperty("ticket_url")
     val ticketUrl: java.net.URI? = null,
 
-    /* The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. */
+    /* The priority or urgency of the Ticket. */
     @field:JsonProperty("priority")
     val priority: PriorityEnum? = null,
 
@@ -174,12 +164,6 @@ data class PatchedTicketRequest (
         @field:JsonProperty("tags")
         val tags: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
         @field:JsonProperty("completed_at")
         val completedAt: JsonNode?,
 
@@ -215,8 +199,6 @@ data class PatchedTicketRequest (
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 parentTicket = ApiClient.jsonConvertSafe(expanded.parentTicket),
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 completedAt = ApiClient.jsonConvertSafe(expanded.completedAt),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
                 priority = ApiClient.jsonConvertSafe(expanded.priority),

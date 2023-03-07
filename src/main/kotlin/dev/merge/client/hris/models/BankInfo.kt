@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The BankInfo Object ### Description The `BankInfo` object is used to represent the Bank Account information for an Employee. This is often referenced with an Employee object.  ### Usage Example Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
+ * # The BankInfo Object ### Description The `BankInfo` object is used to represent the Bank Account information for an Employee.  ### Usage Example Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -39,9 +39,9 @@ import dev.merge.client.shared.ApiClient
  * @param bankName The bank name.
  * @param accountType The bank account type
  * @param remoteCreatedAt When the matching bank object was created in the third party system.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,15 +78,15 @@ data class BankInfo (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -116,14 +116,14 @@ data class BankInfo (
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -140,9 +140,9 @@ data class BankInfo (
                 bankName = ApiClient.jsonConvertSafe(expanded.bankName),
                 accountType = ApiClient.jsonConvertSafe(expanded.accountType),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

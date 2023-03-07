@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * 
  *
  * @param name Company name.
- * @param categories Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i>
+ * @param categories Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris].
  * @param image Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
  * @param squareImage Company logo in square shape. <b>Upload an image with a white background.</b>
  * @param color The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
@@ -45,7 +45,7 @@ data class AccountIntegration (
     @field:JsonProperty("name")
     val name: kotlin.String,
 
-    /* Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i> */
+    /* Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris]. */
     @field:JsonProperty("categories")
     val categories: kotlin.collections.List<CategoriesEnum>? = null,
 

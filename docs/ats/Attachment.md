@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **fileUrl** | [**java.net.URI**](java.net.URI.md) | The attachment&#39;s url. |  [optional]
 **candidate** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
 **attachmentType** | [**AttachmentTypeEnum**](AttachmentTypeEnum.md) | The attachment&#39;s type. |  [optional]
-**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
 
 

@@ -30,15 +30,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
+ * # The TimeOff Object ### Description The `TimeOff` object is used to represent all employees' Time Off entries.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param employee The employee requesting time off.
- * @param approver The employee approving the time off request.
+ * @param approver The Merge ID of the employee with the ability to approve the time off request.
  * @param status The status of this time off request.
  * @param employeeNote The employee note for this time off request.
- * @param units The unit of time requested.
- * @param amount The number of time off units requested.
+ * @param units The measurement that the third-party integration uses to count time requested.
+ * @param amount The time off quantity measured by the prescribed “units”.
  * @param requestType The type of time off request.
  * @param startTime The day and time of the start of the time requested off.
  * @param endTime The day and time of the end of the time requested off.
@@ -49,15 +48,11 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class TimeOffRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* The employee requesting time off. */
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
-    /* The employee approving the time off request. */
+    /* The Merge ID of the employee with the ability to approve the time off request. */
     @field:JsonProperty("approver")
     val approver: java.util.UUID? = null,
 
@@ -69,11 +64,11 @@ data class TimeOffRequest (
     @field:JsonProperty("employee_note")
     val employeeNote: kotlin.String? = null,
 
-    /* The unit of time requested. */
+    /* The measurement that the third-party integration uses to count time requested. */
     @field:JsonProperty("units")
     val units: UnitsEnum? = null,
 
-    /* The number of time off units requested. */
+    /* The time off quantity measured by the prescribed “units”. */
     @field:JsonProperty("amount")
     val amount: kotlin.Float? = null,
 
@@ -99,9 +94,6 @@ data class TimeOffRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("employee")
         val employee: JsonNode?,
 
@@ -142,7 +134,6 @@ data class TimeOffRequest (
         @JvmStatic
         fun normalize(expanded: TimeOffRequest.Expanded): TimeOffRequest {
             return TimeOffRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 employee = ApiClient.jsonConvertSafe(expanded.employee),
                 approver = ApiClient.jsonConvertSafe(expanded.approver),
                 status = ApiClient.jsonConvertSafe(expanded.status),

@@ -28,17 +28,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Payment Object ### Description The `Payment` object is used to represent a invoice's payment.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
+ * # The Payment Object ### Description The `Payment` object represents general payments made towards a specific transaction.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param transactionDate The payment's transaction date.
- * @param contact The payment's contact.
- * @param account The payment's account.
+ * @param contact The supplier, or customer involved in the payment.
+ * @param account The supplier’s or customer’s account in which the payment is made.
  * @param currency The payment's currency.
  * @param exchangeRate The payment's exchange rate.
  * @param company The company the payment belongs to.
- * @param totalAmount The payment's total amount.
- * @param remoteUpdatedAt When the third party's payment entry was updated.
+ * @param totalAmount The total amount of money being paid to the supplier, or customer, after taxes.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -46,19 +44,15 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PaymentRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* The payment's transaction date. */
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
 
-    /* The payment's contact. */
+    /* The supplier, or customer involved in the payment. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
-    /* The payment's account. */
+    /* The supplier’s or customer’s account in which the payment is made. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
@@ -74,13 +68,9 @@ data class PaymentRequest (
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
 
-    /* The payment's total amount. */
+    /* The total amount of money being paid to the supplier, or customer, after taxes. */
     @field:JsonProperty("total_amount")
     val totalAmount: kotlin.Float? = null,
-
-    /* When the third party's payment entry was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -92,9 +82,6 @@ data class PaymentRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
 
@@ -116,9 +103,6 @@ data class PaymentRequest (
         @field:JsonProperty("total_amount")
         val totalAmount: JsonNode?,
 
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -132,7 +116,6 @@ data class PaymentRequest (
         @JvmStatic
         fun normalize(expanded: PaymentRequest.Expanded): PaymentRequest {
             return PaymentRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 account = ApiClient.jsonConvertSafe(expanded.account),
@@ -140,7 +123,6 @@ data class PaymentRequest (
                 exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

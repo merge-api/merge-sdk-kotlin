@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Account Object ### Description The `Account` object is used to represent an account in the remote system. ### Usage Example TODO
+ * # The Account Object ### Description The `Account` object is used to represent a company in a CRM system. ### Usage Example TODO
  *
  * @param owner The account's owner.
  * @param name The account's name.
@@ -35,9 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param industry The account's industry.
  * @param website The account's website.
  * @param numberOfEmployees The account's number of employees.
- * @param lastActivityAt When the account's last activity  occurred.
- * @param remoteUpdatedAt When the third party's account was updated.
- * @param remoteCreatedAt When the third party's account was created.
+ * @param lastActivityAt The last date (either most recent or furthest in the future) of when an activity occurs in an account.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -69,17 +67,9 @@ data class PatchedAccountRequest (
     @field:JsonProperty("number_of_employees")
     val numberOfEmployees: kotlin.Int? = null,
 
-    /* When the account's last activity  occurred. */
+    /* The last date (either most recent or furthest in the future) of when an activity occurs in an account. */
     @field:JsonProperty("last_activity_at")
     val lastActivityAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's account was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's account was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -112,12 +102,6 @@ data class PatchedAccountRequest (
         @field:JsonProperty("last_activity_at")
         val lastActivityAt: JsonNode?,
 
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -138,8 +122,6 @@ data class PatchedAccountRequest (
                 website = ApiClient.jsonConvertSafe(expanded.website),
                 numberOfEmployees = ApiClient.jsonConvertSafe(expanded.numberOfEmployees),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

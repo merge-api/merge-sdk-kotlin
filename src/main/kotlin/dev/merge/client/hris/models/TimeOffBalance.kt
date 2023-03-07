@@ -29,17 +29,17 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The TimeOffBalance Object ### Description The `TimeOffBalance` object is used to represent a Time Off Balance for an employee.  ### Usage Example Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
+ * # The TimeOffBalance Object ### Description The `TimeOffBalance` object is used to represent current balances for an employee's Time Off plan.  ### Usage Example Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param employee The employee the balance belongs to.
- * @param balance The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day.
+ * @param balance The current remaining PTO balance, always measured in terms of hours.
  * @param used The amount of PTO used in terms of hours.
  * @param policyType The policy type of this time off balance.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -56,7 +56,7 @@ data class TimeOffBalance (
     @field:JsonProperty("employee")
     val employee: java.util.UUID? = null,
 
-    /* The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day. */
+    /* The current remaining PTO balance, always measured in terms of hours. */
     @field:JsonProperty("balance")
     val balance: kotlin.Float? = null,
 
@@ -68,15 +68,15 @@ data class TimeOffBalance (
     @field:JsonProperty("policy_type")
     val policyType: PolicyTypeEnum? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -100,14 +100,14 @@ data class TimeOffBalance (
         @field:JsonProperty("policy_type")
         val policyType: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -122,9 +122,9 @@ data class TimeOffBalance (
                 balance = ApiClient.jsonConvertSafe(expanded.balance),
                 used = ApiClient.jsonConvertSafe(expanded.used),
                 policyType = ApiClient.jsonConvertSafe(expanded.policyType),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

@@ -28,10 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object is used to represent an invoice's line items.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
+ * # The InvoiceLineItem Object ### Description The `InvoiceLineItem` object represents an itemized record of goods and/or services sold to a customer. If type = accounts_payable, invoice is a bill, if type = accounts_receivable it's an invoice.  ### Usage Example Fetch from the `GET Invoice` endpoint and view the invoice's line items.
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param description The line item's description.
  * @param unitPrice The line item's unit price.
  * @param quantity The line item's quantity.
@@ -41,19 +39,15 @@ import dev.merge.client.shared.ApiClient
  * @param item 
  * @param account 
  * @param trackingCategory 
+ * @param trackingCategories 
  * @param company The company the line item belongs to.
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class InvoiceLineItem (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The line item's description. */
     @field:JsonProperty("description")
@@ -88,9 +82,19 @@ data class InvoiceLineItem (
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>? = null,
+
     /* The company the line item belongs to. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
+
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
@@ -99,12 +103,6 @@ data class InvoiceLineItem (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("description")
         val description: JsonNode?,
 
@@ -132,8 +130,17 @@ data class InvoiceLineItem (
         @field:JsonProperty("tracking_category")
         val trackingCategory: JsonNode?,
 
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>?,
+
         @field:JsonProperty("company")
         val company: JsonNode?,
+
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?
@@ -145,8 +152,6 @@ data class InvoiceLineItem (
         @JvmStatic
         fun normalize(expanded: InvoiceLineItem.Expanded): InvoiceLineItem {
             return InvoiceLineItem(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 unitPrice = ApiClient.jsonConvertSafe(expanded.unitPrice),
                 quantity = ApiClient.jsonConvertSafe(expanded.quantity),
@@ -156,7 +161,10 @@ data class InvoiceLineItem (
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
+                trackingCategories = ApiClient.jsonConvertSafe(expanded.trackingCategories),
                 company = ApiClient.jsonConvertSafe(expanded.company),
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
             )
         }

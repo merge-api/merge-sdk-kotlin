@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Candidate Object ### Description The `Candidate` object is used to represent a Candidate for various positions. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
+ * # The Candidate Object ### Description The `Candidate` object is used to represent profile information about a given Candidate. Because it is specific to a Candidate, this information stays constant across applications. ### Usage Example Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -41,7 +41,7 @@ import dev.merge.client.shared.ApiClient
  * @param title The candidate's current title.
  * @param remoteCreatedAt When the third party's candidate was created.
  * @param remoteUpdatedAt When the third party's candidate was updated.
- * @param lastInteractionAt When the most recent candidate interaction occurred.
+ * @param lastInteractionAt When the most recent interaction with the candidate occurred.
  * @param isPrivate Whether or not the candidate is private.
  * @param canEmail Whether or not the candidate can be emailed.
  * @param locations The candidate's locations.
@@ -51,9 +51,9 @@ import dev.merge.client.shared.ApiClient
  * @param tags Array of `Tag` names as strings.
  * @param applications Array of `Application` object IDs.
  * @param attachments Array of `Attachment` object IDs.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -90,7 +90,7 @@ data class Candidate (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
-    /* When the most recent candidate interaction occurred. */
+    /* When the most recent interaction with the candidate occurred. */
     @field:JsonProperty("last_interaction_at")
     val lastInteractionAt: java.time.OffsetDateTime? = null,
 
@@ -127,14 +127,14 @@ data class Candidate (
     @field:JsonProperty("attachments")
     val attachments: kotlin.collections.List<java.util.UUID>? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -194,14 +194,14 @@ data class Candidate (
         @field:JsonProperty("attachments")
         val attachments: kotlin.collections.List<JsonNode>?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -228,9 +228,9 @@ data class Candidate (
                 tags = ApiClient.jsonConvertSafe(expanded.tags),
                 applications = ApiClient.jsonConvertSafe(expanded.applications),
                 attachments = ApiClient.jsonConvertSafe(expanded.attachments),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

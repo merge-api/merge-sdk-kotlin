@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**leadsCreate**](LeadsApi.md#leadsCreate) | **POST** /leads | 
 [**leadsList**](LeadsApi.md#leadsList) | **GET** /leads | 
 [**leadsMetaPostRetrieve**](LeadsApi.md#leadsMetaPostRetrieve) | **GET** /leads/meta/post | 
+[**leadsRemoteFieldClassesList**](LeadsApi.md#leadsRemoteFieldClassesList) | **GET** /leads/remote-field-classes | 
 [**leadsRetrieve**](LeadsApi.md#leadsRetrieve) | **GET** /leads/{id} | 
 
 
@@ -68,7 +69,7 @@ Configure bearerAuth:
 
 <a name="leadsList"></a>
 # **leadsList**
-> PaginatedLeadList leadsList(convertedAccountId, convertedContactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, ownerId, pageSize, remoteId)
+> PaginatedLeadList leadsList(convertedAccountId, convertedContactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, includeRemoteFields, modifiedAfter, modifiedBefore, ownerId, pageSize, remoteId)
 
 
 
@@ -89,13 +90,14 @@ val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCU
 val expand : kotlin.String = owner,converted_contact,converted_account // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
+val includeRemoteFields : kotlin.Boolean = true // kotlin.Boolean | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val ownerId : kotlin.String = ownerId_example // kotlin.String | If provided, will only return leads with this owner.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
-    val result : PaginatedLeadList = apiInstance.leadsList(convertedAccountId, convertedContactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, ownerId, pageSize, remoteId)
+    val result : PaginatedLeadList = apiInstance.leadsList(convertedAccountId, convertedContactId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, includeRemoteFields, modifiedAfter, modifiedBefore, ownerId, pageSize, remoteId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling LeadsApi#leadsList")
@@ -118,6 +120,7 @@ Name | Type | Description  | Notes
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: converted_account, converted_contact, converted_contact,converted_account, owner, owner,converted_account, owner,converted_contact, owner,converted_contact,converted_account]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
+ **includeRemoteFields** | **kotlin.Boolean**| Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | [optional]
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **ownerId** | **kotlin.String**| If provided, will only return leads with this owner. | [optional]
@@ -190,9 +193,69 @@ Configure bearerAuth:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="leadsRemoteFieldClassesList"></a>
+# **leadsRemoteFieldClassesList**
+> PaginatedRemoteFieldClassList leadsRemoteFieldClassesList(cursor, includeDeletedData, includeRemoteData, includeRemoteFields, pageSize)
+
+
+
+Returns a list of &#x60;RemoteFieldClass&#x60; objects.
+
+### Example
+```kotlin
+// Import classes:
+//import dev.merge.client.shared.*
+//import dev.merge.client.crm.models.*
+
+val apiInstance = LeadsApi()
+val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
+val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
+val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
+val includeRemoteFields : kotlin.Boolean = true // kotlin.Boolean | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
+try {
+    val result : PaginatedRemoteFieldClassList = apiInstance.leadsRemoteFieldClassesList(cursor, includeDeletedData, includeRemoteData, includeRemoteFields, pageSize)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling LeadsApi#leadsRemoteFieldClassesList")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling LeadsApi#leadsRemoteFieldClassesList")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
+ **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
+ **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
+ **includeRemoteFields** | **kotlin.Boolean**| Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | [optional]
+ **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
+
+### Return type
+
+[**PaginatedRemoteFieldClassList**](PaginatedRemoteFieldClassList.md)
+
+### Authorization
+
+
+Configure accountTokenAuth:
+    ApiClient.apiKey["X-Account-Token"] = ""
+    ApiClient.apiKeyPrefix["X-Account-Token"] = ""
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="leadsRetrieve"></a>
 # **leadsRetrieve**
-> Lead leadsRetrieve(id, expand, includeRemoteData)
+> Lead leadsRetrieve(id, expand, includeRemoteData, includeRemoteFields)
 
 
 
@@ -208,8 +271,9 @@ val apiInstance = LeadsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val expand : kotlin.String = owner,converted_contact,converted_account // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
+val includeRemoteFields : kotlin.Boolean = true // kotlin.Boolean | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 try {
-    val result : Lead = apiInstance.leadsRetrieve(id, expand, includeRemoteData)
+    val result : Lead = apiInstance.leadsRetrieve(id, expand, includeRemoteData, includeRemoteFields)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling LeadsApi#leadsRetrieve")
@@ -227,6 +291,7 @@ Name | Type | Description  | Notes
  **id** | **java.util.UUID**|  |
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: converted_account, converted_contact, converted_contact,converted_account, owner, owner,converted_account, owner,converted_contact, owner,converted_contact,converted_account]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
+ **includeRemoteFields** | **kotlin.Boolean**| Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | [optional]
 
 ### Return type
 

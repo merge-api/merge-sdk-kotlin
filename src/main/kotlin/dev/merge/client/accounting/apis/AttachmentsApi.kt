@@ -21,6 +21,9 @@
 package dev.merge.client.accounting.apis
 
 import dev.merge.client.accounting.models.AccountingAttachment
+import dev.merge.client.accounting.models.AccountingAttachmentEndpointRequest
+import dev.merge.client.accounting.models.AccountingAttachmentResponse
+import dev.merge.client.accounting.models.MetaResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,6 +47,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class AttachmentsCreateRequest (
+        val accountingAttachmentEndpointRequest: AccountingAttachmentEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class AttachmentsListRequest (
         val companyId: kotlin.String? = null,
         val createdAfter: java.time.OffsetDateTime? = null,
@@ -61,6 +70,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val id: java.util.UUID,
         val includeRemoteData: kotlin.Boolean? = null
     )
+
+    /**
+    * 
+    * Creates an &#x60;AccountingAttachment&#x60; object with the given values.
+     * @param accountingAttachmentEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return AccountingAttachmentResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun attachmentsCreate(requestModel: AttachmentsApi.AttachmentsCreateRequest): AccountingAttachmentResponse {
+        return attachmentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsCreateAsync(requestModel: AttachmentsApi.AttachmentsCreateRequest): CompletableFuture<AccountingAttachmentResponse> = GlobalScope.future {
+        attachmentsCreate(requestModel)
+    }
+
+    /**
+     * @param accountingAttachmentEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun attachmentsCreateExpanded(requestModel: AttachmentsApi.AttachmentsCreateRequest): AccountingAttachmentResponse.Expanded {
+        return attachmentsCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsCreateExpandedAsync(requestModel: AttachmentsApi.AttachmentsCreateRequest): CompletableFuture<AccountingAttachmentResponse.Expanded> = GlobalScope.future {
+        attachmentsCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> attachmentsCreateImpl(requestModel: AttachmentsApi.AttachmentsCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.accountingAttachmentEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/attachments",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
 
     /**
     * 
@@ -124,6 +190,59 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/attachments",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;AccountingAttachment&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun attachmentsMetaPostRetrieve(): MetaResponse {
+        return attachmentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        attachmentsMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun attachmentsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return attachmentsMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun attachmentsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        attachmentsMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> attachmentsMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/attachments/meta/post",
         query = localVariableQuery,
         headers = localVariableHeaders
         )

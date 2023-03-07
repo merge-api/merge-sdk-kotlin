@@ -23,7 +23,11 @@ package dev.merge.client.crm.apis
 import dev.merge.client.crm.models.CRMContactEndpointRequest
 import dev.merge.client.crm.models.CRMContactResponse
 import dev.merge.client.crm.models.Contact
+import dev.merge.client.crm.models.IgnoreCommonModel
+import dev.merge.client.crm.models.IgnoreCommonModelRequest
 import dev.merge.client.crm.models.MetaResponse
+import dev.merge.client.crm.models.RemoteFieldClass
+import dev.merge.client.crm.models.PatchedCRMContactEndpointRequest
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -53,6 +57,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val runAsync: kotlin.Boolean? = null
     )
 
+    data class ContactsIgnoreCreateRequest (
+        val modelId: java.util.UUID,
+        val ignoreCommonModelRequest: IgnoreCommonModelRequest
+    )
+
     data class ContactsListRequest (
         val accountId: kotlin.String? = null,
         val createdAfter: java.time.OffsetDateTime? = null,
@@ -61,16 +70,37 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val expand: kotlin.String? = null,
         val includeDeletedData: kotlin.Boolean? = null,
         val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
         val remoteId: kotlin.String? = null
     )
 
+    data class ContactsMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class ContactsPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedCRMContactEndpointRequest: PatchedCRMContactEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
+    data class ContactsRemoteFieldClassesListRequest (
+        val cursor: kotlin.String? = null,
+        val includeDeletedData: kotlin.Boolean? = null,
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null,
+        val pageSize: kotlin.Int? = null
+    )
+
     data class ContactsRetrieveRequest (
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
-        val includeRemoteData: kotlin.Boolean? = null
+        val includeRemoteData: kotlin.Boolean? = null,
+        val includeRemoteFields: kotlin.Boolean? = null
     )
 
     /**
@@ -132,6 +162,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Ignores a specific row based on the &#x60;model_id&#x60; in the url. These records will have their properties set to null, and will not be updated in future syncs. The \&quot;reason\&quot; and \&quot;message\&quot; fields in the request body will be stored for audit purposes.
+     * @param modelId  
+     * @param ignoreCommonModelRequest  
+     * @return IgnoreCommonModel
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsIgnoreCreate(requestModel: ContactsApi.ContactsIgnoreCreateRequest): IgnoreCommonModel {
+        return contactsIgnoreCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsIgnoreCreateAsync(requestModel: ContactsApi.ContactsIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+        contactsIgnoreCreate(requestModel)
+    }
+
+    /**
+     * @param modelId   * @param ignoreCommonModelRequest  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsIgnoreCreateExpanded(requestModel: ContactsApi.ContactsIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+        return contactsIgnoreCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsIgnoreCreateExpandedAsync(requestModel: ContactsApi.ContactsIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+        contactsIgnoreCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> contactsIgnoreCreateImpl(requestModel: ContactsApi.ContactsIgnoreCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.ignoreCommonModelRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/contacts/ignore/{model_id}".replace("{" + "model_id" + "}", "${ requestModel.modelId }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a list of &#x60;Contact&#x60; objects.
      * @param accountId If provided, will only return contacts with this account. (optional)
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
@@ -140,6 +224,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
      * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
@@ -157,7 +242,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountId If provided, will only return contacts with this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param accountId If provided, will only return contacts with this account. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsListExpanded(requestModel: ContactsApi.ContactsListRequest): MergePaginatedResponse<Contact.Expanded> {
@@ -184,6 +269,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
             requestModel.modifiedAfter?.apply { localVariableQuery["modified_after"] = listOf("$this") }
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
@@ -194,6 +280,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/contacts",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;CRMContact&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsMetaPatchRetrieve(requestModel: ContactsApi.ContactsMetaPatchRetrieveRequest): MetaResponse {
+        return contactsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPatchRetrieveAsync(requestModel: ContactsApi.ContactsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        contactsMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsMetaPatchRetrieveExpanded(requestModel: ContactsApi.ContactsMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return contactsMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsMetaPatchRetrieveExpandedAsync(requestModel: ContactsApi.ContactsMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        contactsMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> contactsMetaPatchRetrieveImpl(requestModel: ContactsApi.ContactsMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/contacts/meta/patch/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -260,10 +400,132 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Updates a &#x60;Contact&#x60; object with the given &#x60;id&#x60;.
+     * @param id  
+     * @param patchedCRMContactEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return CRMContactResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsPartialUpdate(requestModel: ContactsApi.ContactsPartialUpdateRequest): CRMContactResponse {
+        return contactsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsPartialUpdateAsync(requestModel: ContactsApi.ContactsPartialUpdateRequest): CompletableFuture<CRMContactResponse> = GlobalScope.future {
+        contactsPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedCRMContactEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsPartialUpdateExpanded(requestModel: ContactsApi.ContactsPartialUpdateRequest): CRMContactResponse.Expanded {
+        return contactsPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsPartialUpdateExpandedAsync(requestModel: ContactsApi.ContactsPartialUpdateRequest): CompletableFuture<CRMContactResponse.Expanded> = GlobalScope.future {
+        contactsPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> contactsPartialUpdateImpl(requestModel: ContactsApi.ContactsPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedCRMContactEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/contacts/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns a list of &#x60;RemoteFieldClass&#x60; objects.
+     * @param cursor The pagination cursor value. (optional)
+     * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
+     * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
+     * @param pageSize Number of results to return per page. (optional)
+     * @return PaginatedRemoteFieldClassList
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsRemoteFieldClassesList(requestModel: ContactsApi.ContactsRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass> {
+        return contactsRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsRemoteFieldClassesListAsync(requestModel: ContactsApi.ContactsRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass>> = GlobalScope.future {
+        contactsRemoteFieldClassesList(requestModel)
+    }
+
+    /**
+     * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param pageSize Number of results to return per page. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun contactsRemoteFieldClassesListExpanded(requestModel: ContactsApi.ContactsRemoteFieldClassesListRequest): MergePaginatedResponse<RemoteFieldClass.Expanded> {
+        return contactsRemoteFieldClassesListImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun contactsRemoteFieldClassesListExpandedAsync(requestModel: ContactsApi.ContactsRemoteFieldClassesListRequest): CompletableFuture<MergePaginatedResponse<RemoteFieldClass.Expanded>> = GlobalScope.future {
+        contactsRemoteFieldClassesListExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> contactsRemoteFieldClassesListImpl(requestModel: ContactsApi.ContactsRemoteFieldClassesListRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.cursor?.apply { localVariableQuery["cursor"] = listOf(this) }
+            requestModel.includeDeletedData?.apply { localVariableQuery["include_deleted_data"] = listOf("$this") }
+            requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
+            requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/contacts/remote-field-classes",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a &#x60;Contact&#x60; object with the given &#x60;id&#x60;.
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
      * @return Contact
     */
     @Suppress("UNCHECKED_CAST")
@@ -277,7 +539,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun contactsRetrieveExpanded(requestModel: ContactsApi.ContactsRetrieveRequest): Contact.Expanded {
@@ -299,6 +561,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableQuery = mutableMapOf<String, List<String>>()
             requestModel.expand?.apply { localVariableQuery["expand"] = listOf(this) }
             requestModel.includeRemoteData?.apply { localVariableQuery["include_remote_data"] = listOf("$this") }
+            requestModel.includeRemoteFields?.apply { localVariableQuery["include_remote_fields"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

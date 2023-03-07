@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **disabled** | **kotlin.Boolean** | Whether the user&#39;s account had been disabled. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s user was created. |  [optional]
 **accessRole** | [**AccessRoleEnum**](AccessRoleEnum.md) | The user&#39;s role. |  [optional]
-**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
 
 

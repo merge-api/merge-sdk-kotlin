@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Attachment Object ### Description The `Attachment` object is used to represent a attachment for a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
+ * # The Attachment Object ### Description The `Attachment` object is used to represent a file attached to a candidate. ### Usage Example Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
@@ -37,9 +37,9 @@ import dev.merge.client.shared.ApiClient
  * @param fileUrl The attachment's url.
  * @param candidate 
  * @param attachmentType The attachment's type.
- * @param remoteData 
  * @param remoteWasDeleted 
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,14 +68,14 @@ data class Attachment (
     @field:JsonProperty("attachment_type")
     val attachmentType: AttachmentTypeEnum? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -99,14 +99,14 @@ data class Attachment (
         @field:JsonProperty("attachment_type")
         val attachmentType: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -121,9 +121,9 @@ data class Attachment (
                 fileUrl = ApiClient.jsonConvertSafe(expanded.fileUrl),
                 candidate = ApiClient.jsonConvertSafe(expanded.candidate),
                 attachmentType = ApiClient.jsonConvertSafe(expanded.attachmentType),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

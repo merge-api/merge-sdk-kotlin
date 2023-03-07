@@ -27,26 +27,19 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Note Object ### Description The `Note` object is used to represent a note in the remote system. ### Usage Example TODO
+ * # The Note Object ### Description The `Note` object is used to represent a note on another object. ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The note's owner.
  * @param content The note's content.
  * @param contact The note's contact.
  * @param account The note's account.
  * @param opportunity The note's opportunity.
- * @param remoteUpdatedAt When the third party's lead was updated.
- * @param remoteCreatedAt When the third party's lead was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class NoteRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The note's owner. */
     @field:JsonProperty("owner")
@@ -68,14 +61,6 @@ data class NoteRequest (
     @field:JsonProperty("opportunity")
     val opportunity: java.util.UUID? = null,
 
-    /* When the third party's lead was updated. */
-    @field:JsonProperty("remote_updated_at")
-    val remoteUpdatedAt: java.time.OffsetDateTime? = null,
-
-    /* When the third party's lead was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -86,9 +71,6 @@ data class NoteRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -104,12 +86,6 @@ data class NoteRequest (
         @field:JsonProperty("opportunity")
         val opportunity: JsonNode?,
 
-        @field:JsonProperty("remote_updated_at")
-        val remoteUpdatedAt: JsonNode?,
-
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -123,14 +99,11 @@ data class NoteRequest (
         @JvmStatic
         fun normalize(expanded: NoteRequest.Expanded): NoteRequest {
             return NoteRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 content = ApiClient.jsonConvertSafe(expanded.content),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 opportunity = ApiClient.jsonConvertSafe(expanded.opportunity),
-                remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

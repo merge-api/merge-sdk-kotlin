@@ -68,7 +68,7 @@ Configure bearerAuth:
 
 <a name="attachmentsList"></a>
 # **attachmentsList**
-> PaginatedAttachmentList attachmentsList(candidateId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId)
+> PaginatedAttachmentList attachmentsList(candidateId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins)
 
 
 
@@ -91,10 +91,11 @@ val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to inc
 val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
 val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
-val remoteFields : kotlin.String = attachment_type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = attachment_type // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
+val showEnumOrigins : kotlin.String = attachment_type // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : PaginatedAttachmentList = apiInstance.attachmentsList(candidateId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId)
+    val result : PaginatedAttachmentList = apiInstance.attachmentsList(candidateId, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling AttachmentsApi#attachmentsList")
@@ -119,8 +120,9 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
  **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: attachment_type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: attachment_type]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: attachment_type]
 
 ### Return type
 
@@ -190,7 +192,7 @@ Configure bearerAuth:
 
 <a name="attachmentsRetrieve"></a>
 # **attachmentsRetrieve**
-> Attachment attachmentsRetrieve(id, expand, includeRemoteData, remoteFields)
+> Attachment attachmentsRetrieve(id, expand, includeRemoteData, remoteFields, showEnumOrigins)
 
 
 
@@ -206,9 +208,10 @@ val apiInstance = AttachmentsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val expand : kotlin.String = candidate // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val remoteFields : kotlin.String = attachment_type // kotlin.String | Which fields should be returned in non-normalized form.
+val remoteFields : kotlin.String = attachment_type // kotlin.String | Deprecated. Use show_enum_origins.
+val showEnumOrigins : kotlin.String = attachment_type // kotlin.String | Which fields should be returned in non-normalized form.
 try {
-    val result : Attachment = apiInstance.attachmentsRetrieve(id, expand, includeRemoteData, remoteFields)
+    val result : Attachment = apiInstance.attachmentsRetrieve(id, expand, includeRemoteData, remoteFields, showEnumOrigins)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling AttachmentsApi#attachmentsRetrieve")
@@ -226,7 +229,8 @@ Name | Type | Description  | Notes
  **id** | **java.util.UUID**|  |
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: candidate]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **remoteFields** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: attachment_type]
+ **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: attachment_type]
+ **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: attachment_type]
 
 ### Return type
 

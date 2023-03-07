@@ -28,15 +28,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Office Object ### Description The `Office` object is used to represent an office within a company. ### Usage Example Fetch from the `LIST Offices` endpoint and view the offices within a company.
+ * # The Office Object ### Description The `Office` object is used to represent an office within a company. A given `Job` has the `Office` ID in its offices field. ### Usage Example Fetch from the `LIST Offices` endpoint and view the offices within a company.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param name The office's name.
  * @param location The office's location.
- * @param remoteData 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -57,15 +57,15 @@ data class Office (
     @field:JsonProperty("location")
     val location: kotlin.String? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -83,14 +83,14 @@ data class Office (
         @field:JsonProperty("location")
         val location: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -103,9 +103,9 @@ data class Office (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 location = ApiClient.jsonConvertSafe(expanded.location),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

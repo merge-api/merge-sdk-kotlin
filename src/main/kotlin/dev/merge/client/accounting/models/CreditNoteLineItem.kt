@@ -29,15 +29,16 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
+ * @param trackingCategories The credit note line item's associated tracking categories.
  * @param item 
  * @param name The credit note line item's name.
- * @param description The credit note line item's description.
+ * @param description The description of the item that is owed.
  * @param quantity The credit note line item's quantity.
  * @param memo The credit note line item's memo.
  * @param unitPrice The credit note line item's unit price.
  * @param taxRate The credit note line item's tax rate.
  * @param totalLineAmount The credit note line item's total.
- * @param trackingCategory The purchase order line item's associated tracking category.
+ * @param trackingCategory The credit note line item's associated tracking category.
  * @param account The credit note line item's account.
  * @param company The company the credit note line item belongs to.
  * @param remoteId The third-party API ID of the matching object.
@@ -46,6 +47,10 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CreditNoteLineItem (
 
+    /* The credit note line item's associated tracking categories. */
+    @field:JsonProperty("tracking_categories")
+    val trackingCategories: kotlin.collections.List<java.util.UUID>,
+
     @field:JsonProperty("item")
     val item: java.util.UUID? = null,
 
@@ -53,7 +58,7 @@ data class CreditNoteLineItem (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The credit note line item's description. */
+    /* The description of the item that is owed. */
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
@@ -77,7 +82,7 @@ data class CreditNoteLineItem (
     @field:JsonProperty("total_line_amount")
     val totalLineAmount: java.math.BigDecimal? = null,
 
-    /* The purchase order line item's associated tracking category. */
+    /* The credit note line item's associated tracking category. */
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
 
@@ -97,6 +102,9 @@ data class CreditNoteLineItem (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("tracking_categories")
+        val trackingCategories: kotlin.collections.List<JsonNode>,
+
         @field:JsonProperty("item")
         val item: JsonNode?,
 
@@ -140,6 +148,7 @@ data class CreditNoteLineItem (
         @JvmStatic
         fun normalize(expanded: CreditNoteLineItem.Expanded): CreditNoteLineItem {
             return CreditNoteLineItem(
+                trackingCategories = ApiClient.jsonConvertRequiredSafe(expanded.trackingCategories),
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),

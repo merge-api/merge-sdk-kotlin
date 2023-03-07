@@ -30,11 +30,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Contact Object ### Description The `Contact` object is used to represent a Contact. This can be either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
+ * # The Contact Object ### Description The `Contact` object refers to either a supplier or a customer.  ### Usage Example Fetch from the `LIST Contacts` endpoint and view a company's contacts.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param name The contact's name.
  * @param isSupplier Whether the contact is a supplier.
  * @param isCustomer Whether the contact is a customer.
@@ -48,6 +47,7 @@ import dev.merge.client.shared.ApiClient
  * @param phoneNumbers `AccountingPhoneNumber` object for the given `Contacts` object.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -59,9 +59,6 @@ data class Contact (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The contact's name. */
     @field:JsonProperty("name")
@@ -112,7 +109,10 @@ data class Contact (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -123,9 +123,6 @@ data class Contact (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("name")
         val name: JsonNode?,
@@ -164,7 +161,10 @@ data class Contact (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -175,7 +175,6 @@ data class Contact (
             return Contact(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 isSupplier = ApiClient.jsonConvertSafe(expanded.isSupplier),
                 isCustomer = ApiClient.jsonConvertSafe(expanded.isCustomer),
@@ -188,7 +187,8 @@ data class Contact (
                 addresses = ApiClient.jsonConvertSafe(expanded.addresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

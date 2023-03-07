@@ -30,9 +30,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Contact Object ### Description The `Contact` object is used to represent a contact in the remote system. ### Usage Example TODO
+ * # The Contact Object ### Description The `Contact` object is used to represent an existing point of contact at a company in a CRM system. ### Usage Example TODO
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param firstName The contact's first name.
  * @param lastName The contact's last name.
  * @param account The contact's account.
@@ -40,17 +39,12 @@ import dev.merge.client.shared.ApiClient
  * @param emailAddresses 
  * @param phoneNumbers 
  * @param lastActivityAt When the contact's last activity occurred.
- * @param remoteCreatedAt When the third party's contact was created.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ContactRequest (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The contact's first name. */
     @field:JsonProperty("first_name")
@@ -77,10 +71,6 @@ data class ContactRequest (
     @field:JsonProperty("last_activity_at")
     val lastActivityAt: java.time.OffsetDateTime? = null,
 
-    /* When the third party's contact was created. */
-    @field:JsonProperty("remote_created_at")
-    val remoteCreatedAt: java.time.OffsetDateTime? = null,
-
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -91,9 +81,6 @@ data class ContactRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("first_name")
         val firstName: JsonNode?,
 
@@ -115,9 +102,6 @@ data class ContactRequest (
         @field:JsonProperty("last_activity_at")
         val lastActivityAt: JsonNode?,
 
-        @field:JsonProperty("remote_created_at")
-        val remoteCreatedAt: JsonNode?,
-
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
 
@@ -131,7 +115,6 @@ data class ContactRequest (
         @JvmStatic
         fun normalize(expanded: ContactRequest.Expanded): ContactRequest {
             return ContactRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 firstName = ApiClient.jsonConvertSafe(expanded.firstName),
                 lastName = ApiClient.jsonConvertSafe(expanded.lastName),
                 account = ApiClient.jsonConvertSafe(expanded.account),
@@ -139,7 +122,6 @@ data class ContactRequest (
                 emailAddresses = ApiClient.jsonConvertSafe(expanded.emailAddresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
-                remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

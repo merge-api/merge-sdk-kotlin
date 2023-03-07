@@ -29,21 +29,21 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Payment Object ### Description The `Payment` object is used to represent a invoice's payment.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
+ * # The Payment Object ### Description The `Payment` object represents general payments made towards a specific transaction.  ### Usage Example Fetch from the `GET Payment` endpoint and view an invoice's payment.
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param transactionDate The payment's transaction date.
- * @param contact The payment's contact.
- * @param account The payment's account.
+ * @param contact The supplier, or customer involved in the payment.
+ * @param account The supplier’s or customer’s account in which the payment is made.
  * @param currency The payment's currency.
  * @param exchangeRate The payment's exchange rate.
  * @param company The company the payment belongs to.
- * @param totalAmount The payment's total amount.
+ * @param totalAmount The total amount of money being paid to the supplier, or customer, after taxes.
  * @param remoteUpdatedAt When the third party's payment entry was updated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -56,18 +56,15 @@ data class Payment (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     /* The payment's transaction date. */
     @field:JsonProperty("transaction_date")
     val transactionDate: java.time.OffsetDateTime? = null,
 
-    /* The payment's contact. */
+    /* The supplier, or customer involved in the payment. */
     @field:JsonProperty("contact")
     val contact: java.util.UUID? = null,
 
-    /* The payment's account. */
+    /* The supplier’s or customer’s account in which the payment is made. */
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
@@ -83,7 +80,7 @@ data class Payment (
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
 
-    /* The payment's total amount. */
+    /* The total amount of money being paid to the supplier, or customer, after taxes. */
     @field:JsonProperty("total_amount")
     val totalAmount: kotlin.Float? = null,
 
@@ -96,7 +93,10 @@ data class Payment (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -107,9 +107,6 @@ data class Payment (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("transaction_date")
         val transactionDate: JsonNode?,
@@ -139,7 +136,10 @@ data class Payment (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -150,7 +150,6 @@ data class Payment (
             return Payment(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 transactionDate = ApiClient.jsonConvertSafe(expanded.transactionDate),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 account = ApiClient.jsonConvertSafe(expanded.account),
@@ -160,7 +159,8 @@ data class Payment (
                 totalAmount = ApiClient.jsonConvertSafe(expanded.totalAmount),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

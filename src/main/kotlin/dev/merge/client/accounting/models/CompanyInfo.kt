@@ -35,7 +35,6 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param remoteData 
  * @param name The company's name.
  * @param legalName The company's legal name.
  * @param taxNumber The company's tax number.
@@ -48,6 +47,7 @@ import dev.merge.client.shared.ApiClient
  * @param phoneNumbers 
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -59,9 +59,6 @@ data class CompanyInfo (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
 
     /* The company's name. */
     @field:JsonProperty("name")
@@ -106,7 +103,10 @@ data class CompanyInfo (
     val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -117,9 +117,6 @@ data class CompanyInfo (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
-
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("name")
         val name: JsonNode?,
@@ -155,7 +152,10 @@ data class CompanyInfo (
         val remoteWasDeleted: JsonNode?,
 
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -166,7 +166,6 @@ data class CompanyInfo (
             return CompanyInfo(
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 legalName = ApiClient.jsonConvertSafe(expanded.legalName),
                 taxNumber = ApiClient.jsonConvertSafe(expanded.taxNumber),
@@ -178,7 +177,8 @@ data class CompanyInfo (
                 addresses = ApiClient.jsonConvertSafe(expanded.addresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

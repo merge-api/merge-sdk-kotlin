@@ -20,8 +20,7 @@
 
 package dev.merge.client.crm.models
 
-import dev.merge.client.crm.models.CommonModelScopesDisabledModels
-import dev.merge.client.crm.models.CommonModelScopesScope
+import dev.merge.client.crm.models.CommonModelScopeData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,28 +30,28 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
- * @param scope 
- * @param commonModels 
+ * @param scopeOverrides 
+ * @param organizationLevelScopes 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommonModelScopes (
 
-    @field:JsonProperty("scope")
-    val scope: CommonModelScopesScope,
+    @field:JsonProperty("scope_overrides")
+    val scopeOverrides: kotlin.collections.List<CommonModelScopeData>,
 
-    @field:JsonProperty("common_models")
-    val commonModels: kotlin.collections.List<CommonModelScopesDisabledModels>
+    @field:JsonProperty("organization_level_scopes")
+    val organizationLevelScopes: CommonModelScopeData? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("scope")
-        val scope: JsonNode,
+        @field:JsonProperty("scope_overrides")
+        val scopeOverrides: kotlin.collections.List<JsonNode>,
 
-        @field:JsonProperty("common_models")
-        val commonModels: kotlin.collections.List<JsonNode>
+        @field:JsonProperty("organization_level_scopes")
+        val organizationLevelScopes: JsonNode?
 
     )
 
@@ -61,8 +60,8 @@ data class CommonModelScopes (
         @JvmStatic
         fun normalize(expanded: CommonModelScopes.Expanded): CommonModelScopes {
             return CommonModelScopes(
-                scope = ApiClient.jsonConvertRequiredSafe(expanded.scope),
-                commonModels = ApiClient.jsonConvertRequiredSafe(expanded.commonModels)
+                scopeOverrides = ApiClient.jsonConvertRequiredSafe(expanded.scopeOverrides),
+                organizationLevelScopes = ApiClient.jsonConvertSafe(expanded.organizationLevelScopes)
             )
         }
     }

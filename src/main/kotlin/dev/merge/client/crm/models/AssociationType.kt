@@ -31,25 +31,18 @@ import dev.merge.client.shared.ApiClient
 /**
  * 
  *
- * @param remoteId The third-party API ID of the matching object.
- * @param id 
  * @param sourceObjectClass 
  * @param targetObjectClasses 
  * @param remoteKeyName 
  * @param displayName 
  * @param cardinality 
  * @param isRequired 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AssociationType (
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
 
     @field:JsonProperty("source_object_class")
     val sourceObjectClass: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -67,18 +60,19 @@ data class AssociationType (
     val cardinality: CardinalityEnum? = null,
 
     @field:JsonProperty("is_required")
-    val isRequired: kotlin.Boolean? = null
+    val isRequired: kotlin.Boolean? = null,
+
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
         @field:JsonProperty("source_object_class")
         val sourceObjectClass: JsonNode?,
 
@@ -95,7 +89,13 @@ data class AssociationType (
         val cardinality: JsonNode?,
 
         @field:JsonProperty("is_required")
-        val isRequired: JsonNode?
+        val isRequired: JsonNode?,
+
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?
 
     )
 
@@ -104,14 +104,14 @@ data class AssociationType (
         @JvmStatic
         fun normalize(expanded: AssociationType.Expanded): AssociationType {
             return AssociationType(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
-                id = ApiClient.jsonConvertSafe(expanded.id),
                 sourceObjectClass = ApiClient.jsonConvertSafe(expanded.sourceObjectClass),
                 targetObjectClasses = ApiClient.jsonConvertSafe(expanded.targetObjectClasses),
                 remoteKeyName = ApiClient.jsonConvertSafe(expanded.remoteKeyName),
                 displayName = ApiClient.jsonConvertSafe(expanded.displayName),
                 cardinality = ApiClient.jsonConvertSafe(expanded.cardinality),
-                isRequired = ApiClient.jsonConvertSafe(expanded.isRequired)
+                isRequired = ApiClient.jsonConvertSafe(expanded.isRequired),
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
             )
         }
     }

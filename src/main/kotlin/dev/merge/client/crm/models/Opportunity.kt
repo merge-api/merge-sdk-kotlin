@@ -22,6 +22,7 @@ package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.OpportunityStatusEnum
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -29,10 +30,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Opportunity Object ### Description The `Opportunity` object is used to represent an opportunity in the remote system. ### Usage Example TODO
+ * # The Opportunity Object ### Description The `Opportunity` object is used to represent a deal opportunity in a CRM system. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param name The opportunity's name.
  * @param description The opportunity's description.
  * @param amount The opportunity's amount.
@@ -43,20 +42,16 @@ import dev.merge.client.shared.ApiClient
  * @param lastActivityAt When the opportunity's last activity occurred.
  * @param closeDate When the opportunity was closed.
  * @param remoteCreatedAt When the third party's opportunity was created.
- * @param remoteData 
  * @param remoteWasDeleted 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Opportunity (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The opportunity's name. */
     @field:JsonProperty("name")
@@ -98,25 +93,29 @@ data class Opportunity (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("name")
         val name: JsonNode?,
 
@@ -147,14 +146,23 @@ data class Opportunity (
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -163,8 +171,6 @@ data class Opportunity (
         @JvmStatic
         fun normalize(expanded: Opportunity.Expanded): Opportunity {
             return Opportunity(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 amount = ApiClient.jsonConvertSafe(expanded.amount),
@@ -175,9 +181,12 @@ data class Opportunity (
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 closeDate = ApiClient.jsonConvertSafe(expanded.closeDate),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

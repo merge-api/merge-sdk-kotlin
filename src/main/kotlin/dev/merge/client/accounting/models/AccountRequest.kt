@@ -30,13 +30,12 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Account Object ### Description The `Account` object is what businesses use to track transactions. Accountants often call accounts \"ledgers\".  ### Usage Example Fetch from the `LIST Accounts` endpoint and view a company's accounts.
+ * # The Account Object ### Description The `Account` object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts).  ### Usage Example Fetch from the `LIST Accounts` endpoint and view a company's accounts.
  *
- * @param remoteId The third-party API ID of the matching object.
  * @param name The account's name.
  * @param description The account's description.
- * @param classification The account's classification.
- * @param type The account's type.
+ * @param classification The account's broadest grouping.
+ * @param type The account's type is a narrower and more specific grouping within the account's classification.
  * @param status The account's status.
  * @param currentBalance The account's current balance.
  * @param currency The account's currency.
@@ -50,10 +49,6 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AccountRequest (
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
-
     /* The account's name. */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
@@ -62,11 +57,11 @@ data class AccountRequest (
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
-    /* The account's classification. */
+    /* The account's broadest grouping. */
     @field:JsonProperty("classification")
     val classification: ClassificationEnum? = null,
 
-    /* The account's type. */
+    /* The account's type is a narrower and more specific grouping within the account's classification. */
     @field:JsonProperty("type")
     val type: kotlin.String? = null,
 
@@ -104,9 +99,6 @@ data class AccountRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("name")
         val name: JsonNode?,
 
@@ -150,7 +142,6 @@ data class AccountRequest (
         @JvmStatic
         fun normalize(expanded: AccountRequest.Expanded): AccountRequest {
             return AccountRequest(
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 classification = ApiClient.jsonConvertSafe(expanded.classification),

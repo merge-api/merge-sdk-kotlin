@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.shared.RemoteData
+import dev.merge.client.crm.models.RemoteField
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,10 +29,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The Note Object ### Description The `Note` object is used to represent a note in the remote system. ### Usage Example TODO
+ * # The Note Object ### Description The `Note` object is used to represent a note on another object. ### Usage Example TODO
  *
- * @param id 
- * @param remoteId The third-party API ID of the matching object.
  * @param owner The note's owner.
  * @param content The note's content.
  * @param contact The note's contact.
@@ -39,20 +38,16 @@ import dev.merge.client.shared.ApiClient
  * @param opportunity The note's opportunity.
  * @param remoteUpdatedAt When the third party's lead was updated.
  * @param remoteCreatedAt When the third party's lead was created.
- * @param remoteData 
  * @param remoteWasDeleted 
+ * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param fieldMappings 
+ * @param remoteData 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Note (
-
-    @field:JsonProperty("id")
-    val id: java.util.UUID? = null,
-
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
 
     /* The note's owner. */
     @field:JsonProperty("owner")
@@ -82,25 +77,29 @@ data class Note (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    @field:JsonProperty("remote_data")
-    val remoteData: kotlin.collections.List<RemoteData>? = null,
-
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    @field:JsonProperty("id")
+    val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteField>? = null
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
-        @field:JsonProperty("id")
-        val id: JsonNode?,
-
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
-
         @field:JsonProperty("owner")
         val owner: JsonNode?,
 
@@ -122,14 +121,23 @@ data class Note (
         @field:JsonProperty("remote_created_at")
         val remoteCreatedAt: JsonNode?,
 
-        @field:JsonProperty("remote_data")
-        val remoteData: kotlin.collections.List<JsonNode>?,
-
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("id")
+        val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -138,8 +146,6 @@ data class Note (
         @JvmStatic
         fun normalize(expanded: Note.Expanded): Note {
             return Note(
-                id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 content = ApiClient.jsonConvertSafe(expanded.content),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
@@ -147,9 +153,12 @@ data class Note (
                 opportunity = ApiClient.jsonConvertSafe(expanded.opportunity),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
-                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

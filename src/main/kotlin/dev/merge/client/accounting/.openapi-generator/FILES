@@ -12,6 +12,9 @@ docs/AccountStatusEnum.md
 docs/AccountToken.md
 docs/AccountTokenApi.md
 docs/AccountingAttachment.md
+docs/AccountingAttachmentEndpointRequest.md
+docs/AccountingAttachmentRequest.md
+docs/AccountingAttachmentResponse.md
 docs/AccountingPhoneNumber.md
 docs/AccountingPhoneNumberRequest.md
 docs/AccountsApi.md
@@ -29,14 +32,13 @@ docs/CategoriesEnum.md
 docs/CategoryEnum.md
 docs/CategoryTypeEnum.md
 docs/ClassificationEnum.md
+docs/CommonModelScopeData.md
 docs/CommonModelScopes.md
 docs/CommonModelScopesApi.md
+docs/CommonModelScopesBodyRequest.md
 docs/CommonModelScopesDisabledModels.md
 docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.md
-docs/CommonModelScopesPutInnerDeserializerRequest.md
-docs/CommonModelScopesScope.md
-docs/CommonModelScopesScopeTypeEnum.md
+docs/CommonModelScopesPostInnerDeserializerRequest.md
 docs/CommonModelScopesUpdateSerializer.md
 docs/CompanyInfo.md
 docs/CompanyInfoApi.md
@@ -57,6 +59,7 @@ docs/DataPassthroughRequest.md
 docs/DebugModeLog.md
 docs/DebugModelLogSummary.md
 docs/DeleteAccountApi.md
+docs/EnabledActionsEnum.md
 docs/EncodingEnum.md
 docs/EndUserDetailsRequest.md
 docs/ErrorValidationProblem.md
@@ -113,6 +116,7 @@ docs/PaymentRequest.md
 docs/PaymentResponse.md
 docs/PaymentsApi.md
 docs/PhoneNumbersApi.md
+docs/PostingStatusEnum.md
 docs/PurchaseOrder.md
 docs/PurchaseOrderEndpointRequest.md
 docs/PurchaseOrderLineItem.md
@@ -196,6 +200,9 @@ src/main/kotlin/dev/merge/client/accounting/models/AccountResponse.kt
 src/main/kotlin/dev/merge/client/accounting/models/AccountStatusEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/AccountToken.kt
 src/main/kotlin/dev/merge/client/accounting/models/AccountingAttachment.kt
+src/main/kotlin/dev/merge/client/accounting/models/AccountingAttachmentEndpointRequest.kt
+src/main/kotlin/dev/merge/client/accounting/models/AccountingAttachmentRequest.kt
+src/main/kotlin/dev/merge/client/accounting/models/AccountingAttachmentResponse.kt
 src/main/kotlin/dev/merge/client/accounting/models/AccountingPhoneNumber.kt
 src/main/kotlin/dev/merge/client/accounting/models/AccountingPhoneNumberRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/Address.kt
@@ -207,13 +214,12 @@ src/main/kotlin/dev/merge/client/accounting/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryTypeEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/ClassificationEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopeData.kt
 src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopes.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesBodyRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModels.kt
 src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPutInnerDeserializerEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPutInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesScope.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesScopeTypeEnum.kt
+src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPostInnerDeserializerRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/accounting/models/CompanyInfo.kt
 src/main/kotlin/dev/merge/client/accounting/models/ConditionSchema.kt
@@ -230,6 +236,7 @@ src/main/kotlin/dev/merge/client/accounting/models/CurrencyEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/DataPassthroughRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/DebugModeLog.kt
 src/main/kotlin/dev/merge/client/accounting/models/DebugModelLogSummary.kt
+src/main/kotlin/dev/merge/client/accounting/models/EnabledActionsEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/EncodingEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/EndUserDetailsRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/ErrorValidationProblem.kt
@@ -273,6 +280,7 @@ src/main/kotlin/dev/merge/client/accounting/models/Payment.kt
 src/main/kotlin/dev/merge/client/accounting/models/PaymentEndpointRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/PaymentRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/PaymentResponse.kt
+src/main/kotlin/dev/merge/client/accounting/models/PostingStatusEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/PurchaseOrder.kt
 src/main/kotlin/dev/merge/client/accounting/models/PurchaseOrderEndpointRequest.kt
 src/main/kotlin/dev/merge/client/accounting/models/PurchaseOrderLineItem.kt
