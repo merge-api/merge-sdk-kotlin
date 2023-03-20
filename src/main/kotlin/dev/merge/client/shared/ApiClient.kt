@@ -27,8 +27,13 @@ open class ApiClient(
         json: ObjectMapper,
 ) {
 
-    private val client: HttpClient by lazy {
-        httpClientEngine?.let {
+    /**
+     * This client can be updated if the end user installs an additional ktor plugin after config.
+     */
+    private var client: HttpClient
+
+    init {
+        client = httpClientEngine?.let {
             HttpClient(it, httpClientConfig ?: {
                 install(ContentNegotiation) {
                     jackson {
@@ -99,6 +104,17 @@ open class ApiClient(
         inline fun <reified T> jsonConvertRequiredSafe(raw: JsonNode): T {
             return JSON_DEFAULT.convertValue(raw, T::class.java)
         }
+    }
+
+    /**
+     * Add and configure additional ktor plugins for use-cases when you want to accept the default client configurations
+     * for things like content negotiation, but you want to customize request logging or monitoring etc.
+     *
+     * @param plugin the ktor plugin to add to the client.
+     * @param configure the optional configuration block to be executed on the installed plugin.
+     */
+    fun <CONFIG: Any, PLUGIN: Any> addKtorPlugin(plugin: HttpClientPlugin<CONFIG, PLUGIN>, configure: CONFIG.() -> Unit = {}) {
+        client = client.config { install(plugin, configure) }
     }
 
     /**
