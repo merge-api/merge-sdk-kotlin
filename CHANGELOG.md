@@ -1,3 +1,9 @@
+# Version 2.0.7
+
+## Date: 2023-03-27
+
+- The base api client now has a `addKtorPlugin` method. Thanks to @bwvolleyball from StackHawk for the contribution.
+
 # Version 2.0.6
 
 ## Date: 2023-03-07
