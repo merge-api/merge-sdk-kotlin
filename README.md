@@ -135,3 +135,34 @@ val hrisEmployeesResponse = employeesApi.employeesListExpanded(EmployeesApi.Empl
 Using this feature looks very similar to the expands feature, in that you will be receiving raw JsonNode values and will
 need to deserialize to `String` yourself for the enum fields that are using the "remote field" functionality.
 
+### Resource cleanup
+
+Each api client you create needs to allocate some resources. You should close the clients after use to dispose of those resources. 
+
+```java
+// using try / finally
+AccountsApi accountsApi = null;
+
+try {
+  accountsApi = new AccountsApi();
+  ...
+} finally {
+  if (accountsApi != null) {
+    accountsApi.close()  
+  }
+}
+
+// or using try-with-resources
+
+try (AccountsApi accountsApi = new AccountsApi()) {
+  ...
+}
+```
+
+```kotlin
+// using the `use` function
+AccountsApi().use { 
+    ...
+}
+
+```

@@ -19,18 +19,20 @@ import io.ktor.serialization.jackson.*
 import io.ktor.util.*
 import io.ktor.util.reflect.*
 import io.ktor.utils.io.core.*
+import java.io.Closeable
 
 open class ApiClient(
         private val baseUrl: String,
         httpClientEngine: HttpClientEngine?,
         httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
         json: ObjectMapper,
-) {
+): Closeable, AutoCloseable {
 
     /**
      * This client can be updated if the end user installs an additional ktor plugin after config.
      */
     private var client: HttpClient
+    private val closed = false
 
     init {
         client = httpClientEngine?.let {
@@ -140,6 +142,17 @@ open class ApiClient(
         auth.accountToken = accountToken
     }
 
+    /**
+     * Closes this client and cleans up the HttpClient. If the http engine was explicetely provided it won't close it,
+     * inline with [io.ktor.client.HttpClient]
+     */
+    @Synchronized override fun close() {
+        if (!closed) {
+            // if the http engine was specifically provided, ktor won't close it, see io.ktor.client.HttpClient
+            client.close()
+        }
+    }
+
     protected suspend fun <T: Any?> multipartFormRequest(requestConfig: RequestConfig<T>, body: kotlin.collections.List<PartData>?, authNames: kotlin.collections.List<String>): HttpResponse {
         return request(requestConfig, MultiPartFormDataContent(body ?: listOf()), authNames)
     }
@@ -156,6 +169,8 @@ open class ApiClient(
 
     @Throws(ResponseException::class)
     protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
+        ensureNotClosed();
+
         requestConfig.updateForAuth<T>(authNames)
         val headers = requestConfig.headers
 
@@ -186,6 +201,12 @@ open class ApiClient(
 
     private fun URLBuilder.appendPath(components: kotlin.collections.List<String>): URLBuilder = apply {
         encodedPath = encodedPath.trimEnd('/') + components.joinToString("/", prefix = "/") { it.encodeURLQueryComponent() }
+    }
+
+    private fun ensureNotClosed() {
+        if (closed) {
+            throw RuntimeException("Client already closed")
+        }
     }
 
     private val RequestMethod.httpMethod: HttpMethod
