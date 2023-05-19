@@ -2,7 +2,7 @@
 
 ## Date: 2023-5-19
 
-- Bug Fixes
+- Added AutoCloseable to the base client (thanks PeopleLogic)
 
 # Version 2.0.7
 
