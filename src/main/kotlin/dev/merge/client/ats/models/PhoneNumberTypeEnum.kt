@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `HOME` - HOME * `WORK` - WORK * `MOBILE` - MOBILE * `SKYPE` - SKYPE * `OTHER` - OTHER
  *
  * Values: HOME,WORK,MOBILE,SKYPE,OTHER
  */

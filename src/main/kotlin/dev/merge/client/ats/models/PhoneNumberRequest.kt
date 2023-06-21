@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * # The PhoneNumber Object ### Description The `PhoneNumber` object is used to represent a candidate's phone number. ### Usage Example Fetch from the `GET Candidate` endpoint and view their phone numbers.
  *
  * @param `value` The phone number.
- * @param phoneNumberType The type of phone number.
+ * @param phoneNumberType The type of phone number.  * `HOME` - HOME * `WORK` - WORK * `MOBILE` - MOBILE * `SKYPE` - SKYPE * `OTHER` - OTHER
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -43,7 +43,7 @@ data class PhoneNumberRequest (
     @field:JsonProperty("value")
     val `value`: kotlin.String? = null,
 
-    /* The type of phone number. */
+    /* The type of phone number.  * `HOME` - HOME * `WORK` - WORK * `MOBILE` - MOBILE * `SKYPE` - SKYPE * `OTHER` - OTHER */
     @field:JsonProperty("phone_number_type")
     val phoneNumberType: PhoneNumberTypeEnum? = null,
 

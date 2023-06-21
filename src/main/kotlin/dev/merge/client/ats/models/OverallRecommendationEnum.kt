@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `DEFINITELY_NO` - DEFINITELY_NO * `NO` - NO * `YES` - YES * `STRONG_YES` - STRONG_YES * `NO_DECISION` - NO_DECISION
  *
  * Values: DEFINITELY_NO,NO,YES,STRONG_YES,NO_DECISION
  */

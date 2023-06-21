@@ -33,7 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param emails The marketing emails sent by this action.
  * @param messages The messages sent by this action.
  * @param name The action's name.
- * @param type The action's type.
+ * @param type The action's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -53,7 +53,7 @@ data class ActionRequest (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The action's type. */
+    /* The action's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE */
     @field:JsonProperty("type")
     val type: TypeEnum? = null,
 

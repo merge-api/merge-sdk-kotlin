@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `SYNCING` - SYNCING * `DONE` - DONE * `FAILED` - FAILED * `DISABLED` - DISABLED * `PAUSED` - PAUSED * `PARTIALLY_SYNCED` - PARTIALLY_SYNCED
  *
- * Values: SYNCING,DONE,FAILED,DISABLED,PAUSED
+ * Values: SYNCING,DONE,FAILED,DISABLED,PAUSED,PARTIALLY_SYNCED
  */
 enum class SyncStatusStatusEnum(val value: kotlin.String) {
 
@@ -53,7 +53,11 @@ enum class SyncStatusStatusEnum(val value: kotlin.String) {
 
 
     @JsonProperty(value = "PAUSED")
-    PAUSED("PAUSED");
+    PAUSED("PAUSED"),
+
+
+    @JsonProperty(value = "PARTIALLY_SYNCED")
+    PARTIALLY_SYNCED("PARTIALLY_SYNCED");
 
 
     /**

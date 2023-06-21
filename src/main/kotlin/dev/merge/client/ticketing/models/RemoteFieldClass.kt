@@ -20,6 +20,8 @@
 
 package dev.merge.client.ticketing.models
 
+import dev.merge.client.ticketing.models.FieldFormatEnum
+import dev.merge.client.ticketing.models.FieldTypeEnum
 import dev.merge.client.ticketing.models.ItemSchema
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -64,10 +66,10 @@ data class RemoteFieldClass (
     val isRequired: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_type")
-    val fieldType: kotlin.Boolean? = null,
+    val fieldType: FieldTypeEnum? = null,
 
     @field:JsonProperty("field_format")
-    val fieldFormat: kotlin.Boolean? = null,
+    val fieldFormat: FieldFormatEnum? = null,
 
     @field:JsonProperty("field_choices")
     val fieldChoices: kotlin.collections.List<kotlin.String>? = null,

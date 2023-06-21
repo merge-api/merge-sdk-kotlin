@@ -150,8 +150,8 @@ val expand : kotlin.String = candidate,job,credited_to,current_stage,reject_reas
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val jobId : kotlin.String = jobId_example // kotlin.String | If provided, will only return applications for this job.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val rejectReasonId : kotlin.String = rejectReasonId_example // kotlin.String | If provided, will only return applications with this reject reason.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
@@ -182,8 +182,8 @@ Name | Type | Description  | Notes
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **jobId** | **kotlin.String**| If provided, will only return applications for this job. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **rejectReasonId** | **kotlin.String**| If provided, will only return applications with this reject reason. | [optional]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]

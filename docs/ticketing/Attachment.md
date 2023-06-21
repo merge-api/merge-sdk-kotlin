@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **uploadedBy** | [**java.util.UUID**](java.util.UUID.md) | The user who uploaded the attachment. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s attachment was created. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**modifiedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | This is the datetime that this object was last updated by Merge |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 

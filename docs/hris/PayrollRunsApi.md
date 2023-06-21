@@ -30,12 +30,12 @@ val endedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.ti
 val endedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return payroll runs ended before this datetime.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteFields : kotlin.String = run_state,run_type // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
-val runType : kotlin.String = runType_example // kotlin.String | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
+val runType : kotlin.String = runType_example // kotlin.String | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')  * `REGULAR` - REGULAR * `OFF_CYCLE` - OFF_CYCLE * `CORRECTION` - CORRECTION * `TERMINATION` - TERMINATION * `SIGN_ON_BONUS` - SIGN_ON_BONUS
 val showEnumOrigins : kotlin.String = run_state,run_type // kotlin.String | Which fields should be returned in non-normalized form.
 val startedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return payroll runs started after this datetime.
 val startedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return payroll runs started before this datetime.
@@ -62,12 +62,12 @@ Name | Type | Description  | Notes
  **endedBefore** | **java.time.OffsetDateTime**| If provided, will only return payroll runs ended before this datetime. | [optional]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: run_state, run_state,run_type, run_type]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
- **runType** | **kotlin.String**| If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) | [optional] [enum: CORRECTION, OFF_CYCLE, REGULAR, SIGN_ON_BONUS, TERMINATION]
+ **runType** | **kotlin.String**| If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;)  * &#x60;REGULAR&#x60; - REGULAR * &#x60;OFF_CYCLE&#x60; - OFF_CYCLE * &#x60;CORRECTION&#x60; - CORRECTION * &#x60;TERMINATION&#x60; - TERMINATION * &#x60;SIGN_ON_BONUS&#x60; - SIGN_ON_BONUS | [optional] [enum: CORRECTION, OFF_CYCLE, REGULAR, SIGN_ON_BONUS, TERMINATION]
  **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: run_state, run_state,run_type, run_type]
  **startedAfter** | **java.time.OffsetDateTime**| If provided, will only return payroll runs started after this datetime. | [optional]
  **startedBefore** | **java.time.OffsetDateTime**| If provided, will only return payroll runs started before this datetime. | [optional]

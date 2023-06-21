@@ -35,6 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param name The office's name.
  * @param location The office's location.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -61,6 +62,10 @@ data class Office (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -86,6 +91,9 @@ data class Office (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -104,6 +112,7 @@ data class Office (
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 location = ApiClient.jsonConvertSafe(expanded.location),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

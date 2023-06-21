@@ -39,8 +39,9 @@ import dev.merge.client.shared.ApiClient
  * @param closedAt When the offer was closed.
  * @param sentAt When the offer was sent.
  * @param startDate The employment start date on the offer.
- * @param status The offer's status.
+ * @param status The offer's status.  * `DRAFT` - DRAFT * `APPROVAL-SENT` - APPROVAL-SENT * `APPROVED` - APPROVED * `SENT` - SENT * `SENT-MANUALLY` - SENT-MANUALLY * `OPENED` - OPENED * `DENIED` - DENIED * `SIGNED` - SIGNED * `DEPRECATED` - DEPRECATED
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -79,13 +80,17 @@ data class Offer (
     @field:JsonProperty("start_date")
     val startDate: java.time.OffsetDateTime? = null,
 
-    /* The offer's status. */
+    /* The offer's status.  * `DRAFT` - DRAFT * `APPROVAL-SENT` - APPROVAL-SENT * `APPROVED` - APPROVED * `SENT` - SENT * `SENT-MANUALLY` - SENT-MANUALLY * `OPENED` - OPENED * `DENIED` - DENIED * `SIGNED` - SIGNED * `DEPRECATED` - DEPRECATED */
     @field:JsonProperty("status")
     val status: OfferStatusEnum? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -127,6 +132,9 @@ data class Offer (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -150,6 +158,7 @@ data class Offer (
                 startDate = ApiClient.jsonConvertSafe(expanded.startDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

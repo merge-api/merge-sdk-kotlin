@@ -27,11 +27,12 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The Association Object ### Description The `Association` record refers to an instance of an Association Type. ### Usage Example TODO
  *
  * @param sourceObject 
  * @param targetObject 
  * @param associationType 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,7 +45,11 @@ data class Association (
     val targetObject: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("association_type")
-    val associationType: java.util.UUID? = null
+    val associationType: java.util.UUID? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -57,7 +62,10 @@ data class Association (
         val targetObject: JsonNode?,
 
         @field:JsonProperty("association_type")
-        val associationType: JsonNode?
+        val associationType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -68,7 +76,8 @@ data class Association (
             return Association(
                 sourceObject = ApiClient.jsonConvertSafe(expanded.sourceObject),
                 targetObject = ApiClient.jsonConvertSafe(expanded.targetObject),
-                associationType = ApiClient.jsonConvertSafe(expanded.associationType)
+                associationType = ApiClient.jsonConvertSafe(expanded.associationType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

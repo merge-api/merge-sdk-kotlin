@@ -32,14 +32,18 @@ import dev.merge.client.shared.ApiClient
  *
  * @param actions The actions performed by this automation.
  * @param name The automation's name.
- * @param triggerType The trigger type for running this automation.
+ * @param triggerType The trigger type for running this automation.  * `TRIGGER_EVENT` - TRIGGER_EVENT * `RECURRENCE` - RECURRENCE
  * @param startDate The automation's start date.
  * @param endDate The automation's end date.
  * @param description The automation’s description.
  * @param status The automation's status.
  * @param automationTrigger The trigger configuraton for the automation.
+ * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,7 +57,7 @@ data class Automation (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The trigger type for running this automation. */
+    /* The trigger type for running this automation.  * `TRIGGER_EVENT` - TRIGGER_EVENT * `RECURRENCE` - RECURRENCE */
     @field:JsonProperty("trigger_type")
     val triggerType: TriggerTypeEnum? = null,
 
@@ -77,12 +81,26 @@ data class Automation (
     @field:JsonProperty("automation_trigger")
     val automationTrigger: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
+    /* Indicates whether or not this object has been deleted by third party webhooks. */
+    @field:JsonProperty("remote_was_deleted")
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>? = null
 
 ) {
 
@@ -112,11 +130,23 @@ data class Automation (
         @field:JsonProperty("automation_trigger")
         val automationTrigger: JsonNode?,
 
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -133,8 +163,12 @@ data class Automation (
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 automationTrigger = ApiClient.jsonConvertSafe(expanded.automationTrigger),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

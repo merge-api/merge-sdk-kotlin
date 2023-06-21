@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `BILLING` - BILLING * `SHIPPING` - SHIPPING
  *
  * Values: BILLING,SHIPPING
  */

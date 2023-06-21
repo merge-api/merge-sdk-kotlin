@@ -23,14 +23,7 @@ docs/CommentEndpointRequest.md
 docs/CommentRequest.md
 docs/CommentResponse.md
 docs/CommentsApi.md
-docs/CommonModelScopeData.md
-docs/CommonModelScopes.md
-docs/CommonModelScopesApi.md
 docs/CommonModelScopesBodyRequest.md
-docs/CommonModelScopesDisabledModels.md
-docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPostInnerDeserializerRequest.md
-docs/CommonModelScopesUpdateSerializer.md
 docs/ConditionSchema.md
 docs/ConditionTypeEnum.md
 docs/Contact.md
@@ -43,6 +36,8 @@ docs/EnabledActionsEnum.md
 docs/EncodingEnum.md
 docs/EndUserDetailsRequest.md
 docs/ErrorValidationProblem.md
+docs/FieldFormatEnum.md
+docs/FieldTypeEnum.md
 docs/ForceResyncApi.md
 docs/GenerateKeyApi.md
 docs/GenerateRemoteKeyRequest.md
@@ -73,6 +68,7 @@ docs/ProjectsApi.md
 docs/RegenerateKeyApi.md
 docs/RemoteField.md
 docs/RemoteFieldClass.md
+docs/RemoteFieldRequest.md
 docs/RemoteKey.md
 docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
@@ -109,7 +105,6 @@ src/main/kotlin/dev/merge/client/ticketing/apis/AttachmentsApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/CollectionsApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/CommentsApi.kt
-src/main/kotlin/dev/merge/client/ticketing/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/ContactsApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/DeleteAccountApi.kt
 src/main/kotlin/dev/merge/client/ticketing/apis/ForceResyncApi.kt
@@ -145,13 +140,7 @@ src/main/kotlin/dev/merge/client/ticketing/models/Comment.kt
 src/main/kotlin/dev/merge/client/ticketing/models/CommentEndpointRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/CommentRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/CommentResponse.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopeData.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopes.kt
 src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopesBodyRequest.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopesDisabledModels.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopesPostInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/ticketing/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/ticketing/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/ticketing/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/Contact.kt
@@ -162,6 +151,8 @@ src/main/kotlin/dev/merge/client/ticketing/models/EnabledActionsEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/EncodingEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/EndUserDetailsRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/ErrorValidationProblem.kt
+src/main/kotlin/dev/merge/client/ticketing/models/FieldFormatEnum.kt
+src/main/kotlin/dev/merge/client/ticketing/models/FieldTypeEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/GenerateRemoteKeyRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/Issue.kt
 src/main/kotlin/dev/merge/client/ticketing/models/IssueStatusEnum.kt
@@ -184,6 +175,7 @@ src/main/kotlin/dev/merge/client/ticketing/models/PriorityEnum.kt
 src/main/kotlin/dev/merge/client/ticketing/models/Project.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteField.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteFieldClass.kt
+src/main/kotlin/dev/merge/client/ticketing/models/RemoteFieldRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteKey.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteKeyForRegenerationRequest.kt
 src/main/kotlin/dev/merge/client/ticketing/models/RemoteResponse.kt

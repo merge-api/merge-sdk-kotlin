@@ -14,6 +14,8 @@
 
     * `PAUSED` (value: `"PAUSED"`)
 
+    * `PARTIALLY_SYNCED` (value: `"PARTIALLY_SYNCED"`)
+
     * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

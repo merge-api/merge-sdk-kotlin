@@ -32,14 +32,7 @@ docs/CategoriesEnum.md
 docs/CategoryEnum.md
 docs/CategoryTypeEnum.md
 docs/ClassificationEnum.md
-docs/CommonModelScopeData.md
-docs/CommonModelScopes.md
-docs/CommonModelScopesApi.md
 docs/CommonModelScopesBodyRequest.md
-docs/CommonModelScopesDisabledModels.md
-docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPostInnerDeserializerRequest.md
-docs/CommonModelScopesUpdateSerializer.md
 docs/CompanyInfo.md
 docs/CompanyInfoApi.md
 docs/ConditionSchema.md
@@ -161,7 +154,6 @@ src/main/kotlin/dev/merge/client/accounting/apis/AttachmentsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/BalanceSheetsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CashFlowStatementsApi.kt
-src/main/kotlin/dev/merge/client/accounting/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CompanyInfoApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/ContactsApi.kt
 src/main/kotlin/dev/merge/client/accounting/apis/CreditNotesApi.kt
@@ -214,13 +206,7 @@ src/main/kotlin/dev/merge/client/accounting/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/CategoryTypeEnum.kt
 src/main/kotlin/dev/merge/client/accounting/models/ClassificationEnum.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopeData.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopes.kt
 src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesBodyRequest.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModels.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesPostInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/accounting/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/accounting/models/CompanyInfo.kt
 src/main/kotlin/dev/merge/client/accounting/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/accounting/models/ConditionTypeEnum.kt

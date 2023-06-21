@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `RESUME` - RESUME * `COVER_LETTER` - COVER_LETTER * `OFFER_LETTER` - OFFER_LETTER * `OTHER` - OTHER
  *
  * Values: RESUME,COVER_LETTER,OFFER_LETTER,OTHER
  */

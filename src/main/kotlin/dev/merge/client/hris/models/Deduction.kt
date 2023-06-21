@@ -20,6 +20,7 @@
 
 package dev.merge.client.hris.models
 
+import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -30,12 +31,15 @@ import dev.merge.client.shared.ApiClient
  * # The Deduction Object ### Description The `Deduction` object is used to represent an array of the wages withheld from total earnings for the purpose of paying taxes.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
  *
  * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param employeePayrollRun 
  * @param name The deduction's name.
  * @param employeeDeduction The amount of money that is withheld from an employee's gross pay by the employee.
  * @param companyDeduction The amount of money that is withheld on behalf of an employee by the company.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,6 +47,10 @@ data class Deduction (
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
 
     @field:JsonProperty("employee_payroll_run")
     val employeePayrollRun: java.util.UUID? = null,
@@ -53,18 +61,25 @@ data class Deduction (
 
     /* The amount of money that is withheld from an employee's gross pay by the employee. */
     @field:JsonProperty("employee_deduction")
-    val employeeDeduction: kotlin.Float? = null,
+    val employeeDeduction: kotlin.Double? = null,
 
     /* The amount of money that is withheld on behalf of an employee by the company. */
     @field:JsonProperty("company_deduction")
-    val companyDeduction: kotlin.Float? = null,
+    val companyDeduction: kotlin.Double? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
     @field:JsonProperty("field_mappings")
-    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -72,6 +87,9 @@ data class Deduction (
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("employee_payroll_run")
         val employeePayrollRun: JsonNode?,
@@ -88,8 +106,14 @@ data class Deduction (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
-        val fieldMappings: JsonNode?
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -99,12 +123,15 @@ data class Deduction (
         fun normalize(expanded: Deduction.Expanded): Deduction {
             return Deduction(
                 id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 employeeDeduction = ApiClient.jsonConvertSafe(expanded.employeeDeduction),
                 companyDeduction = ApiClient.jsonConvertSafe(expanded.companyDeduction),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
-                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings)
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

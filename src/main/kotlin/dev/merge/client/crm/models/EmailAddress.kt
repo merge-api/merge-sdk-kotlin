@@ -31,6 +31,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param emailAddress The email address.
  * @param emailAddressType The email address's type.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,7 +43,11 @@ data class EmailAddress (
 
     /* The email address's type. */
     @field:JsonProperty("email_address_type")
-    val emailAddressType: kotlin.String? = null
+    val emailAddressType: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -52,7 +57,10 @@ data class EmailAddress (
         val emailAddress: JsonNode?,
 
         @field:JsonProperty("email_address_type")
-        val emailAddressType: JsonNode?
+        val emailAddressType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -62,7 +70,8 @@ data class EmailAddress (
         fun normalize(expanded: EmailAddress.Expanded): EmailAddress {
             return EmailAddress(
                 emailAddress = ApiClient.jsonConvertSafe(expanded.emailAddress),
-                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType)
+                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

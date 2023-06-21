@@ -36,7 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param isCustomer Whether the contact is a customer.
  * @param emailAddress The contact's email address.
  * @param taxNumber The contact's tax number.
- * @param status The contact's status
+ * @param status The contact's status  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED
  * @param currency The currency the contact's transactions are in.
  * @param company The company the contact belongs to.
  * @param addresses `Address` object IDs for the given `Contacts` object.
@@ -68,7 +68,7 @@ data class ContactRequest (
     @field:JsonProperty("tax_number")
     val taxNumber: kotlin.String? = null,
 
-    /* The contact's status */
+    /* The contact's status  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED */
     @field:JsonProperty("status")
     val status: Status7d1Enum? = null,
 

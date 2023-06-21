@@ -1,3 +1,10 @@
+# Version 2.0.9
+
+## Date: 2023-6-21
+
+- various model updates and fixes
+- new enum for partially synced linked account status
+
 # Version 2.0.8 
 
 ## Date: 2023-5-19

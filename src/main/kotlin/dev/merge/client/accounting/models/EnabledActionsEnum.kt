@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `READ` - READ * `WRITE` - WRITE
  *
  * Values: READ,WRITE
  */

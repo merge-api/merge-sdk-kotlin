@@ -31,7 +31,8 @@ import dev.merge.client.shared.ApiClient
  * # The Url Object ### Description The `Url` object is used to represent hyperlinks associated with the parent model. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
  *
  * @param `value` The site's url.
- * @param urlType The type of site.
+ * @param urlType The type of site.  * `PERSONAL` - PERSONAL * `COMPANY` - COMPANY * `PORTFOLIO` - PORTFOLIO * `BLOG` - BLOG * `SOCIAL_MEDIA` - SOCIAL_MEDIA * `OTHER` - OTHER * `JOB_POSTING` - JOB_POSTING
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -41,9 +42,13 @@ data class Url (
     @field:JsonProperty("value")
     val `value`: java.net.URI? = null,
 
-    /* The type of site. */
+    /* The type of site.  * `PERSONAL` - PERSONAL * `COMPANY` - COMPANY * `PORTFOLIO` - PORTFOLIO * `BLOG` - BLOG * `SOCIAL_MEDIA` - SOCIAL_MEDIA * `OTHER` - OTHER * `JOB_POSTING` - JOB_POSTING */
     @field:JsonProperty("url_type")
-    val urlType: UrlTypeEnum? = null
+    val urlType: UrlTypeEnum? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -53,7 +58,10 @@ data class Url (
         val `value`: JsonNode?,
 
         @field:JsonProperty("url_type")
-        val urlType: JsonNode?
+        val urlType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -63,7 +71,8 @@ data class Url (
         fun normalize(expanded: Url.Expanded): Url {
             return Url(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                urlType = ApiClient.jsonConvertSafe(expanded.urlType)
+                urlType = ApiClient.jsonConvertSafe(expanded.urlType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

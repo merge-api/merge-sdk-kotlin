@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `GET` - GET * `OPTIONS` - OPTIONS * `HEAD` - HEAD * `POST` - POST * `PUT` - PUT * `PATCH` - PATCH * `DELETE` - DELETE
  *
  * Values: GET,OPTIONS,HEAD,POST,PUT,PATCH,DELETE
  */

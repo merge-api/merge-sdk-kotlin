@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `SUPER_ADMIN` - SUPER_ADMIN * `ADMIN` - ADMIN * `TEAM_MEMBER` - TEAM_MEMBER * `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER * `INTERVIEWER` - INTERVIEWER
  *
  * Values: SUPER_ADMIN,ADMIN,TEAM_MEMBER,LIMITED_TEAM_MEMBER,INTERVIEWER
  */

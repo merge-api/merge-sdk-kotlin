@@ -20,6 +20,7 @@
 
 package dev.merge.client.hris.models
 
+import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -30,11 +31,15 @@ import dev.merge.client.shared.ApiClient
  * # The Tax Object ### Description The `Tax` object is used to represent an array of the tax deductions for a given employee's payroll run.  ### Usage Example Fetch from the `LIST Taxes` endpoint and filter by `ID` to show all taxes.
  *
  * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param employeePayrollRun 
  * @param name The tax's name.
  * @param amount The tax amount.
  * @param employerTax Whether or not the employer is responsible for paying the tax.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,6 +47,10 @@ data class Tax (
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
+
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
 
     @field:JsonProperty("employee_payroll_run")
     val employeePayrollRun: java.util.UUID? = null,
@@ -52,7 +61,7 @@ data class Tax (
 
     /* The tax amount. */
     @field:JsonProperty("amount")
-    val amount: kotlin.Float? = null,
+    val amount: kotlin.Double? = null,
 
     /* Whether or not the employer is responsible for paying the tax. */
     @field:JsonProperty("employer_tax")
@@ -60,7 +69,17 @@ data class Tax (
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -68,6 +87,9 @@ data class Tax (
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("employee_payroll_run")
         val employeePayrollRun: JsonNode?,
@@ -82,7 +104,16 @@ data class Tax (
         val employerTax: JsonNode?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -92,11 +123,15 @@ data class Tax (
         fun normalize(expanded: Tax.Expanded): Tax {
             return Tax(
                 id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 amount = ApiClient.jsonConvertSafe(expanded.amount),
                 employerTax = ApiClient.jsonConvertSafe(expanded.employerTax),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

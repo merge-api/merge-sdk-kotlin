@@ -23,9 +23,9 @@ package dev.merge.client.ats.apis
 import dev.merge.client.ats.models.Candidate
 import dev.merge.client.ats.models.CandidateEndpointRequest
 import dev.merge.client.ats.models.CandidateResponse
-import dev.merge.client.ats.models.IgnoreCommonModel
 import dev.merge.client.ats.models.IgnoreCommonModelRequest
 import dev.merge.client.ats.models.MetaResponse
+import dev.merge.client.ats.models.PatchedCandidateEndpointRequest
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -75,6 +75,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val pageSize: kotlin.Int? = null,
         val remoteId: kotlin.String? = null,
         val tags: kotlin.String? = null
+    )
+
+    data class CandidatesMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class CandidatesPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedCandidateEndpointRequest: PatchedCandidateEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
     )
 
     data class CandidatesRetrieveRequest (
@@ -145,28 +156,26 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * Ignores a specific row based on the &#x60;model_id&#x60; in the url. These records will have their properties set to null, and will not be updated in future syncs. The \&quot;reason\&quot; and \&quot;message\&quot; fields in the request body will be stored for audit purposes.
      * @param modelId  
      * @param ignoreCommonModelRequest  
-     * @return IgnoreCommonModel
+     * @return void
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun candidatesIgnoreCreate(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): IgnoreCommonModel {
+    open suspend fun candidatesIgnoreCreate(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): Unit {
         return candidatesIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun candidatesIgnoreCreateAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+    open fun candidatesIgnoreCreateAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         candidatesIgnoreCreate(requestModel)
     }
 
     /**
      * @param modelId   * @param ignoreCommonModelRequest  
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun candidatesIgnoreCreateExpanded(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+    open suspend fun candidatesIgnoreCreateExpanded(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): Unit {
         return candidatesIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun candidatesIgnoreCreateExpandedAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+    open fun candidatesIgnoreCreateExpandedAsync(requestModel: CandidatesApi.CandidatesIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         candidatesIgnoreCreateExpanded(requestModel)
     }
 
@@ -206,8 +215,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param lastName If provided, will only return candidates with this last name. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @param tags If provided, will only return candidates with these tags; multiple tags can be separated by commas. (optional)
@@ -224,7 +233,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param emailAddresses If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param tags If provided, will only return candidates with these tags; multiple tags can be separated by commas. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param emailAddresses If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return candidates with this first name. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param lastName If provided, will only return candidates with this last name. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param tags If provided, will only return candidates with these tags; multiple tags can be separated by commas. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun candidatesListExpanded(requestModel: CandidatesApi.CandidatesListRequest): MergePaginatedResponse<Candidate.Expanded> {
@@ -264,6 +273,60 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
         "/candidates",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Candidate&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesMetaPatchRetrieve(requestModel: CandidatesApi.CandidatesMetaPatchRetrieveRequest): MetaResponse {
+        return candidatesMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesMetaPatchRetrieveAsync(requestModel: CandidatesApi.CandidatesMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        candidatesMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesMetaPatchRetrieveExpanded(requestModel: CandidatesApi.CandidatesMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return candidatesMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesMetaPatchRetrieveExpandedAsync(requestModel: CandidatesApi.CandidatesMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        candidatesMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesMetaPatchRetrieveImpl(requestModel: CandidatesApi.CandidatesMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/candidates/meta/patch/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -322,6 +385,64 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Updates a &#x60;Candidate&#x60; object with the given &#x60;id&#x60;.
+     * @param id  
+     * @param patchedCandidateEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return CandidateResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesPartialUpdate(requestModel: CandidatesApi.CandidatesPartialUpdateRequest): CandidateResponse {
+        return candidatesPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesPartialUpdateAsync(requestModel: CandidatesApi.CandidatesPartialUpdateRequest): CompletableFuture<CandidateResponse> = GlobalScope.future {
+        candidatesPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedCandidateEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun candidatesPartialUpdateExpanded(requestModel: CandidatesApi.CandidatesPartialUpdateRequest): CandidateResponse.Expanded {
+        return candidatesPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun candidatesPartialUpdateExpandedAsync(requestModel: CandidatesApi.CandidatesPartialUpdateRequest): CompletableFuture<CandidateResponse.Expanded> = GlobalScope.future {
+        candidatesPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> candidatesPartialUpdateImpl(requestModel: CandidatesApi.CandidatesPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedCandidateEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/candidates/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

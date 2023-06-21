@@ -24,15 +24,15 @@ Returns a list of &#x60;Collection&#x60; objects.
 //import dev.merge.client.ticketing.models.*
 
 val apiInstance = CollectionsApi()
-val collectionType : kotlin.String = collectionType_example // kotlin.String | If provided, will only return collections of the given type.
+val collectionType : kotlin.String = collectionType_example // kotlin.String | If provided, will only return collections of the given type.  * `LIST` - LIST * `PROJECT` - PROJECT
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
 val expand : kotlin.String = parent_collection // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val parentCollectionId : kotlin.String = parentCollectionId_example // kotlin.String | If provided, will only return collections whose parent collection matches the given id.
 val remoteFields : kotlin.String = collection_type // kotlin.String | Deprecated. Use show_enum_origins.
@@ -54,15 +54,15 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **collectionType** | **kotlin.String**| If provided, will only return collections of the given type. | [optional] [enum: LIST, PROJECT]
+ **collectionType** | **kotlin.String**| If provided, will only return collections of the given type.  * &#x60;LIST&#x60; - LIST * &#x60;PROJECT&#x60; - PROJECT | [optional] [enum: LIST, PROJECT]
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: parent_collection]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **parentCollectionId** | **kotlin.String**| If provided, will only return collections whose parent collection matches the given id. | [optional]
  **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: collection_type]

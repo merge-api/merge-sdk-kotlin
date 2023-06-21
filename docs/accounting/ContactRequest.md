@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **isCustomer** | **kotlin.Boolean** | Whether the contact is a customer. |  [optional]
 **emailAddress** | **kotlin.String** | The contact&#39;s email address. |  [optional]
 **taxNumber** | **kotlin.String** | The contact&#39;s tax number. |  [optional]
-**status** | [**Status7d1Enum**](Status7d1Enum.md) | The contact&#39;s status |  [optional]
+**status** | [**Status7d1Enum**](Status7d1Enum.md) | The contact&#39;s status  * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;ARCHIVED&#x60; - ARCHIVED |  [optional]
 **currency** | **kotlin.String** | The currency the contact&#39;s transactions are in. |  [optional]
 **company** | [**java.util.UUID**](java.util.UUID.md) | The company the contact belongs to. |  [optional]
 **addresses** | [**kotlin.collections.List&lt;java.util.UUID&gt;**](java.util.UUID.md) | &#x60;Address&#x60; object IDs for the given &#x60;Contacts&#x60; object. |  [optional]

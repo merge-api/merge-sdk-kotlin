@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent a candidate's email address. ### Usage Example Fetch from the `GET Candidate` endpoint and view their email addresses.
  *
  * @param `value` The email address.
- * @param emailAddressType The type of email address.
+ * @param emailAddressType The type of email address.  * `PERSONAL` - PERSONAL * `WORK` - WORK * `OTHER` - OTHER
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -43,7 +43,7 @@ data class EmailAddressRequest (
     @field:JsonProperty("value")
     val `value`: kotlin.String? = null,
 
-    /* The type of email address. */
+    /* The type of email address.  * `PERSONAL` - PERSONAL * `WORK` - WORK * `OTHER` - OTHER */
     @field:JsonProperty("email_address_type")
     val emailAddressType: EmailAddressTypeEnum? = null,
 

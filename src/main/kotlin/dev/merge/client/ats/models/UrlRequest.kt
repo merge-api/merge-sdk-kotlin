@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * # The Url Object ### Description The `Url` object is used to represent hyperlinks associated with the parent model. ### Usage Example Fetch from the `GET Candidate` endpoint and view their website urls.
  *
  * @param `value` The site's url.
- * @param urlType The type of site.
+ * @param urlType The type of site.  * `PERSONAL` - PERSONAL * `COMPANY` - COMPANY * `PORTFOLIO` - PORTFOLIO * `BLOG` - BLOG * `SOCIAL_MEDIA` - SOCIAL_MEDIA * `OTHER` - OTHER * `JOB_POSTING` - JOB_POSTING
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -43,7 +43,7 @@ data class UrlRequest (
     @field:JsonProperty("value")
     val `value`: java.net.URI? = null,
 
-    /* The type of site. */
+    /* The type of site.  * `PERSONAL` - PERSONAL * `COMPANY` - COMPANY * `PORTFOLIO` - PORTFOLIO * `BLOG` - BLOG * `SOCIAL_MEDIA` - SOCIAL_MEDIA * `OTHER` - OTHER * `JOB_POSTING` - JOB_POSTING */
     @field:JsonProperty("url_type")
     val urlType: UrlTypeEnum? = null,
 

@@ -21,6 +21,9 @@
 package dev.merge.client.crm.apis
 
 import dev.merge.client.crm.models.AssociationType
+import dev.merge.client.crm.models.CRMAssociationTypeEndpointRequest
+import dev.merge.client.crm.models.CRMAssociationTypeResponse
+import dev.merge.client.crm.models.MetaResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -44,7 +47,15 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
-    data class AssociationTypesListRequest (
+    data class CustomObjectClassesAssociationTypesCreateRequest (
+        val customObjectClassId: java.util.UUID,
+        val crMAssociationTypeEndpointRequest: CRMAssociationTypeEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
+    data class CustomObjectClassesAssociationTypesListRequest (
+        val customObjectClassId: java.util.UUID,
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
         val cursor: kotlin.String? = null,
@@ -57,7 +68,12 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteId: kotlin.String? = null
     )
 
-    data class AssociationTypesRetrieveRequest (
+    data class CustomObjectClassesAssociationTypesMetaPostRetrieveRequest (
+        val customObjectClassId: java.util.UUID
+    )
+
+    data class CustomObjectClassesAssociationTypesRetrieveRequest (
+        val customObjectClassId: java.util.UUID,
         val id: java.util.UUID,
         val expand: kotlin.String? = null,
         val includeRemoteData: kotlin.Boolean? = null
@@ -65,43 +81,102 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Creates an &#x60;AssociationType&#x60; object with the given values.
+     * @param customObjectClassId  
+     * @param crMAssociationTypeEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return CRMAssociationTypeResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun customObjectClassesAssociationTypesCreate(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesCreateRequest): CRMAssociationTypeResponse {
+        return customObjectClassesAssociationTypesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun customObjectClassesAssociationTypesCreateAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesCreateRequest): CompletableFuture<CRMAssociationTypeResponse> = GlobalScope.future {
+        customObjectClassesAssociationTypesCreate(requestModel)
+    }
+
+    /**
+     * @param customObjectClassId   * @param crMAssociationTypeEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun customObjectClassesAssociationTypesCreateExpanded(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesCreateRequest): CRMAssociationTypeResponse.Expanded {
+        return customObjectClassesAssociationTypesCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun customObjectClassesAssociationTypesCreateExpandedAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesCreateRequest): CompletableFuture<CRMAssociationTypeResponse.Expanded> = GlobalScope.future {
+        customObjectClassesAssociationTypesCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> customObjectClassesAssociationTypesCreateImpl(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.crMAssociationTypeEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/custom-object-classes/{custom_object_class_id}/association-types".replace("{" + "custom_object_class_id" + "}", "${ requestModel.customObjectClassId }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a list of &#x60;AssociationType&#x60; objects.
+     * @param customObjectClassId  
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @return PaginatedAssociationTypeList
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun associationTypesList(requestModel: AssociationTypesApi.AssociationTypesListRequest): MergePaginatedResponse<AssociationType> {
-        return associationTypesListImpl(requestModel)
+    open suspend fun customObjectClassesAssociationTypesList(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesListRequest): MergePaginatedResponse<AssociationType> {
+        return customObjectClassesAssociationTypesListImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun associationTypesListAsync(requestModel: AssociationTypesApi.AssociationTypesListRequest): CompletableFuture<MergePaginatedResponse<AssociationType>> = GlobalScope.future {
-        associationTypesList(requestModel)
+    open fun customObjectClassesAssociationTypesListAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesListRequest): CompletableFuture<MergePaginatedResponse<AssociationType>> = GlobalScope.future {
+        customObjectClassesAssociationTypesList(requestModel)
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param customObjectClassId   * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun associationTypesListExpanded(requestModel: AssociationTypesApi.AssociationTypesListRequest): MergePaginatedResponse<AssociationType.Expanded> {
-        return associationTypesListImpl(requestModel)
+    open suspend fun customObjectClassesAssociationTypesListExpanded(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesListRequest): MergePaginatedResponse<AssociationType.Expanded> {
+        return customObjectClassesAssociationTypesListImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun associationTypesListExpandedAsync(requestModel: AssociationTypesApi.AssociationTypesListRequest): CompletableFuture<MergePaginatedResponse<AssociationType.Expanded>> = GlobalScope.future {
-        associationTypesListExpanded(requestModel)
+    open fun customObjectClassesAssociationTypesListExpandedAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesListRequest): CompletableFuture<MergePaginatedResponse<AssociationType.Expanded>> = GlobalScope.future {
+        customObjectClassesAssociationTypesListExpanded(requestModel)
     }
 
-    private suspend inline fun <reified T> associationTypesListImpl(requestModel: AssociationTypesApi.AssociationTypesListRequest): T {
+    private suspend inline fun <reified T> customObjectClassesAssociationTypesListImpl(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesListRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -124,7 +199,61 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/association-types",
+        "/custom-object-classes/{custom_object_class_id}/association-types".replace("{" + "custom_object_class_id" + "}", "${ requestModel.customObjectClassId }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;CRMAssociationType&#x60; POSTs.
+     * @param customObjectClassId  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun customObjectClassesAssociationTypesMetaPostRetrieve(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesMetaPostRetrieveRequest): MetaResponse {
+        return customObjectClassesAssociationTypesMetaPostRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun customObjectClassesAssociationTypesMetaPostRetrieveAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesMetaPostRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        customObjectClassesAssociationTypesMetaPostRetrieve(requestModel)
+    }
+
+    /**
+     * @param customObjectClassId  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun customObjectClassesAssociationTypesMetaPostRetrieveExpanded(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesMetaPostRetrieveRequest): MetaResponse.Expanded {
+        return customObjectClassesAssociationTypesMetaPostRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun customObjectClassesAssociationTypesMetaPostRetrieveExpandedAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesMetaPostRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        customObjectClassesAssociationTypesMetaPostRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> customObjectClassesAssociationTypesMetaPostRetrieveImpl(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesMetaPostRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/custom-object-classes/{custom_object_class_id}/association-types/meta/post".replace("{" + "custom_object_class_id" + "}", "${ requestModel.customObjectClassId }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )
@@ -139,35 +268,36 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     /**
     * 
     * Returns an &#x60;AssociationType&#x60; object with the given &#x60;id&#x60;.
+     * @param customObjectClassId  
      * @param id  
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @return AssociationType
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun associationTypesRetrieve(requestModel: AssociationTypesApi.AssociationTypesRetrieveRequest): AssociationType {
-        return associationTypesRetrieveImpl(requestModel)
+    open suspend fun customObjectClassesAssociationTypesRetrieve(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesRetrieveRequest): AssociationType {
+        return customObjectClassesAssociationTypesRetrieveImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun associationTypesRetrieveAsync(requestModel: AssociationTypesApi.AssociationTypesRetrieveRequest): CompletableFuture<AssociationType> = GlobalScope.future {
-        associationTypesRetrieve(requestModel)
+    open fun customObjectClassesAssociationTypesRetrieveAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesRetrieveRequest): CompletableFuture<AssociationType> = GlobalScope.future {
+        customObjectClassesAssociationTypesRetrieve(requestModel)
     }
 
     /**
-     * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+     * @param customObjectClassId   * @param id   * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun associationTypesRetrieveExpanded(requestModel: AssociationTypesApi.AssociationTypesRetrieveRequest): AssociationType.Expanded {
-        return associationTypesRetrieveImpl(requestModel)
+    open suspend fun customObjectClassesAssociationTypesRetrieveExpanded(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesRetrieveRequest): AssociationType.Expanded {
+        return customObjectClassesAssociationTypesRetrieveImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun associationTypesRetrieveExpandedAsync(requestModel: AssociationTypesApi.AssociationTypesRetrieveRequest): CompletableFuture<AssociationType.Expanded> = GlobalScope.future {
-        associationTypesRetrieveExpanded(requestModel)
+    open fun customObjectClassesAssociationTypesRetrieveExpandedAsync(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesRetrieveRequest): CompletableFuture<AssociationType.Expanded> = GlobalScope.future {
+        customObjectClassesAssociationTypesRetrieveExpanded(requestModel)
     }
 
-    private suspend inline fun <reified T> associationTypesRetrieveImpl(requestModel: AssociationTypesApi.AssociationTypesRetrieveRequest): T {
+    private suspend inline fun <reified T> customObjectClassesAssociationTypesRetrieveImpl(requestModel: AssociationTypesApi.CustomObjectClassesAssociationTypesRetrieveRequest): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -182,7 +312,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
         RequestMethod.GET,
-        "/association-types/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        "/custom-object-classes/{custom_object_class_id}/association-types/{id}".replace("{" + "custom_object_class_id" + "}", "${ requestModel.customObjectClassId }").replace("{" + "id" + "}", "${ requestModel.id }"),
         query = localVariableQuery,
         headers = localVariableHeaders
         )

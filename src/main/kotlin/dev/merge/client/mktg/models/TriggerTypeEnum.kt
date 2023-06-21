@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `TRIGGER_EVENT` - TRIGGER_EVENT * `RECURRENCE` - RECURRENCE
  *
  * Values: TRIGGER_EVENT,RECURRENCE
  */

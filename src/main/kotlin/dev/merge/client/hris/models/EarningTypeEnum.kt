@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `SALARY` - SALARY * `REIMBURSEMENT` - REIMBURSEMENT * `OVERTIME` - OVERTIME * `BONUS` - BONUS
  *
  * Values: SALARY,REIMBURSEMENT,OVERTIME,BONUS
  */

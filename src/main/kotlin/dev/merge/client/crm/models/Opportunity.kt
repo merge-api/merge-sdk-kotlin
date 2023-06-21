@@ -38,13 +38,14 @@ import dev.merge.client.shared.ApiClient
  * @param owner The opportunity's owner.
  * @param account The account of the opportunity.
  * @param stage The stage of the opportunity.
- * @param status The opportunity's status.
+ * @param status The opportunity's status.  * `OPEN` - OPEN * `WON` - WON * `LOST` - LOST
  * @param lastActivityAt When the opportunity's last activity occurred.
  * @param closeDate When the opportunity was closed.
  * @param remoteCreatedAt When the third party's opportunity was created.
  * @param remoteWasDeleted 
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  * @param remoteFields 
@@ -77,7 +78,7 @@ data class Opportunity (
     @field:JsonProperty("stage")
     val stage: java.util.UUID? = null,
 
-    /* The opportunity's status. */
+    /* The opportunity's status.  * `OPEN` - OPEN * `WON` - WON * `LOST` - LOST */
     @field:JsonProperty("status")
     val status: OpportunityStatusEnum? = null,
 
@@ -102,6 +103,10 @@ data class Opportunity (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -155,6 +160,9 @@ data class Opportunity (
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -184,6 +192,7 @@ data class Opportunity (
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)

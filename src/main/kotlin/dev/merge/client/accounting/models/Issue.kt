@@ -32,7 +32,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param errorDescription 
  * @param id 
- * @param status 
+ * @param status Status of the issue. Options: ('ONGOING', 'RESOLVED')  * `ONGOING` - ONGOING * `RESOLVED` - RESOLVED
  * @param endUser 
  * @param firstIncidentTime 
  * @param lastIncidentTime 
@@ -49,6 +49,7 @@ data class Issue (
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
+    /* Status of the issue. Options: ('ONGOING', 'RESOLVED')  * `ONGOING` - ONGOING * `RESOLVED` - RESOLVED */
     @field:JsonProperty("status")
     val status: IssueStatusEnum? = null,
 

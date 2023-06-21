@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `IN_NEXT_SYNC` - IN_NEXT_SYNC * `IN_LAST_SYNC` - IN_LAST_SYNC
  *
  * Values: NEXT_SYNC,LAST_SYNC
  */

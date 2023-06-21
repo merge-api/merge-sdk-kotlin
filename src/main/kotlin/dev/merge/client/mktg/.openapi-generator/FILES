@@ -19,14 +19,7 @@ docs/CampaignRequest.md
 docs/CampaignsApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
-docs/CommonModelScopeData.md
-docs/CommonModelScopes.md
-docs/CommonModelScopesApi.md
 docs/CommonModelScopesBodyRequest.md
-docs/CommonModelScopesDisabledModels.md
-docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPostInnerDeserializerRequest.md
-docs/CommonModelScopesUpdateSerializer.md
 docs/ConditionSchema.md
 docs/ConditionTypeEnum.md
 docs/Contact.md
@@ -114,7 +107,6 @@ src/main/kotlin/dev/merge/client/mktg/apis/ActionsApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/AutomationsApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/CampaignsApi.kt
-src/main/kotlin/dev/merge/client/mktg/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/ContactsApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/DeleteAccountApi.kt
 src/main/kotlin/dev/merge/client/mktg/apis/EmailsApi.kt
@@ -148,13 +140,7 @@ src/main/kotlin/dev/merge/client/mktg/models/Campaign.kt
 src/main/kotlin/dev/merge/client/mktg/models/CampaignRequest.kt
 src/main/kotlin/dev/merge/client/mktg/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/mktg/models/CategoryEnum.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopeData.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopes.kt
 src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopesBodyRequest.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopesDisabledModels.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopesPostInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/mktg/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/mktg/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/mktg/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/mktg/models/Contact.kt

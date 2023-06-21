@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `OPEN` - OPEN * `WON` - WON * `LOST` - LOST
  *
  * Values: OPEN,WON,LOST
  */

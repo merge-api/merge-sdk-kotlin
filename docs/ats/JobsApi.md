@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="jobsList"></a>
 # **jobsList**
-> PaginatedJobList jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, status)
+> PaginatedJobList jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, offices, pageSize, remoteFields, remoteId, showEnumOrigins, status)
 
 
 
@@ -30,15 +30,16 @@ val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCU
 val expand : kotlin.String = departments,offices,hiring_managers,recruiters // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
+val offices : kotlin.String = offices_example // kotlin.String | If provided, will only return jobs for this office; multiple offices can be separated by commas.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteFields : kotlin.String = status // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 val showEnumOrigins : kotlin.String = status // kotlin.String | Which fields should be returned in non-normalized form.
-val status : kotlin.String = status_example // kotlin.String | If provided, will only return jobs with this status. Options: ('OPEN', 'CLOSED', 'DRAFT', 'ARCHIVED', 'PENDING')
+val status : kotlin.String = status_example // kotlin.String | If provided, will only return jobs with this status. Options: ('OPEN', 'CLOSED', 'DRAFT', 'ARCHIVED', 'PENDING')  * `OPEN` - OPEN * `CLOSED` - CLOSED * `DRAFT` - DRAFT * `ARCHIVED` - ARCHIVED * `PENDING` - PENDING
 try {
-    val result : PaginatedJobList = apiInstance.jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteFields, remoteId, showEnumOrigins, status)
+    val result : PaginatedJobList = apiInstance.jobsList(code, createdAfter, createdBefore, cursor, expand, includeDeletedData, includeRemoteData, modifiedAfter, modifiedBefore, offices, pageSize, remoteFields, remoteId, showEnumOrigins, status)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling JobsApi#jobsList")
@@ -60,13 +61,14 @@ Name | Type | Description  | Notes
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: departments, departments,hiring_managers, departments,hiring_managers,recruiters, departments,offices, departments,offices,hiring_managers, departments,offices,hiring_managers,recruiters, departments,offices,recruiters, departments,recruiters, hiring_managers, hiring_managers,recruiters, offices, offices,hiring_managers, offices,hiring_managers,recruiters, offices,recruiters, recruiters]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
+ **offices** | **kotlin.String**| If provided, will only return jobs for this office; multiple offices can be separated by commas. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: status]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
  **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: status]
- **status** | **kotlin.String**| If provided, will only return jobs with this status. Options: (&#39;OPEN&#39;, &#39;CLOSED&#39;, &#39;DRAFT&#39;, &#39;ARCHIVED&#39;, &#39;PENDING&#39;) | [optional] [enum: ARCHIVED, CLOSED, DRAFT, OPEN, PENDING]
+ **status** | **kotlin.String**| If provided, will only return jobs with this status. Options: (&#39;OPEN&#39;, &#39;CLOSED&#39;, &#39;DRAFT&#39;, &#39;ARCHIVED&#39;, &#39;PENDING&#39;)  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;DRAFT&#x60; - DRAFT * &#x60;ARCHIVED&#x60; - ARCHIVED * &#x60;PENDING&#x60; - PENDING | [optional] [enum: ARCHIVED, CLOSED, DRAFT, OPEN, PENDING]
 
 ### Return type
 

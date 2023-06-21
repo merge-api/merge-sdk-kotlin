@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * # The CustomObjectClass Object ### Description The Custom Object Class object is used to represent a Custom Object Schema in the remote system. ### Usage Example TODO
+ * # The Custom Object Class Object ### Description The `Custom Object Class` object is used to represent a Custom Object Schema in the remote system. ### Usage Example TODO
  *
  * @param name 
  * @param description 
@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param associationTypes 
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -62,7 +63,10 @@ data class CustomObjectClass (
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -87,7 +91,10 @@ data class CustomObjectClass (
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -102,7 +109,8 @@ data class CustomObjectClass (
                 fields = ApiClient.jsonConvertSafe(expanded.fields),
                 associationTypes = ApiClient.jsonConvertSafe(expanded.associationTypes),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

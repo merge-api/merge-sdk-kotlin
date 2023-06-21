@@ -20,6 +20,7 @@
 
 package dev.merge.client.crm.models
 
+import dev.merge.client.crm.models.RemoteFieldRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -38,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param lastActivityAt The last date (either most recent or furthest in the future) of when an activity occurs in an account.
  * @param integrationParams 
  * @param linkedAccountParams 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -75,7 +77,10 @@ data class PatchedAccountRequest (
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("linked_account_params")
-    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteFieldRequest>? = null
 
 ) {
 
@@ -106,7 +111,10 @@ data class PatchedAccountRequest (
         val integrationParams: JsonNode?,
 
         @field:JsonProperty("linked_account_params")
-        val linkedAccountParams: JsonNode?
+        val linkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -123,7 +131,8 @@ data class PatchedAccountRequest (
                 numberOfEmployees = ApiClient.jsonConvertSafe(expanded.numberOfEmployees),
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
-                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

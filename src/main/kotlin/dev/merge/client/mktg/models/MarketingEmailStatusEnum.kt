@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `DRAFT` - DRAFT * `QUEUED` - QUEUED * `SENT` - SENT
  *
  * Values: DRAFT,QUEUED,SENT
  */

@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `SCHEDULED` - SCHEDULED * `AWAITING_FEEDBACK` - AWAITING_FEEDBACK * `COMPLETE` - COMPLETE
  *
  * Values: SCHEDULED,AWAITING_FEEDBACK,COMPLETE
  */

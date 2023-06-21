@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `TEAM` - TEAM * `DEPARTMENT` - DEPARTMENT * `COST_CENTER` - COST_CENTER * `BUSINESS_UNIT` - BUSINESS_UNIT * `GROUP` - GROUP
  *
- * Values: TEAM,DEPARTMENT,COST_CENTER,BUSINESS_UNIT
+ * Values: TEAM,DEPARTMENT,COST_CENTER,BUSINESS_UNIT,GROUP
  */
 enum class GroupTypeEnum(val value: kotlin.String) {
 
@@ -49,7 +49,11 @@ enum class GroupTypeEnum(val value: kotlin.String) {
 
 
     @JsonProperty(value = "BUSINESS_UNIT")
-    BUSINESS_UNIT("BUSINESS_UNIT");
+    BUSINESS_UNIT("BUSINESS_UNIT"),
+
+
+    @JsonProperty(value = "GROUP")
+    GROUP("GROUP");
 
 
     /**

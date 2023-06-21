@@ -265,11 +265,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional)
-     * @param priority If provided, will only return tickets of this priority. (optional)
+     * @param priority If provided, will only return tickets of this priority.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW (optional)
      * @param projectId If provided, will only return tickets for this project. (optional)
      * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional)
      * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional)
@@ -278,7 +278,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional)
      * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional)
      * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
-     * @param status If provided, will only return tickets of this status. (optional)
+     * @param status If provided, will only return tickets of this status.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD (optional)
      * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional)
      * @param ticketType If provided, will only return tickets of this type. (optional)
      * @return PaginatedTicketList
@@ -294,7 +294,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountId If provided, will only return tickets for this account. (optional) * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional) * @param collectionIds If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. (optional) * @param completedAfter If provided, will only return tickets completed after this datetime. (optional) * @param completedBefore If provided, will only return tickets completed before this datetime. (optional) * @param contactId If provided, will only return tickets for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param dueAfter If provided, will only return tickets due after this datetime. (optional) * @param dueBefore If provided, will only return tickets due before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional) * @param priority If provided, will only return tickets of this priority. (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional) * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional) * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param status If provided, will only return tickets of this status. (optional) * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional) * @param ticketType If provided, will only return tickets of this type. (optional)
+     * @param accountId If provided, will only return tickets for this account. (optional) * @param assigneeIds If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional) * @param collectionIds If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. (optional) * @param completedAfter If provided, will only return tickets completed after this datetime. (optional) * @param completedBefore If provided, will only return tickets completed before this datetime. (optional) * @param contactId If provided, will only return tickets for this contact. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param dueAfter If provided, will only return tickets due after this datetime. (optional) * @param dueBefore If provided, will only return tickets due before this datetime. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param parentTicketId If provided, will only return sub tickets of the parent_ticket_id. (optional) * @param priority If provided, will only return tickets of this priority.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW (optional) * @param projectId If provided, will only return tickets for this project. (optional) * @param remoteCreatedAfter If provided, will only return tickets created in the third party platform after this datetime. (optional) * @param remoteCreatedBefore If provided, will only return tickets created in the third party platform before this datetime. (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param remoteUpdatedAfter If provided, will only return tickets updated in the third party platform after this datetime. (optional) * @param remoteUpdatedBefore If provided, will only return tickets updated in the third party platform before this datetime. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param status If provided, will only return tickets of this status.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD (optional) * @param tags If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional) * @param ticketType If provided, will only return tickets of this type. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun ticketsListExpanded(requestModel: TicketsApi.TicketsListRequest): MergePaginatedResponse<Ticket.Expanded> {
@@ -422,29 +422,29 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @return MetaResponse
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieve(queryParams: Map<String, String>): MetaResponse {
-        return ticketsMetaPostRetrieveImpl(queryParams)
+    open suspend fun ticketsMetaPostRetrieve(): MetaResponse {
+        return ticketsMetaPostRetrieveImpl()
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse> = GlobalScope.future {
-        ticketsMetaPostRetrieve(queryParams)
+    open fun ticketsMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        ticketsMetaPostRetrieve()
     }
 
     /**
     
     */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun ticketsMetaPostRetrieveExpanded(queryParams: Map<String, String>): MetaResponse.Expanded {
-        return ticketsMetaPostRetrieveImpl(queryParams)
+    open suspend fun ticketsMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return ticketsMetaPostRetrieveImpl()
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun ticketsMetaPostRetrieveExpandedAsync(queryParams: Map<String, String>): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
-        ticketsMetaPostRetrieveExpanded(queryParams)
+    open fun ticketsMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        ticketsMetaPostRetrieveExpanded()
     }
 
-    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(queryParams: Map<String, String>): T {
+    private suspend inline fun <reified T> ticketsMetaPostRetrieveImpl(): T {
 
         val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
 
@@ -452,9 +452,6 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
                 io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        for (kv in queryParams.entries) {
-            localVariableQuery[kv.key] = listOf(kv.value)
-        }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

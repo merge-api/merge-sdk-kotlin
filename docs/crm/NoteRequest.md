@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **opportunity** | [**java.util.UUID**](java.util.UUID.md) | The note&#39;s opportunity. |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**remoteFields** | [**kotlin.collections.List&lt;RemoteFieldRequest&gt;**](RemoteFieldRequest.md) |  |  [optional]
 
 
 

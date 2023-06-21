@@ -29,6 +29,7 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The ExpenseLine Object ### Description The `ExpenseLine` object is used to represent an expense's line items.  ### Usage Example Fetch from the `GET Expense` endpoint and view the expense's line items.
  *
+ * @param remoteId The third-party API ID of the matching object.
  * @param item The line's item.
  * @param netAmount The line's net amount.
  * @param trackingCategory 
@@ -37,7 +38,7 @@ import dev.merge.client.shared.ApiClient
  * @param account The expense's payment account.
  * @param contact The expense's contact.
  * @param description The description of the item that was purchased by the company.
- * @param remoteId The third-party API ID of the matching object.
+ * @param exchangeRate The expense line item's exchange rate.
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -45,13 +46,17 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ExpenseLineRequest (
 
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     /* The line's item. */
     @field:JsonProperty("item")
     val item: java.util.UUID? = null,
 
     /* The line's net amount. */
     @field:JsonProperty("net_amount")
-    val netAmount: kotlin.Float? = null,
+    val netAmount: kotlin.Double? = null,
 
     @field:JsonProperty("tracking_category")
     val trackingCategory: java.util.UUID? = null,
@@ -75,9 +80,9 @@ data class ExpenseLineRequest (
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
-    /* The third-party API ID of the matching object. */
-    @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null,
+    /* The expense line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
 
     @field:JsonProperty("integration_params")
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -89,6 +94,9 @@ data class ExpenseLineRequest (
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
+
         @field:JsonProperty("item")
         val item: JsonNode?,
 
@@ -113,8 +121,8 @@ data class ExpenseLineRequest (
         @field:JsonProperty("description")
         val description: JsonNode?,
 
-        @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?,
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
 
         @field:JsonProperty("integration_params")
         val integrationParams: JsonNode?,
@@ -129,6 +137,7 @@ data class ExpenseLineRequest (
         @JvmStatic
         fun normalize(expanded: ExpenseLineRequest.Expanded): ExpenseLineRequest {
             return ExpenseLineRequest(
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 item = ApiClient.jsonConvertSafe(expanded.item),
                 netAmount = ApiClient.jsonConvertSafe(expanded.netAmount),
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
@@ -137,7 +146,7 @@ data class ExpenseLineRequest (
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 contact = ApiClient.jsonConvertSafe(expanded.contact),
                 description = ApiClient.jsonConvertSafe(expanded.description),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
                 linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
             )

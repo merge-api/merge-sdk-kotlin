@@ -12,6 +12,8 @@
 
     * `BUSINESS_UNIT` (value: `"BUSINESS_UNIT"`)
 
+    * `GROUP` (value: `"GROUP"`)
+
     * `MERGE_NONSTANDARD_VALUE` (value: `MERGE_NONSTANDARD_VALUE`)
 
 

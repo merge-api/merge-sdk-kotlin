@@ -32,7 +32,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param name The name of the form field
  * @param `data` The data for the form field.
- * @param encoding The encoding of the value of `data`. Defaults to `RAW` if not defined.
+ * @param encoding The encoding of the value of `data`. Defaults to `RAW` if not defined.  * `RAW` - RAW * `BASE64` - BASE64 * `GZIP_BASE64` - GZIP_BASE64
  * @param fileName The file name of the form field, if the field is for a file.
  * @param contentType The MIME type of the file, if the field is for a file.
  */
@@ -48,7 +48,7 @@ data class MultipartFormFieldRequest (
     @field:JsonProperty("data")
     val `data`: kotlin.String,
 
-    /* The encoding of the value of `data`. Defaults to `RAW` if not defined. */
+    /* The encoding of the value of `data`. Defaults to `RAW` if not defined.  * `RAW` - RAW * `BASE64` - BASE64 * `GZIP_BASE64` - GZIP_BASE64 */
     @field:JsonProperty("encoding")
     val encoding: EncodingEnum? = null,
 

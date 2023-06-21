@@ -34,7 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
  * @param name The item's name.
- * @param status The item's status.
+ * @param status The item's status.  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED
  * @param unitPrice The item's unit price.
  * @param purchasePrice The price at which the item is purchased from a vendor.
  * @param purchaseAccount References the default account used to record a purchase of the item.
@@ -42,6 +42,7 @@ import dev.merge.client.shared.ApiClient
  * @param company The company the item belongs to.
  * @param remoteUpdatedAt When the third party's item note was updated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -60,17 +61,17 @@ data class Item (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The item's status. */
+    /* The item's status.  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED */
     @field:JsonProperty("status")
     val status: Status7d1Enum? = null,
 
     /* The item's unit price. */
     @field:JsonProperty("unit_price")
-    val unitPrice: kotlin.Float? = null,
+    val unitPrice: kotlin.Double? = null,
 
     /* The price at which the item is purchased from a vendor. */
     @field:JsonProperty("purchase_price")
-    val purchasePrice: kotlin.Float? = null,
+    val purchasePrice: kotlin.Double? = null,
 
     /* References the default account used to record a purchase of the item. */
     @field:JsonProperty("purchase_account")
@@ -91,6 +92,10 @@ data class Item (
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -135,6 +140,9 @@ data class Item (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -159,6 +167,7 @@ data class Item (
                 company = ApiClient.jsonConvertSafe(expanded.company),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

@@ -34,6 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param `value` The report item's value.
  * @param subItems 
  * @param company The company the report item belongs to.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -49,14 +50,18 @@ data class ReportItem (
 
     /* The report item's value. */
     @field:JsonProperty("value")
-    val `value`: kotlin.Float? = null,
+    val `value`: kotlin.Double? = null,
 
     @field:JsonProperty("sub_items")
     val subItems: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     /* The company the report item belongs to. */
     @field:JsonProperty("company")
-    val company: java.util.UUID? = null
+    val company: java.util.UUID? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -75,7 +80,10 @@ data class ReportItem (
         val subItems: JsonNode?,
 
         @field:JsonProperty("company")
-        val company: JsonNode?
+        val company: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -88,7 +96,8 @@ data class ReportItem (
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
                 subItems = ApiClient.jsonConvertSafe(expanded.subItems),
-                company = ApiClient.jsonConvertSafe(expanded.company)
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

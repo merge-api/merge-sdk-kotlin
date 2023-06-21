@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `HOUR` - HOUR * `DAY` - DAY * `WEEK` - WEEK * `EVERY_TWO_WEEKS` - EVERY_TWO_WEEKS * `SEMIMONTHLY` - SEMIMONTHLY * `MONTH` - MONTH * `QUARTER` - QUARTER * `EVERY_SIX_MONTHS` - EVERY_SIX_MONTHS * `YEAR` - YEAR
  *
  * Values: HOUR,DAY,WEEK,EVERY_TWO_WEEKS,SEMIMONTHLY,MONTH,QUARTER,EVERY_SIX_MONTHS,YEAR
  */

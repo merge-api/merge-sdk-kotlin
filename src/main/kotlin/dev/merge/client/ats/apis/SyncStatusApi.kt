@@ -51,7 +51,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
-    * Get syncing status. Possible values: &#x60;DISABLED&#x60;, &#x60;DONE&#x60;, &#x60;FAILED&#x60;, &#x60;PAUSED&#x60;, &#x60;SYNCING&#x60;
+    * Get syncing status. Possible values: &#x60;DISABLED&#x60;, &#x60;DONE&#x60;, &#x60;FAILED&#x60;, &#x60;PARTIALLY_SYNCED&#x60;, &#x60;PAUSED&#x60;, &#x60;SYNCING&#x60;
      * @param cursor The pagination cursor value. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @return PaginatedSyncStatusList

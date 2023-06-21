@@ -37,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -50,11 +51,11 @@ data class TaxRate (
 
     /* The tax rate's total tax rate. */
     @field:JsonProperty("total_tax_rate")
-    val totalTaxRate: kotlin.Float? = null,
+    val totalTaxRate: kotlin.Double? = null,
 
     /* The tax rate's effective tax rate. */
     @field:JsonProperty("effective_tax_rate")
-    val effectiveTaxRate: kotlin.Float? = null,
+    val effectiveTaxRate: kotlin.Double? = null,
 
     /* The company the tax rate belongs to. */
     @field:JsonProperty("company")
@@ -70,6 +71,10 @@ data class TaxRate (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -102,6 +107,9 @@ data class TaxRate (
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -122,6 +130,7 @@ data class TaxRate (
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

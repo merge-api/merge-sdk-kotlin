@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `HOURS` - HOURS * `DAYS` - DAYS
  *
  * Values: HOURS,DAYS
  */

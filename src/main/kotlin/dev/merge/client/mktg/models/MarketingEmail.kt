@@ -21,6 +21,7 @@
 package dev.merge.client.mktg.models
 
 import dev.merge.client.mktg.models.MarketingEmailStatusEnum
+import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -41,11 +42,15 @@ import dev.merge.client.shared.ApiClient
  * @param replyTo The marketing email's reply-to.
  * @param remoteCreatedAt When the marketing email was created in the remote system.
  * @param remoteUpdatedAt When the marketing email was last updated in the remote system.
- * @param status The marketing email's status.
+ * @param status The marketing email's status.  * `DRAFT` - DRAFT * `QUEUED` - QUEUED * `SENT` - SENT
  * @param sendDate When the marketing email was sent.
  * @param template The marketing email's template.
+ * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -95,7 +100,7 @@ data class MarketingEmail (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
-    /* The marketing email's status. */
+    /* The marketing email's status.  * `DRAFT` - DRAFT * `QUEUED` - QUEUED * `SENT` - SENT */
     @field:JsonProperty("status")
     val status: MarketingEmailStatusEnum? = null,
 
@@ -107,12 +112,26 @@ data class MarketingEmail (
     @field:JsonProperty("template")
     val template: java.util.UUID? = null,
 
+    /* Indicates whether or not this object has been deleted by third party webhooks. */
+    @field:JsonProperty("remote_was_deleted")
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -160,11 +179,23 @@ data class MarketingEmail (
         @field:JsonProperty("template")
         val template: JsonNode?,
 
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -187,8 +218,12 @@ data class MarketingEmail (
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 sendDate = ApiClient.jsonConvertSafe(expanded.sendDate),
                 template = ApiClient.jsonConvertSafe(expanded.template),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

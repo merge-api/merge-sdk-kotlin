@@ -11,8 +11,9 @@ Name | Type | Description | Notes
 **interviewer** | [**java.util.UUID**](java.util.UUID.md) | The interviewer doing the scoring. |  [optional]
 **remoteCreatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the third party&#39;s scorecard was created. |  [optional]
 **submittedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the scorecard was submitted. |  [optional]
-**overallRecommendation** | [**OverallRecommendationEnum**](OverallRecommendationEnum.md) | The inteviewer&#39;s recommendation. |  [optional]
+**overallRecommendation** | [**OverallRecommendationEnum**](OverallRecommendationEnum.md) | The inteviewer&#39;s recommendation.  * &#x60;DEFINITELY_NO&#x60; - DEFINITELY_NO * &#x60;NO&#x60; - NO * &#x60;YES&#x60; - YES * &#x60;STRONG_YES&#x60; - STRONG_YES * &#x60;NO_DECISION&#x60; - NO_DECISION |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional] [readonly]
+**modifiedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | This is the datetime that this object was last updated by Merge |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 

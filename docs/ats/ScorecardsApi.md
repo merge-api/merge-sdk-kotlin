@@ -32,8 +32,8 @@ val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to in
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val interviewId : kotlin.String = interviewId_example // kotlin.String | If provided, will only return scorecards for this interview.
 val interviewerId : kotlin.String = interviewerId_example // kotlin.String | If provided, will only return scorecards for this interviewer.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteFields : kotlin.String = overall_recommendation // kotlin.String | Deprecated. Use show_enum_origins.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
@@ -63,8 +63,8 @@ Name | Type | Description  | Notes
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **interviewId** | **kotlin.String**| If provided, will only return scorecards for this interview. | [optional]
  **interviewerId** | **kotlin.String**| If provided, will only return scorecards for this interviewer. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: overall_recommendation]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]

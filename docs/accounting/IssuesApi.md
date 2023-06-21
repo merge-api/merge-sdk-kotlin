@@ -31,11 +31,11 @@ val firstIncidentTimeAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:0
 val firstIncidentTimeBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return issues whose first incident time was before this datetime.
 val includeMuted : kotlin.String = includeMuted_example // kotlin.String | If True, will include muted issues
 val integrationName : kotlin.String = integrationName_example // kotlin.String | 
-val lastIncidentTimeAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return issues whose first incident time was after this datetime.
-val lastIncidentTimeBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return issues whose first incident time was before this datetime.
+val lastIncidentTimeAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return issues whose last incident time was after this datetime.
+val lastIncidentTimeBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return issues whose last incident time was before this datetime.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val startDate : kotlin.String = startDate_example // kotlin.String | If included, will only include issues whose most recent action occurred after this time
-val status : kotlin.String = status_example // kotlin.String | 
+val status : kotlin.String = status_example // kotlin.String | Status of the issue. Options: ('ONGOING', 'RESOLVED')  * `ONGOING` - ONGOING * `RESOLVED` - RESOLVED
 try {
     val result : PaginatedIssueList = apiInstance.issuesList(accountToken, cursor, endDate, endUserOrganizationName, firstIncidentTimeAfter, firstIncidentTimeBefore, includeMuted, integrationName, lastIncidentTimeAfter, lastIncidentTimeBefore, pageSize, startDate, status)
     println(result)
@@ -60,11 +60,11 @@ Name | Type | Description  | Notes
  **firstIncidentTimeBefore** | **java.time.OffsetDateTime**| If provided, will only return issues whose first incident time was before this datetime. | [optional]
  **includeMuted** | **kotlin.String**| If True, will include muted issues | [optional]
  **integrationName** | **kotlin.String**|  | [optional]
- **lastIncidentTimeAfter** | **java.time.OffsetDateTime**| If provided, will only return issues whose first incident time was after this datetime. | [optional]
- **lastIncidentTimeBefore** | **java.time.OffsetDateTime**| If provided, will only return issues whose first incident time was before this datetime. | [optional]
+ **lastIncidentTimeAfter** | **java.time.OffsetDateTime**| If provided, will only return issues whose last incident time was after this datetime. | [optional]
+ **lastIncidentTimeBefore** | **java.time.OffsetDateTime**| If provided, will only return issues whose last incident time was before this datetime. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **startDate** | **kotlin.String**| If included, will only include issues whose most recent action occurred after this time | [optional]
- **status** | **kotlin.String**|  | [optional] [enum: ONGOING, RESOLVED]
+ **status** | **kotlin.String**| Status of the issue. Options: (&#39;ONGOING&#39;, &#39;RESOLVED&#39;)  * &#x60;ONGOING&#x60; - ONGOING * &#x60;RESOLVED&#x60; - RESOLVED | [optional] [enum: ONGOING, RESOLVED]
 
 ### Return type
 

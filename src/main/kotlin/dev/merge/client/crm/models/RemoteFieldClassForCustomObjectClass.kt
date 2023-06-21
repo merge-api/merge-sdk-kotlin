@@ -20,8 +20,8 @@
 
 package dev.merge.client.crm.models
 
-import dev.merge.client.crm.models.FieldFormat556Enum
-import dev.merge.client.crm.models.FieldType556Enum
+import dev.merge.client.crm.models.FieldFormatEnum
+import dev.merge.client.crm.models.FieldTypeEnum
 import dev.merge.client.crm.models.RemoteFieldClassForCustomObjectClassItemSchema
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -40,6 +40,7 @@ import dev.merge.client.shared.ApiClient
  * @param fieldFormat 
  * @param fieldChoices 
  * @param itemSchema 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -58,16 +59,20 @@ data class RemoteFieldClassForCustomObjectClass (
     val isRequired: kotlin.Boolean? = null,
 
     @field:JsonProperty("field_type")
-    val fieldType: FieldType556Enum? = null,
+    val fieldType: FieldTypeEnum? = null,
 
     @field:JsonProperty("field_format")
-    val fieldFormat: FieldFormat556Enum? = null,
+    val fieldFormat: FieldFormatEnum? = null,
 
     @field:JsonProperty("field_choices")
     val fieldChoices: kotlin.collections.List<kotlin.String>? = null,
 
     @field:JsonProperty("item_schema")
-    val itemSchema: RemoteFieldClassForCustomObjectClassItemSchema? = null
+    val itemSchema: RemoteFieldClassForCustomObjectClassItemSchema? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -95,7 +100,10 @@ data class RemoteFieldClassForCustomObjectClass (
         val fieldChoices: kotlin.collections.List<JsonNode>?,
 
         @field:JsonProperty("item_schema")
-        val itemSchema: JsonNode?
+        val itemSchema: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -111,7 +119,8 @@ data class RemoteFieldClassForCustomObjectClass (
                 fieldType = ApiClient.jsonConvertSafe(expanded.fieldType),
                 fieldFormat = ApiClient.jsonConvertSafe(expanded.fieldFormat),
                 fieldChoices = ApiClient.jsonConvertSafe(expanded.fieldChoices),
-                itemSchema = ApiClient.jsonConvertSafe(expanded.itemSchema)
+                itemSchema = ApiClient.jsonConvertSafe(expanded.itemSchema),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

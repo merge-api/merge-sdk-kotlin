@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `CALL` - CALL * `MEETING` - MEETING * `EMAIL` - EMAIL
  *
  * Values: CALL,MEETING,EMAIL
  */

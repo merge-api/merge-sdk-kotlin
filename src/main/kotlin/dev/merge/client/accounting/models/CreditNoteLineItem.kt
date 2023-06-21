@@ -40,8 +40,9 @@ import dev.merge.client.shared.ApiClient
  * @param totalLineAmount The credit note line item's total.
  * @param trackingCategory The credit note line item's associated tracking category.
  * @param account The credit note line item's account.
- * @param company The company the credit note line item belongs to.
+ * @param company The company the credit note belongs to.
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -90,13 +91,17 @@ data class CreditNoteLineItem (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
-    /* The company the credit note line item belongs to. */
+    /* The company the credit note belongs to. */
     @field:JsonProperty("company")
     val company: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -139,7 +144,10 @@ data class CreditNoteLineItem (
         val company: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -160,7 +168,8 @@ data class CreditNoteLineItem (
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 company = ApiClient.jsonConvertSafe(expanded.company),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

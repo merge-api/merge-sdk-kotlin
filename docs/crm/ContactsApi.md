@@ -72,7 +72,7 @@ Configure bearerAuth:
 
 <a name="contactsIgnoreCreate"></a>
 # **contactsIgnoreCreate**
-> IgnoreCommonModel contactsIgnoreCreate(modelId, ignoreCommonModelRequest)
+> contactsIgnoreCreate(modelId, ignoreCommonModelRequest)
 
 
 
@@ -88,8 +88,7 @@ val apiInstance = ContactsApi()
 val modelId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 val ignoreCommonModelRequest : IgnoreCommonModelRequest =  // IgnoreCommonModelRequest | 
 try {
-    val result : IgnoreCommonModel = apiInstance.contactsIgnoreCreate(modelId, ignoreCommonModelRequest)
-    println(result)
+    apiInstance.contactsIgnoreCreate(modelId, ignoreCommonModelRequest)
 } catch (e: ClientException) {
     println("4xx response calling ContactsApi#contactsIgnoreCreate")
     e.printStackTrace()
@@ -108,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IgnoreCommonModel**](IgnoreCommonModel.md)
+null (empty response body)
 
 ### Authorization
 
@@ -122,7 +121,7 @@ Configure bearerAuth:
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="contactsList"></a>
 # **contactsList**
@@ -147,8 +146,8 @@ val expand : kotlin.String = account // kotlin.String | Which relations should b
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val includeRemoteFields : kotlin.Boolean = true // kotlin.Boolean | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provider's ID for the given object.
 try {
@@ -175,8 +174,8 @@ Name | Type | Description  | Notes
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **includeRemoteFields** | **kotlin.Boolean**| Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteId** | **kotlin.String**| The API provider&#39;s ID for the given object. | [optional]
 

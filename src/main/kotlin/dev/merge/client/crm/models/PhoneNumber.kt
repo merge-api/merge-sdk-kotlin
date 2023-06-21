@@ -31,6 +31,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param phoneNumber The phone number.
  * @param phoneNumberType The phone number's type.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,7 +43,11 @@ data class PhoneNumber (
 
     /* The phone number's type. */
     @field:JsonProperty("phone_number_type")
-    val phoneNumberType: kotlin.String? = null
+    val phoneNumberType: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -52,7 +57,10 @@ data class PhoneNumber (
         val phoneNumber: JsonNode?,
 
         @field:JsonProperty("phone_number_type")
-        val phoneNumberType: JsonNode?
+        val phoneNumberType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -62,7 +70,8 @@ data class PhoneNumber (
         fun normalize(expanded: PhoneNumber.Expanded): PhoneNumber {
             return PhoneNumber(
                 phoneNumber = ApiClient.jsonConvertSafe(expanded.phoneNumber),
-                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType)
+                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

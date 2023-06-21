@@ -9,6 +9,9 @@ docs/AccountToken.md
 docs/AccountTokenApi.md
 docs/ActivitiesApi.md
 docs/Activity.md
+docs/ActivityEndpointRequest.md
+docs/ActivityRequest.md
+docs/ActivityResponse.md
 docs/ActivityTypeEnum.md
 docs/Application.md
 docs/ApplicationEndpointRequest.md
@@ -30,14 +33,7 @@ docs/CandidateResponse.md
 docs/CandidatesApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
-docs/CommonModelScopeData.md
-docs/CommonModelScopes.md
-docs/CommonModelScopesApi.md
 docs/CommonModelScopesBodyRequest.md
-docs/CommonModelScopesDisabledModels.md
-docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPostInnerDeserializerRequest.md
-docs/CommonModelScopesUpdateSerializer.md
 docs/ConditionSchema.md
 docs/ConditionTypeEnum.md
 docs/DataPassthroughRequest.md
@@ -60,7 +56,6 @@ docs/ForceResyncApi.md
 docs/GenderEnum.md
 docs/GenerateKeyApi.md
 docs/GenerateRemoteKeyRequest.md
-docs/IgnoreCommonModel.md
 docs/IgnoreCommonModelRequest.md
 docs/InterviewsApi.md
 docs/Issue.md
@@ -92,6 +87,8 @@ docs/OfficesApi.md
 docs/OperatorSchema.md
 docs/OverallRecommendationEnum.md
 docs/PassthroughApi.md
+docs/PatchedCandidateEndpointRequest.md
+docs/PatchedCandidateRequest.md
 docs/PhoneNumber.md
 docs/PhoneNumberRequest.md
 docs/PhoneNumberTypeEnum.md
@@ -139,7 +136,6 @@ src/main/kotlin/dev/merge/client/ats/apis/ApplicationsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/AttachmentsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/CandidatesApi.kt
-src/main/kotlin/dev/merge/client/ats/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/DeleteAccountApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/DepartmentsApi.kt
 src/main/kotlin/dev/merge/client/ats/apis/EeocsApi.kt
@@ -170,6 +166,9 @@ src/main/kotlin/dev/merge/client/ats/models/AccountDetailsAndActionsStatusEnum.k
 src/main/kotlin/dev/merge/client/ats/models/AccountIntegration.kt
 src/main/kotlin/dev/merge/client/ats/models/AccountToken.kt
 src/main/kotlin/dev/merge/client/ats/models/Activity.kt
+src/main/kotlin/dev/merge/client/ats/models/ActivityEndpointRequest.kt
+src/main/kotlin/dev/merge/client/ats/models/ActivityRequest.kt
+src/main/kotlin/dev/merge/client/ats/models/ActivityResponse.kt
 src/main/kotlin/dev/merge/client/ats/models/ActivityTypeEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/Application.kt
 src/main/kotlin/dev/merge/client/ats/models/ApplicationEndpointRequest.kt
@@ -187,13 +186,7 @@ src/main/kotlin/dev/merge/client/ats/models/CandidateRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/CandidateResponse.kt
 src/main/kotlin/dev/merge/client/ats/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/CategoryEnum.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopeData.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopes.kt
 src/main/kotlin/dev/merge/client/ats/models/CommonModelScopesBodyRequest.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopesDisabledModels.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopesPostInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/ats/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/ats/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/ats/models/ConditionTypeEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/DataPassthroughRequest.kt
@@ -211,7 +204,6 @@ src/main/kotlin/dev/merge/client/ats/models/EndUserDetailsRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/ErrorValidationProblem.kt
 src/main/kotlin/dev/merge/client/ats/models/GenderEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/GenerateRemoteKeyRequest.kt
-src/main/kotlin/dev/merge/client/ats/models/IgnoreCommonModel.kt
 src/main/kotlin/dev/merge/client/ats/models/IgnoreCommonModelRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/Issue.kt
 src/main/kotlin/dev/merge/client/ats/models/IssueStatusEnum.kt
@@ -234,6 +226,8 @@ src/main/kotlin/dev/merge/client/ats/models/OfferStatusEnum.kt
 src/main/kotlin/dev/merge/client/ats/models/Office.kt
 src/main/kotlin/dev/merge/client/ats/models/OperatorSchema.kt
 src/main/kotlin/dev/merge/client/ats/models/OverallRecommendationEnum.kt
+src/main/kotlin/dev/merge/client/ats/models/PatchedCandidateEndpointRequest.kt
+src/main/kotlin/dev/merge/client/ats/models/PatchedCandidateRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/PhoneNumber.kt
 src/main/kotlin/dev/merge/client/ats/models/PhoneNumberRequest.kt
 src/main/kotlin/dev/merge/client/ats/models/PhoneNumberTypeEnum.kt

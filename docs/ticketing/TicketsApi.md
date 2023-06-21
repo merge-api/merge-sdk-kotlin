@@ -162,11 +162,11 @@ val expand : kotlin.String = attachments,assignees,collections,project,account,c
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 val includeRemoteFields : kotlin.Boolean = true // kotlin.Boolean | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val parentTicketId : kotlin.String = parentTicketId_example // kotlin.String | If provided, will only return sub tickets of the parent_ticket_id.
-val priority : kotlin.String = priority_example // kotlin.String | If provided, will only return tickets of this priority.
+val priority : kotlin.String = priority_example // kotlin.String | If provided, will only return tickets of this priority.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW
 val projectId : kotlin.String = projectId_example // kotlin.String | If provided, will only return tickets for this project.
 val remoteCreatedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets created in the third party platform after this datetime.
 val remoteCreatedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets created in the third party platform before this datetime.
@@ -175,7 +175,7 @@ val remoteId : kotlin.String = remoteId_example // kotlin.String | The API provi
 val remoteUpdatedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets updated in the third party platform after this datetime.
 val remoteUpdatedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return tickets updated in the third party platform before this datetime.
 val showEnumOrigins : kotlin.String = priority,status,ticket_type // kotlin.String | Which fields should be returned in non-normalized form.
-val status : kotlin.String = status_example // kotlin.String | If provided, will only return tickets of this status.
+val status : kotlin.String = status_example // kotlin.String | If provided, will only return tickets of this status.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD
 val tags : kotlin.String = tags_example // kotlin.String | If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 val ticketType : kotlin.String = ticketType_example // kotlin.String | If provided, will only return tickets of this type.
 try {
@@ -209,11 +209,11 @@ Name | Type | Description  | Notes
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
  **includeRemoteFields** | **kotlin.Boolean**| Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **parentTicketId** | **kotlin.String**| If provided, will only return sub tickets of the parent_ticket_id. | [optional]
- **priority** | **kotlin.String**| If provided, will only return tickets of this priority. | [optional] [enum: HIGH, LOW, NORMAL, URGENT]
+ **priority** | **kotlin.String**| If provided, will only return tickets of this priority.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW | [optional] [enum: HIGH, LOW, NORMAL, URGENT]
  **projectId** | **kotlin.String**| If provided, will only return tickets for this project. | [optional]
  **remoteCreatedAfter** | **java.time.OffsetDateTime**| If provided, will only return tickets created in the third party platform after this datetime. | [optional]
  **remoteCreatedBefore** | **java.time.OffsetDateTime**| If provided, will only return tickets created in the third party platform before this datetime. | [optional]
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
  **remoteUpdatedAfter** | **java.time.OffsetDateTime**| If provided, will only return tickets updated in the third party platform after this datetime. | [optional]
  **remoteUpdatedBefore** | **java.time.OffsetDateTime**| If provided, will only return tickets updated in the third party platform before this datetime. | [optional]
  **showEnumOrigins** | **kotlin.String**| Which fields should be returned in non-normalized form. | [optional] [enum: priority, priority,status, priority,status,ticket_type, priority,ticket_type, status, status,ticket_type, ticket_type]
- **status** | **kotlin.String**| If provided, will only return tickets of this status. | [optional] [enum: CLOSED, IN_PROGRESS, ON_HOLD, OPEN]
+ **status** | **kotlin.String**| If provided, will only return tickets of this status.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD | [optional] [enum: CLOSED, IN_PROGRESS, ON_HOLD, OPEN]
  **tags** | **kotlin.String**| If provided, will only return tickets matching the tags; multiple tags can be separated by commas. | [optional]
  **ticketType** | **kotlin.String**| If provided, will only return tickets of this type. | [optional]
 

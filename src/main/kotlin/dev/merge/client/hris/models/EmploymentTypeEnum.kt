@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `FULL_TIME` - FULL_TIME * `PART_TIME` - PART_TIME * `INTERN` - INTERN * `CONTRACTOR` - CONTRACTOR * `FREELANCE` - FREELANCE
  *
  * Values: FULL_TIME,PART_TIME,INTERN,CONTRACTOR,FREELANCE
  */

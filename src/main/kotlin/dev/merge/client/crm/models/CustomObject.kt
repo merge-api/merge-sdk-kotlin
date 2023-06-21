@@ -28,12 +28,13 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The CustomObject Object ### Description The `Custom Object` record refers to an instance of a Custom Object Class. ### Usage Example TODO
  *
  * @param objectClass 
  * @param fields 
  * @param remoteId The third-party API ID of the matching object.
  * @param id 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param remoteFields 
  */
 
@@ -52,6 +53,10 @@ data class CustomObject (
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("remote_fields")
     val remoteFields: kotlin.collections.List<RemoteField>? = null
@@ -72,6 +77,9 @@ data class CustomObject (
         @field:JsonProperty("id")
         val id: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("remote_fields")
         val remoteFields: kotlin.collections.List<JsonNode>?
 
@@ -86,6 +94,7 @@ data class CustomObject (
                 fields = ApiClient.jsonConvertSafe(expanded.fields),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 id = ApiClient.jsonConvertSafe(expanded.id),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }

@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `NOTE` - NOTE * `EMAIL` - EMAIL * `OTHER` - OTHER
  *
  * Values: NOTE,EMAIL,OTHER
  */

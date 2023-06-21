@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **currentStage** | [**java.util.UUID**](java.util.UUID.md) | The application&#39;s current stage. |  [optional]
 **rejectReason** | [**java.util.UUID**](java.util.UUID.md) | The application&#39;s reason for rejection. |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** |  |  [optional] [readonly]
+**modifiedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | This is the datetime that this object was last updated by Merge |  [optional] [readonly]
 **fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
 **remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
