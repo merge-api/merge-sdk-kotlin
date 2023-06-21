@@ -36,6 +36,8 @@ import dev.merge.client.shared.ApiClient
  * @param squareImage Company logo in square shape. <b>Upload an image with a white background.</b>
  * @param color The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
  * @param slug 
+ * @param isInBeta If checked, this integration will not appear in the linking flow, and will appear elsewhere with a Beta tag.
+ * @param apiEndpointsToDocumentationUrls Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -62,7 +64,15 @@ data class AccountIntegration (
     val color: kotlin.String? = null,
 
     @field:JsonProperty("slug")
-    val slug: kotlin.String? = null
+    val slug: kotlin.String? = null,
+
+    /* If checked, this integration will not appear in the linking flow, and will appear elsewhere with a Beta tag. */
+    @field:JsonProperty("is_in_beta")
+    val isInBeta: kotlin.Boolean? = null,
+
+    /* Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []} */
+    @field:JsonProperty("api_endpoints_to_documentation_urls")
+    val apiEndpointsToDocumentationUrls: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
@@ -84,7 +94,13 @@ data class AccountIntegration (
         val color: JsonNode?,
 
         @field:JsonProperty("slug")
-        val slug: JsonNode?
+        val slug: JsonNode?,
+
+        @field:JsonProperty("is_in_beta")
+        val isInBeta: JsonNode?,
+
+        @field:JsonProperty("api_endpoints_to_documentation_urls")
+        val apiEndpointsToDocumentationUrls: JsonNode?
 
     )
 
@@ -98,7 +114,9 @@ data class AccountIntegration (
                 image = ApiClient.jsonConvertSafe(expanded.image),
                 squareImage = ApiClient.jsonConvertSafe(expanded.squareImage),
                 color = ApiClient.jsonConvertSafe(expanded.color),
-                slug = ApiClient.jsonConvertSafe(expanded.slug)
+                slug = ApiClient.jsonConvertSafe(expanded.slug),
+                isInBeta = ApiClient.jsonConvertSafe(expanded.isInBeta),
+                apiEndpointsToDocumentationUrls = ApiClient.jsonConvertSafe(expanded.apiEndpointsToDocumentationUrls)
             )
         }
     }

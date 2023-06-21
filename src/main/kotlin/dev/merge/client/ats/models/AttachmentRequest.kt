@@ -33,7 +33,7 @@ import dev.merge.client.shared.ApiClient
  * @param fileName The attachment's name.
  * @param fileUrl The attachment's url.
  * @param candidate 
- * @param attachmentType The attachment's type.
+ * @param attachmentType The attachment's type.  * `RESUME` - RESUME * `COVER_LETTER` - COVER_LETTER * `OFFER_LETTER` - OFFER_LETTER * `OTHER` - OTHER
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -53,7 +53,7 @@ data class AttachmentRequest (
     @field:JsonProperty("candidate")
     val candidate: java.util.UUID? = null,
 
-    /* The attachment's type. */
+    /* The attachment's type.  * `RESUME` - RESUME * `COVER_LETTER` - COVER_LETTER * `OFFER_LETTER` - OFFER_LETTER * `OTHER` - OTHER */
     @field:JsonProperty("attachment_type")
     val attachmentType: AttachmentTypeEnum? = null,
 

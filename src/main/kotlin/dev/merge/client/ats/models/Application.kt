@@ -41,6 +41,7 @@ import dev.merge.client.shared.ApiClient
  * @param currentStage The application's current stage.
  * @param rejectReason The application's reason for rejection.
  * @param remoteWasDeleted 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -90,6 +91,10 @@ data class Application (
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
 
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -133,6 +138,9 @@ data class Application (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -157,6 +165,7 @@ data class Application (
                 currentStage = ApiClient.jsonConvertSafe(expanded.currentStage),
                 rejectReason = ApiClient.jsonConvertSafe(expanded.rejectReason),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

@@ -20,7 +20,6 @@
 
 package dev.merge.client.crm.apis
 
-import dev.merge.client.crm.models.IgnoreCommonModel
 import dev.merge.client.crm.models.IgnoreCommonModelRequest
 import dev.merge.client.crm.models.RemoteFieldClass
 import dev.merge.client.crm.models.User
@@ -84,28 +83,26 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * Ignores a specific row based on the &#x60;model_id&#x60; in the url. These records will have their properties set to null, and will not be updated in future syncs. The \&quot;reason\&quot; and \&quot;message\&quot; fields in the request body will be stored for audit purposes.
      * @param modelId  
      * @param ignoreCommonModelRequest  
-     * @return IgnoreCommonModel
+     * @return void
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun usersIgnoreCreate(requestModel: UsersApi.UsersIgnoreCreateRequest): IgnoreCommonModel {
+    open suspend fun usersIgnoreCreate(requestModel: UsersApi.UsersIgnoreCreateRequest): Unit {
         return usersIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun usersIgnoreCreateAsync(requestModel: UsersApi.UsersIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+    open fun usersIgnoreCreateAsync(requestModel: UsersApi.UsersIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         usersIgnoreCreate(requestModel)
     }
 
     /**
      * @param modelId   * @param ignoreCommonModelRequest  
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun usersIgnoreCreateExpanded(requestModel: UsersApi.UsersIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+    open suspend fun usersIgnoreCreateExpanded(requestModel: UsersApi.UsersIgnoreCreateRequest): Unit {
         return usersIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun usersIgnoreCreateExpandedAsync(requestModel: UsersApi.UsersIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+    open fun usersIgnoreCreateExpandedAsync(requestModel: UsersApi.UsersIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         usersIgnoreCreateExpanded(requestModel)
     }
 
@@ -142,8 +139,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @return PaginatedUserList
@@ -159,7 +156,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun usersListExpanded(requestModel: UsersApi.UsersListRequest): MergePaginatedResponse<User.Expanded> {

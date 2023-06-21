@@ -34,7 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param id The ID of the condition schema. This ID is used when updating selective syncs for a linked account.
  * @param nativeName User-facing *native condition* name. e.g. \"Skip Manager\".
  * @param fieldName The name of the field on the common model that this condition corresponds to, if they conceptually match. e.g. \"location_type\".
- * @param conditionType 
+ * @param conditionType The type of value(s) that can be set for this condition.  * `BOOLEAN` - BOOLEAN * `DATE` - DATE * `DATE_TIME` - DATE_TIME * `INTEGER` - INTEGER * `FLOAT` - FLOAT * `STRING` - STRING * `LIST_OF_STRINGS` - LIST_OF_STRINGS
  * @param operators The schemas for the operators that can be used on a condition.
  * @param commonModel The common model for which a condition schema is defined.
  * @param isUnique Whether this condition can only be applied once. If false, the condition can be AND'd together multiple times.
@@ -55,8 +55,9 @@ data class ConditionSchema (
     @field:JsonProperty("field_name")
     val fieldName: kotlin.String?,
 
+    /* The type of value(s) that can be set for this condition.  * `BOOLEAN` - BOOLEAN * `DATE` - DATE * `DATE_TIME` - DATE_TIME * `INTEGER` - INTEGER * `FLOAT` - FLOAT * `STRING` - STRING * `LIST_OF_STRINGS` - LIST_OF_STRINGS */
     @field:JsonProperty("condition_type")
-    val conditionType: ConditionTypeEnum,
+    val conditionType: ConditionTypeEnum?,
 
     /* The schemas for the operators that can be used on a condition. */
     @field:JsonProperty("operators")

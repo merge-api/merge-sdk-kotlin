@@ -34,7 +34,9 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param name Standard stage names are offered by ATS systems but can be modified by users.
  * @param job This field is populated only if the stage is specific to a particular job. If the stage is generic, this field will not be populated.
+ * @param stageOrder The stage’s order, with the lowest values ordered first. If the third-party does not return details on the order of stages, this field will not be populated.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -57,9 +59,17 @@ data class JobInterviewStage (
     @field:JsonProperty("job")
     val job: java.util.UUID? = null,
 
+    /* The stage’s order, with the lowest values ordered first. If the third-party does not return details on the order of stages, this field will not be populated. */
+    @field:JsonProperty("stage_order")
+    val stageOrder: kotlin.Int? = null,
+
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -83,8 +93,14 @@ data class JobInterviewStage (
         @field:JsonProperty("job")
         val job: JsonNode?,
 
+        @field:JsonProperty("stage_order")
+        val stageOrder: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
 
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
@@ -103,7 +119,9 @@ data class JobInterviewStage (
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 job = ApiClient.jsonConvertSafe(expanded.job),
+                stageOrder = ApiClient.jsonConvertSafe(expanded.stageOrder),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

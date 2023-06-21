@@ -36,12 +36,14 @@ import dev.merge.client.shared.ApiClient
  * @param content The task's content.
  * @param owner The task's owner.
  * @param account The task's account.
+ * @param opportunity The task's opportunity.
  * @param completedDate When the task is completed.
  * @param dueDate When the task is due.
- * @param status The task's status.
+ * @param status The task's status.  * `OPEN` - OPEN * `CLOSED` - CLOSED
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  * @param remoteFields 
@@ -66,6 +68,10 @@ data class Task (
     @field:JsonProperty("account")
     val account: java.util.UUID? = null,
 
+    /* The task's opportunity. */
+    @field:JsonProperty("opportunity")
+    val opportunity: java.util.UUID? = null,
+
     /* When the task is completed. */
     @field:JsonProperty("completed_date")
     val completedDate: java.time.OffsetDateTime? = null,
@@ -74,7 +80,7 @@ data class Task (
     @field:JsonProperty("due_date")
     val dueDate: java.time.OffsetDateTime? = null,
 
-    /* The task's status. */
+    /* The task's status.  * `OPEN` - OPEN * `CLOSED` - CLOSED */
     @field:JsonProperty("status")
     val status: TaskStatusEnum? = null,
 
@@ -88,6 +94,10 @@ data class Task (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -114,6 +124,9 @@ data class Task (
         @field:JsonProperty("account")
         val account: JsonNode?,
 
+        @field:JsonProperty("opportunity")
+        val opportunity: JsonNode?,
+
         @field:JsonProperty("completed_date")
         val completedDate: JsonNode?,
 
@@ -131,6 +144,9 @@ data class Task (
 
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
 
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
@@ -152,12 +168,14 @@ data class Task (
                 content = ApiClient.jsonConvertSafe(expanded.content),
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 account = ApiClient.jsonConvertSafe(expanded.account),
+                opportunity = ApiClient.jsonConvertSafe(expanded.opportunity),
                 completedDate = ApiClient.jsonConvertSafe(expanded.completedDate),
                 dueDate = ApiClient.jsonConvertSafe(expanded.dueDate),
                 status = ApiClient.jsonConvertSafe(expanded.status),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)

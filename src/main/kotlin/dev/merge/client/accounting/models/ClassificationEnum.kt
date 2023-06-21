@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `ASSET` - ASSET * `EQUITY` - EQUITY * `EXPENSE` - EXPENSE * `LIABILITY` - LIABILITY * `REVENUE` - REVENUE
  *
  * Values: ASSET,EQUITY,EXPENSE,LIABILITY,REVENUE
  */

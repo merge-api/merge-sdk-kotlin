@@ -31,7 +31,7 @@ import dev.merge.client.shared.ApiClient
  * # The Template Object ### Description The `Template` object is used to represent a template for a marketing asset in the remote system. ### Usage Example Fetch from the `GET /api/mktg/v1/templates` endpoint and view their content properties.
  *
  * @param name The template's name.
- * @param type The template's type.
+ * @param type The template's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE
  * @param contents The template contents.
  * @param owner The template's owner.
  * @param integrationParams 
@@ -45,7 +45,7 @@ data class TemplateRequest (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The template's type. */
+    /* The template's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE */
     @field:JsonProperty("type")
     val type: TypeEnum? = null,
 

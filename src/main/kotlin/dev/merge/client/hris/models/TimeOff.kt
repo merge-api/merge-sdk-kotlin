@@ -37,14 +37,15 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param employee The employee requesting time off.
  * @param approver The Merge ID of the employee with the ability to approve the time off request.
- * @param status The status of this time off request.
+ * @param status The status of this time off request.  * `REQUESTED` - REQUESTED * `APPROVED` - APPROVED * `DECLINED` - DECLINED * `CANCELLED` - CANCELLED * `DELETED` - DELETED
  * @param employeeNote The employee note for this time off request.
- * @param units The measurement that the third-party integration uses to count time requested.
+ * @param units The measurement that the third-party integration uses to count time requested.  * `HOURS` - HOURS * `DAYS` - DAYS
  * @param amount The time off quantity measured by the prescribed “units”.
- * @param requestType The type of time off request.
+ * @param requestType The type of time off request.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
  * @param startTime The day and time of the start of the time requested off.
  * @param endTime The day and time of the end of the time requested off.
  * @param remoteWasDeleted 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -67,7 +68,7 @@ data class TimeOff (
     @field:JsonProperty("approver")
     val approver: java.util.UUID? = null,
 
-    /* The status of this time off request. */
+    /* The status of this time off request.  * `REQUESTED` - REQUESTED * `APPROVED` - APPROVED * `DECLINED` - DECLINED * `CANCELLED` - CANCELLED * `DELETED` - DELETED */
     @field:JsonProperty("status")
     val status: TimeOffStatusEnum? = null,
 
@@ -75,15 +76,15 @@ data class TimeOff (
     @field:JsonProperty("employee_note")
     val employeeNote: kotlin.String? = null,
 
-    /* The measurement that the third-party integration uses to count time requested. */
+    /* The measurement that the third-party integration uses to count time requested.  * `HOURS` - HOURS * `DAYS` - DAYS */
     @field:JsonProperty("units")
     val units: UnitsEnum? = null,
 
     /* The time off quantity measured by the prescribed “units”. */
     @field:JsonProperty("amount")
-    val amount: kotlin.Float? = null,
+    val amount: kotlin.Double? = null,
 
-    /* The type of time off request. */
+    /* The type of time off request.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT */
     @field:JsonProperty("request_type")
     val requestType: RequestTypeEnum? = null,
 
@@ -97,6 +98,10 @@ data class TimeOff (
 
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -144,6 +149,9 @@ data class TimeOff (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -169,6 +177,7 @@ data class TimeOff (
                 startTime = ApiClient.jsonConvertSafe(expanded.startTime),
                 endTime = ApiClient.jsonConvertSafe(expanded.endTime),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

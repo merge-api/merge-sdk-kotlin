@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `PAID` - PAID * `DRAFT` - DRAFT * `APPROVED` - APPROVED * `FAILED` - FAILED * `CLOSED` - CLOSED
  *
  * Values: PAID,DRAFT,APPROVED,FAILED,CLOSED
  */

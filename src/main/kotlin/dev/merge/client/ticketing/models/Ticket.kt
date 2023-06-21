@@ -39,7 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param assignees 
  * @param creator The user who created this ticket.
  * @param dueDate The ticket's due date.
- * @param status The current status of the ticket.
+ * @param status The current status of the ticket.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD
  * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project The project the ticket belongs to.
  * @param collections 
@@ -54,7 +54,8 @@ import dev.merge.client.shared.ApiClient
  * @param completedAt When the ticket was completed.
  * @param remoteWasDeleted 
  * @param ticketUrl The 3rd party url of the Ticket.
- * @param priority The priority or urgency of the Ticket.
+ * @param priority The priority or urgency of the Ticket.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  * @param remoteFields 
@@ -85,7 +86,7 @@ data class Ticket (
     @field:JsonProperty("due_date")
     val dueDate: java.time.OffsetDateTime? = null,
 
-    /* The current status of the ticket. */
+    /* The current status of the ticket.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD */
     @field:JsonProperty("status")
     val status: TicketStatusEnum? = null,
 
@@ -141,9 +142,13 @@ data class Ticket (
     @field:JsonProperty("ticket_url")
     val ticketUrl: java.net.URI? = null,
 
-    /* The priority or urgency of the Ticket. */
+    /* The priority or urgency of the Ticket.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW */
     @field:JsonProperty("priority")
     val priority: PriorityEnum? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -224,6 +229,9 @@ data class Ticket (
         @field:JsonProperty("priority")
         val priority: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -262,6 +270,7 @@ data class Ticket (
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
                 priority = ApiClient.jsonConvertSafe(expanded.priority),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)

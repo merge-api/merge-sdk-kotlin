@@ -33,13 +33,14 @@ import dev.merge.client.shared.ApiClient
  * # The TrackingCategory Object ### Description The `TrackingCategory` object is used to represent a company's tracking categories.  ### Usage Example Fetch from the `GET TrackingCategory` endpoint and view a company's tracking category.
  *
  * @param name The tracking category's name.
- * @param status The tracking category's status.
- * @param categoryType The tracking category’s type.
+ * @param status The tracking category's status.  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED
+ * @param categoryType The tracking category’s type.  * `CLASS` - CLASS * `DEPARTMENT` - DEPARTMENT
  * @param parentCategory ID of the parent tracking category.
  * @param company The company the tracking category belongs to.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -51,11 +52,11 @@ data class TrackingCategory (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The tracking category's status. */
+    /* The tracking category's status.  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED */
     @field:JsonProperty("status")
     val status: Status7d1Enum? = null,
 
-    /* The tracking category’s type. */
+    /* The tracking category’s type.  * `CLASS` - CLASS * `DEPARTMENT` - DEPARTMENT */
     @field:JsonProperty("category_type")
     val categoryType: CategoryTypeEnum? = null,
 
@@ -77,6 +78,10 @@ data class TrackingCategory (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -112,6 +117,9 @@ data class TrackingCategory (
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -133,6 +141,7 @@ data class TrackingCategory (
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

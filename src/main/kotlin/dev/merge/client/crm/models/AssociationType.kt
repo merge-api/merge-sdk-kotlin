@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import dev.merge.client.shared.ApiClient
 
 /**
- * 
+ * # The AssociationType Object ### Description The `Association Type` object represents the relationship between two objects. ### Usage Example TODO
  *
  * @param sourceObjectClass 
  * @param targetObjectClasses 
@@ -39,6 +39,7 @@ import dev.merge.client.shared.ApiClient
  * @param isRequired 
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -67,7 +68,11 @@ data class AssociationType (
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -95,7 +100,10 @@ data class AssociationType (
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -111,7 +119,8 @@ data class AssociationType (
                 cardinality = ApiClient.jsonConvertSafe(expanded.cardinality),
                 isRequired = ApiClient.jsonConvertSafe(expanded.isRequired),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

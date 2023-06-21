@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.OpportunityStatusEnum
+import dev.merge.client.crm.models.RemoteFieldRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -36,11 +37,12 @@ import dev.merge.client.shared.ApiClient
  * @param owner The opportunity's owner.
  * @param account The account of the opportunity.
  * @param stage The stage of the opportunity.
- * @param status The opportunity's status.
+ * @param status The opportunity's status.  * `OPEN` - OPEN * `WON` - WON * `LOST` - LOST
  * @param lastActivityAt When the opportunity's last activity occurred.
  * @param closeDate When the opportunity was closed.
  * @param integrationParams 
  * @param linkedAccountParams 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -70,7 +72,7 @@ data class OpportunityRequest (
     @field:JsonProperty("stage")
     val stage: java.util.UUID? = null,
 
-    /* The opportunity's status. */
+    /* The opportunity's status.  * `OPEN` - OPEN * `WON` - WON * `LOST` - LOST */
     @field:JsonProperty("status")
     val status: OpportunityStatusEnum? = null,
 
@@ -86,7 +88,10 @@ data class OpportunityRequest (
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("linked_account_params")
-    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteFieldRequest>? = null
 
 ) {
 
@@ -123,7 +128,10 @@ data class OpportunityRequest (
         val integrationParams: JsonNode?,
 
         @field:JsonProperty("linked_account_params")
-        val linkedAccountParams: JsonNode?
+        val linkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -142,7 +150,8 @@ data class OpportunityRequest (
                 lastActivityAt = ApiClient.jsonConvertSafe(expanded.lastActivityAt),
                 closeDate = ApiClient.jsonConvertSafe(expanded.closeDate),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
-                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

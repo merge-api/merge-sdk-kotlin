@@ -31,7 +31,8 @@ import dev.merge.client.shared.ApiClient
  * # The PhoneNumber Object ### Description The `PhoneNumber` object is used to represent a candidate's phone number. ### Usage Example Fetch from the `GET Candidate` endpoint and view their phone numbers.
  *
  * @param `value` The phone number.
- * @param phoneNumberType The type of phone number.
+ * @param phoneNumberType The type of phone number.  * `HOME` - HOME * `WORK` - WORK * `MOBILE` - MOBILE * `SKYPE` - SKYPE * `OTHER` - OTHER
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -41,9 +42,13 @@ data class PhoneNumber (
     @field:JsonProperty("value")
     val `value`: kotlin.String? = null,
 
-    /* The type of phone number. */
+    /* The type of phone number.  * `HOME` - HOME * `WORK` - WORK * `MOBILE` - MOBILE * `SKYPE` - SKYPE * `OTHER` - OTHER */
     @field:JsonProperty("phone_number_type")
-    val phoneNumberType: PhoneNumberTypeEnum? = null
+    val phoneNumberType: PhoneNumberTypeEnum? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -53,7 +58,10 @@ data class PhoneNumber (
         val `value`: JsonNode?,
 
         @field:JsonProperty("phone_number_type")
-        val phoneNumberType: JsonNode?
+        val phoneNumberType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -63,7 +71,8 @@ data class PhoneNumber (
         fun normalize(expanded: PhoneNumber.Expanded): PhoneNumber {
             return PhoneNumber(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType)
+                phoneNumberType = ApiClient.jsonConvertSafe(expanded.phoneNumberType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

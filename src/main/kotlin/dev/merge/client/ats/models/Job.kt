@@ -37,7 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param name The job's name.
  * @param description The job's description.
  * @param code The job's code. Typically an additional identifier used to reference the particular job that is displayed on the ATS.
- * @param status The job's status.
+ * @param status The job's status.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `DRAFT` - DRAFT * `ARCHIVED` - ARCHIVED * `PENDING` - PENDING
  * @param jobPostingUrls 
  * @param remoteCreatedAt When the third party's job was created.
  * @param remoteUpdatedAt When the third party's job was updated.
@@ -47,6 +47,7 @@ import dev.merge.client.shared.ApiClient
  * @param hiringManagers IDs of `RemoteUser` objects that serve as hiring managers for this `Job`.
  * @param recruiters IDs of `RemoteUser` objects that serve as recruiters for this `Job`.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -73,7 +74,7 @@ data class Job (
     @field:JsonProperty("code")
     val code: kotlin.String? = null,
 
-    /* The job's status. */
+    /* The job's status.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `DRAFT` - DRAFT * `ARCHIVED` - ARCHIVED * `PENDING` - PENDING */
     @field:JsonProperty("status")
     val status: JobStatusEnum? = null,
 
@@ -111,6 +112,10 @@ data class Job (
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -167,6 +172,9 @@ data class Job (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -195,6 +203,7 @@ data class Job (
                 hiringManagers = ApiClient.jsonConvertSafe(expanded.hiringManagers),
                 recruiters = ApiClient.jsonConvertSafe(expanded.recruiters),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

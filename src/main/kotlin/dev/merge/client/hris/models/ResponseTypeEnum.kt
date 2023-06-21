@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `JSON` - JSON * `BASE64_GZIP` - BASE64_GZIP
  *
  * Values: JSON,BASE64_GZIP
  */

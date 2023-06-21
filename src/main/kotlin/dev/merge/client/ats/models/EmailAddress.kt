@@ -31,7 +31,8 @@ import dev.merge.client.shared.ApiClient
  * # The EmailAddress Object ### Description The `EmailAddress` object is used to represent a candidate's email address. ### Usage Example Fetch from the `GET Candidate` endpoint and view their email addresses.
  *
  * @param `value` The email address.
- * @param emailAddressType The type of email address.
+ * @param emailAddressType The type of email address.  * `PERSONAL` - PERSONAL * `WORK` - WORK * `OTHER` - OTHER
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -41,9 +42,13 @@ data class EmailAddress (
     @field:JsonProperty("value")
     val `value`: kotlin.String? = null,
 
-    /* The type of email address. */
+    /* The type of email address.  * `PERSONAL` - PERSONAL * `WORK` - WORK * `OTHER` - OTHER */
     @field:JsonProperty("email_address_type")
-    val emailAddressType: EmailAddressTypeEnum? = null
+    val emailAddressType: EmailAddressTypeEnum? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -53,7 +58,10 @@ data class EmailAddress (
         val `value`: JsonNode?,
 
         @field:JsonProperty("email_address_type")
-        val emailAddressType: JsonNode?
+        val emailAddressType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -63,7 +71,8 @@ data class EmailAddress (
         fun normalize(expanded: EmailAddress.Expanded): EmailAddress {
             return EmailAddress(
                 `value` = ApiClient.jsonConvertSafe(expanded.`value`),
-                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType)
+                emailAddressType = ApiClient.jsonConvertSafe(expanded.emailAddressType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

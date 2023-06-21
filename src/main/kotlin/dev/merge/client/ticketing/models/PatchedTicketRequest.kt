@@ -21,6 +21,7 @@
 package dev.merge.client.ticketing.models
 
 import dev.merge.client.ticketing.models.PriorityEnum
+import dev.merge.client.ticketing.models.RemoteFieldRequest
 import dev.merge.client.ticketing.models.TicketStatusEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -35,7 +36,7 @@ import dev.merge.client.shared.ApiClient
  * @param assignees 
  * @param creator The user who created this ticket.
  * @param dueDate The ticket's due date.
- * @param status The current status of the ticket.
+ * @param status The current status of the ticket.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD
  * @param description The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
  * @param project The project the ticket belongs to.
  * @param collections 
@@ -46,9 +47,10 @@ import dev.merge.client.shared.ApiClient
  * @param tags 
  * @param completedAt When the ticket was completed.
  * @param ticketUrl The 3rd party url of the Ticket.
- * @param priority The priority or urgency of the Ticket.
+ * @param priority The priority or urgency of the Ticket.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW
  * @param integrationParams 
  * @param linkedAccountParams 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -69,7 +71,7 @@ data class PatchedTicketRequest (
     @field:JsonProperty("due_date")
     val dueDate: java.time.OffsetDateTime? = null,
 
-    /* The current status of the ticket. */
+    /* The current status of the ticket.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD */
     @field:JsonProperty("status")
     val status: TicketStatusEnum? = null,
 
@@ -111,7 +113,7 @@ data class PatchedTicketRequest (
     @field:JsonProperty("ticket_url")
     val ticketUrl: java.net.URI? = null,
 
-    /* The priority or urgency of the Ticket. */
+    /* The priority or urgency of the Ticket.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW */
     @field:JsonProperty("priority")
     val priority: PriorityEnum? = null,
 
@@ -119,7 +121,10 @@ data class PatchedTicketRequest (
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("linked_account_params")
-    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteFieldRequest>? = null
 
 ) {
 
@@ -177,7 +182,10 @@ data class PatchedTicketRequest (
         val integrationParams: JsonNode?,
 
         @field:JsonProperty("linked_account_params")
-        val linkedAccountParams: JsonNode?
+        val linkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -203,7 +211,8 @@ data class PatchedTicketRequest (
                 ticketUrl = ApiClient.jsonConvertSafe(expanded.ticketUrl),
                 priority = ApiClient.jsonConvertSafe(expanded.priority),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
-                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

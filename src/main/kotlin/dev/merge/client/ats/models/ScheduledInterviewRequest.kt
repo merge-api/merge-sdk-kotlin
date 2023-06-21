@@ -37,7 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param location The interview's location.
  * @param startAt When the interview was started.
  * @param endAt When the interview was ended.
- * @param status The interview's status.
+ * @param status The interview's status.  * `SCHEDULED` - SCHEDULED * `AWAITING_FEEDBACK` - AWAITING_FEEDBACK * `COMPLETE` - COMPLETE
  * @param integrationParams 
  * @param linkedAccountParams 
  */
@@ -73,7 +73,7 @@ data class ScheduledInterviewRequest (
     @field:JsonProperty("end_at")
     val endAt: java.time.OffsetDateTime? = null,
 
-    /* The interview's status. */
+    /* The interview's status.  * `SCHEDULED` - SCHEDULED * `AWAITING_FEEDBACK` - AWAITING_FEEDBACK * `COMPLETE` - COMPLETE */
     @field:JsonProperty("status")
     val status: ScheduledInterviewStatusEnum? = null,
 

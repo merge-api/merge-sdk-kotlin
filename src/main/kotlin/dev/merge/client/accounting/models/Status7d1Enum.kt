@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED
  *
  * Values: ACTIVE,ARCHIVED
  */

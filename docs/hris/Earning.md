@@ -5,10 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional] [readonly]
+**remoteId** | **kotlin.String** | The third-party API ID of the matching object. |  [optional]
 **employeePayrollRun** | [**java.util.UUID**](java.util.UUID.md) |  |  [optional]
-**amount** | **kotlin.Float** | The amount earned. |  [optional]
-**type** | [**EarningTypeEnum**](EarningTypeEnum.md) | The type of earning. |  [optional]
+**amount** | **kotlin.Double** | The amount earned. |  [optional]
+**type** | [**EarningTypeEnum**](EarningTypeEnum.md) | The type of earning.  * &#x60;SALARY&#x60; - SALARY * &#x60;REIMBURSEMENT&#x60; - REIMBURSEMENT * &#x60;OVERTIME&#x60; - OVERTIME * &#x60;BONUS&#x60; - BONUS |  [optional]
 **remoteWasDeleted** | **kotlin.Boolean** | Indicates whether or not this object has been deleted by third party webhooks. |  [optional]
+**modifiedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | This is the datetime that this object was last updated by Merge |  [optional] [readonly]
+**fieldMappings** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional] [readonly]
+**remoteData** | [**kotlin.collections.List&lt;RemoteData&gt;**](RemoteData.md) |  |  [optional] [readonly]
 
 
 

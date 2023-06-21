@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **lastActivityAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | When the contact&#39;s last activity occurred. |  [optional]
 **integrationParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **linkedAccountParams** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
+**remoteFields** | [**kotlin.collections.List&lt;RemoteFieldRequest&gt;**](RemoteFieldRequest.md) |  |  [optional]
 
 
 

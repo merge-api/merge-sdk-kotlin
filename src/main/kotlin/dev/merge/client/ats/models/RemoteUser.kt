@@ -38,8 +38,9 @@ import dev.merge.client.shared.ApiClient
  * @param email The user's email.
  * @param disabled Whether the user's account had been disabled.
  * @param remoteCreatedAt When the third party's user was created.
- * @param accessRole The user's role.
+ * @param accessRole The user's role.  * `SUPER_ADMIN` - SUPER_ADMIN * `ADMIN` - ADMIN * `TEAM_MEMBER` - TEAM_MEMBER * `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER * `INTERVIEWER` - INTERVIEWER
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -74,13 +75,17 @@ data class RemoteUser (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    /* The user's role. */
+    /* The user's role.  * `SUPER_ADMIN` - SUPER_ADMIN * `ADMIN` - ADMIN * `TEAM_MEMBER` - TEAM_MEMBER * `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER * `INTERVIEWER` - INTERVIEWER */
     @field:JsonProperty("access_role")
     val accessRole: AccessRoleEnum? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -119,6 +124,9 @@ data class RemoteUser (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -141,6 +149,7 @@ data class RemoteUser (
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 accessRole = ApiClient.jsonConvertSafe(expanded.accessRole),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

@@ -75,11 +75,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param firstIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional)
      * @param includeMuted If True, will include muted issues (optional)
      * @param integrationName  (optional)
-     * @param lastIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional)
-     * @param lastIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional)
+     * @param lastIncidentTimeAfter If provided, will only return issues whose last incident time was after this datetime. (optional)
+     * @param lastIncidentTimeBefore If provided, will only return issues whose last incident time was before this datetime. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param startDate If included, will only include issues whose most recent action occurred after this time (optional)
-     * @param status  (optional)
+     * @param status Status of the issue. Options: (&#39;ONGOING&#39;, &#39;RESOLVED&#39;)  * &#x60;ONGOING&#x60; - ONGOING * &#x60;RESOLVED&#x60; - RESOLVED (optional)
      * @return PaginatedIssueList
     */
     @Suppress("UNCHECKED_CAST")
@@ -93,7 +93,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param accountToken  (optional) * @param cursor The pagination cursor value. (optional) * @param endDate If included, will only include issues whose most recent action occurred before this time (optional) * @param endUserOrganizationName  (optional) * @param firstIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional) * @param firstIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional) * @param includeMuted If True, will include muted issues (optional) * @param integrationName  (optional) * @param lastIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional) * @param lastIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param startDate If included, will only include issues whose most recent action occurred after this time (optional) * @param status  (optional)
+     * @param accountToken  (optional) * @param cursor The pagination cursor value. (optional) * @param endDate If included, will only include issues whose most recent action occurred before this time (optional) * @param endUserOrganizationName  (optional) * @param firstIncidentTimeAfter If provided, will only return issues whose first incident time was after this datetime. (optional) * @param firstIncidentTimeBefore If provided, will only return issues whose first incident time was before this datetime. (optional) * @param includeMuted If True, will include muted issues (optional) * @param integrationName  (optional) * @param lastIncidentTimeAfter If provided, will only return issues whose last incident time was after this datetime. (optional) * @param lastIncidentTimeBefore If provided, will only return issues whose last incident time was before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param startDate If included, will only include issues whose most recent action occurred after this time (optional) * @param status Status of the issue. Options: (&#39;ONGOING&#39;, &#39;RESOLVED&#39;)  * &#x60;ONGOING&#x60; - ONGOING * &#x60;RESOLVED&#x60; - RESOLVED (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun issuesListExpanded(requestModel: IssuesApi.IssuesListRequest): MergePaginatedResponse<Issue.Expanded> {

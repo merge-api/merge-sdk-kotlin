@@ -23,7 +23,6 @@ package dev.merge.client.hris.apis
 import dev.merge.client.hris.models.Employee
 import dev.merge.client.hris.models.EmployeeEndpointRequest
 import dev.merge.client.hris.models.EmployeeResponse
-import dev.merge.client.hris.models.IgnoreCommonModel
 import dev.merge.client.hris.models.IgnoreCommonModelRequest
 import dev.merge.client.hris.models.MetaResponse
 
@@ -83,7 +82,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val remoteFields: kotlin.String? = null,
         val remoteId: kotlin.String? = null,
         val showEnumOrigins: kotlin.String? = null,
+        val startedAfter: java.time.OffsetDateTime? = null,
+        val startedBefore: java.time.OffsetDateTime? = null,
         val teamId: kotlin.String? = null,
+        val terminatedAfter: java.time.OffsetDateTime? = null,
+        val terminatedBefore: java.time.OffsetDateTime? = null,
         val workEmail: kotlin.String? = null,
         val workLocationId: kotlin.String? = null
     )
@@ -159,28 +162,26 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     * Ignores a specific row based on the &#x60;model_id&#x60; in the url. These records will have their properties set to null, and will not be updated in future syncs. The \&quot;reason\&quot; and \&quot;message\&quot; fields in the request body will be stored for audit purposes.
      * @param modelId  
      * @param ignoreCommonModelRequest  
-     * @return IgnoreCommonModel
+     * @return void
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesIgnoreCreate(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel {
+    open suspend fun employeesIgnoreCreate(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): Unit {
         return employeesIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun employeesIgnoreCreateAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel> = GlobalScope.future {
+    open fun employeesIgnoreCreateAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         employeesIgnoreCreate(requestModel)
     }
 
     /**
      * @param modelId   * @param ignoreCommonModelRequest  
     */
-    @Suppress("UNCHECKED_CAST")
-    open suspend fun employeesIgnoreCreateExpanded(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): IgnoreCommonModel.Expanded {
+    open suspend fun employeesIgnoreCreateExpanded(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): Unit {
         return employeesIgnoreCreateImpl(requestModel)
     }
 
     @Suppress("UNCHECKED_CAST")
-    open fun employeesIgnoreCreateExpandedAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<IgnoreCommonModel.Expanded> = GlobalScope.future {
+    open fun employeesIgnoreCreateExpandedAsync(requestModel: EmployeesApi.EmployeesIgnoreCreateRequest): CompletableFuture<Unit> = GlobalScope.future {
         employeesIgnoreCreateExpanded(requestModel)
     }
 
@@ -216,7 +217,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
      * @param cursor The pagination cursor value. (optional)
      * @param displayFullName If provided, will only return employees with this display name. (optional)
-     * @param employmentStatus If provided, will only return employees with this employment status. (optional)
+     * @param employmentStatus If provided, will only return employees with this employment status.  * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;PENDING&#x60; - PENDING * &#x60;INACTIVE&#x60; - INACTIVE (optional)
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param firstName If provided, will only return employees with this first name. (optional)
      * @param groups If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional)
@@ -225,15 +226,19 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional)
      * @param lastName If provided, will only return employees with this last name. (optional)
      * @param managerId If provided, will only return employees for this manager. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param payGroupId If provided, will only return employees for this pay group (optional)
      * @param personalEmail If provided, will only return Employees with this personal email (optional)
      * @param remoteFields Deprecated. Use show_enum_origins. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional)
+     * @param startedAfter If provided, will only return employees that started after this datetime. (optional)
+     * @param startedBefore If provided, will only return employees that started before this datetime. (optional)
      * @param teamId If provided, will only return employees for this team. (optional)
+     * @param terminatedAfter If provided, will only return employees that were terminated after this datetime. (optional)
+     * @param terminatedBefore If provided, will only return employees that were terminated before this datetime. (optional)
      * @param workEmail If provided, will only return Employees with this work email (optional)
      * @param workLocationId If provided, will only return employees for this location. (optional)
      * @return PaginatedEmployeeList
@@ -249,7 +254,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param groups If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
+     * @param companyId If provided, will only return employees for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param displayFullName If provided, will only return employees with this display name. (optional) * @param employmentStatus If provided, will only return employees with this employment status.  * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;PENDING&#x60; - PENDING * &#x60;INACTIVE&#x60; - INACTIVE (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param firstName If provided, will only return employees with this first name. (optional) * @param groups If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeSensitiveFields Whether to include sensitive fields (such as social security numbers) in the response. (optional) * @param lastName If provided, will only return employees with this last name. (optional) * @param managerId If provided, will only return employees for this manager. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param payGroupId If provided, will only return employees for this pay group (optional) * @param personalEmail If provided, will only return Employees with this personal email (optional) * @param remoteFields Deprecated. Use show_enum_origins. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param showEnumOrigins Which fields should be returned in non-normalized form. (optional) * @param startedAfter If provided, will only return employees that started after this datetime. (optional) * @param startedBefore If provided, will only return employees that started before this datetime. (optional) * @param teamId If provided, will only return employees for this team. (optional) * @param terminatedAfter If provided, will only return employees that were terminated after this datetime. (optional) * @param terminatedBefore If provided, will only return employees that were terminated before this datetime. (optional) * @param workEmail If provided, will only return Employees with this work email (optional) * @param workLocationId If provided, will only return employees for this location. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun employeesListExpanded(requestModel: EmployeesApi.EmployeesListRequest): MergePaginatedResponse<Employee.Expanded> {
@@ -291,7 +296,11 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.remoteFields?.apply { localVariableQuery["remote_fields"] = listOf(this) }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
             requestModel.showEnumOrigins?.apply { localVariableQuery["show_enum_origins"] = listOf(this) }
+            requestModel.startedAfter?.apply { localVariableQuery["started_after"] = listOf("$this") }
+            requestModel.startedBefore?.apply { localVariableQuery["started_before"] = listOf("$this") }
             requestModel.teamId?.apply { localVariableQuery["team_id"] = listOf(this) }
+            requestModel.terminatedAfter?.apply { localVariableQuery["terminated_after"] = listOf("$this") }
+            requestModel.terminatedBefore?.apply { localVariableQuery["terminated_before"] = listOf("$this") }
             requestModel.workEmail?.apply { localVariableQuery["work_email"] = listOf(this) }
             requestModel.workLocationId?.apply { localVariableQuery["work_location_id"] = listOf(this) }
 

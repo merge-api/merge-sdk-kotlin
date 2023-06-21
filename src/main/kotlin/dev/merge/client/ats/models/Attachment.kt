@@ -36,8 +36,9 @@ import dev.merge.client.shared.ApiClient
  * @param fileName The attachment's name.
  * @param fileUrl The attachment's url.
  * @param candidate 
- * @param attachmentType The attachment's type.
+ * @param attachmentType The attachment's type.  * `RESUME` - RESUME * `COVER_LETTER` - COVER_LETTER * `OFFER_LETTER` - OFFER_LETTER * `OTHER` - OTHER
  * @param remoteWasDeleted 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -64,12 +65,16 @@ data class Attachment (
     @field:JsonProperty("candidate")
     val candidate: java.util.UUID? = null,
 
-    /* The attachment's type. */
+    /* The attachment's type.  * `RESUME` - RESUME * `COVER_LETTER` - COVER_LETTER * `OFFER_LETTER` - OFFER_LETTER * `OTHER` - OTHER */
     @field:JsonProperty("attachment_type")
     val attachmentType: AttachmentTypeEnum? = null,
 
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -102,6 +107,9 @@ data class Attachment (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -122,6 +130,7 @@ data class Attachment (
                 candidate = ApiClient.jsonConvertSafe(expanded.candidate),
                 attachmentType = ApiClient.jsonConvertSafe(expanded.attachmentType),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

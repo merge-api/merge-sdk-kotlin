@@ -31,6 +31,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param originType 
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,7 +41,11 @@ data class AssociationSubType (
     val id: kotlin.String? = null,
 
     @field:JsonProperty("origin_type")
-    val originType: kotlin.String? = null
+    val originType: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -50,7 +55,10 @@ data class AssociationSubType (
         val id: JsonNode?,
 
         @field:JsonProperty("origin_type")
-        val originType: JsonNode?
+        val originType: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -60,7 +68,8 @@ data class AssociationSubType (
         fun normalize(expanded: AssociationSubType.Expanded): AssociationSubType {
             return AssociationSubType(
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                originType = ApiClient.jsonConvertSafe(expanded.originType)
+                originType = ApiClient.jsonConvertSafe(expanded.originType),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

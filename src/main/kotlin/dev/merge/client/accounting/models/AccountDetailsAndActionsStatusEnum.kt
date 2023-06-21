@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `COMPLETE` - COMPLETE * `INCOMPLETE` - INCOMPLETE * `RELINK_NEEDED` - RELINK_NEEDED
  *
  * Values: COMPLETE,INCOMPLETE,RELINK_NEEDED
  */

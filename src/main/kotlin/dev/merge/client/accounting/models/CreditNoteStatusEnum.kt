@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `SUBMITTED` - SUBMITTED * `AUTHORIZED` - AUTHORIZED * `PAID` - PAID
  *
  * Values: SUBMITTED,AUTHORIZED,PAID
  */

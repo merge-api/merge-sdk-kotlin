@@ -22,7 +22,7 @@ List linked accounts for your organization.
 //import dev.merge.client.ats.models.*
 
 val apiInstance = LinkedAccountsApi()
-val category : kotlin.String = category_example // kotlin.String | 
+val category : kotlin.String = category_example // kotlin.String | Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')  * `hris` - hris * `ats` - ats * `accounting` - accounting * `ticketing` - ticketing * `crm` - crm * `mktg` - mktg * `filestorage` - filestorage
 val cursor : kotlin.String = cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw // kotlin.String | The pagination cursor value.
 val endUserEmailAddress : kotlin.String = endUserEmailAddress_example // kotlin.String | If provided, will only return linked accounts associated with the given email address.
 val endUserOrganizationName : kotlin.String = endUserOrganizationName_example // kotlin.String | If provided, will only return linked accounts associated with the given organization name.
@@ -51,7 +51,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | **kotlin.String**|  | [optional] [enum: accounting, ats, crm, filestorage, hris, mktg, ticketing]
+ **category** | **kotlin.String**| Options: (&#39;hris&#39;, &#39;ats&#39;, &#39;accounting&#39;, &#39;ticketing&#39;, &#39;crm&#39;, &#39;mktg&#39;, &#39;filestorage&#39;)  * &#x60;hris&#x60; - hris * &#x60;ats&#x60; - ats * &#x60;accounting&#x60; - accounting * &#x60;ticketing&#x60; - ticketing * &#x60;crm&#x60; - crm * &#x60;mktg&#x60; - mktg * &#x60;filestorage&#x60; - filestorage | [optional] [enum: accounting, ats, crm, filestorage, hris, mktg, ticketing]
  **cursor** | **kotlin.String**| The pagination cursor value. | [optional]
  **endUserEmailAddress** | **kotlin.String**| If provided, will only return linked accounts associated with the given email address. | [optional]
  **endUserOrganizationName** | **kotlin.String**| If provided, will only return linked accounts associated with the given organization name. | [optional]

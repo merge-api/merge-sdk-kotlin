@@ -38,26 +38,26 @@ import dev.merge.client.shared.ApiClient
 data class RemoteFieldClassForCustomObjectClassItemSchema (
 
     @field:JsonProperty("item_type")
-    val itemType: kotlin.String? = null,
+    val itemType: kotlin.String?,
 
     @field:JsonProperty("item_format")
-    val itemFormat: kotlin.String? = null,
+    val itemFormat: kotlin.String?,
 
     @field:JsonProperty("item_choices")
-    val itemChoices: kotlin.collections.List<kotlin.String>? = null
+    val itemChoices: kotlin.collections.List<kotlin.String>?
 
 ) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class Expanded(
         @field:JsonProperty("item_type")
-        val itemType: JsonNode?,
+        val itemType: JsonNode,
 
         @field:JsonProperty("item_format")
-        val itemFormat: JsonNode?,
+        val itemFormat: JsonNode,
 
         @field:JsonProperty("item_choices")
-        val itemChoices: kotlin.collections.List<JsonNode>?
+        val itemChoices: kotlin.collections.List<JsonNode>
 
     )
 
@@ -66,9 +66,9 @@ data class RemoteFieldClassForCustomObjectClassItemSchema (
         @JvmStatic
         fun normalize(expanded: RemoteFieldClassForCustomObjectClassItemSchema.Expanded): RemoteFieldClassForCustomObjectClassItemSchema {
             return RemoteFieldClassForCustomObjectClassItemSchema(
-                itemType = ApiClient.jsonConvertSafe(expanded.itemType),
-                itemFormat = ApiClient.jsonConvertSafe(expanded.itemFormat),
-                itemChoices = ApiClient.jsonConvertSafe(expanded.itemChoices)
+                itemType = ApiClient.jsonConvertRequiredSafe(expanded.itemType),
+                itemFormat = ApiClient.jsonConvertRequiredSafe(expanded.itemFormat),
+                itemChoices = ApiClient.jsonConvertRequiredSafe(expanded.itemChoices)
             )
         }
     }

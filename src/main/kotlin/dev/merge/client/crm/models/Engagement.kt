@@ -35,7 +35,7 @@ import dev.merge.client.shared.ApiClient
  * @param owner The engagement's owner.
  * @param content The engagement's content.
  * @param subject The engagement's subject.
- * @param direction The engagement's direction.
+ * @param direction The engagement's direction.  * `INBOUND` - INBOUND * `OUTBOUND` - OUTBOUND
  * @param engagementType The engagement type of the engagement.
  * @param startTime The time at which the engagement started.
  * @param endTime The time at which the engagement ended.
@@ -44,6 +44,7 @@ import dev.merge.client.shared.ApiClient
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  * @param remoteFields 
@@ -64,7 +65,7 @@ data class Engagement (
     @field:JsonProperty("subject")
     val subject: kotlin.String? = null,
 
-    /* The engagement's direction. */
+    /* The engagement's direction.  * `INBOUND` - INBOUND * `OUTBOUND` - OUTBOUND */
     @field:JsonProperty("direction")
     val direction: DirectionEnum? = null,
 
@@ -97,6 +98,10 @@ data class Engagement (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -147,6 +152,9 @@ data class Engagement (
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -175,6 +183,7 @@ data class Engagement (
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)

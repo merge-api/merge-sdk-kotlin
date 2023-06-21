@@ -21,6 +21,7 @@
 package dev.merge.client.crm.models
 
 import dev.merge.client.crm.models.DirectionEnum
+import dev.merge.client.crm.models.RemoteFieldRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -33,7 +34,7 @@ import dev.merge.client.shared.ApiClient
  * @param owner The engagement's owner.
  * @param content The engagement's content.
  * @param subject The engagement's subject.
- * @param direction The engagement's direction.
+ * @param direction The engagement's direction.  * `INBOUND` - INBOUND * `OUTBOUND` - OUTBOUND
  * @param engagementType The engagement type of the engagement.
  * @param startTime The time at which the engagement started.
  * @param endTime The time at which the engagement ended.
@@ -41,6 +42,7 @@ import dev.merge.client.shared.ApiClient
  * @param contacts 
  * @param integrationParams 
  * @param linkedAccountParams 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -58,7 +60,7 @@ data class EngagementRequest (
     @field:JsonProperty("subject")
     val subject: kotlin.String? = null,
 
-    /* The engagement's direction. */
+    /* The engagement's direction.  * `INBOUND` - INBOUND * `OUTBOUND` - OUTBOUND */
     @field:JsonProperty("direction")
     val direction: DirectionEnum? = null,
 
@@ -85,7 +87,10 @@ data class EngagementRequest (
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("linked_account_params")
-    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteFieldRequest>? = null
 
 ) {
 
@@ -122,7 +127,10 @@ data class EngagementRequest (
         val integrationParams: JsonNode?,
 
         @field:JsonProperty("linked_account_params")
-        val linkedAccountParams: JsonNode?
+        val linkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -141,7 +149,8 @@ data class EngagementRequest (
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 contacts = ApiClient.jsonConvertSafe(expanded.contacts),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
-                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

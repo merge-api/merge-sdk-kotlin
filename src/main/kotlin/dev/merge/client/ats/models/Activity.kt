@@ -34,13 +34,15 @@ import dev.merge.client.shared.ApiClient
  *
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
- * @param user The user the performed the action.
+ * @param user The user that performed the action.
  * @param remoteCreatedAt When the third party's activity was created.
- * @param activityType The activity's type.
+ * @param activityType The activity's type.  * `NOTE` - NOTE * `EMAIL` - EMAIL * `OTHER` - OTHER
  * @param subject The activity's subject.
  * @param body The activity's body.
- * @param visibility The activity's visibility.
+ * @param visibility The activity's visibility.  * `ADMIN_ONLY` - ADMIN_ONLY * `PUBLIC` - PUBLIC * `PRIVATE` - PRIVATE
+ * @param candidate The activity’s candidate.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -55,7 +57,7 @@ data class Activity (
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
 
-    /* The user the performed the action. */
+    /* The user that performed the action. */
     @field:JsonProperty("user")
     val user: java.util.UUID? = null,
 
@@ -63,7 +65,7 @@ data class Activity (
     @field:JsonProperty("remote_created_at")
     val remoteCreatedAt: java.time.OffsetDateTime? = null,
 
-    /* The activity's type. */
+    /* The activity's type.  * `NOTE` - NOTE * `EMAIL` - EMAIL * `OTHER` - OTHER */
     @field:JsonProperty("activity_type")
     val activityType: ActivityTypeEnum? = null,
 
@@ -75,13 +77,21 @@ data class Activity (
     @field:JsonProperty("body")
     val body: kotlin.String? = null,
 
-    /* The activity's visibility. */
+    /* The activity's visibility.  * `ADMIN_ONLY` - ADMIN_ONLY * `PUBLIC` - PUBLIC * `PRIVATE` - PRIVATE */
     @field:JsonProperty("visibility")
     val visibility: VisibilityEnum? = null,
+
+    /* The activity’s candidate. */
+    @field:JsonProperty("candidate")
+    val candidate: kotlin.String? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -117,8 +127,14 @@ data class Activity (
         @field:JsonProperty("visibility")
         val visibility: JsonNode?,
 
+        @field:JsonProperty("candidate")
+        val candidate: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
 
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
@@ -141,7 +157,9 @@ data class Activity (
                 subject = ApiClient.jsonConvertSafe(expanded.subject),
                 body = ApiClient.jsonConvertSafe(expanded.body),
                 visibility = ApiClient.jsonConvertSafe(expanded.visibility),
+                candidate = ApiClient.jsonConvertSafe(expanded.candidate),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

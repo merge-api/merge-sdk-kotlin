@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `GENERAL_CUSTOMER_REQUEST` - GENERAL_CUSTOMER_REQUEST * `GDPR` - GDPR * `OTHER` - OTHER
  *
  * Values: GENERAL_CUSTOMER_REQUEST,GDPR,OTHER
  */

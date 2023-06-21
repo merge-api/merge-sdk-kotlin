@@ -37,7 +37,10 @@ import dev.merge.client.shared.ApiClient
  * @param benefitPlanType The type of benefit plan
  * @param employeeContribution The employee's contribution.
  * @param companyContribution The company's contribution.
+ * @param startDate The day and time the benefit started.
+ * @param endDate The day and time the benefit ended.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -66,15 +69,27 @@ data class Benefit (
 
     /* The employee's contribution. */
     @field:JsonProperty("employee_contribution")
-    val employeeContribution: kotlin.Float? = null,
+    val employeeContribution: kotlin.Double? = null,
 
     /* The company's contribution. */
     @field:JsonProperty("company_contribution")
-    val companyContribution: kotlin.Float? = null,
+    val companyContribution: kotlin.Double? = null,
+
+    /* The day and time the benefit started. */
+    @field:JsonProperty("start_date")
+    val startDate: java.time.OffsetDateTime? = null,
+
+    /* The day and time the benefit ended. */
+    @field:JsonProperty("end_date")
+    val endDate: java.time.OffsetDateTime? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -107,8 +122,17 @@ data class Benefit (
         @field:JsonProperty("company_contribution")
         val companyContribution: JsonNode?,
 
+        @field:JsonProperty("start_date")
+        val startDate: JsonNode?,
+
+        @field:JsonProperty("end_date")
+        val endDate: JsonNode?,
+
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
 
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
@@ -130,7 +154,10 @@ data class Benefit (
                 benefitPlanType = ApiClient.jsonConvertSafe(expanded.benefitPlanType),
                 employeeContribution = ApiClient.jsonConvertSafe(expanded.employeeContribution),
                 companyContribution = ApiClient.jsonConvertSafe(expanded.companyContribution),
+                startDate = ApiClient.jsonConvertSafe(expanded.startDate),
+                endDate = ApiClient.jsonConvertSafe(expanded.endDate),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

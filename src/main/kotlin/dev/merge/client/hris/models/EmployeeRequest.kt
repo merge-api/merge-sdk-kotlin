@@ -50,13 +50,13 @@ import dev.merge.client.shared.ApiClient
  * @param team The employee's team.
  * @param payGroup The employee's pay group
  * @param ssn The employee's social security number.
- * @param gender The employee's gender.
- * @param ethnicity The employee's ethnicity.
- * @param maritalStatus The employee's filing status as related to marital status.
+ * @param gender The employee's gender.  * `MALE` - MALE * `FEMALE` - FEMALE * `NON-BINARY` - NON-BINARY * `OTHER` - OTHER * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
+ * @param ethnicity The employee's ethnicity.  * `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE * `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT * `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN * `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO * `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER * `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES * `WHITE` - WHITE * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
+ * @param maritalStatus The employee's filing status as related to marital status.  * `SINGLE` - SINGLE * `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY * `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY * `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD * `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
  * @param dateOfBirth The employee's date of birth.
  * @param hireDate The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
  * @param startDate The date that the employee started working. If an employee was rehired, the most recent start date will be returned.
- * @param employmentStatus The employment status of the employee.
+ * @param employmentStatus The employment status of the employee.  * `ACTIVE` - ACTIVE * `PENDING` - PENDING * `INACTIVE` - INACTIVE
  * @param terminationDate The employee's termination date.
  * @param avatar The URL of the employee's avatar image.
  * @param integrationParams 
@@ -133,15 +133,15 @@ data class EmployeeRequest (
     @field:JsonProperty("ssn")
     val ssn: kotlin.String? = null,
 
-    /* The employee's gender. */
+    /* The employee's gender.  * `MALE` - MALE * `FEMALE` - FEMALE * `NON-BINARY` - NON-BINARY * `OTHER` - OTHER * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE */
     @field:JsonProperty("gender")
     val gender: GenderEnum? = null,
 
-    /* The employee's ethnicity. */
+    /* The employee's ethnicity.  * `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE * `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT * `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN * `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO * `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER * `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES * `WHITE` - WHITE * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE */
     @field:JsonProperty("ethnicity")
     val ethnicity: EthnicityEnum? = null,
 
-    /* The employee's filing status as related to marital status. */
+    /* The employee's filing status as related to marital status.  * `SINGLE` - SINGLE * `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY * `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY * `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD * `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD */
     @field:JsonProperty("marital_status")
     val maritalStatus: MaritalStatusEnum? = null,
 
@@ -158,7 +158,7 @@ data class EmployeeRequest (
     @field:JsonProperty("start_date")
     val startDate: java.time.OffsetDateTime? = null,
 
-    /* The employment status of the employee. */
+    /* The employment status of the employee.  * `ACTIVE` - ACTIVE * `PENDING` - PENDING * `INACTIVE` - INACTIVE */
     @field:JsonProperty("employment_status")
     val employmentStatus: EmploymentStatusEnum? = null,
 

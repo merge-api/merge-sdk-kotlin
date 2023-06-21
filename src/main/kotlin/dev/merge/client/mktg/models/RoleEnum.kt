@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `ADMIN` - ADMIN * `MANAGER` - MANAGER * `CONTRIBUTOR` - CONTRIBUTOR * `VIEWER` - VIEWER
  *
  * Values: ADMIN,MANAGER,CONTRIBUTOR,VIEWER
  */

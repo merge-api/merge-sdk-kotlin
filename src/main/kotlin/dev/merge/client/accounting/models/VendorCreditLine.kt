@@ -36,6 +36,8 @@ import dev.merge.client.shared.ApiClient
  * @param description The line's description.
  * @param account The line's account.
  * @param company The company the line belongs to.
+ * @param exchangeRate The vendor credit line item's exchange rate.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -51,7 +53,7 @@ data class VendorCreditLine (
 
     /* The full value of the credit. */
     @field:JsonProperty("net_amount")
-    val netAmount: kotlin.Float? = null,
+    val netAmount: kotlin.Double? = null,
 
     /* The line's associated tracking category. */
     @field:JsonProperty("tracking_category")
@@ -67,7 +69,15 @@ data class VendorCreditLine (
 
     /* The company the line belongs to. */
     @field:JsonProperty("company")
-    val company: java.util.UUID? = null
+    val company: java.util.UUID? = null,
+
+    /* The vendor credit line item's exchange rate. */
+    @field:JsonProperty("exchange_rate")
+    val exchangeRate: java.math.BigDecimal? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null
 
 ) {
 
@@ -92,7 +102,13 @@ data class VendorCreditLine (
         val account: JsonNode?,
 
         @field:JsonProperty("company")
-        val company: JsonNode?
+        val company: JsonNode?,
+
+        @field:JsonProperty("exchange_rate")
+        val exchangeRate: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?
 
     )
 
@@ -107,7 +123,9 @@ data class VendorCreditLine (
                 trackingCategory = ApiClient.jsonConvertSafe(expanded.trackingCategory),
                 description = ApiClient.jsonConvertSafe(expanded.description),
                 account = ApiClient.jsonConvertSafe(expanded.account),
-                company = ApiClient.jsonConvertSafe(expanded.company)
+                company = ApiClient.jsonConvertSafe(expanded.company),
+                exchangeRate = ApiClient.jsonConvertSafe(expanded.exchangeRate),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt)
             )
         }
     }

@@ -35,9 +35,10 @@ import dev.merge.client.shared.ApiClient
  * @param remoteId The third-party API ID of the matching object.
  * @param name The collection's name.
  * @param description The collection's description.
- * @param collectionType The collection's type.
+ * @param collectionType The collection's type.  * `LIST` - LIST * `PROJECT` - PROJECT
  * @param parentCollection The parent collection for this collection.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -60,7 +61,7 @@ data class Collection (
     @field:JsonProperty("description")
     val description: kotlin.String? = null,
 
-    /* The collection's type. */
+    /* The collection's type.  * `LIST` - LIST * `PROJECT` - PROJECT */
     @field:JsonProperty("collection_type")
     val collectionType: CollectionTypeEnum? = null,
 
@@ -71,6 +72,10 @@ data class Collection (
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -103,6 +108,9 @@ data class Collection (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -123,6 +131,7 @@ data class Collection (
                 collectionType = ApiClient.jsonConvertSafe(expanded.collectionType),
                 parentCollection = ApiClient.jsonConvertSafe(expanded.parentCollection),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

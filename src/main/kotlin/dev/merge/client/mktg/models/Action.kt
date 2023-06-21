@@ -33,9 +33,13 @@ import dev.merge.client.shared.ApiClient
  * @param emails The marketing emails sent by this action.
  * @param messages The messages sent by this action.
  * @param name The action's name.
- * @param type The action's type.
+ * @param type The action's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE
+ * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,16 +57,30 @@ data class Action (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The action's type. */
+    /* The action's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE */
     @field:JsonProperty("type")
     val type: TypeEnum? = null,
+
+    /* Indicates whether or not this object has been deleted by third party webhooks. */
+    @field:JsonProperty("remote_was_deleted")
+    val remoteWasDeleted: kotlin.Boolean? = null,
 
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>? = null
 
 ) {
 
@@ -80,11 +98,23 @@ data class Action (
         @field:JsonProperty("type")
         val type: JsonNode?,
 
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -97,8 +127,12 @@ data class Action (
                 messages = ApiClient.jsonConvertRequiredSafe(expanded.messages),
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 type = ApiClient.jsonConvertSafe(expanded.type),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `JSON` - JSON * `XML` - XML * `MULTIPART` - MULTIPART
  *
  * Values: JSON,XML,MULTIPART
  */

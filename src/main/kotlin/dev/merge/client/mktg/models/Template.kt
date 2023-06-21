@@ -20,6 +20,7 @@
 
 package dev.merge.client.mktg.models
 
+import dev.merge.client.shared.RemoteData
 import dev.merge.client.mktg.models.TypeEnum
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -31,13 +32,17 @@ import dev.merge.client.shared.ApiClient
  * # The Template Object ### Description The `Template` object is used to represent a template for a marketing asset in the remote system. ### Usage Example Fetch from the `GET /api/mktg/v1/templates` endpoint and view their content properties.
  *
  * @param name The template's name.
- * @param type The template's type.
+ * @param type The template's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE
  * @param contents The template contents.
  * @param owner The template's owner.
  * @param remoteCreatedAt When the template was created in the remote system.
  * @param remoteUpdatedAt When the template was last updated in the remote system.
+ * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -47,7 +52,7 @@ data class Template (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The template's type. */
+    /* The template's type.  * `EMAIL` - EMAIL * `MESSAGE` - MESSAGE */
     @field:JsonProperty("type")
     val type: TypeEnum? = null,
 
@@ -67,12 +72,26 @@ data class Template (
     @field:JsonProperty("remote_updated_at")
     val remoteUpdatedAt: java.time.OffsetDateTime? = null,
 
+    /* Indicates whether or not this object has been deleted by third party webhooks. */
+    @field:JsonProperty("remote_was_deleted")
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
-    val remoteId: kotlin.String? = null
+    val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -96,11 +115,23 @@ data class Template (
         @field:JsonProperty("remote_updated_at")
         val remoteUpdatedAt: JsonNode?,
 
+        @field:JsonProperty("remote_was_deleted")
+        val remoteWasDeleted: JsonNode?,
+
         @field:JsonProperty("id")
         val id: JsonNode?,
 
         @field:JsonProperty("remote_id")
-        val remoteId: JsonNode?
+        val remoteId: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -115,8 +146,12 @@ data class Template (
                 owner = ApiClient.jsonConvertSafe(expanded.owner),
                 remoteCreatedAt = ApiClient.jsonConvertSafe(expanded.remoteCreatedAt),
                 remoteUpdatedAt = ApiClient.jsonConvertSafe(expanded.remoteUpdatedAt),
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
                 id = ApiClient.jsonConvertSafe(expanded.id),
-                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId)
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

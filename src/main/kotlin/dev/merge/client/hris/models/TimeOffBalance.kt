@@ -36,8 +36,9 @@ import dev.merge.client.shared.ApiClient
  * @param employee The employee the balance belongs to.
  * @param balance The current remaining PTO balance, always measured in terms of hours.
  * @param used The amount of PTO used in terms of hours.
- * @param policyType The policy type of this time off balance.
+ * @param policyType The policy type of this time off balance.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -58,19 +59,23 @@ data class TimeOffBalance (
 
     /* The current remaining PTO balance, always measured in terms of hours. */
     @field:JsonProperty("balance")
-    val balance: kotlin.Float? = null,
+    val balance: kotlin.Double? = null,
 
     /* The amount of PTO used in terms of hours. */
     @field:JsonProperty("used")
-    val used: kotlin.Float? = null,
+    val used: kotlin.Double? = null,
 
-    /* The policy type of this time off balance. */
+    /* The policy type of this time off balance.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT */
     @field:JsonProperty("policy_type")
     val policyType: PolicyTypeEnum? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -103,6 +108,9 @@ data class TimeOffBalance (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -123,6 +131,7 @@ data class TimeOffBalance (
                 used = ApiClient.jsonConvertSafe(expanded.used),
                 policyType = ApiClient.jsonConvertSafe(expanded.policyType),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

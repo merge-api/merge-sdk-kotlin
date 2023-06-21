@@ -31,17 +31,18 @@ import dev.merge.client.shared.ApiClient
 /**
  * # The Engagement Type Object ### Description The `Engagement Type` object is used to represent an interaction activity. A given `Engagement` typically has an `Engagement Type` object represented in the engagement_type field. ### Usage Example TODO
  *
- * @param activityType The engagement type's activity type.
+ * @param activityType The engagement type's activity type.  * `CALL` - CALL * `MEETING` - MEETING * `EMAIL` - EMAIL
  * @param name The engagement type's name.
  * @param id 
  * @param remoteId The third-party API ID of the matching object.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class EngagementType (
 
-    /* The engagement type's activity type. */
+    /* The engagement type's activity type.  * `CALL` - CALL * `MEETING` - MEETING * `EMAIL` - EMAIL */
     @field:JsonProperty("activity_type")
     val activityType: ActivityTypeEnum? = null,
 
@@ -55,6 +56,10 @@ data class EngagementType (
     /* The third-party API ID of the matching object. */
     @field:JsonProperty("remote_id")
     val remoteId: kotlin.String? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("remote_fields")
     val remoteFields: kotlin.collections.List<RemoteField>? = null
@@ -75,6 +80,9 @@ data class EngagementType (
         @field:JsonProperty("remote_id")
         val remoteId: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("remote_fields")
         val remoteFields: kotlin.collections.List<JsonNode>?
 
@@ -89,6 +97,7 @@ data class EngagementType (
                 name = ApiClient.jsonConvertSafe(expanded.name),
                 id = ApiClient.jsonConvertSafe(expanded.id),
                 remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }

@@ -15,14 +15,7 @@ docs/Benefit.md
 docs/BenefitsApi.md
 docs/CategoriesEnum.md
 docs/CategoryEnum.md
-docs/CommonModelScopeData.md
-docs/CommonModelScopes.md
-docs/CommonModelScopesApi.md
 docs/CommonModelScopesBodyRequest.md
-docs/CommonModelScopesDisabledModels.md
-docs/CommonModelScopesDisabledModelsEnabledActionsEnum.md
-docs/CommonModelScopesPostInnerDeserializerRequest.md
-docs/CommonModelScopesUpdateSerializer.md
 docs/CompaniesApi.md
 docs/Company.md
 docs/ConditionSchema.md
@@ -59,7 +52,6 @@ docs/GenerateRemoteKeyRequest.md
 docs/Group.md
 docs/GroupTypeEnum.md
 docs/GroupsApi.md
-docs/IgnoreCommonModel.md
 docs/IgnoreCommonModelRequest.md
 docs/Issue.md
 docs/IssueStatusEnum.md
@@ -128,7 +120,6 @@ src/main/kotlin/dev/merge/client/hris/apis/AccountTokenApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/AvailableActionsApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/BankInfoApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/BenefitsApi.kt
-src/main/kotlin/dev/merge/client/hris/apis/CommonModelScopesApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/CompaniesApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/DeleteAccountApi.kt
 src/main/kotlin/dev/merge/client/hris/apis/EmployeePayrollRunsApi.kt
@@ -163,13 +154,7 @@ src/main/kotlin/dev/merge/client/hris/models/BankInfo.kt
 src/main/kotlin/dev/merge/client/hris/models/Benefit.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoriesEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/CategoryEnum.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopeData.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopes.kt
 src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesBodyRequest.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesDisabledModels.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesDisabledModelsEnabledActionsEnum.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesPostInnerDeserializerRequest.kt
-src/main/kotlin/dev/merge/client/hris/models/CommonModelScopesUpdateSerializer.kt
 src/main/kotlin/dev/merge/client/hris/models/Company.kt
 src/main/kotlin/dev/merge/client/hris/models/ConditionSchema.kt
 src/main/kotlin/dev/merge/client/hris/models/ConditionTypeEnum.kt
@@ -198,7 +183,6 @@ src/main/kotlin/dev/merge/client/hris/models/GenderEnum.kt
 src/main/kotlin/dev/merge/client/hris/models/GenerateRemoteKeyRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/Group.kt
 src/main/kotlin/dev/merge/client/hris/models/GroupTypeEnum.kt
-src/main/kotlin/dev/merge/client/hris/models/IgnoreCommonModel.kt
 src/main/kotlin/dev/merge/client/hris/models/IgnoreCommonModelRequest.kt
 src/main/kotlin/dev/merge/client/hris/models/Issue.kt
 src/main/kotlin/dev/merge/client/hris/models/IssueStatusEnum.kt

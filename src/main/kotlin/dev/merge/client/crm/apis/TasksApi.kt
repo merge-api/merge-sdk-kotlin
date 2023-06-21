@@ -20,8 +20,12 @@
 
 package dev.merge.client.crm.apis
 
+import dev.merge.client.crm.models.MetaResponse
 import dev.merge.client.crm.models.RemoteFieldClass
 import dev.merge.client.crm.models.Task
+import dev.merge.client.crm.models.PatchedTaskEndpointRequest
+import dev.merge.client.crm.models.TaskEndpointRequest
+import dev.merge.client.crm.models.TaskResponse
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
@@ -45,6 +49,12 @@ httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
 json: ObjectMapper = ApiClient.JSON_DEFAULT,
 ) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, json) {
 
+    data class TasksCreateRequest (
+        val taskEndpointRequest: TaskEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
+    )
+
     data class TasksListRequest (
         val createdAfter: java.time.OffsetDateTime? = null,
         val createdBefore: java.time.OffsetDateTime? = null,
@@ -57,6 +67,17 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
         val remoteId: kotlin.String? = null
+    )
+
+    data class TasksMetaPatchRetrieveRequest (
+        val id: java.util.UUID
+    )
+
+    data class TasksPartialUpdateRequest (
+        val id: java.util.UUID,
+        val patchedTaskEndpointRequest: PatchedTaskEndpointRequest,
+        val isDebugMode: kotlin.Boolean? = null,
+        val runAsync: kotlin.Boolean? = null
     )
 
     data class TasksRemoteFieldClassesListRequest (
@@ -76,6 +97,63 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
 
     /**
     * 
+    * Creates a &#x60;Task&#x60; object with the given values.
+     * @param taskEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return TaskResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksCreate(requestModel: TasksApi.TasksCreateRequest): TaskResponse {
+        return tasksCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksCreateAsync(requestModel: TasksApi.TasksCreateRequest): CompletableFuture<TaskResponse> = GlobalScope.future {
+        tasksCreate(requestModel)
+    }
+
+    /**
+     * @param taskEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksCreateExpanded(requestModel: TasksApi.TasksCreateRequest): TaskResponse.Expanded {
+        return tasksCreateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksCreateExpandedAsync(requestModel: TasksApi.TasksCreateRequest): CompletableFuture<TaskResponse.Expanded> = GlobalScope.future {
+        tasksCreateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> tasksCreateImpl(requestModel: TasksApi.TasksCreateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.taskEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.POST,
+        "/tasks",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
     * Returns a list of &#x60;Task&#x60; objects.
      * @param createdAfter If provided, will only return objects created after this datetime. (optional)
      * @param createdBefore If provided, will only return objects created before this datetime. (optional)
@@ -84,8 +162,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
      * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
      * @return PaginatedTaskList
@@ -101,7 +179,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param includeRemoteFields Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun tasksListExpanded(requestModel: TasksApi.TasksListRequest): MergePaginatedResponse<Task.Expanded> {
@@ -143,6 +221,171 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         )
 
         return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Task&#x60; PATCHs.
+     * @param id  
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksMetaPatchRetrieve(requestModel: TasksApi.TasksMetaPatchRetrieveRequest): MetaResponse {
+        return tasksMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksMetaPatchRetrieveAsync(requestModel: TasksApi.TasksMetaPatchRetrieveRequest): CompletableFuture<MetaResponse> = GlobalScope.future {
+        tasksMetaPatchRetrieve(requestModel)
+    }
+
+    /**
+     * @param id  
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksMetaPatchRetrieveExpanded(requestModel: TasksApi.TasksMetaPatchRetrieveRequest): MetaResponse.Expanded {
+        return tasksMetaPatchRetrieveImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksMetaPatchRetrieveExpandedAsync(requestModel: TasksApi.TasksMetaPatchRetrieveRequest): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        tasksMetaPatchRetrieveExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> tasksMetaPatchRetrieveImpl(requestModel: TasksApi.TasksMetaPatchRetrieveRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/tasks/meta/patch/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Returns metadata for &#x60;Task&#x60; POSTs.
+     * @return MetaResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksMetaPostRetrieve(): MetaResponse {
+        return tasksMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksMetaPostRetrieveAsync(): CompletableFuture<MetaResponse> = GlobalScope.future {
+        tasksMetaPostRetrieve()
+    }
+
+    /**
+    
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksMetaPostRetrieveExpanded(): MetaResponse.Expanded {
+        return tasksMetaPostRetrieveImpl()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksMetaPostRetrieveExpandedAsync(): CompletableFuture<MetaResponse.Expanded> = GlobalScope.future {
+        tasksMetaPostRetrieveExpanded()
+    }
+
+    private suspend inline fun <reified T> tasksMetaPostRetrieveImpl(): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = 
+                io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.GET,
+        "/tasks/meta/post",
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return request(
+        localVariableConfig,
+        localVariableBody,
+        localVariableAuthNames
+        ).body()
+    }
+
+    /**
+    * 
+    * Updates a &#x60;Task&#x60; object with the given &#x60;id&#x60;.
+     * @param id  
+     * @param patchedTaskEndpointRequest  
+     * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional)
+     * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+     * @return TaskResponse
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksPartialUpdate(requestModel: TasksApi.TasksPartialUpdateRequest): TaskResponse {
+        return tasksPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksPartialUpdateAsync(requestModel: TasksApi.TasksPartialUpdateRequest): CompletableFuture<TaskResponse> = GlobalScope.future {
+        tasksPartialUpdate(requestModel)
+    }
+
+    /**
+     * @param id   * @param patchedTaskEndpointRequest   * @param isDebugMode Whether to include debug fields (such as log file links) in the response. (optional) * @param runAsync Whether or not third-party updates should be run asynchronously. (optional)
+    */
+    @Suppress("UNCHECKED_CAST")
+    open suspend fun tasksPartialUpdateExpanded(requestModel: TasksApi.TasksPartialUpdateRequest): TaskResponse.Expanded {
+        return tasksPartialUpdateImpl(requestModel)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun tasksPartialUpdateExpandedAsync(requestModel: TasksApi.TasksPartialUpdateRequest): CompletableFuture<TaskResponse.Expanded> = GlobalScope.future {
+        tasksPartialUpdateExpanded(requestModel)
+    }
+
+    private suspend inline fun <reified T> tasksPartialUpdateImpl(requestModel: TasksApi.TasksPartialUpdateRequest): T {
+
+        val localVariableAuthNames = listOf<String>("accountTokenAuth", "bearerAuth")
+
+        val localVariableBody = requestModel.patchedTaskEndpointRequest
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+            requestModel.isDebugMode?.apply { localVariableQuery["is_debug_mode"] = listOf("$this") }
+            requestModel.runAsync?.apply { localVariableQuery["run_async"] = listOf("$this") }
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig<kotlin.Any?>(
+        RequestMethod.PATCH,
+        "/tasks/{id}".replace("{" + "id" + "}", "${ requestModel.id }"),
+        query = localVariableQuery,
+        headers = localVariableHeaders
+        )
+
+        return jsonRequest(
         localVariableConfig,
         localVariableBody,
         localVariableAuthNames

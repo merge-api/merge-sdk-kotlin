@@ -32,7 +32,7 @@ import dev.merge.client.shared.ApiClient
  *
  * @param actions The actions performed by this automation.
  * @param name The automation's name.
- * @param triggerType The trigger type for running this automation.
+ * @param triggerType The trigger type for running this automation.  * `TRIGGER_EVENT` - TRIGGER_EVENT * `RECURRENCE` - RECURRENCE
  * @param startDate The automation's start date.
  * @param endDate The automation's end date.
  * @param description The automation’s description.
@@ -53,7 +53,7 @@ data class AutomationRequest (
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
-    /* The trigger type for running this automation. */
+    /* The trigger type for running this automation.  * `TRIGGER_EVENT` - TRIGGER_EVENT * `RECURRENCE` - RECURRENCE */
     @field:JsonProperty("trigger_type")
     val triggerType: TriggerTypeEnum? = null,
 

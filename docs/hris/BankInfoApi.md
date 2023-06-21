@@ -23,7 +23,7 @@ Returns a list of &#x60;BankInfo&#x60; objects.
 //import dev.merge.client.hris.models.*
 
 val apiInstance = BankInfoApi()
-val accountType : kotlin.String = accountType_example // kotlin.String | If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
+val accountType : kotlin.String = accountType_example // kotlin.String | If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')  * `SAVINGS` - SAVINGS * `CHECKING` - CHECKING
 val bankName : kotlin.String = bankName_example // kotlin.String | If provided, will only return BankInfo's with this bank name.
 val createdAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created after this datetime.
 val createdBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects created before this datetime.
@@ -32,8 +32,8 @@ val employeeId : kotlin.String = employeeId_example // kotlin.String | If provid
 val expand : kotlin.String = employee // kotlin.String | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 val includeDeletedData : kotlin.Boolean = true // kotlin.Boolean | Whether to include data that was marked as deleted by third party webhooks.
 val includeRemoteData : kotlin.Boolean = true // kotlin.Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified after this datetime.
-val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, will only return objects modified before this datetime.
+val modifiedAfter : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge after this date time will be returned.
+val modifiedBefore : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | If provided, only objects synced by Merge before this date time will be returned.
 val orderBy : kotlin.String = orderBy_example // kotlin.String | Overrides the default ordering for this endpoint.
 val pageSize : kotlin.Int = 56 // kotlin.Int | Number of results to return per page.
 val remoteFields : kotlin.String = account_type // kotlin.String | Deprecated. Use show_enum_origins.
@@ -55,7 +55,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountType** | **kotlin.String**| If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;) | [optional] [enum: CHECKING, SAVINGS]
+ **accountType** | **kotlin.String**| If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;)  * &#x60;SAVINGS&#x60; - SAVINGS * &#x60;CHECKING&#x60; - CHECKING | [optional] [enum: CHECKING, SAVINGS]
  **bankName** | **kotlin.String**| If provided, will only return BankInfo&#39;s with this bank name. | [optional]
  **createdAfter** | **java.time.OffsetDateTime**| If provided, will only return objects created after this datetime. | [optional]
  **createdBefore** | **java.time.OffsetDateTime**| If provided, will only return objects created before this datetime. | [optional]
@@ -64,8 +64,8 @@ Name | Type | Description  | Notes
  **expand** | **kotlin.String**| Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | [optional] [enum: employee]
  **includeDeletedData** | **kotlin.Boolean**| Whether to include data that was marked as deleted by third party webhooks. | [optional]
  **includeRemoteData** | **kotlin.Boolean**| Whether to include the original data Merge fetched from the third-party to produce these models. | [optional]
- **modifiedAfter** | **java.time.OffsetDateTime**| If provided, will only return objects modified after this datetime. | [optional]
- **modifiedBefore** | **java.time.OffsetDateTime**| If provided, will only return objects modified before this datetime. | [optional]
+ **modifiedAfter** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge after this date time will be returned. | [optional]
+ **modifiedBefore** | **java.time.OffsetDateTime**| If provided, only objects synced by Merge before this date time will be returned. | [optional]
  **orderBy** | **kotlin.String**| Overrides the default ordering for this endpoint. | [optional] [enum: -remote_created_at, remote_created_at]
  **pageSize** | **kotlin.Int**| Number of results to return per page. | [optional]
  **remoteFields** | **kotlin.String**| Deprecated. Use show_enum_origins. | [optional] [enum: account_type]

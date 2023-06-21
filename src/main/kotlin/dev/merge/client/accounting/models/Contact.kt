@@ -39,13 +39,14 @@ import dev.merge.client.shared.ApiClient
  * @param isCustomer Whether the contact is a customer.
  * @param emailAddress The contact's email address.
  * @param taxNumber The contact's tax number.
- * @param status The contact's status
+ * @param status The contact's status  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED
  * @param currency The currency the contact's transactions are in.
  * @param remoteUpdatedAt When the third party's contact was updated.
  * @param company The company the contact belongs to.
  * @param addresses `Address` object IDs for the given `Contacts` object.
  * @param phoneNumbers `AccountingPhoneNumber` object for the given `Contacts` object.
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
  * @param fieldMappings 
  * @param remoteData 
  */
@@ -80,7 +81,7 @@ data class Contact (
     @field:JsonProperty("tax_number")
     val taxNumber: kotlin.String? = null,
 
-    /* The contact's status */
+    /* The contact's status  * `ACTIVE` - ACTIVE * `ARCHIVED` - ARCHIVED */
     @field:JsonProperty("status")
     val status: Status7d1Enum? = null,
 
@@ -107,6 +108,10 @@ data class Contact (
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
     val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
 
     @field:JsonProperty("field_mappings")
     val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
@@ -160,6 +165,9 @@ data class Contact (
         @field:JsonProperty("remote_was_deleted")
         val remoteWasDeleted: JsonNode?,
 
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
         @field:JsonProperty("field_mappings")
         val fieldMappings: JsonNode?,
 
@@ -187,6 +195,7 @@ data class Contact (
                 addresses = ApiClient.jsonConvertSafe(expanded.addresses),
                 phoneNumbers = ApiClient.jsonConvertSafe(expanded.phoneNumbers),
                 remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
                 fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
                 remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )

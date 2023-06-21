@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `EXEMPT` - EXEMPT * `SALARIED_NONEXEMPT` - SALARIED_NONEXEMPT * `NONEXEMPT` - NONEXEMPT * `OWNER` - OWNER
  *
  * Values: EXEMPT,SALARIED_NONEXEMPT,NONEXEMPT,OWNER
  */

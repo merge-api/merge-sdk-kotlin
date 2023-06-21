@@ -37,9 +37,11 @@ import dev.merge.client.shared.ApiClient
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ItemSchema (
 
+    /*  */
     @field:JsonProperty("item_type")
     val itemType: kotlin.Boolean? = null,
 
+    /*  */
     @field:JsonProperty("item_format")
     val itemFormat: kotlin.Boolean? = null,
 

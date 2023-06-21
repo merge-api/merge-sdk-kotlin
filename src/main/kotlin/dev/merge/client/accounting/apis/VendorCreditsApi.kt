@@ -55,7 +55,9 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
         val modifiedAfter: java.time.OffsetDateTime? = null,
         val modifiedBefore: java.time.OffsetDateTime? = null,
         val pageSize: kotlin.Int? = null,
-        val remoteId: kotlin.String? = null
+        val remoteId: kotlin.String? = null,
+        val transactionDateAfter: java.time.OffsetDateTime? = null,
+        val transactionDateBefore: java.time.OffsetDateTime? = null
     )
 
     data class VendorCreditsRetrieveRequest (
@@ -74,10 +76,12 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
      * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
      * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional)
      * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-     * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional)
-     * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional)
+     * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional)
+     * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional)
      * @param pageSize Number of results to return per page. (optional)
      * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param transactionDateAfter If provided, will only return objects created after this datetime. (optional)
+     * @param transactionDateBefore If provided, will only return objects created before this datetime. (optional)
      * @return PaginatedVendorCreditList
     */
     @Suppress("UNCHECKED_CAST")
@@ -91,7 +95,7 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
     }
 
     /**
-     * @param companyId If provided, will only return vendor credits for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, will only return objects modified after this datetime. (optional) * @param modifiedBefore If provided, will only return objects modified before this datetime. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional)
+     * @param companyId If provided, will only return vendor credits for this company. (optional) * @param createdAfter If provided, will only return objects created after this datetime. (optional) * @param createdBefore If provided, will only return objects created before this datetime. (optional) * @param cursor The pagination cursor value. (optional) * @param expand Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional) * @param includeDeletedData Whether to include data that was marked as deleted by third party webhooks. (optional) * @param includeRemoteData Whether to include the original data Merge fetched from the third-party to produce these models. (optional) * @param modifiedAfter If provided, only objects synced by Merge after this date time will be returned. (optional) * @param modifiedBefore If provided, only objects synced by Merge before this date time will be returned. (optional) * @param pageSize Number of results to return per page. (optional) * @param remoteId The API provider&#39;s ID for the given object. (optional) * @param transactionDateAfter If provided, will only return objects created after this datetime. (optional) * @param transactionDateBefore If provided, will only return objects created before this datetime. (optional)
     */
     @Suppress("UNCHECKED_CAST")
     open suspend fun vendorCreditsListExpanded(requestModel: VendorCreditsApi.VendorCreditsListRequest): MergePaginatedResponse<VendorCredit.Expanded> {
@@ -122,6 +126,8 @@ json: ObjectMapper = ApiClient.JSON_DEFAULT,
             requestModel.modifiedBefore?.apply { localVariableQuery["modified_before"] = listOf("$this") }
             requestModel.pageSize?.apply { localVariableQuery["page_size"] = listOf("$this") }
             requestModel.remoteId?.apply { localVariableQuery["remote_id"] = listOf(this) }
+            requestModel.transactionDateAfter?.apply { localVariableQuery["transaction_date_after"] = listOf("$this") }
+            requestModel.transactionDateBefore?.apply { localVariableQuery["transaction_date_before"] = listOf("$this") }
 
         val localVariableHeaders = mutableMapOf<String, String>()
 

@@ -20,6 +20,7 @@
 
 package dev.merge.client.crm.models
 
+import dev.merge.client.crm.models.RemoteFieldRequest
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -36,6 +37,7 @@ import dev.merge.client.shared.ApiClient
  * @param opportunity The note's opportunity.
  * @param integrationParams 
  * @param linkedAccountParams 
+ * @param remoteFields 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -65,7 +67,10 @@ data class NoteRequest (
     val integrationParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @field:JsonProperty("linked_account_params")
-    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val linkedAccountParams: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_fields")
+    val remoteFields: kotlin.collections.List<RemoteFieldRequest>? = null
 
 ) {
 
@@ -90,7 +95,10 @@ data class NoteRequest (
         val integrationParams: JsonNode?,
 
         @field:JsonProperty("linked_account_params")
-        val linkedAccountParams: JsonNode?
+        val linkedAccountParams: JsonNode?,
+
+        @field:JsonProperty("remote_fields")
+        val remoteFields: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -105,7 +113,8 @@ data class NoteRequest (
                 account = ApiClient.jsonConvertSafe(expanded.account),
                 opportunity = ApiClient.jsonConvertSafe(expanded.opportunity),
                 integrationParams = ApiClient.jsonConvertSafe(expanded.integrationParams),
-                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams)
+                linkedAccountParams = ApiClient.jsonConvertSafe(expanded.linkedAccountParams),
+                remoteFields = ApiClient.jsonConvertSafe(expanded.remoteFields)
             )
         }
     }

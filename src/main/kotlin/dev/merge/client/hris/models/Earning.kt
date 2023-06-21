@@ -21,6 +21,7 @@
 package dev.merge.client.hris.models
 
 import dev.merge.client.hris.models.EarningTypeEnum
+import dev.merge.client.shared.RemoteData
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -31,10 +32,14 @@ import dev.merge.client.shared.ApiClient
  * # The Earning Object ### Description The `Earning` object is used to represent an array of different compensations that an employee receives within specific wage categories.  ### Usage Example Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
  *
  * @param id 
+ * @param remoteId The third-party API ID of the matching object.
  * @param employeePayrollRun 
  * @param amount The amount earned.
- * @param type The type of earning.
+ * @param type The type of earning.  * `SALARY` - SALARY * `REIMBURSEMENT` - REIMBURSEMENT * `OVERTIME` - OVERTIME * `BONUS` - BONUS
  * @param remoteWasDeleted Indicates whether or not this object has been deleted by third party webhooks.
+ * @param modifiedAt This is the datetime that this object was last updated by Merge
+ * @param fieldMappings 
+ * @param remoteData 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -43,20 +48,34 @@ data class Earning (
     @field:JsonProperty("id")
     val id: java.util.UUID? = null,
 
+    /* The third-party API ID of the matching object. */
+    @field:JsonProperty("remote_id")
+    val remoteId: kotlin.String? = null,
+
     @field:JsonProperty("employee_payroll_run")
     val employeePayrollRun: java.util.UUID? = null,
 
     /* The amount earned. */
     @field:JsonProperty("amount")
-    val amount: kotlin.Float? = null,
+    val amount: kotlin.Double? = null,
 
-    /* The type of earning. */
+    /* The type of earning.  * `SALARY` - SALARY * `REIMBURSEMENT` - REIMBURSEMENT * `OVERTIME` - OVERTIME * `BONUS` - BONUS */
     @field:JsonProperty("type")
     val type: EarningTypeEnum? = null,
 
     /* Indicates whether or not this object has been deleted by third party webhooks. */
     @field:JsonProperty("remote_was_deleted")
-    val remoteWasDeleted: kotlin.Boolean? = null
+    val remoteWasDeleted: kotlin.Boolean? = null,
+
+    /* This is the datetime that this object was last updated by Merge */
+    @field:JsonProperty("modified_at")
+    val modifiedAt: java.time.OffsetDateTime? = null,
+
+    @field:JsonProperty("field_mappings")
+    val fieldMappings: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @field:JsonProperty("remote_data")
+    val remoteData: kotlin.collections.List<RemoteData>? = null
 
 ) {
 
@@ -64,6 +83,9 @@ data class Earning (
     data class Expanded(
         @field:JsonProperty("id")
         val id: JsonNode?,
+
+        @field:JsonProperty("remote_id")
+        val remoteId: JsonNode?,
 
         @field:JsonProperty("employee_payroll_run")
         val employeePayrollRun: JsonNode?,
@@ -75,7 +97,16 @@ data class Earning (
         val type: JsonNode?,
 
         @field:JsonProperty("remote_was_deleted")
-        val remoteWasDeleted: JsonNode?
+        val remoteWasDeleted: JsonNode?,
+
+        @field:JsonProperty("modified_at")
+        val modifiedAt: JsonNode?,
+
+        @field:JsonProperty("field_mappings")
+        val fieldMappings: JsonNode?,
+
+        @field:JsonProperty("remote_data")
+        val remoteData: kotlin.collections.List<JsonNode>?
 
     )
 
@@ -85,10 +116,14 @@ data class Earning (
         fun normalize(expanded: Earning.Expanded): Earning {
             return Earning(
                 id = ApiClient.jsonConvertSafe(expanded.id),
+                remoteId = ApiClient.jsonConvertSafe(expanded.remoteId),
                 employeePayrollRun = ApiClient.jsonConvertSafe(expanded.employeePayrollRun),
                 amount = ApiClient.jsonConvertSafe(expanded.amount),
                 type = ApiClient.jsonConvertSafe(expanded.type),
-                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted)
+                remoteWasDeleted = ApiClient.jsonConvertSafe(expanded.remoteWasDeleted),
+                modifiedAt = ApiClient.jsonConvertSafe(expanded.modifiedAt),
+                fieldMappings = ApiClient.jsonConvertSafe(expanded.fieldMappings),
+                remoteData = ApiClient.jsonConvertSafe(expanded.remoteData)
             )
         }
     }

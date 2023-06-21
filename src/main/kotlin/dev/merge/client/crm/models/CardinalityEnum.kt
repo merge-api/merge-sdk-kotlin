@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
- * 
+ * * `ONE_TO_ONE` - ONE_TO_ONE * `MANY_TO_ONE` - MANY_TO_ONE * `MANY_TO_MANY` - MANY_TO_MANY * `ONE_TO_MANY` - ONE_TO_MANY
  *
  * Values: ONE_TO_ONE,MANY_TO_ONE,MANY_TO_MANY,ONE_TO_MANY
  */
